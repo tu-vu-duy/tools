@@ -6,7 +6,7 @@
   </parent> 
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>framework.junit</artifactId>
+  <artifactId>exo.tool.framework.junit</artifactId>
   <packaging>jar</packaging>
   <version>${org.exoplatform.tool.version}</version>
   <name>eXo Mock Objects framework</name>
