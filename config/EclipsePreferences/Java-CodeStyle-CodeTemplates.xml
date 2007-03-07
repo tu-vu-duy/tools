@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><templates><template autoinsert="false" context="newtype_context" deleted="false" description="Newly created files" enabled="true" id="org.eclipse.jdt.ui.text.codetemplates.newtype" name="newtype">/***************************************************************************
+ * Copyright 2001-${year} The eXo Platform SARL         All rights reserved.  *
+ * Please look at license.txt in info directory for more license detail.   *
+ **************************************************************************/
+${package_declaration}
+
+/**
+ * Created by The eXo Platform SARL
+ * Author : Tuan Nguyen
+ *          tuan.nguyen@exoplatform.com
+ * ${date}  
+ */
+${type_declaration}</template></templates>

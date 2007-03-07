@@ -1,0 +1,157 @@
+<!--
+| This is the configuration file for Maven. It can be specified at two levels:
+ |
+ |  1. User Level. This settings.xml file provides configuration for a single user, 
+ |                 and is normally provided in $HOME/.m2/settings.xml.
+ |
+ |                 NOTE: This location can be overridden with the system property:
+ |
+ |                 -Dorg.apache.maven.user-settings=/path/to/user/settings.xml
+ |
+ |  2. Global Level. This settings.xml file provides configuration for all maven
+ |                 users on a machine (assuming they're all using the same maven
+ |                 installation). It's normally provided in 
+ |                 ${maven.home}/conf/settings.xml.
+ |
+ |                 NOTE: This location can be overridden with the system property:
+ |
+ |                 -Dorg.apache.maven.global-settings=/path/to/global/settings.xml
+ |
+ | The sections in this sample file are intended to give you a running start at
+ | getting the most out of your Maven installation. Where appropriate, the default
+ | values (values used when the setting is not specified) are provided.
+ |
+ |-->
+<settings>
+ <!--  localRepository
+   | The path to the local repository maven will use to store artifacts.
+   |
+   | Default: ~/.m2/repository
+  <localRepository>d:/java/maven2/repository</localRepository>
+  -->
+  <localRepository>d:/java/maven2/repository</localRepository>
+  <servers>
+    <server>
+      <id>objectweb</id>
+      <username>username</username>
+      <password>password</password>
+      <!-- other optional elements:
+      <privateKey>/path/to/identity</privateKey> (default is ~/.ssh/id_dsa)
+      <passphrase>my_key_passphrase</passphrase>
+      -->
+    </server>
+  </servers>
+  <!--
+  <proxies>
+    <proxy>
+      <id></id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <username></username>
+      <password></password>
+      <host></host>
+      <port></port>
+      <nonProxyHosts></nonProxyHosts>
+    </proxy>
+  </proxies>
+  -->
+  <offline>false</offline>
+  <profiles>
+    <profile>
+      <id>local.maven2.repo</id>  
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation> 
+      <repositories>
+        <repository>
+          <id>vietnam</id>
+          <name>Viet Nam LAN Offical Repository</name>
+          <url>http://10.0.0.7/maven2/repository</url>
+          <layout>default</layout>
+        </repository>
+      </repositories>
+    </profile>
+
+    <profile>
+      <id>v2.x</id>  
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation> 
+      <properties>
+        <exo.directory.base>d:/java</exo.directory.base>
+        <exo.directory.v2.x>${exo.directory.base}/projects/v2.x</exo.directory.v2.x>
+        <exo.directory.dependencies>${exo.directory.base}/exo-dependencies</exo.directory.dependencies>
+        <exo.directory.release>${exo.directory.base}/exo-release</exo.directory.release>
+        <exo.directory.working>${exo.directory.base}/exo-working</exo.directory.working>
+        <exo.shared.dir>${exo.directory.base}</exo.shared.dir>
+        <exo.server.tomcat>tomcat-5.0.28</exo.server.tomcat>
+        <exo.server.jboss>jboss-4.0.3SP1</exo.server.jboss>
+        <exo.server.jonas>JONAS_4_8_4</exo.server.jonas>
+	<exo.perftest.jmeter>jakarta-jmeter-2.2</exo.perftest.jmeter>
+
+        <exo.test.skip>true</exo.test.skip>
+        <exo.test.failure.ignore>true</exo.test.failure.ignore>
+        <exo.test.use.file>false</exo.test.use.file>
+        <exo.test.includes>Test*</exo.test.includes>
+
+        <exo.compile.optimize>true</exo.compile.optimize>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>exov3.x</id>  
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation> 
+      <properties>
+        <exo.directory.base>d:/java</exo.directory.base>
+        <exo.directory.exov3.x>${exo.directory.base}/projects/exov3.x</exo.directory.exov3.x>
+
+        <exo.version.platform>3.0</exo.version.platform>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>tomcat-server</id>
+      <activation>
+        <property><name>tomcat</name></property>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+    </profile>
+
+    <profile>
+      <id>jboss-server</id>
+      <activation>
+        <property><name>jboss-server</name></property>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+    </profile>
+
+    <profile>
+      <id>jonas-server</id>
+      <activation>
+        <property><name>jonas-server</name></property>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+    </profile>
+    <profile>
+      <id>jmeter-perftest</id>
+      <activation>
+        <property><name>jmeter-perftest</name></property>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+    </profile>
+  </profiles>
+
+  <activeProfiles>
+    <activeProfile>v2.x</activeProfile>
+    <activeProfile>tomcat-server</activeProfile>
+    <!--
+    <activeProfile>tomcat-server</activeProfile>
+    <activeProfile>jboss-server</activeProfile>
+    <activeProfile>jonas-server</activeProfile>
+    <activeProfile>local.maven2.repo</activeProfile>
+    <activeProfile>jmeter-perftest</activeProfile>
+    -->
+  </activeProfiles>
+</settings>
