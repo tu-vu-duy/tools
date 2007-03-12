@@ -1,0 +1,195 @@
+import java.util.ArrayList ; 
+
+exobuild(String[] args) {
+  maven() {
+    MavenTask(String projectDir, String[] args) {
+      descriptor =  TaskDescriptor("Maven Task", projectDir) ;
+      descriptor.description = "Run mvn " + args + " again module " + projectDir ;
+
+      String[] mavenArgs = args ;
+
+      execute() {
+        System.setProperty("user.dir", descriptor.workingDir) ;
+        URL[] mvnClasspath = {
+          new URL("file:" + m2Home + "/core/boot/classworlds-1.1.jar"), 
+        } ;
+        ClassLoader contextLoader= Thread.currentThread().getContextClassLoader();
+        ClassLoader mvnLoader = new URLClassLoader(mvnClasspath, contextLoader);
+        Thread.currentThread().setContextClassLoader(mvnLoader);
+
+        int exitCode = org.codehaus.classworlds.Launcher.mainWithExitCode(mavenArgs);
+        System.gc() ;
+        if(exitCode != 0) {
+          throw new Exception("BUILD MODULE :" + descriptor.workingDir + " IS FAIL");
+        }
+        Thread.currentThread().setContextClassLoader(contextLoader); 
+      }
+      return this ;
+    }
+
+    ExoMavenDeployTask(String projectDir, String productDescriptor, String server)  {
+      System.setProperty("clean", "true") ;
+      String[] mavenArgs = {"-P", server, "-f", productDescriptor, "deploy"} ;
+      task = MavenTask(projectDir, mavenArgs) ;
+      task.descriptor.description = "Run mvn -f " + productDescriptor + " -Dclean deploy again module " + projectDir ;
+      return task ;
+    }
+    
+    ExoMavenSiteTask(String projectDir, String productDescriptor, String server)  {
+      String[] mavenArgs = {"site"} ;
+      task = MavenTask(projectDir, mavenArgs) ;
+      task.descriptor.description = "Run mvn site " + projectDir ;
+      return task ;
+    }
+
+    ExoMavenV2xTestTask(testId)  {
+      System.setProperty("executeId", testId) ;
+      String[] mavenArgs = {"exo:execute"} ;
+      task = MavenTask(eXo.env.eXoProjectsDir + "/exo-test/webunit-suites", mavenArgs) ;
+      task.descriptor.description = "Run mvn exo:execute -DexecuteId=" + testId + " again module " + projectDir ;
+      return task ;
+    }
+
+    String m2Home= eXo.env.baseDir + "/maven2" ;
+    System.setProperty("maven.home", m2Home) ;
+    System.setProperty("classworlds.conf", m2Home + "/bin/m2.conf") ;
+    return this ;
+  }
+
+
+  printInstructions() {
+    print(
+      "\n\n" +
+      "Usage the exobuild command: \n\n" +
+      "  exobuild --product=[product-name] [--update]  [--build-dependencies] [--deploy=tomcat,jboss,jonas] [--test] \n\n" +
+      "Options: \n" +
+      "  * --product            is mandatory. The possible names are exo-portal, exo-portal-exp, \n" +
+      "                         exo-ecm, exo-ecm-exp \n" + 
+      "  * --update             is optional. If you add this option, exobuild  will make a \n" +
+      "                         exosvn update before it builds \n" +
+      "  * --build              is optional. If you add this option, the exobuild command \n" +
+      "                         will compile and install the sub projects of the product, \n" +
+      "  * --build-dependencies is optional. If you add this option, the exobuild command \n" +
+      "                         will build the dependant modules of the product, \n" +
+      "                         for example: exo-platform, exo-portlet-container... \n" +
+      "  * --deploy             is optional. The possible names are tomcat-server, jboss-server, and \n" +
+      "                         jonas-server. If you enter only --deploy, the tomcat-server will be used \n" +
+      "  * --database           is optional. This option must use with the --deploy option. The possible \n" +
+      "                         values are hsql, mysql, oracle, postgres, derby and mssql \n" +
+      "  * --ask                is optional. This option is used with --database option. it allow you to \n" +
+      "                         enter the connection url , username and password of the database server \n" +
+      "  * --test               is optional. The exobuild will run exo webunit test framework \n" +
+      "                         if you add this option \n"
+    );
+  }
+
+  importCommands("eXo.server") ;
+  importCommands("eXo.projects") ;
+  boolean build_ = false ;
+  boolean buildDependencies_ = false ;
+  boolean update_ = false ;
+  boolean runTest_ = false ;
+  boolean ask = false ;
+  boolean generateSite = false ;
+
+  String mvnTestId_ = null ; 
+  maven = maven() ;
+  exosvn = exosvn() ;
+  server = null ;
+  product = null ;
+  database = null;
+  
+  for(int i = 0; i < args.length; i++) {
+    String arg = args[i] ;
+    if ("--update".equals(arg)) update_ = true ;
+    else if ("--test".equals(arg))  runTest_ = true ;
+    else if ("--build".equals(arg))  build_ = true ;
+    else if ("--build-dependencies".equals(arg))  buildDependencies_ = true ;
+    else if ("--site".equals(arg))  generateSite = true ;
+    else if ("--ask".equals(arg))  ask = true ;
+    else if (arg.startsWith("--deploy"))  {
+      if(arg.equals("--deploy=jboss")) server = Jboss(eXo.env.workingDir + "/exo-jboss") ;
+      else server = Tomcat(eXo.env.workingDir + "/exo-tomcat") ;
+    } else if(arg.startsWith("--database")) {
+      if(arg.equals("--database=mysql")) database = Database().MysqlDB() ;
+    } else if ("--product=exo-portal".equals(arg)) {
+      product = eXoProduct().eXoPortalProduct();
+      mvnTestId_ = "default" ;
+    } else if ("--product=exo-ecm".equals(arg)) {
+      product = eXoProduct().eXoEcmProduct();
+      mvnTestId_ = "ecm" ;
+    }
+  }
+  
+  if (product == null) { 
+    printInstructions() ;
+    return ;
+  }
+  
+  ArrayList tasks =  new ArrayList() ;
+  
+  if(database == null) database = Database().HsqlDB() ;
+  //if(server == null) server = Tomcat(eXo.env.workingDir + "/exo-tomcat") ; 
+  
+  if(server != null && ask) {
+    tasks.add(database.GetConfigTask(product, server)) ;
+  }
+    
+  if(update_) {
+    if(buildDependencies_) {
+      for(i = 0; i < product.dependencyCodeRepos.size(); i++) {
+        String moduleDir = eXo.env.eXoProjectsDir + "/" + product.dependencyCodeRepos.get(i) ;
+        tasks.add(exosvn.UpdateTask(moduleDir));
+      }
+    }
+    tasks.add(exosvn.UpdateTask(eXo.env.eXoProjectsDir + "/" + product.codeRepo));
+  }
+
+  String[] mvnArgs = {"clean", "install"} ;
+  if(buildDependencies_) {
+    for(i = 0; i < product.dependencyCodeRepos.size(); i++) {
+      String dependencyModuleDir = eXo.env.eXoProjectsDir + "/" + product.dependencyCodeRepos.get(i) ;
+      tasks.add(maven.MavenTask(dependencyModuleDir, mvnArgs));
+    }
+  }
+
+  String moduleDir = eXo.env.eXoProjectsDir + "/" + product.codeRepo ;
+  if(build_) {
+    tasks.add(maven.MavenTask(moduleDir, mvnArgs));
+  }
+  
+  if(server != null) { 
+    tasks.add(product.DeployTask(product, server, eXo.env.m2Repos)) ;
+    tasks.add(database.DeployTask(product, server, eXo.env.m2Repos)) ;
+    tasks.add(database.ConfigureTask(product, server)) ;
+  }
+  
+  if(runTest_) {
+    tasks.add(server.RunTask());
+    tasks.add(maven.ExoMavenV2xTestTask(mvnTestId_));
+    tasks.add(server.StopTask());
+  }
+  
+  if(generateSite) {
+    String[] mvnArgs = {"site"} ;
+    for(i = 0; i < product.dependencyCodeRepos.size(); i++) {
+      String dependencyModuleDir = eXo.env.eXoProjectsDir + "/" + product.dependencyCodeRepos.get(i) ;
+      tasks.add(maven.MavenTask(dependencyModuleDir, mvnArgs));
+    }
+    tasks.add(maven.MavenTask(moduleDir, mvnArgs));
+  }
+
+  for(int i = 0; i < tasks.size(); i++) {
+    task = tasks.get(i) ;
+    long start = System.currentTimeMillis() ;
+    task.descriptor.banner() ;
+    task.execute() ;
+    task.descriptor.executionTime =  System.currentTimeMillis() - start ;
+    task.descriptor.report() ;
+  }
+  
+  if(runTest_) {
+    tasks.add(server.StopTask());
+  }
+  System.exit(0) ;
+}

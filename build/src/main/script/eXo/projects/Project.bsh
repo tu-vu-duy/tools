@@ -1,0 +1,114 @@
+import  java.util.ArrayList ;
+import  java.util.jar.JarInputStream;
+import  java.net.URL ;
+
+
+Project(String gid, String id, String ptype, String pversion) {
+  groupId =  gid ;
+  artifactId = id ;
+  version = pversion ;
+  type = ptype ;
+  String extension = type ;
+  if(type.equals("exo-portlet") || type.equals("exo-portal")) extension = "war" ;
+  relativePath = groupId.replace('.','/') + "/" + artifactId + "/" + version + "/" + artifactId + "-" + version + "." + extension ;
+  
+  tomcatDependency =  true ;
+  jbossDependency =  true ;
+  jonasDependency =  true ;
+  
+  dependencies = null ;
+  
+  setServerDependency(String name, boolean b) {
+    if("tomcat".equals(name)) tomcatDependency = b ;
+    else if("jboss".equals(name)) jbossDependency = b ;
+    else if("jonas".equals(name)) jonasDependency = b ;
+  }
+  
+  addDependency(project) {
+    if(dependencies == null) dependencies = new ArrayList() ;
+    dependencies.add(project) ;
+  }
+  
+  hasDependency() {  return dependencies != null ;}
+  
+  extractTo(String[] repository, String dir, String ignore) {
+    eXo.System.verbose("EXTRACT" , "To " + dir) ;
+    for(i = 0; i < repository.length; i++) {
+      try {
+        URL url = new URL(repository[i] + "/" + relativePath);
+        is = new JarInputStream(url.openStream()) ;
+        entry = is.getNextEntry() ;
+        while(entry != null) {
+          if(!entry.isDirectory()) {
+            String name = entry.getName() ;
+            if(ignore == null || !name.matches(ignore)) {
+              File file = new File(dir + "/" + name);
+              File parent = new File(file.getParent()) ;
+              if(!parent.exists()) parent.mkdirs() ;
+              FileOutputStream out = new FileOutputStream(file) ;
+              byte[] buf = new byte[4082] ;
+              int read =  is.read(buf);
+              while(read != -1) {
+                out.write(buf, 0, read) ;
+                read =  is.read(buf);
+              }
+              out.close();
+              eXo.System.verbose(entry.getName()) ;
+            }
+          }
+          entry = is.getNextEntry() ;
+        }
+        is.close() ;
+        eXo.System.verbose("EXTRACT", "Done.................................... ") ;
+        return ;
+      } catch(java.io.IOException ex) { }
+    }
+    throw new Exception("Cannot find the file : " + relativePath) ;
+  }
+  
+  deployTo(String[] repository, Object server) {
+    for(i = 0; i < repository.length; i++) {
+      try {
+        eXo.System.verbose("GET", groupId + "/" + artifactId + " version " + version + "\nFrom " + repository[i]) ;
+        URL url = new URL(repository[i] + "/" + relativePath);
+        is = url.openStream() ;
+        String fileName = null ;
+        if("exo-portal".equals(type) || "exo-portlet".equals(type) || 
+           "exo-war".equals(type) ||  "war".equals(type)) {
+          fileName = artifactId.substring(artifactId.lastIndexOf(".") + 1) + ".war" ;
+          fileName = server.deployWebappDir + "/"  + fileName  ;
+        } else {
+          fileName = server.deployLibDir + "/" + artifactId + "-" + version + "." + type ;
+        }
+        FileOutputStream out = new FileOutputStream(fileName) ;
+        
+        eXo.System.vprintIndentation() ;                        
+        eXo.System.vprint("[") ;
+        
+        byte[] buf = new byte[4082] ;
+        int read =  1, totalRead = 0, chunkOf100k = 0, chunkCount = 0 ;
+        while(read != -1) {
+          read =  is.read(buf);
+          if(read > 0) {
+            out.write(buf, 0, read) ;
+            chunkOf100k += read ;
+            totalRead += read ;
+            if(chunkOf100k > 100000) {
+              chunkOf100k = chunkOf100k - 100000 ; 
+              chunkCount++ ;
+              eXo.System.vprint(".");   
+            }
+          }
+        }
+        for(i = chunkCount; i < 60; i++) eXo.System.vprint(" ") ;
+        eXo.System.vprint("] " + totalRead/1024 + "kb\n");
+        out.close();
+        is.close() ;
+        return ;
+      } catch(java.io.IOException ex) { }
+    }
+    throw new Exception("Cannot find the file : " + relativePath) ;
+  }
+  
+  return this ;
+}

@@ -1,0 +1,107 @@
+import  java.util.HashMap ;
+import  java.util.ArrayList ; 
+
+eXoProduct() {
+  Product() {
+    String name  = null ;
+    String portalwar = null ;
+    dependenciesHolder = new HashMap() ;
+    serverPatches = new HashMap() ;
+    codeRepo = null ;
+    dependencyCodeRepos = new ArrayList();
+    
+    addServerPatch(serverName, project) {
+      holders = serverPatches.get(serverName) ;
+      if(holders == null) {
+        holders = new ArrayList(3) ;
+        serverPatches.put(serverName, holders) ;
+      }
+      holders.add(project) ;
+    }
+    
+    getServerPatches(serverName) { return serverPatches.get(serverName) ; }
+    
+    addDependencies(project) {
+      dependenciesHolder.put(project.relativePath, project) ;
+      if(project.hasDependency()) {
+        list = project.dependencies ;
+        for(int i = 0; i < list.size(); i++) {
+          addDependencies(list.get(i)) ;
+        }
+      }
+    }
+    
+    getDependencies() { return dependenciesHolder.values() ; }
+    
+    DeployTask(Object product, Object server, String[] repos) {
+      descriptor =  TaskDescriptor("Deploy Product", server.serverHome) ;
+      execute() {
+        eXo.System.info("DELETE", "Delete " + server.serverHome);
+        eXo.IOUtil.delete(server.serverHome) ;
+        eXo.System.info("COPY", "Copy a clean server " + server.cleanServer);
+        eXo.IOUtil.copyFolder(eXo.env.dependenciesDir + "/" + server.cleanServer, server.serverHome) ;
+        patches = getServerPatches(server.name) ;
+        for(i = 0; i <  patches.size(); i++) {
+          project = patches.get(i) ;
+          String message = "Patch the server " + server.name + 
+                           " with project " +  project.artifactId + " " + project.version ;
+          eXo.System.info("INFO", message);
+          new File(server.patchDir).mkdirs();
+          project.extractTo(repos, server.patchDir, "META-INF/maven.*") ;
+        }
+        Iterator i = getDependencies().iterator();
+        counter = 0 ;
+        while(i.hasNext()) {
+          project = i.next();
+          project.deployTo(repos, server) ;
+          server.onDeploy(project) ;
+          counter++ ;
+        }
+        eXo.System.info("INFO", "Deploy total " +  counter + " files");
+        server.postDeploy(product) ;
+      }
+      return this ;
+    }
+    
+    return this ;
+  }
+  
+  eXoPortalProduct() {
+    product = Product();
+    product.name = "eXoPortal" ;
+    product.portalwar = "portal.war" ;
+    
+    Module = Module();
+    
+    kernel = Module.kernel("2.0.3") ;
+    core = Module.core("2.0.3") ;
+    eXoPortletContainer = Module.eXoPortletContainer("1.5") ;
+    eXoJcr = Module.eXoJcr("1.5") ;
+    portal = Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
+    
+    product.addDependencies(portal.web.portal) ;
+    product.addDependencies(portal.portlet.content) ;
+    product.addDependencies(portal.portlet.exoadmin) ;
+    product.addDependencies(portal.portlet.web) ;
+    product.addDependencies(portal.portlet.site) ;
+    
+    product.addServerPatch("tomcat", portal.server.tomcat) ;
+    product.addServerPatch("jboss",  portal.server.jboss) ;
+    
+    product.codeRepo = "portal/trunk" ;
+    product.dependencyCodeRepos.add("kernel/trunk");
+    product.dependencyCodeRepos.add("core/trunk");
+    return product ;
+  }
+  
+  return this ;
+}
+
+eXoProduct(String[] name) {
+  product = eXoProduct().eXoEcmExpProduct() ;
+  server = tomcat(eXo.env.workingDir + "/exo-tomcat") ;
+  String[] repos = {"file:d:/java/exo-dependencies/repository", "http://10.0.0.21/maven2"} ;
+  try {
+    product.DeployTask(product, server, repos).execute() ;
+  } catch(Exception ex) { ex.printStackTrace() ;}
+}

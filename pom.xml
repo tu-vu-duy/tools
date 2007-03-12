@@ -7,6 +7,7 @@
   <packaging>pom</packaging>
 
   <modules>
+    <module>build</module>
     <module>framework/junit</module>
   </modules>
 

@@ -1,0 +1,92 @@
+import java.net.URL ;
+import java.net.URLClassLoader ;
+import java.io.FileOutputStream ;
+
+Tomcat(tomcatHome) {
+  runningInstance_ = null ;
+  String name = "tomcat" ;
+  String serverHome = tomcatHome ;
+  String cleanServer = "tomcat-5.0.28" ;
+  String deployLibDir = serverHome + "/common/lib" ;
+  String deployWebappDir = serverHome + "/webapps";
+  String patchDir = serverHome ;
+  
+  RunTask() {
+    descriptor =  TaskDescriptor("Run Tomcat", serverHome + "/bin") ;
+    execute() {
+      System.setProperty("user.dir", descriptor.workingDir) ;
+      System.setProperty("catalina.base", serverHome) ;
+      System.setProperty("catalina.home", serverHome) ;
+      System.setProperty("java.io.tmpdir", serverHome + "/temp") ;
+      System.setProperty("org.apache.commons.logging.Log","org.apache.commons.logging.impl.SimpleLog") ;
+      System.setProperty("java.security.auth.login.config", serverHome + "/conf/jaas.conf") ;
+      URL[] sysClasspath = {
+        new URL("file:" + eXo.env.javaHome + "/lib/tools.jar"), 
+        new URL("file:" + serverHome + "/bin/commons-logging-api.jar")
+      } ;
+      eXo.System.addSystemClasspath(sysClasspath) ; 
+      URL[] tomcatClasspath = { new URL("file:" + serverHome + "/bin/bootstrap.jar")};
+      ClassLoader contextLoader= Thread.currentThread().getContextClassLoader();
+      ClassLoader tomcatLoader = new URLClassLoader(tomcatClasspath, contextLoader);
+      Thread.currentThread().setContextClassLoader(tomcatLoader);
+      Class bootstrap =  tomcatLoader.loadClass("org.apache.catalina.startup.Bootstrap") ;
+      instance =  bootstrap.newInstance() ;
+
+      instance.init() ;
+      instance.start() ;
+
+      Thread.currentThread().setContextClassLoader(contextLoader); 
+      runningInstance_ =  instance ;
+    }
+    return this ;
+  }
+  
+  StopTask() {
+    descriptor =  TaskDescriptor("Stop Tomcat", serverHome + "/bin") ;
+    execute() {
+      if(runningInstance_ != null) {
+        runningInstance_.stop() ;
+        runningInstance_ = null ;
+      }
+    }
+    return this ;
+  };
+  
+  CleanTask() {
+    descriptor = TaskDescriptor("Clean Tomcat", serverHome + "/bin") ;
+    execute() {
+      eXo.IOUtil.emptyFolder(serverHome + "/logs");
+      eXo.IOUtil.emptyFolder(serverHome + "/temp");
+    }
+    return this ;
+  }
+  
+  preDeploy(product) {
+    
+  }
+  
+  onDeploy(project) {
+    if("exo-portal".equals(project.type)) {
+      String context = project.artifactId.substring(project.artifactId.lastIndexOf(".") + 1) ;
+      String config = 
+        "<Context path='/" + context+ "' docBase='" + context + "' debug='0' reloadable='true' crossContext='true'> \n" +
+        //className can be org.apache.catalina.logger.FileLogger
+        "  <Logger className='org.apache.catalina.logger.SystemOutLogger' \n" +
+        "          prefix='localhost_" + context + "_log.' suffix='.txt' timestamp='true'/> \n" +
+        "  <Manager className='org.apache.catalina.session.PersistentManager' saveOnRestart='false'/> \n" +
+        "  <Realm className='org.apache.catalina.realm.JAASRealm' \n" +
+        "         appName='exo-domain' \n" +
+        "         userClassNames='org.exoplatform.services.security.impl.UserPrincipalImpl' \n" +
+        "         roleClassNames='org.exoplatform.services.security.impl.RolePrincipalImpl' \n" +
+        "         debug='0' cache='false'/> \n" +
+        "</Context> \n";
+      eXo.IOUtil.createFile(serverHome + "/conf/Catalina/localhost/" + context + ".xml", config) ;
+    }
+  }
+  
+  postDeploy(product) {
+    
+  }
+  
+  return this ; 
+}

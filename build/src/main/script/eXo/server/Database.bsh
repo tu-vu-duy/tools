@@ -1,0 +1,115 @@
+Database() {
+  DBInstance() {
+    this.name = null ;
+    this.drivers = new ArrayList(3) ;
+    this.conectionURL = null ;
+    this.driverClass = null ;
+    this.username = null ;
+    this.password = null;
+    this.dialect = null ;
+    
+    DeployTask(Object product, Object server, String[] repos) {
+      descriptor =  TaskDescriptor("Deploy Database Driver", null) ;
+      descriptor.description = "Deploy the database driver for database "  + name;
+      
+      execute() {
+        for(int i = 0; i < drivers.size(); i++) {
+          project = drivers.get(i) ;
+          project.deployTo(repos, server) ;
+          server.onDeploy(project) ;
+        }
+      }
+      return this ;
+    }
+
+    GetConfigTask(Object product, Object server) {
+      descriptor =  TaskDescriptor("Configure Database", null) ;
+      descriptor.description = "Configure the database environment for "  + name;
+      
+      execute() {
+        String input = null ;
+        input = eXo.System.readInput("Enter the connection url[" + conectionURL + "]") ;
+        if(input != null && input.length() > 0) conectionURL = input ;
+        input = eXo.System.readInput("Enter the username[" + username + "]") ;
+        if(input != null && input.length() > 0) username = input ;
+        input = eXo.System.readInput("Enter the password[" + password + "]") ;
+        if(input != null && input.length() > 0) password = input ;       
+      }
+      return this ;
+    }
+
+    
+    ConfigureTask(Object product, Object server) {
+      descriptor =  TaskDescriptor("Configure Database", null) ;
+      descriptor.description = "Configure the database environment for "  + name;
+      
+      modifyDbConfig(String moduleFile, String configEntry) {
+        File  file = new File(moduleFile) ;
+        if(!file.exists())  return ;
+        String configContent = new String(eXo.IOUtil.getJarEntryContent(moduleFile, configEntry)) ;
+        configContent = configContent.replace("${dialect}", dialect) ;
+        configContent = configContent.replace("${driverClass}", driverClass) ;
+        configContent = configContent.replace("${connectionUrl}", conectionURL) ;
+        configContent = configContent.replace("${username}", username) ;
+        configContent = configContent.replace("${password}", password) ;
+        mentries = new HashMap() ;
+        mentries.put(configEntry, configContent.getBytes("UTF-8")) ;
+        eXo.IOUtil.modifyJar(moduleFile, mentries, null);
+      }
+      
+      execute() {
+        Map properties = new HashMap() ;
+        properties.put("${dialect}", dialect) ;
+        properties.put("${driverClass}", driverClass) ;
+        properties.put("${connectionUrl}", conectionURL) ;
+        properties.put("${username}", username) ;
+        properties.put("${password}", password) ;
+        
+        Map imports = new HashMap() ;
+        imports.put("war:/conf/database-configuration.hsql.xml", "war:/conf/database-configuration.xml") ;
+        eXo.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/configuration.xml", imports);
+        eXo.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/database-configuration.xml", properties);
+        
+        imports.clear() ;
+        imports.put("classpath:/conf/portal/jdbcexo-configuration.hsql.xml", "classpath:/conf/portal/jdbcexo-configuration.db.xml") ;
+        eXo.IOUtil.modifyJarEntry(server.deployLibDir + "/exo-platform.services.database.impl-2.0.3.jar" , "conf/portal/configuration.xml", imports);
+        eXo.IOUtil.modifyJarEntry(server.deployLibDir + "/exo-platform.services.database.impl-2.0.3.jar" , "conf/portal/jdbcexo-configuration.db.xml", properties);
+        
+        imports.clear() ;
+        imports.put("classpath:/conf/portal/jdbcjcr-configuration.hsql.xml", "classpath:/conf/portal/jdbcjcr-configuration.xml") ;
+        eXo.IOUtil.modifyJarEntry(server.deployLibDir + "/exo-jcr.services.jcr.impl-1.1.jar" , "conf/portal/configuration.xml", imports);
+        eXo.IOUtil.modifyJarEntry(server.deployLibDir + "/exo-jcr.services.jcr.impl-1.1.jar" , "conf/portal/jdbcjcr-configuration.xml", properties);
+      }
+      return this ;
+    }
+    return this ;
+  }
+  
+  HsqlDB() {
+    this.instance = DBInstance() ;
+    this.instance.name = "hsql" ;
+    this.instance.drivers.add(Project("hsqldb", "hsqldb", "jar", "1.8.0.1")) ;
+    
+    this.instance.driverClass = "org.hsqldb.jdbcDriver";
+    this.instance.dialect = "org.hibernate.dialect.HSQLDialect" ;
+    this.instance.conectionURL = "jdbc:hsqldb:file:/tmp/hsql/exodb";
+    this.instance.username = "sa" ;
+    this.instance.password = "";
+    return this.instance ;
+  }
+  
+  MysqlDB() {
+    this.instance = DBInstance() ;
+    this.instance.name = "mysql" ;
+    this.instance.drivers.add(Project("mysql", "mysql-connector-java", "jar", "5.0.3-bin")) ;
+    
+    this.instance.driverClass = "com.mysql.jdbc.Driver";
+    this.instance.dialect = "org.hibernate.dialect.MySQLDialect" ;
+    this.instance.conectionURL = "jdbc:mysql://localhost:3306/exodb?relaxAutoCommit=true&amp;autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8";
+    this.instance.username = "exo" ;
+    this.instance.password = "exo";
+    
+    return this.instance ;
+  }
+  return this ;
+}

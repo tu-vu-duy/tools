@@ -1,0 +1,211 @@
+Module() {    
+  tool(String selectVersion) {
+    String version =  selectVersion ;
+    this.osbsh = Project("org.exoplatform.tool", "exo.tool.build", "jar", "2.0") ;
+    return this ;
+  }
+  
+  kernel(String selectVersion) {
+    String version =  selectVersion ;
+    
+    this.commons = Project("org.exoplatform.kernel", "exo.kernel.commons", "jar", version) ;
+    this.commons.addDependency(Project("commons-lang", "commons-lang", "jar", "2.1"));
+    this.commons.addDependency(Project("xpp3", "xpp3", "jar", "1.1.2a"));
+    this.commons.addDependency(Project("xstream", "xstream", "jar", "1.1"));
+    this.commons.addDependency(Project("dom4j", "dom4j", "jar", "1.6.1"));
+    
+    this.container = Project("org.exoplatform.kernel", "exo.kernel.container", "jar", version) ;
+    this.container.addDependency(commons);
+    this.container.addDependency(Project("picocontainer", "picocontainer", "jar", "1.1"));
+    this.container.addDependency(Project("groovy", "groovy-all", "jar", "1.0"));
+    this.container.addDependency(Project("commons-beanutils", "commons-beanutils", "jar", "1.6"));
+    this.container.addDependency(Project("jibx", "jibx-run", "jar", "1.0"));
+    this.container.addDependency(Project("asm", "asm", "jar", "1.5.3"));
+    this.container.addDependency(Project("cglib", "cglib", "jar", "2.1_2"));
+    
+    misc() {
+      this.drools = Project("drools", "drools-core", "jar", "2.0") ;
+      this.drools.addDependency(Project("janino", "janino", "jar", "2.3.2"));
+      this.drools.addDependency(Project("drools", "drools-base", "jar", "2.0"));
+      this.drools.addDependency(Project("drools", "drools-io", "jar", "2.0"));
+      this.drools.addDependency(Project("drools", "drools-java", "jar", "2.0"));
+      this.drools.addDependency(Project("drools", "drools-smf", "jar", "2.0"));
+      return this;
+    }
+    this.misc = misc() ; 
+    
+    component() {
+      this.common = Project("org.exoplatform.kernel", "exo.kernel.component.common", "jar", version) ;
+      this.common.addDependency(Project("quartz", "quartz", "jar", "1.5.0-RC2"));
+      this.common.addDependency(Project("mail", "activation", "jar", "1.0"));
+      this.common.addDependency(Project("mail", "mail", "jar", "1.3.3"));
+      
+      this.command = Project("org.exoplatform.kernel", "exo.kernel.component.command", "jar", version) ;
+      this.command.addDependency(Project("commons-chain", "commons-chain", "jar", "1.0"));
+
+      this.cache   = Project("org.exoplatform.kernel", "exo.kernel.component.cache", "jar", version) ;
+      
+      this.remote  = Project("org.exoplatform.kernel", "exo.kernel.component.remote", "jar", version) ;
+      this.remote.addDependency(Project("javagroups", "jgroups-all", "jar", "2.4"));
+      return this ;
+    }
+    this.component = component() ;
+    return this ;
+  }
+
+  core(String selectVersion) {
+    String version =  selectVersion ;
+    component(){
+      this.common = Project("org.exoplatform.core", "exo.core.component.common", "jar", version) ;
+      this.common.addDependency(Project("directory-naming", "naming-core", "jar", "0.8"));
+      this.common.addDependency(Project("directory-naming", "naming-java", "jar", "0.8"));
+      this.common.addDependency(Project("jotm", "jotm", "jar", "2.0.10"));
+      this.common.addDependency(Project("javax.resource", "connector", "jar", "1.5"));
+
+      this.ldap = Project("org.exoplatform.core", "exo.core.component.ldap", "jar", version) ;
+
+      this.database = Project("org.exoplatform.core", "exo.core.component.database", "jar", version) ;
+      this.database.addDependency(Project("org.hibernate", "hibernate", "jar", "3.1.2"));
+      this.database.addDependency(Project("commons-collections", "commons-collections", "jar", "3.1"));
+      this.database.addDependency(Project("c3p0", "c3p0", "jar", "0.8.4.5"));
+      this.database.addDependency(Project("antlr", "antlr", "jar", "2.7.5"));
+      this.database.addDependency(Project("javax.transaction", "jta", "jar", "1.0.1B"));
+      this.database.addDependency(Project("jotm", "jotm_jrmp_stubs", "jar", "2.0.10"));
+      this.database.addDependency(Project("jotm", "jotm", "jar", "2.0.10"));
+      this.database.addDependency(Project("howl", "howl-logger", "jar", "0.1.11"));
+      this.database.addDependency(Project("hsqldb", "hsqldb", "jar", "1.8.0.1"));
+      this.database.addDependency(Project("javax.resource", "connector-api", "jar", "1.5"));
+      
+      this.document = Project("org.exoplatform.core", "exo.core.component.document", "jar", version) ;
+      this.document.addDependency(Project("pdfbox", "pdfbox", "jar", "0.7.2"));
+      this.document.addDependency(Project("html-parser", "html-parser", "jar", "1.6"));
+      this.document.addDependency(Project("poi", "poi", "jar", "3.0-alpha1"));
+      this.document.addDependency(Project("poi", "poi-scratchpad", "jar", "3.0-alpha1"));
+      
+      
+      this.organization = Project("org.exoplatform.core", "exo.core.component.organization", "jar", version) ;
+      this.security = Project("org.exoplatform.core", "exo.core.component.security", "jar", version) ;
+      
+      this.xmlProcessing = Project("org.exoplatform.core", "exo.core.component.xml-processing", "jar", version) ;
+      return this ;
+    }
+    this.component = component() ;
+    return this ;
+  }
+  
+  eXoPortletContainer(String version) {
+    this.version = version ;
+    services() {
+      this.jsr168 = Project("exo-portlet-container", "exo-portlet-container.services.jsr168.impl", "jar", version);
+      this.jsr168.addDependency(Project("exo-portlet-container", "exo-portlet-container.services.jsr168.api", "jar", version));
+      this.jsr168.addDependency(Project("javax.portlet", "portlet-api", "jar", "1.0"));
+      this.jsr168.addDependency(Project("commons-pool", "commons-pool", "jar", "1.2"));
+      return this ; 
+    }
+    this.services = services();
+    return this ;
+  }
+
+  eXoJcr(String selectVersion) {
+    String version = selectVersion ;
+    services(){
+      this.jcr = Project("exo-jcr", "exo-jcr.services.jcr.impl", "jar", version);
+      this.jcr.addDependency(Project("exo-jcr", "exo-jcr.services.jcr.api", "jar", version));
+      this.jcr.addDependency(Project("exo-jcr", "exo-jcr.services.ext", "jar", version));
+      this.jcr.addDependency(Project("jcr", "jcr", "jar", "1.0"));
+      this.jcr.addDependency(Project("concurrent", "concurrent", "jar", "1.3.2"));
+      this.jcr.addDependency(Project("javagroups", "jgroups-all", "jar", "2.4"));
+      this.jcr.addDependency(Project("lucene", "lucene", "jar", "1.4.3"));
+      
+      this.webdav = Project("exo-jcr", "exo-jcr.services.webdav", "jar", version);
+      return this ;
+    }
+    this.services = services() ;
+    
+    frameworks(){
+      this.web= Project("exo-jcr", "exo-jcr.frameworks.web", "jar", version);
+      this.web.addDependency(Project("commons-chain", "commons-chain", "jar", "1.0"));
+      this.web.addDependency(Project("log4j", "log4j", "jar", "1.2.8"));
+      
+      this.command = Project("exo-jcr", "exo-jcr.frameworks.command", "jar", version) ; 
+      return this ;
+    }
+    this.frameworks = frameworks() ;
+    return this ;
+  }
+  
+  portal(kernel, core, eXoPortletContainer, jcr, selectVersion) {
+    String version = selectVersion ;
+    
+    component(){
+      this.data  = Project("org.exoplatform.portal", "exo.portal.component.data", "jar", version) ;
+      this.portletRegistry  = Project("org.exoplatform.portal", "exo.portal.component.portlet-registry", "jar", version) ;
+      this.resources = Project("org.exoplatform.portal", "exo.portal.component.resources", "jar", version) ;
+      this.xmlParser = Project("org.exoplatform.portal", "exo.portal.component.xml-parser", "jar", version) ;
+      this.xmlParser.addDependency(Project("commons-httpclient", "commons-httpclient", "jar", "3.0"));
+      return this ;
+    }
+    this.component = component() ;
+    
+    
+    webui() {
+      this.core  = Project("org.exoplatform.portal", "exo.portal.webui.core", "jar", version) ;
+      this.portal  = Project("org.exoplatform.portal", "exo.portal.webui.portal", "jar", version) ;
+      return this ;
+    }
+    this.webui = webui() ;
+    
+    portlet() {
+      this.content = Project("org.exoplatform.portal", "exo.portal.portlet.content", "exo-portlet", version);
+      this.content.addDependency(component.xmlParser) ;
+
+      this.exoadmin = Project("org.exoplatform.portal", "exo.portal.portlet.exoadmin", "exo-portlet", version);
+      this.site = Project("org.exoplatform.portal", "exo.portal.portlet.site", "exo-portlet", version);
+      this.web = Project("org.exoplatform.portal", "exo.portal.portlet.web", "exo-portlet", version);
+      return this ;
+    }
+    this.portlet = portlet();
+    
+    web() {
+      this.eXoResources = Project("org.exoplatform.portal", "exo.portal.web.eXoResources", "war", version);
+      
+      this.portal = Project("org.exoplatform.portal", "exo.portal.web.portal", "exo-portal", version);
+      this.portal.addDependency(eXoResources) ;
+      this.portal.addDependency(webui.core) ;
+      this.portal.addDependency(webui.portal) ;
+      this.portal.addDependency(component.resources) ;
+      this.portal.addDependency(component.portletRegistry) ;
+      this.portal.addDependency(component.data) ;
+
+      this.portal.addDependency(kernel.container) ;
+      this.portal.addDependency(kernel.component.common) ;
+      this.portal.addDependency(kernel.component.remote) ;
+      this.portal.addDependency(kernel.component.cache) ;
+      this.portal.addDependency(kernel.component.command) ;
+
+      this.portal.addDependency(core.component.database) ;
+      this.portal.addDependency(core.component.organization) ;
+      this.portal.addDependency(core.component.security) ;
+      this.portal.addDependency(core.component.xmlProcessing) ;
+      this.portal.addDependency(core.component.document) ;
+
+      this.portal.addDependency(jcr.services.jcr) ;
+      //this.portal.addDependency(jcr.services.webdav) ;
+
+      this.portal.addDependency(eXoPortletContainer.services.jsr168) ;
+      return this ;
+    }
+    this.web = web() ;
+    
+    server() {
+      this.tomcat = Project("exo-portal", "exo-portal.server.tomcat", "jar", version);
+      this.jboss = Project("exo-portal", "exo-portal.server.jboss", "jar", version);
+      return this; 
+    }
+    this.server = server() ;
+    
+    return this ;
+  }
+  
+  return  this; 
+}

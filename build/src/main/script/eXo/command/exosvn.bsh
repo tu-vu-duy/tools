@@ -1,0 +1,93 @@
+exosvn() {
+  UpdateTask(module) {
+    descriptor =  TaskDescriptor("svn update", module) ;
+    descriptor.description = "Run svn update again module " + module ;
+
+    execute() {
+      exec("svn update " + module) ;
+    } 
+    return this ;
+  }
+  
+  SVNAddTask(String[] args) {
+    descriptor =  TaskDescriptor("svn add", "") ;
+    
+    execute() throws Exception {
+      String include = null, exclude = null ;
+      descriptor.workingDir = "" ;
+      for(i = 0; i < args.length; i++ ) {
+        if(args[i].startsWith("--include=")) {
+          include = args[i].substring("--include=".length()) ;
+        } else if(args[i].startsWith("--exclude=")) {
+          exclude = args.substring("--exclude=".length()) ;
+        } else {
+          descriptor.workingDir =  args[i] ;
+        }
+      }
+      System.setProperty("user.dir", descriptor.workingDir) ;
+      if(include == null) include = "^\\?.*" ;
+      proc = Runtime.getRuntime().exec("svn st " + descriptor.workingDir) ;
+
+      din = new DataInputStream( proc.getInputStream() );
+      files = new ArrayList() ;
+      while( (line = din.readLine()) != null ) {
+        if(line.matches(include)) {
+          files.add(line) ;
+          print(line);
+        }
+      }
+
+      int exitValue = proc.exitValue();
+
+      if(exitValue == 0 && files.size() > 0) {
+        String input = eXo.System.readInput("Do you want to add the above files[yes]") ;
+        if("yes".equals(input)) {
+          StringBuilder b = new StringBuilder() ;
+          b.append("svn add ");
+          for(i = 0; i < files.size();i++) {
+            String file =  files.get(i) ;       
+            file =  file.substring(6) ;
+            b.append(file);
+          }
+          proc = Runtime.getRuntime().exec(b.toString()) ;
+        }
+      } else {
+        print("Cannot perform the svn command, svn  exit with the code " + exitValue); 
+      }
+      errStream = new DataInputStream( proc.getInputStream() );
+      while( (line = errStream.readLine()) != null ) print(line) ;
+    }
+    return this ;
+  }
+
+  SVNRemoveTask(String module, String filter) {
+    descriptor =  TaskDescriptor("svn remove", "") ;
+    execute() {
+      proc = Runtime.getRuntime().exec("svn st " + descriptor.workingDir);
+      din = new DataInputStream( proc.getInputStream() );
+      while( (line = din.readLine()) != null ) {
+        print(line);
+      }
+    }
+  }
+
+  return this ;
+}
+
+exosvn(String[] args) {
+  printInstructions() {
+  
+  }
+
+  if(args.length == 0) {
+    printInstructions() ;
+    return ;
+  }
+
+  String  svncommand = args[0] ;
+  args =  eXo.util.shift(args) ;
+  exosvn = exosvn() ;
+  if ("add".equals(svncommand)) {
+    exosvn.SVNAddTask(args).execute() ;
+  }
+}

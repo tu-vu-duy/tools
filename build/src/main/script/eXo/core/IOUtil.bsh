@@ -1,0 +1,135 @@
+IOUtil() {
+  emptyFolder(File folder) {
+    if(folder.exists() &&  folder.isDirectory()) {
+      File[] child =  folder.listFiles();
+      for(int i = 0; i < child.length; i++) {
+        if(child[i].isDirectory()) emptyFolder(child[i]) ;
+        boolean deleted = child[i].delete() ;
+        if(!deleted) eXo.System.info("WARNING", "Cannot delete " + child[i].getAbsolutePath());
+      }
+    }
+  }
+
+  emptyFolder(path) {
+    File folder = new File(path) ;
+    emptyFolder(folder) ;
+  }
+
+  delete(path) {
+    File file = new File(path) ;
+    if(file.exists())  {
+      emptyFolder(file) ;
+      file.delete();
+    }
+  }
+
+  copyFile(String src, String dest)  {
+    in = new BufferedInputStream( new FileInputStream(src));
+    out = new BufferedOutputStream( new FileOutputStream(dest));
+    byte [] buff = new byte [ 32*1024 ];
+    while ( (len = in.read( buff )) > 0) out.write( buff, 0, len);
+    in.close();  out.close();
+  }
+
+  copyFolder(src, dest) {
+    File srcFolder = new File(src) ;
+    if(srcFolder.exists() &&  srcFolder.isDirectory()) {
+      File destFolder = new File(dest) ;
+      if(!destFolder.exists()) destFolder.mkdirs() ;
+
+      File[] child =  srcFolder.listFiles();
+      for(i = 0; i < child.length; i++) {
+        File file =  child[i] ;
+        if(file.isFile())  {
+          copyFile(srcFolder.getAbsolutePath() + "/" +  file.getName(), 
+              destFolder.getAbsolutePath() + "/" +  file.getName());
+        } else {
+          copyFolder(srcFolder.getAbsolutePath() + "/" +  file.getName(), 
+              destFolder.getAbsolutePath() + "/" + file.getName());
+        }
+      }
+    } else {
+      throw new Exception(src + " is not existed or a  folder") ;
+    }
+  }
+
+  createFile(String path, String content) {
+    FileOutputStream  out = new FileOutputStream(path);
+    out.write(content.getBytes());
+    out.close();
+    eXo.System.verbose("INFO", "Create file " +  path) ;
+  }
+
+  getJarEntryContent(String fileName, String entryName) {
+    JarFile jar = new JarFile(fileName) ;
+    entries = jar.entries() ;
+    while(entries.hasMoreElements()) {
+      JarEntry entry = entries.nextElement() ;
+      if(entry.getName().equals(entryName)) {
+        InputStream entryStream = jar.getInputStream(entry);
+        byte[] buffer = new byte[4092];
+        int bytesRead;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        while ((bytesRead = entryStream.read(buffer)) != -1) out.write(buffer, 0, bytesRead);
+        entryStream.close();
+        jar.close() ;
+        return out.toByteArray() ;
+      }
+    }
+    jar.close() ;
+    return null;
+  }
+  
+  modifyJarEntry(String moduleFile, String configEntry, Map properties) {
+    File  file = new File(moduleFile) ;
+    if(!file.exists())  return ;
+    String content = new String(getJarEntryContent(moduleFile, configEntry)) ;
+    Iterator i = properties.entrySet().iterator();
+    while(i.hasNext()) {
+      entry = i.next() ;
+      content = content.replace(entry.getKey(), entry.getValue()) ;
+    }
+    
+    mentries = new HashMap() ;
+    mentries.put(configEntry, content.getBytes("UTF-8")) ;
+    eXo.IOUtil.modifyJar(moduleFile, mentries, null);
+  }
+
+  modifyJar(String fileName, Map mentries, Map mattrs) {
+    File file = new File(fileName); 
+    JarFile jar = new JarFile(fileName) ;
+    Manifest mf = jar.getManifest() ;
+    if(mattrs != null) {
+      i = mattrs.entrySet().iterator();
+      while(i.hasNext()) {
+        entry = i.next();
+        mf.getMainAttributes().putValue(entry.getKey(), entry.getValue()) ;
+      }
+    }
+    File tmpFile = new File(fileName + ".tmp") ;
+    JarOutputStream jos = new JarOutputStream(new FileOutputStream(tmpFile), mf) ;
+    entries = jar.entries() ;
+    byte[] buffer = new byte[4092];
+    int bytesRead;
+    while(entries.hasMoreElements()) {
+      JarEntry entry = entries.nextElement() ;
+      String entryName = entry.getName() ; 
+      if(entryName.endsWith("MANIFEST.MF")) {
+      } else if(mentries != null && mentries.containsKey(entryName)) {
+        entry = new JarEntry(entryName) ;
+        jos.putNextEntry(entry) ;
+        jos.write(mentries.get(entryName)) ;
+        mentries.remove(entryName) ;
+      } else  {
+        InputStream entryStream = jar.getInputStream(entry);
+        jos.putNextEntry(entry) ;
+        while ((bytesRead = entryStream.read(buffer)) != -1) jos.write(buffer, 0, bytesRead);
+      }
+    }
+    jar.close() ;
+    jos.close() ;
+    file.delete() ;
+    tmpFile.renameTo(file) ;
+  }
+  return this ;
+}
