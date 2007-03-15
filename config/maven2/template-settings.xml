@@ -29,7 +29,7 @@
    | Default: ~/.m2/repository
   <localRepository>d:/java/maven2/repository</localRepository>
   -->
-  <localRepository>/Users/tuannguyen/java/exo-dependencies/repository</localRepository>
+  <localRepository>@java.dir@/exo-dependencies/repository</localRepository>
   <servers>
     <server>
       <id>objectweb</id>
@@ -74,7 +74,7 @@
       <id>v2.x</id>  
       <activation><activeByDefault>false</activeByDefault></activation> 
       <properties>
-        <exo.directory.base>/Users/tuannguyen/java</exo.directory.base>
+        <exo.directory.base>@java.dir@</exo.directory.base>
         <exo.directory.v2.x>${exo.directory.base}/projects/v2.x</exo.directory.v2.x>
         <exo.directory.dependencies>${exo.directory.base}/exo-dependencies</exo.directory.dependencies>
         <exo.directory.release>${exo.directory.base}/exo-release</exo.directory.release>
@@ -98,7 +98,7 @@
       <id>eXoProjects</id>  
       <activation><activeByDefault>false</activeByDefault></activation> 
       <properties>
-        <exo.projects.directory.base>/Users/tuannguyen/java</exo.projects.directory.base>
+        <exo.projects.directory.base>@java.dir@</exo.projects.directory.base>
         <exo.projects.directory.src>${exo.projects.directory.base}/eXoProjects</exo.projects.directory.src>
         <exo.projects.directory.dependencies>${exo.projects.directory.base}/exo-dependencies</exo.projects.directory.dependencies>
         <exo.projects.directory.release>${exo.projects.directory.base}/exo-release</exo.projects.directory.release>
