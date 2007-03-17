@@ -8,6 +8,7 @@ PORTABLE_DIR=`echo $PORTABLE_DIR | sed -e 's/\\/$//g'`
 
 EXO_BASE_DIRECTORY=$PORTABLE_DIR/java
 
+#This should be /cygdrive/d/java ...   if  you are using cygwin
 BSH_EXO_BASE_DIRECTORY=$EXO_BASE_DIRECTORY
 BSH_JAVA_HOME=$JAVA_HOME
 BSH_M2_REPOS="file:$BSH_EXO_BASE_DIRECTORY/exo-dependencies/repository, http://vnserver.exoplatform.org/maven2"
