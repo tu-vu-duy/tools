@@ -16,7 +16,7 @@ eXo() {
     this.baseDir    =  System.getProperty("exo.base.dir");
     this.workingDir =   baseDir + "/exo-working" ;
     this.dependenciesDir =  baseDir + "/exo-dependencies"  ;
-    this.eXoProjectsDir = baseDir + "/projects/eXoProjects" ;
+    this.eXoProjectsDir = baseDir + "/eXoProjects" ;
     this.javaHome    =  System.getProperty("exo.java.home");
     this.currentDir  =  System.getProperty("exo.current.dir");
     if(currentDir.startsWith("/cygdrive/")) {

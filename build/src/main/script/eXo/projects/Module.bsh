@@ -149,8 +149,27 @@ Module() {
     
     
     webui() {
-      this.core  = Project("org.exoplatform.portal", "exo.portal.webui.core", "jar", version) ;
+      this.webuicore  = Project("org.exoplatform.portal", "exo.portal.webui.core", "jar", version) ;
       this.portal  = Project("org.exoplatform.portal", "exo.portal.webui.portal", "jar", version) ;
+      this.portal.addDependency(webuicore) ;
+      this.portal.addDependency(component.resources) ;
+      this.portal.addDependency(component.portletRegistry) ;
+      this.portal.addDependency(component.data) ;
+
+      this.portal.addDependency(kernel.container) ;
+      this.portal.addDependency(kernel.component.common) ;
+      this.portal.addDependency(kernel.component.remote) ;
+      this.portal.addDependency(kernel.component.cache) ;
+      this.portal.addDependency(kernel.component.command) ;
+
+      this.portal.addDependency(core.component.database) ;
+      this.portal.addDependency(core.component.organization) ;
+      this.portal.addDependency(core.component.security) ;
+      this.portal.addDependency(core.component.xmlProcessing) ;
+      this.portal.addDependency(core.component.document) ;
+
+      this.portal.addDependency(jcr.services.jcr) ;
+      this.portal.addDependency(eXoPortletContainer.services.jsr168) ;
       return this ;
     }
     this.webui = webui() ;
@@ -170,29 +189,8 @@ Module() {
       this.eXoResources = Project("org.exoplatform.portal", "exo.portal.web.eXoResources", "war", version);
       
       this.portal = Project("org.exoplatform.portal", "exo.portal.web.portal", "exo-portal", version);
-      this.portal.addDependency(eXoResources) ;
-      this.portal.addDependency(webui.core) ;
       this.portal.addDependency(webui.portal) ;
-      this.portal.addDependency(component.resources) ;
-      this.portal.addDependency(component.portletRegistry) ;
-      this.portal.addDependency(component.data) ;
-
-      this.portal.addDependency(kernel.container) ;
-      this.portal.addDependency(kernel.component.common) ;
-      this.portal.addDependency(kernel.component.remote) ;
-      this.portal.addDependency(kernel.component.cache) ;
-      this.portal.addDependency(kernel.component.command) ;
-
-      this.portal.addDependency(core.component.database) ;
-      this.portal.addDependency(core.component.organization) ;
-      this.portal.addDependency(core.component.security) ;
-      this.portal.addDependency(core.component.xmlProcessing) ;
-      this.portal.addDependency(core.component.document) ;
-
-      this.portal.addDependency(jcr.services.jcr) ;
-      //this.portal.addDependency(jcr.services.webdav) ;
-
-      this.portal.addDependency(eXoPortletContainer.services.jsr168) ;
+      this.portal.addDependency(eXoResources) ;
       return this ;
     }
     this.web = web() ;
@@ -203,6 +201,37 @@ Module() {
       return this; 
     }
     this.server = server() ;
+    
+    return this ;
+  }
+
+  ecm(kernel, core, eXoPortletContainer, jcr, portal, selectVersion) {
+    String version = selectVersion ;
+    
+    portlet() {
+      this.ecm = Project("org.exoplatform.ecm", "exo.ecm.portlet.ecm", "exo-portlet", version);
+      this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.cms.api", "jar",  version)) ;
+      this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.cms.impl", "jar", version)) ;
+      this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.api", "jar", version)) ;
+      this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", version)) ;
+      this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.engine", "jar", "3.0")) ;
+      this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.bonita", "jar", version)) ;
+
+      this.workflow = Project("org.exoplatform.ecm", "exo.ecm.portlet.workflow", "exo-portlet", version);
+      return this ;
+    }
+    this.portlet = portlet();
+    
+    web() {
+      this.ecmportal = Project("org.exoplatform.ecm", "exo.ecm.web.ecmportal", "exo-portal", version);
+      this.ecmportal.addDependency(kernel.misc.drools) ;
+      this.ecmportal.addDependency(portal.web.eXoResources) ;
+      this.ecmportal.addDependency(portal.webui.portal) ;
+      this.ecmportal.addDependency(jcr.frameworks.command) ;
+      this.ecmportal.addDependency(jcr.frameworks.web) ;
+      return this ;
+    }
+    this.web = web() ;
     
     return this ;
   }

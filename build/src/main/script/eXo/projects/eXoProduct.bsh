@@ -94,6 +94,37 @@ eXoProduct() {
     return product ;
   }
   
+  eXoECMProduct() {
+    product = Product();
+    product.name = "eXoECM" ;
+    product.portalwar = "ecmportal.war" ;
+    
+    Module = Module();
+    
+    kernel = Module.kernel("2.0.3") ;
+    core = Module.core("2.0.3") ;
+    eXoPortletContainer = Module.eXoPortletContainer("1.5") ;
+    eXoJcr = Module.eXoJcr("1.5") ;
+    portal = Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
+    ecm = Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
+    
+    product.addDependencies(ecm.web.ecmportal) ;
+    product.addDependencies(portal.portlet.content) ;
+    product.addDependencies(portal.portlet.exoadmin) ;
+    product.addDependencies(portal.portlet.web) ;
+    product.addDependencies(portal.portlet.site) ;
+    product.addDependencies(ecm.portlet.ecm) ;
+    product.addDependencies(ecm.portlet.workflow) ;
+    
+    product.addServerPatch("tomcat", portal.server.tomcat) ;
+    product.addServerPatch("jboss",  portal.server.jboss) ;
+    
+    product.codeRepo = "ecm/trunk" ;
+    product.dependencyCodeRepos.add("kernel/trunk");
+    product.dependencyCodeRepos.add("core/trunk");
+    product.dependencyCodeRepos.add("portal/trunk");
+    return product ;
+  }
   return this ;
 }
 

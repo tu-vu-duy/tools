@@ -1,0 +1,51 @@
+#####################Working Environment########################################
+PORTABLE_DIR=/Users/tuannguyen
+JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
+
+#####################VARIABLE TO CUSTOMIZE########################################
+PORTABLE_DIR=`echo $PORTABLE_DIR | sed -e 's/\\\/\\//g'`
+PORTABLE_DIR=`echo $PORTABLE_DIR | sed -e 's/\\/$//g'`
+
+EXO_BASE_DIRECTORY=$PORTABLE_DIR/java
+
+BSH_EXO_BASE_DIRECTORY=$EXO_BASE_DIRECTORY
+BSH_JAVA_HOME=$JAVA_HOME
+BSH_M2_REPOS="file:$BSH_EXO_BASE_DIRECTORY/exo-dependencies/repository, http://vnserver.exoplatform.org/maven2"
+
+if [ -e "maven2/conf/template-settings.xml" ] ; then
+  JAVA_DIR_SUB=`echo $EXO_BASE_DIRECTORY | sed -e 's/\\//\\\\\//g'`
+  # echo $JAVA_DIR_SUB
+  eval "sed -e 's/@java.dir@/$JAVA_DIR_SUB/g' maven2/conf/template-settings.xml > maven2/conf/settings.xml"
+fi
+##################################################################################
+USER_HOME='/cygdrive/c/Documents\ and\ Settings/$USERNAME'
+
+EXO_PROJECTS_SRC=$EXO_BASE_DIRECTORY/eXoProjects
+EXO_SH_SCRIPT=$EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux
+EXO_WORKING_DIR=$EXO_BASE_DIRECTORY/exo-working
+
+M2_HOME=$EXO_BASE_DIRECTORY/maven2
+M2_REPO=$EXO_BASE_DIRECTORY/exo-dependencies/repository
+MAVEN_OPTS="-Xshare:auto -Xms128m -Xmx512m" 
+
+#echo "This is a test"
+JAVA_OPTS="-Xshare:auto -Xms128m -Xmx256m -Dexo.directory.base=$EXO_BASE_DIRECTORY" 
+PATH=/usr/local/bin:$JAVA_HOME/bin:$PATH:$M2_HOME/bin:$EXO_SH_SCRIPT
+
+
+export JAVA_OPTS JAVA_HOME M2_HOME M2_REPO MAVEN_OPTS
+export EXO_BASE_DIRECTORY EXO_PROJECTS_SRC  BSH_EXO_BASE_DIRECTORY  BSH_M2_REPOS BSH_JAVA_HOME
+##################################################################################
+# allways put and do not edit these following lines at the end this file 
+################################################################################## 
+
+if [ -e "${PORTABLE_DIR}/tools/env.sh" ] ; then
+  source "${PORTABLE_DIR}/tools/env.sh"
+fi
+
+  echo "===> ${EXO_SH_SCRIPT}/exoscript.sh"
+if [ -e "${EXO_SH_SCRIPT}/exoscript.sh" ] ; then
+  source "${EXO_SH_SCRIPT}/exoscript.sh"
+fi
+
+alias ls='ls -G'

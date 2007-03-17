@@ -116,7 +116,7 @@ exobuild(String[] args) {
       product = eXoProduct().eXoPortalProduct();
       mvnTestId_ = "default" ;
     } else if ("--product=exo-ecm".equals(arg)) {
-      product = eXoProduct().eXoEcmProduct();
+      product = eXoProduct().eXoECMProduct();
       mvnTestId_ = "ecm" ;
     }
   }
