@@ -67,12 +67,12 @@ exosvn() {
     return this ;
   }
 
-  SVNRemoveTask(String module, String filter) {
+  SVNRemoveTask(String[] args) {
     descriptor =  TaskDescriptor("svn remove", "") ;
     execute() {
       param = Param(args) ;
       if(param.workingDir == null)  param.workingDir = descriptor.workingDir ;
-      if(param.include == null) param.include = "\\!\\?.*" ;
+      if(param.include == null) param.include = "^\\!.*" ;
       System.setProperty("user.dir",  param.workingDir) ;
 
       matches =  MatchFile(param) ;
