@@ -1,15 +1,17 @@
-#####################Working Environment########################################
-PORTABLE_DIR=/Users/tuannguyen
-JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
+##################### Working Environment ########################################
+#PORTABLE_DIR=/Users/tuannguyen
 
-#####################VARIABLE TO CUSTOMIZE########################################
+##################### VARIABLE TO CUSTOMIZE ########################################
 PORTABLE_DIR=`echo $PORTABLE_DIR | sed -e 's/\\\/\\//g'`
 PORTABLE_DIR=`echo $PORTABLE_DIR | sed -e 's/\\/$//g'`
+JAVA_DIR=$PORTABLE_DIR/java
 
-EXO_BASE_DIRECTORY=$PORTABLE_DIR/java
+cd $JAVA_DIR
+EXO_BASE_DIRECTORY=$PWD
+cd $OLDPWD
+JAVA_HOME=$EXO_BASE_DIRECTORY/jdk1.5
 
-#This should be /cygdrive/d/java ...   if  you are using cygwin
-BSH_EXO_BASE_DIRECTORY=$EXO_BASE_DIRECTORY
+BSH_EXO_BASE_DIRECTORY=$JAVA_DIR
 BSH_JAVA_HOME=$JAVA_HOME
 BSH_M2_REPOS="file:$BSH_EXO_BASE_DIRECTORY/exo-dependencies/repository, http://vnserver.exoplatform.org/maven2"
 
@@ -48,5 +50,3 @@ fi
 if [ -e "${EXO_SH_SCRIPT}/exoscript.sh" ] ; then
   source "${EXO_SH_SCRIPT}/exoscript.sh"
 fi
-
-alias ls='ls -G'

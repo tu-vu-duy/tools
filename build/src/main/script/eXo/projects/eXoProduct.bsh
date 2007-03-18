@@ -89,6 +89,7 @@ eXoProduct() {
     product.addServerPatch("jboss",  portal.server.jboss) ;
     
     product.codeRepo = "portal/trunk" ;
+    product.dependencyCodeRepos.add("tools/trunk");
     product.dependencyCodeRepos.add("kernel/trunk");
     product.dependencyCodeRepos.add("core/trunk");
     return product ;
@@ -120,6 +121,7 @@ eXoProduct() {
     product.addServerPatch("jboss",  portal.server.jboss) ;
     
     product.codeRepo = "ecm/trunk" ;
+    product.dependencyCodeRepos.add("tools/trunk");
     product.dependencyCodeRepos.add("kernel/trunk");
     product.dependencyCodeRepos.add("core/trunk");
     product.dependencyCodeRepos.add("portal/trunk");
