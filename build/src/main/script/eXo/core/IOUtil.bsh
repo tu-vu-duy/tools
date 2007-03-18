@@ -45,7 +45,7 @@ IOUtil() {
               destFolder.getAbsolutePath() + "/" +  file.getName());
         } else {
           copyFolder(srcFolder.getAbsolutePath() + "/" +  file.getName(), 
-              destFolder.getAbsolutePath() + "/" + file.getName());
+                     destFolder.getAbsolutePath() + "/" + file.getName());
         }
       }
     } else {

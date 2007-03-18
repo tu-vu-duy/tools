@@ -1,0 +1,57 @@
+tomcat() {
+  importCommands("eXo.server") ;
+  server = Tomcat(eXo.env.workingDir + "/exo-tomcat") ; 
+
+  ModuleDeploy() {
+    maven = maven() ;
+    String[] mvnArgs = {"clean", "install"} ;
+    maven.MavenTask(eXo.env.currentDir, mvnArgs).execute() ;
+     
+    src = new File("target") ;
+    File[] child =  src.listFiles();
+    for(i = 0; i < child.length; i++) {
+      File file =  child[i] ;
+      if(file.getName().endsWith(".jar")) {
+        eXo.System.verbose("COPY", file.getName() + " to " + server.deployLibDir) ;
+        eXo.IOUtil.copyFile(file.getAbsolutePath(), server.deployLibDir + "/"  + file.getName()) ;
+      } else if(file.getName().endsWith(".war")) {
+        eXo.System.verbose("COPY", file.getName() + " to " + server.deployWebappDir) ;
+        eXo.IOUtil.copyFile(file.getAbsolutePath(), server.deployWebappDir + "/"  + file.getName()) ;
+      }
+    }
+  }
+
+  ContextDeploy() {
+    folder = new File("src/main/resources/tomcat") ;
+    File[] child =  folder.listFiles();
+    String destination = server.serverHome + "/conf/Catalina/localhost" ;
+    for(i = 0; i < child.length; i++) {
+      File file =  child[i] ;
+      if(file.getName().endsWith(".xml")) {
+        eXo.System.verbose("COPY", file.getName() + " to " + destination) ;
+        eXo.IOUtil.copyFile(file.getAbsolutePath(), destination + "/"  + file.getName()) ;
+      }
+    }
+  }
+  return this ;
+}
+
+tomcat(String[] args) {
+  printInstructions() {
+  
+  }
+
+  if(args.length == 0) {
+    printInstructions() ;
+    return ;
+  }
+
+  String  tomcatcommand = args[0] ;
+  args =  eXo.util.shift(args) ;
+  tomcat = tomcat() ;
+  if("--deploy=context".equals(tomcatcommand)) {
+    tomcat.ContextDeploy() ;
+  } else if("--deploy=module".equals(tomcatcommand)) {
+    tomcat.ModuleDeploy() ;
+  }
+}

@@ -2,9 +2,8 @@ alias ls="ls --color"
 alias cdhome="cd ~"
 alias cdwinhome="cd $USER_HOME"
 alias cdback='cd  $OLDPWD'
-alias cdbasedir="cd $BASE_DIRECTORY"
 
-alias mvnrepoclean="rm -rf $M2_REPO/exo*"
+alias mvnrepoclean="rm -rf $M2_REPO/org/exoplatform/* "
 
 alias mvnmodulecleaninstall="mvn clean install"
 alias mvnmoduledeploy="mvn clean install exo:deploy "
@@ -33,5 +32,6 @@ alias tomcatCleanRun="cd $EXO_WORKING_DIR/exo-tomcat/bin &&
 alias tomcatPortletDeploy="mvn compile  jar:jar && cp target/*.jar  src/webapp/WEB-INF/lib/"
 alias tomcatContextDeploy="cp src/resources/tomcat/*.xml  $EXO_WORKING_DIR/exo-tomcat/conf/Catalina/localhost/"
 
+alias tomcat="exobsh.sh tomcat"
 alias exobuild="exobsh.sh exobuild"
 alias exosvn="exobsh.sh exosvn"

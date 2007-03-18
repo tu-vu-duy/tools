@@ -1,4 +1,32 @@
 exosvn() {
+  Param(String[] args) {
+    include = null; exclude = null; workingDir = null ;
+    for(i = 0; i < args.length; i++ ) {
+      if(args[i].startsWith("--include=")) {
+        include = args[i].substring("--include=".length()) ;
+      } else if(args[i].startsWith("--exclude=")) {
+        exclude = args.substring("--exclude=".length()) ;
+      } else {
+        workingDir =  args[i] ;
+      }
+    }
+    return this ;
+  }
+  
+  MatchFile(param) {
+    proc = Runtime.getRuntime().exec("svn st " + param.workingDir) ;
+    din = new DataInputStream( proc.getInputStream() );
+    files = new ArrayList() ;
+    while( (line = din.readLine()) != null ) {
+      if(line.matches(param.include)) {
+        files.add(line) ;
+        print(line);
+      }
+    }
+    return this ;
+  }
+  
+  
   UpdateTask(module) {
     descriptor =  TaskDescriptor("svn update", module) ;
     descriptor.description = "Run svn update again module " + module ;
@@ -11,43 +39,22 @@ exosvn() {
   
   SVNAddTask(String[] args) {
     descriptor =  TaskDescriptor("svn add", "") ;
-    
     execute() throws Exception {
-      String include = null, exclude = null ;
-      descriptor.workingDir = "" ;
-      for(i = 0; i < args.length; i++ ) {
-        if(args[i].startsWith("--include=")) {
-          include = args[i].substring("--include=".length()) ;
-        } else if(args[i].startsWith("--exclude=")) {
-          exclude = args.substring("--exclude=".length()) ;
-        } else {
-          descriptor.workingDir =  args[i] ;
-        }
-      }
-      System.setProperty("user.dir", descriptor.workingDir) ;
-      if(include == null) include = "^\\?.*" ;
-      proc = Runtime.getRuntime().exec("svn st " + descriptor.workingDir) ;
+      param = Param(args) ;
+      if(param.workingDir == null)  param.workingDir = descriptor.workingDir ;
+      if(param.include == null) param.include = "^\\?.*" ;
+      System.setProperty("user.dir",  param.workingDir) ;
 
-      din = new DataInputStream( proc.getInputStream() );
-      files = new ArrayList() ;
-      while( (line = din.readLine()) != null ) {
-        if(line.matches(include)) {
-          files.add(line) ;
-          print(line);
-        }
-      }
-
+      matches =  MatchFile(param) ;
+      proc =  matches.proc ;
       int exitValue = proc.exitValue();
-
-      if(exitValue == 0 && files.size() > 0) {
+      if(exitValue == 0 && matches.files.size() > 0) {
         String input = eXo.System.readInput("Do you want to add the above files[yes]") ;
         if("yes".equals(input)) {
           StringBuilder b = new StringBuilder() ;
           b.append("svn add ");
-          for(i = 0; i < files.size();i++) {
-            String file =  files.get(i) ;       
-            file =  file.substring(6) ;
-            b.append(file);
+          for(i = 0; i < matches.files.size();i++) { 
+            b.append(matches.files.get(i).substring(6)); 
           }
           proc = Runtime.getRuntime().exec(b.toString()) ;
         }
@@ -63,12 +70,31 @@ exosvn() {
   SVNRemoveTask(String module, String filter) {
     descriptor =  TaskDescriptor("svn remove", "") ;
     execute() {
-      proc = Runtime.getRuntime().exec("svn st " + descriptor.workingDir);
-      din = new DataInputStream( proc.getInputStream() );
-      while( (line = din.readLine()) != null ) {
-        print(line);
+      param = Param(args) ;
+      if(param.workingDir == null)  param.workingDir = descriptor.workingDir ;
+      if(param.include == null) param.include = "\\!\\?.*" ;
+      System.setProperty("user.dir",  param.workingDir) ;
+
+      matches =  MatchFile(param) ;
+      proc =  matches.proc ;
+      int exitValue = proc.exitValue();
+      if(exitValue == 0 && matches.files.size() > 0) {
+        String input = eXo.System.readInput("Do you want to remove the above files[yes]") ;
+        if("yes".equals(input)) {
+          StringBuilder b = new StringBuilder() ;
+          b.append("svn rm ");
+          for(i = 0; i < matches.files.size();i++) {
+            b.append(matches.files.get(i).substring(6)); 
+          }
+          proc = Runtime.getRuntime().exec(b.toString()) ;
+        }
+      } else {
+        print("Cannot perform the svn command, svn  exit with the code " + exitValue); 
       }
+      errStream = new DataInputStream( proc.getInputStream() );
+      while( (line = errStream.readLine()) != null ) print(line) ;
     }
+    return this ;
   }
 
   return this ;
@@ -89,5 +115,7 @@ exosvn(String[] args) {
   exosvn = exosvn() ;
   if ("add".equals(svncommand)) {
     exosvn.SVNAddTask(args).execute() ;
+  } else if ("rm".equals(svncommand)) {
+    exosvn.SVNRemoveTask(args).execute() ;
   }
 }

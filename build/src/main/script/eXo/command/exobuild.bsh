@@ -1,61 +1,6 @@
 import java.util.ArrayList ; 
 
 exobuild(String[] args) {
-  maven() {
-    MavenTask(String projectDir, String[] args) {
-      descriptor =  TaskDescriptor("Maven Task", projectDir) ;
-      descriptor.description = "Run mvn " + args + " again module " + projectDir ;
-
-      String[] mavenArgs = args ;
-
-      execute() {
-        System.setProperty("user.dir", descriptor.workingDir) ;
-        URL[] mvnClasspath = {
-          new URL("file:" + m2Home + "/core/boot/classworlds-1.1.jar"), 
-        } ;
-        ClassLoader contextLoader= Thread.currentThread().getContextClassLoader();
-        ClassLoader mvnLoader = new URLClassLoader(mvnClasspath, contextLoader);
-        Thread.currentThread().setContextClassLoader(mvnLoader);
-
-        int exitCode = org.codehaus.classworlds.Launcher.mainWithExitCode(mavenArgs);
-        System.gc() ;
-        if(exitCode != 0) {
-          throw new Exception("BUILD MODULE :" + descriptor.workingDir + " IS FAIL");
-        }
-        Thread.currentThread().setContextClassLoader(contextLoader); 
-      }
-      return this ;
-    }
-
-    ExoMavenDeployTask(String projectDir, String productDescriptor, String server)  {
-      System.setProperty("clean", "true") ;
-      String[] mavenArgs = {"-P", server, "-f", productDescriptor, "deploy"} ;
-      task = MavenTask(projectDir, mavenArgs) ;
-      task.descriptor.description = "Run mvn -f " + productDescriptor + " -Dclean deploy again module " + projectDir ;
-      return task ;
-    }
-    
-    ExoMavenSiteTask(String projectDir, String productDescriptor, String server)  {
-      String[] mavenArgs = {"site"} ;
-      task = MavenTask(projectDir, mavenArgs) ;
-      task.descriptor.description = "Run mvn site " + projectDir ;
-      return task ;
-    }
-
-    ExoMavenV2xTestTask(testId)  {
-      System.setProperty("executeId", testId) ;
-      String[] mavenArgs = {"exo:execute"} ;
-      task = MavenTask(eXo.env.eXoProjectsDir + "/exo-test/webunit-suites", mavenArgs) ;
-      task.descriptor.description = "Run mvn exo:execute -DexecuteId=" + testId + " again module " + projectDir ;
-      return task ;
-    }
-
-    String m2Home= eXo.env.baseDir + "/maven2" ;
-    System.setProperty("maven.home", m2Home) ;
-    System.setProperty("classworlds.conf", m2Home + "/bin/m2.conf") ;
-    return this ;
-  }
-
 
   printInstructions() {
     print(
