@@ -16,7 +16,7 @@ BSH_JAVA_HOME=$JAVA_HOME
 BSH_M2_REPOS="file:$BSH_EXO_BASE_DIRECTORY/exo-dependencies/repository, http://vnserver.exoplatform.org/maven2"
 
 if [ -e "maven2/conf/template-settings.xml" ] ; then
-  JAVA_DIR_SUB=`echo $EXO_BASE_DIRECTORY | sed -e 's/\\//\\\\\//g'`
+  JAVA_DIR_SUB=`echo $JAVA_DIR | sed -e 's/\\//\\\\\//g'`
   # echo $JAVA_DIR_SUB
   eval "sed -e 's/@java.dir@/$JAVA_DIR_SUB/g' maven2/conf/template-settings.xml > maven2/conf/settings.xml"
 fi
@@ -46,7 +46,6 @@ if [ -e "${PORTABLE_DIR}/tools/env.sh" ] ; then
   source "${PORTABLE_DIR}/tools/env.sh"
 fi
 
-  echo "===> ${EXO_SH_SCRIPT}/exoscript.sh"
 if [ -e "${EXO_SH_SCRIPT}/exoscript.sh" ] ; then
   source "${EXO_SH_SCRIPT}/exoscript.sh"
 fi
