@@ -216,7 +216,7 @@ Module() {
       this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.api", "jar", version)) ;
       this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", version)) ;
       this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.engine", "jar", "3.0")) ;
-      this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.bonita", "jar", version)) ;
+      //this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.bonita", "jar", version)) ;
 
       this.workflow = Project("org.exoplatform.ecm", "exo.ecm.portlet.workflow", "exo-portlet", version);
       return this ;
