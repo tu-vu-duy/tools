@@ -83,7 +83,8 @@ Module() {
       this.document.addDependency(Project("poi", "poi-scratchpad", "jar", "3.0-alpha1"));
       
       
-      this.organization = Project("org.exoplatform.core", "exo.core.component.organization", "jar", version) ;
+      this.organization = Project("org.exoplatform.core", "exo.core.component.organization.api", "jar", version) ;
+      this.organization.addDependency(Project("org.exoplatform.core", "exo.core.component.organization.jdbc", "jar", version));
       this.security = Project("org.exoplatform.core", "exo.core.component.security", "jar", version) ;
       
       this.xmlProcessing = Project("org.exoplatform.core", "exo.core.component.xml-processing", "jar", version) ;
