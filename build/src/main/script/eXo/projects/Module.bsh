@@ -144,6 +144,7 @@ Module() {
       this.resources = Project("org.exoplatform.portal", "exo.portal.component.resources", "jar", version) ;
       this.xmlParser = Project("org.exoplatform.portal", "exo.portal.component.xml-parser", "jar", version) ;
       this.xmlParser.addDependency(Project("commons-httpclient", "commons-httpclient", "jar", "3.0"));
+      this.xmlParser.addDependency(Project("commons-codec", "commons-codec", "jar", "1.3"));
       return this ;
     }
     this.component = component() ;
