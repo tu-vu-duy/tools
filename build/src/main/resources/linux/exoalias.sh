@@ -26,7 +26,7 @@ alias tomcatCleanRun="cd $EXO_WORKING_DIR/exo-tomcat/bin &&
 		                  rm -rf ../temp/* &&
                       rm -rf ../work/* &&
                       rm -rf ../logs/*  &&
-                      chmod +x *.sh && ./exo-run.sh "
+                      chmod +x *.sh && ./eXo.sh run "
 
 
 alias tomcatPortletDeploy="mvn compile  jar:jar && cp target/*.jar  src/webapp/WEB-INF/lib/"

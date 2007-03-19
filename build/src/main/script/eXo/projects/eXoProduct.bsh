@@ -85,8 +85,8 @@ eXoProduct() {
     product.addDependencies(portal.portlet.web) ;
     product.addDependencies(portal.portlet.site) ;
     
-    product.addServerPatch("tomcat", portal.server.tomcat) ;
-    product.addServerPatch("jboss",  portal.server.jboss) ;
+    product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+    product.addServerPatch("jboss",  portal.server.jboss.patch) ;
     
     product.codeRepo = "portal/trunk" ;
     product.dependencyCodeRepos.add("tools/trunk");

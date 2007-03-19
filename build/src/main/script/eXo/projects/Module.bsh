@@ -197,8 +197,18 @@ Module() {
     this.web = web() ;
     
     server() {
-      this.tomcat = Project("exo-portal", "exo-portal.server.tomcat", "jar", version);
-      this.jboss = Project("exo-portal", "exo-portal.server.jboss", "jar", version);
+      tomcat() {
+        this.patch = Project("org.exoplatform.portal", "exo.portal.server.tomcat.patch", "jar", version);
+        return this ;
+      }
+      this.tomcat = tomcat() ;
+      
+      jboss() {
+        this.patch = Project("org.exoplatform.portal", "exo.portal.server.jboss.patch", "jar", version);
+        return this ;
+      }
+      this.jboss = jboss() ;
+
       return this; 
     }
     this.server = server() ;
