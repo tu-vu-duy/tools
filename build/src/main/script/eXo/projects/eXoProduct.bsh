@@ -117,8 +117,8 @@ eXoProduct() {
     product.addDependencies(ecm.portlet.ecm) ;
     product.addDependencies(ecm.portlet.workflow) ;
     
-    product.addServerPatch("tomcat", portal.server.tomcat) ;
-    product.addServerPatch("jboss",  portal.server.jboss) ;
+    product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+    product.addServerPatch("jboss",  portal.server.jboss.patch) ;
     
     product.codeRepo = "ecm/trunk" ;
     product.dependencyCodeRepos.add("tools/trunk");
