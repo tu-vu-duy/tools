@@ -248,5 +248,23 @@ Module() {
     return this ;
   }
   
+  groupware(kernel, core, eXoPortletContainer, jcr, portal, selectVersion) {
+    String version = selectVersion ;
+    
+    portlet() {
+      this.forum = Project("org.exoplatform.groupware", "exo.groupware.portlet.forum.webapp", "exo-portlet", version);
+      this.forum.addDependency(Project("org.exoplatform.groupware", "exo.groupware.portlet.forum.component", "jar",  version)) ;
+
+      this.mail = Project("org.exoplatform.groupware", "exo.groupware.portlet.mail.webapp", "exo-portlet", version);
+      this.mail.addDependency(Project("org.exoplatform.groupware", "exo.groupware.portlet.mail.component", "jar",  version)) ;
+
+      this.calendar = Project("org.exoplatform.groupware", "exo.groupware.portlet.calendar.webapp", "exo-portlet", version);
+      this.calendar.addDependency(Project("org.exoplatform.groupware", "exo.groupware.portlet.calendar.component", "jar",  version)) ;
+      return this ;
+    }
+    this.portlet = portlet();
+    
+    return this ;
+  }
   return  this; 
 }

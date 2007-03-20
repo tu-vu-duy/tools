@@ -33,11 +33,9 @@ exobuild(String[] args) {
   boolean build_ = false ;
   boolean buildDependencies_ = false ;
   boolean update_ = false ;
-  boolean runTest_ = false ;
   boolean ask = false ;
   boolean generateSite = false ;
 
-  String mvnTestId_ = null ; 
   maven = maven() ;
   exosvn = exosvn() ;
   server = null ;
@@ -47,7 +45,6 @@ exobuild(String[] args) {
   for(int i = 0; i < args.length; i++) {
     String arg = args[i] ;
     if ("--update".equals(arg)) update_ = true ;
-    else if ("--test".equals(arg))  runTest_ = true ;
     else if ("--build".equals(arg))  build_ = true ;
     else if ("--build-dependencies".equals(arg))  buildDependencies_ = true ;
     else if ("--site".equals(arg))  generateSite = true ;
@@ -59,10 +56,16 @@ exobuild(String[] args) {
       if(arg.equals("--database=mysql")) database = Database().MysqlDB() ;
     } else if ("--product=exo-portal".equals(arg)) {
       product = eXoProduct().eXoPortalProduct();
-      mvnTestId_ = "default" ;
+    } else if ("--product=portal".equals(arg)) {
+      product = eXoProduct().eXoPortalProduct();
     } else if ("--product=exo-ecm".equals(arg)) {
       product = eXoProduct().eXoECMProduct();
-      mvnTestId_ = "ecm" ;
+    } else if ("--product=ecm".equals(arg)) {
+      product = eXoProduct().eXoECMProduct();
+    } else if ("--product=groupware".equals(arg)) {
+      product = eXoProduct().eXoGroupwareProduct();
+    } else if ("--product=all".equals(arg)) {
+      product = eXoProduct().eXoAllProduct();
     }
   }
   
@@ -109,12 +112,6 @@ exobuild(String[] args) {
     tasks.add(database.ConfigureTask(product, server)) ;
   }
   
-  if(runTest_) {
-    tasks.add(server.RunTask());
-    tasks.add(maven.ExoMavenV2xTestTask(mvnTestId_));
-    tasks.add(server.StopTask());
-  }
-  
   if(generateSite) {
     String[] mvnArgs = {"site"} ;
     for(i = 0; i < product.dependencyCodeRepos.size(); i++) {
@@ -133,8 +130,5 @@ exobuild(String[] args) {
     task.descriptor.report() ;
   }
   
-  if(runTest_) {
-    tasks.add(server.StopTask());
-  }
   System.exit(0) ;
 }

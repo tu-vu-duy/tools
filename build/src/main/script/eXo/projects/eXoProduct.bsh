@@ -127,13 +127,88 @@ eXoProduct() {
     product.dependencyCodeRepos.add("portal/trunk");
     return product ;
   }
+
+  eXoGroupwareProduct() {
+    product = Product();
+    product.name = "eXoGroupware" ;
+    product.portalwar = "portal.war" ;
+    
+    Module = Module();
+    
+    kernel = Module.kernel("2.0.3") ;
+    core = Module.core("2.0.3") ;
+    eXoPortletContainer = Module.eXoPortletContainer("1.5") ;
+    eXoJcr = Module.eXoJcr("1.5") ;
+    portal = Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
+    groupware = Module.groupware(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
+    
+    product.addDependencies(portal.web.portal) ;
+    product.addDependencies(portal.portlet.content) ;
+    product.addDependencies(portal.portlet.exoadmin) ;
+    product.addDependencies(portal.portlet.web) ;
+    product.addDependencies(portal.portlet.site) ;
+    
+    product.addDependencies(groupware.portlet.forum) ;
+    product.addDependencies(groupware.portlet.mail) ;
+    product.addDependencies(groupware.portlet.calendar) ;
+    
+    product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+    product.addServerPatch("jboss",  portal.server.jboss.patch) ;
+    
+    product.codeRepo = "groupware/trunk" ;
+    product.dependencyCodeRepos.add("tools/trunk");
+    product.dependencyCodeRepos.add("kernel/trunk");
+    product.dependencyCodeRepos.add("core/trunk");
+    product.dependencyCodeRepos.add("portal/trunk");
+    return product ;
+  }
+
+  eXoAllProduct() {
+    product = Product();
+    product.name = "eXoAllProduct" ;
+    product.portalwar = "ecmportal.war" ;
+    
+    Module = Module();
+    
+    kernel = Module.kernel("2.0.3") ;
+    core = Module.core("2.0.3") ;
+    eXoPortletContainer = Module.eXoPortletContainer("1.5") ;
+    eXoJcr = Module.eXoJcr("1.5") ;
+    portal = Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
+    ecm = Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
+    groupware = Module.groupware(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
+    
+    product.addDependencies(ecm.web.ecmportal) ;
+    product.addDependencies(portal.portlet.content) ;
+    product.addDependencies(portal.portlet.exoadmin) ;
+    product.addDependencies(portal.portlet.web) ;
+    product.addDependencies(portal.portlet.site) ;
+
+    product.addDependencies(ecm.portlet.ecm) ;
+    product.addDependencies(ecm.portlet.workflow) ;
+    
+    product.addDependencies(groupware.portlet.forum) ;
+    product.addDependencies(groupware.portlet.mail) ;
+    product.addDependencies(groupware.portlet.calendar) ;
+    
+    product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+    product.addServerPatch("jboss",  portal.server.jboss.patch) ;
+    
+    product.codeRepo = "groupware/trunk" ;
+    product.dependencyCodeRepos.add("tools/trunk");
+    product.dependencyCodeRepos.add("kernel/trunk");
+    product.dependencyCodeRepos.add("core/trunk");
+    product.dependencyCodeRepos.add("portal/trunk");
+    product.dependencyCodeRepos.add("ecm/trunk");
+    return product ;
+  }
   return this ;
 }
 
 eXoProduct(String[] name) {
   product = eXoProduct().eXoEcmExpProduct() ;
   server = tomcat(eXo.env.workingDir + "/exo-tomcat") ;
-  String[] repos = {"file:d:/java/exo-dependencies/repository", "http://10.0.0.21/maven2"} ;
+  String[] repos = {"file:d:/java/exo-dependencies/repository", "http://vnserver.exoplatform.org/maven2"} ;
   try {
     product.DeployTask(product, server, repos).execute() ;
   } catch(Exception ex) { ex.printStackTrace() ;}

@@ -75,7 +75,12 @@ Project(String gid, String id, String ptype, String pversion) {
         String fileName = null ;
         if("exo-portal".equals(type) || "exo-portlet".equals(type) || 
            "exo-war".equals(type) ||  "war".equals(type)) {
-          fileName = artifactId.substring(artifactId.lastIndexOf(".") + 1) + ".war" ;
+          String warName = artifactId ;
+          if(warName.endsWith(".webapp")) {
+            warName = warName.substring(0, warName.lastIndexOf(".")) ;
+          }
+          warName = warName.substring(warName.lastIndexOf(".") + 1) ;
+          fileName = warName + ".war" ;
           fileName = server.deployWebappDir + "/"  + fileName  ;
         } else {
           fileName = server.deployLibDir + "/" + artifactId + "-" + version + "." + type ;
