@@ -21,6 +21,24 @@ tomcat() {
     }
   }
 
+  QuickPortletDeploy() {
+    maven = maven() ;
+    String[] mvnArgs = {"compile", "jar:jar"} ;
+    maven.MavenTask(eXo.env.currentDir, mvnArgs).execute() ;
+     
+    dest = new File("src/main/webapp/WEB-INF/lib") ;
+    if(!dest.exists())  dest.mkdir() ;
+    src = new File("target") ;
+    File[] child =  src.listFiles();
+    for(i = 0; i < child.length; i++) {
+      File file =  child[i] ;
+      if(file.getName().endsWith(".jar")) {
+        eXo.System.verbose("COPY", file.getName() + " to " + server.deployLibDir) ;
+        eXo.IOUtil.copyFile(file.getAbsolutePath(), "src/main/webapp/WEB-INF/lib/"  + file.getName()) ;
+      }
+    }
+  }
+
   ContextDeploy() {
     folder = new File("src/main/resources/tomcat") ;
     File[] child =  folder.listFiles();
@@ -53,5 +71,7 @@ tomcat(String[] args) {
     tomcat.ContextDeploy() ;
   } else if("--deploy=module".equals(tomcatcommand)) {
     tomcat.ModuleDeploy() ;
+  } else if("--deploy=quickportlet".equals(tomcatcommand)) {
+    tomcat.QuickPortletDeploy() ;
   }
 }
