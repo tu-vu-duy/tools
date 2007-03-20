@@ -140,6 +140,7 @@ Module() {
     
     component(){
       this.data  = Project("org.exoplatform.portal", "exo.portal.component.data", "jar", version) ;
+      this.web = Project("org.exoplatform.portal", "exo.portal.component.web", "jar", version) ;
       this.portletRegistry  = Project("org.exoplatform.portal", "exo.portal.component.portlet-registry", "jar", version) ;
       this.resources = Project("org.exoplatform.portal", "exo.portal.component.resources", "jar", version) ;
       this.xmlParser = Project("org.exoplatform.portal", "exo.portal.component.xml-parser", "jar", version) ;
@@ -154,6 +155,7 @@ Module() {
       this.webuicore  = Project("org.exoplatform.portal", "exo.portal.webui.core", "jar", version) ;
       this.portal  = Project("org.exoplatform.portal", "exo.portal.webui.portal", "jar", version) ;
       this.portal.addDependency(webuicore) ;
+      this.portal.addDependency(component.web) ;
       this.portal.addDependency(component.resources) ;
       this.portal.addDependency(component.portletRegistry) ;
       this.portal.addDependency(component.data) ;
