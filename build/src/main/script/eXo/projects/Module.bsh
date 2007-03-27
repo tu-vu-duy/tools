@@ -229,6 +229,10 @@ Module() {
       this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.api", "jar", version)) ;
       this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", version)) ;
       this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.engine", "jar", "3.0")) ;
+      this.ecm.addDependency(Project("rome", "rome", "jar", "0.8")) ;
+      this.ecm.addDependency(Project("com.totsp.feedpod", "itunes-com-podcast", "jar", "0.2")) ;
+      this.ecm.addDependency(Project("ical4j", "ical4j", "jar", "0.9.20")) ;
+      this.ecm.addDependency(Project("jdom", "jdom", "jar", "1.0")) ;
       //this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.bonita", "jar", version)) ;
 
       this.workflow = Project("org.exoplatform.ecm", "exo.ecm.portlet.workflow", "exo-portlet", version);
