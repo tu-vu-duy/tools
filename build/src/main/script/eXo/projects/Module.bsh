@@ -42,7 +42,7 @@ Module() {
       
       this.command = Project("org.exoplatform.kernel", "exo.kernel.component.command", "jar", version) ;
       this.command.addDependency(Project("commons-chain", "commons-chain", "jar", "1.0"));
-
+      this.command.addDependency(Project("commons-digester", "commons-digester", "jar", "1.7"));
       this.cache   = Project("org.exoplatform.kernel", "exo.kernel.component.cache", "jar", version) ;
       
       this.remote  = Project("org.exoplatform.kernel", "exo.kernel.component.remote", "jar", version) ;
@@ -113,6 +113,8 @@ Module() {
       this.jcr = Project("exo-jcr", "exo-jcr.services.jcr.impl", "jar", version);
       this.jcr.addDependency(Project("exo-jcr", "exo-jcr.services.jcr.api", "jar", version));
       this.jcr.addDependency(Project("exo-jcr", "exo-jcr.services.ext", "jar", version));
+      this.jcr.addDependency(Project("exo-jcr", "exo-jcr.services.webdav", "jar", version));
+      this.jcr.addDependency(Project("exo-jcr", "exo-jcr.services.ftp", "jar", version));
       this.jcr.addDependency(Project("jcr", "jcr", "jar", "1.0"));
       this.jcr.addDependency(Project("concurrent", "concurrent", "jar", "1.3.2"));
       this.jcr.addDependency(Project("javagroups", "jgroups-all", "jar", "2.4"));
