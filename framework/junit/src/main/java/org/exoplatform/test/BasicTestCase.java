@@ -7,7 +7,7 @@ import java.util.Iterator;
 import junit.framework.TestCase;
 
 public  class BasicTestCase extends TestCase {
-  private static int testNumber_ = 1 ;
+  private static int testNumber_ = 1;
   protected int counter_ ;
 
   public BasicTestCase() {
