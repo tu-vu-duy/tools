@@ -88,6 +88,10 @@ Module() {
       this.security = Project("org.exoplatform.core", "exo.core.component.security", "jar", version) ;
       
       this.xmlProcessing = Project("org.exoplatform.core", "exo.core.component.xml-processing", "jar", version) ;
+      
+      this.resources = Project("org.exoplatform.core", "exo.core.component.resources.api", "jar", version);
+      this.resources.addDependency(Project("org.exoplatform.core", "exo.core.component.database", "jar", version));
+      
       return this ;
     }
     this.component = component() ;
@@ -173,6 +177,7 @@ Module() {
       this.portal.addDependency(core.component.security) ;
       this.portal.addDependency(core.component.xmlProcessing) ;
       this.portal.addDependency(core.component.document) ;
+      this.portal.addDependency(core.component.resources) ;
 
       this.portal.addDependency(jcr.services.jcr) ;
       this.portal.addDependency(eXoPortletContainer.services.jsr168) ;
