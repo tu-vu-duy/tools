@@ -6,25 +6,22 @@ exobuild(String[] args) {
     print(
       "\n\n" +
       "Usage the exobuild command: \n\n" +
-      "  exobuild --product=[product-name] [--update]  [--build-dependencies] [--deploy=tomcat,jboss,jonas] [--test] \n\n" +
+      "  exobuild --product=[portal,ecm,groupware,all] [--update]  [--build-dependencies] [--deploy=tomcat,jboss,jonas] \n\n" +
       "Options: \n" +
-      "  * --product            is mandatory. The possible names are exo-portal, exo-portal-exp, \n" +
-      "                         exo-ecm, exo-ecm-exp \n" + 
+      "  * --product            is mandatory. The possible names are portal, ecm, groupware, all \n" +
       "  * --update             is optional. If you add this option, exobuild  will make a \n" +
-      "                         exosvn update before it builds \n" +
+      "                         svn update before it builds \n" +
       "  * --build              is optional. If you add this option, the exobuild command \n" +
       "                         will compile and install the sub projects of the product, \n" +
       "  * --build-dependencies is optional. If you add this option, the exobuild command \n" +
       "                         will build the dependant modules of the product, \n" +
-      "                         for example: exo-platform, exo-portlet-container... \n" +
+      "                         for example: kernel, core, portal... \n" +
       "  * --deploy             is optional. The possible names are tomcat-server, jboss-server, and \n" +
       "                         jonas-server. If you enter only --deploy, the tomcat-server will be used \n" +
       "  * --database           is optional. This option must use with the --deploy option. The possible \n" +
       "                         values are hsql, mysql, oracle, postgres, derby and mssql \n" +
       "  * --ask                is optional. This option is used with --database option. it allow you to \n" +
-      "                         enter the connection url , username and password of the database server \n" +
-      "  * --test               is optional. The exobuild will run exo webunit test framework \n" +
-      "                         if you add this option \n"
+      "                         enter the connection url , username and password of the database server \n" 
     );
   }
 
