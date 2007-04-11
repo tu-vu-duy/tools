@@ -1,4 +1,4 @@
-##################### Working Environment ########################################
+##################### Working Environment ##########################################
 #PORTABLE_DIR=/Users/tuannguyen
 
 ##################### VARIABLE TO CUSTOMIZE ########################################
@@ -15,11 +15,6 @@ BSH_EXO_BASE_DIRECTORY=$JAVA_DIR
 BSH_JAVA_HOME=$JAVA_HOME
 BSH_M2_REPOS="file:$BSH_EXO_BASE_DIRECTORY/exo-dependencies/repository, http://vnserver.exoplatform.org/maven2"
 
-if [ -e "maven2/conf/template-settings.xml" ] ; then
-  JAVA_DIR_SUB=`echo $JAVA_DIR | sed -e 's/\\//\\\\\//g'`
-  # echo $JAVA_DIR_SUB
-  eval "sed -e 's/@java.dir@/$JAVA_DIR_SUB/g' maven2/conf/template-settings.xml > maven2/conf/settings.xml"
-fi
 ##################################################################################
 USER_HOME='/cygdrive/c/Documents\ and\ Settings/$USERNAME'
 
@@ -41,6 +36,11 @@ export EXO_BASE_DIRECTORY EXO_PROJECTS_SRC  BSH_EXO_BASE_DIRECTORY  BSH_M2_REPOS
 ##################################################################################
 # allways put and do not edit these following lines at the end this file 
 ################################################################################## 
+if [ -e "$EXO_PROJECTS_SRC/tools/trunk/config/maven2/template-settings.xml" ] ; then
+  JAVA_DIR_SUB=`echo $JAVA_DIR | sed -e 's/\\//\\\\\//g'`
+  # echo $JAVA_DIR_SUB
+  eval "sed -e 's/@java.dir@/$JAVA_DIR_SUB/g' $EXO_PROJECTS_SRC/tools/trunk/config/maven2/template-settings.xml > maven2/conf/settings.xml"
+fi
 
 if [ -e "${PORTABLE_DIR}/tools/env.sh" ] ; then
   source "${PORTABLE_DIR}/tools/env.sh"
