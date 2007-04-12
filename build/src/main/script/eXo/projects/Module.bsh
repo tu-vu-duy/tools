@@ -192,6 +192,7 @@ Module() {
       this.exoadmin = Project("org.exoplatform.portal", "exo.portal.portlet.exoadmin", "exo-portlet", version);
       this.site = Project("org.exoplatform.portal", "exo.portal.portlet.site", "exo-portlet", version);
       this.web = Project("org.exoplatform.portal", "exo.portal.portlet.web", "exo-portlet", version);
+      this.test = Project("org.exoplatform.portal", "exo.portal.portlet.test", "exo-portlet", version);
       return this ;
     }
     this.portlet = portlet();
