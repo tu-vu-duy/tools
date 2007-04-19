@@ -99,7 +99,7 @@ eXoProduct() {
   eXoECMProduct() {
     product = Product();
     product.name = "eXoECM" ;
-    product.portalwar = "ecmportal.war" ;
+    product.portalwar = "portal.war" ;
     
     Module = Module();
     
@@ -167,7 +167,7 @@ eXoProduct() {
   eXoAllProduct() {
     product = Product();
     product.name = "eXoAllProduct" ;
-    product.portalwar = "ecmportal.war" ;
+    product.portalwar = "portal.war" ;
     
     Module = Module();
     

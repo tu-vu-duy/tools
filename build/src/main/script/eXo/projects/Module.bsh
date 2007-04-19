@@ -249,8 +249,7 @@ Module() {
     this.portlet = portlet();
     
     web() {
-      this.ecmportal = Project("org.exoplatform.ecm", "exo.ecm.web.ecmportal", "exo-portal", version);
-      //this.ecmportal.addDependency(kernel.misc.drools) ;
+      this.ecmportal = Project("org.exoplatform.ecm", "exo.ecm.web.portal", "exo-portal", version);
       this.ecmportal.addDependency(portal.web.eXoResources) ;
       this.ecmportal.addDependency(portal.webui.portal) ;
       this.ecmportal.addDependency(jcr.frameworks.command) ;
