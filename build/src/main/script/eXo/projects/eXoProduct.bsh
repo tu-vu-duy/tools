@@ -75,8 +75,8 @@ eXoProduct() {
     
     kernel = Module.kernel("2.0.3") ;
     core = Module.core("2.0.3") ;
-    eXoPortletContainer = Module.eXoPortletContainer("1.5") ;
-    eXoJcr = Module.eXoJcr("1.5") ;
+    eXoPortletContainer = Module.eXoPortletContainer("2.0") ;
+    eXoJcr = Module.eXoJcr("1.6") ;
     portal = Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
     
     product.addDependencies(portal.web.portal) ;
@@ -105,8 +105,8 @@ eXoProduct() {
     
     kernel = Module.kernel("2.0.3") ;
     core = Module.core("2.0.3") ;
-    eXoPortletContainer = Module.eXoPortletContainer("1.5") ;
-    eXoJcr = Module.eXoJcr("1.5") ;
+    eXoPortletContainer = Module.eXoPortletContainer("2.0") ;
+    eXoJcr = Module.eXoJcr("1.6") ;
     portal = Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
     ecm = Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
     
@@ -138,8 +138,8 @@ eXoProduct() {
     
     kernel = Module.kernel("2.0.3") ;
     core = Module.core("2.0.3") ;
-    eXoPortletContainer = Module.eXoPortletContainer("1.5") ;
-    eXoJcr = Module.eXoJcr("1.5") ;
+    eXoPortletContainer = Module.eXoPortletContainer("2.0") ;
+    eXoJcr = Module.eXoJcr("1.6") ;
     portal = Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
     groupware = Module.groupware(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
     
@@ -173,8 +173,8 @@ eXoProduct() {
     
     kernel = Module.kernel("2.0.3") ;
     core = Module.core("2.0.3") ;
-    eXoPortletContainer = Module.eXoPortletContainer("1.5") ;
-    eXoJcr = Module.eXoJcr("1.5") ;
+    eXoPortletContainer = Module.eXoPortletContainer("2.0") ;
+    eXoJcr = Module.eXoJcr("1.6") ;
     portal = Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
     ecm = Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
     groupware = Module.groupware(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");

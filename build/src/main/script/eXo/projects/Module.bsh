@@ -73,7 +73,7 @@ Module() {
       this.database.addDependency(Project("jotm", "jotm_jrmp_stubs", "jar", "2.0.10"));
       this.database.addDependency(Project("jotm", "jotm", "jar", "2.0.10"));
       this.database.addDependency(Project("howl", "howl-logger", "jar", "0.1.11"));
-      this.database.addDependency(Project("hsqldb", "hsqldb", "jar", "1.8.0.1"));
+      this.database.addDependency(Project("hsqldb", "hsqldb", "jar", "1.8.0.7"));
       this.database.addDependency(Project("javax.resource", "connector-api", "jar", "1.5"));
       
       this.document = Project("org.exoplatform.core", "exo.core.component.document", "jar", version) ;
@@ -97,12 +97,18 @@ Module() {
     this.component = component() ;
     return this ;
   }
-  
+
   eXoPortletContainer(String version) {
     this.version = version ;
     services() {
-      this.jsr168 = Project("exo-portlet-container", "exo-portlet-container.services.jsr168.impl", "jar", version);
-      this.jsr168.addDependency(Project("exo-portlet-container", "exo-portlet-container.services.jsr168.api", "jar", version));
+      /*
+      this.jsr168 = Project("org.exoplatform.portletcontainer", "exo-portlet-container.services.core", "jar", version);
+      this.jsr168.addDependency(Project("org.exoplatform.portletcontainer", "exo-portlet-container.services.plugins.pc", "jar", version));
+      this.jsr168.addDependency(Project("javax.portlet", "portlet-api", "jar", "2.0"));
+      */
+
+      this.jsr168 = Project("exo-portlet-container", "exo-portlet-container.services.jsr168.impl", "jar", "1.5");
+      this.jsr168.addDependency(Project("exo-portlet-container", "exo-portlet-container.services.jsr168.api", "jar", "1.5"));
       this.jsr168.addDependency(Project("javax.portlet", "portlet-api", "jar", "1.0"));
       this.jsr168.addDependency(Project("commons-pool", "commons-pool", "jar", "1.2"));
       return this ; 
@@ -114,27 +120,27 @@ Module() {
   eXoJcr(String selectVersion) {
     String version = selectVersion ;
     services(){
-      this.jcr = Project("exo-jcr", "exo-jcr.services.jcr.impl", "jar", version);
-      this.jcr.addDependency(Project("exo-jcr", "exo-jcr.services.jcr.api", "jar", version));
-      this.jcr.addDependency(Project("exo-jcr", "exo-jcr.services.ext", "jar", version));
-      this.jcr.addDependency(Project("exo-jcr", "exo-jcr.services.webdav", "jar", version));
-      this.jcr.addDependency(Project("exo-jcr", "exo-jcr.services.ftp", "jar", version));
+      this.jcr = Project("org.exoplatform.jcr", "exo.jcr.component.core", "jar", version);
+      this.jcr.addDependency(Project("org.exoplatform.jcr", "exo.jcr.component.ext", "jar", version));
+      this.jcr.addDependency(Project("org.exoplatform.jcr", "exo.jcr.component.webdav", "jar", version));
+      this.jcr.addDependency(Project("org.exoplatform.jcr", "exo.jcr.component.ftp", "jar", version));
+
       this.jcr.addDependency(Project("jcr", "jcr", "jar", "1.0"));
       this.jcr.addDependency(Project("concurrent", "concurrent", "jar", "1.3.2"));
       this.jcr.addDependency(Project("javagroups", "jgroups-all", "jar", "2.4"));
       this.jcr.addDependency(Project("lucene", "lucene", "jar", "1.4.3"));
       
-      this.webdav = Project("exo-jcr", "exo-jcr.services.webdav", "jar", version);
       return this ;
     }
     this.services = services() ;
     
-    frameworks(){
-      this.web= Project("exo-jcr", "exo-jcr.frameworks.web", "jar", version);
+    frameworks() {
+      this.web= Project("org.exoplatform.jcr", "exo.jcr.framework.web", "jar", version);
       this.web.addDependency(Project("commons-chain", "commons-chain", "jar", "1.0"));
       this.web.addDependency(Project("log4j", "log4j", "jar", "1.2.8"));
       
-      this.command = Project("exo-jcr", "exo-jcr.frameworks.command", "jar", version) ; 
+      this.command = Project("org.exoplatform.jcr", "exo.jcr.framework.command", "jar", version) ; 
+
       return this ;
     }
     this.frameworks = frameworks() ;
