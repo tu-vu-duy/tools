@@ -1,4 +1,4 @@
-rem @echo off
+@echo off
 
 set BSH_DIR=%EXO_BASE_DIRECTORY%\eXoProjects\tools\trunk\build
 set CURRENT_DIR=%cd%

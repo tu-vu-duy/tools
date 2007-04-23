@@ -1,3 +1,5 @@
+@echo off
+
 rem ##################### Working Environment ########################################
 
 set PORTABLE_DIR=d:
