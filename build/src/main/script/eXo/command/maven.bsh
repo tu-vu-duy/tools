@@ -10,7 +10,8 @@ maven() {
     execute() {
       System.setProperty("user.dir", descriptor.workingDir) ;
       URL[] mvnClasspath = {
-        new URL("file:" + m2Home + "/core/boot/classworlds-1.1.jar"), 
+        new URL("file:" + m2Home + "/core/boot/classworlds-1.1.jar"),
+        new URL("file:" + m2Home + "/boot/classworlds-1.1.jar"),
       } ;
       ClassLoader contextLoader= Thread.currentThread().getContextClassLoader();
       ClassLoader mvnLoader = new URLClassLoader(mvnClasspath, contextLoader);
