@@ -82,7 +82,6 @@ Module() {
       this.document.addDependency(Project("poi", "poi", "jar", "3.0-alpha1"));
       this.document.addDependency(Project("poi", "poi-scratchpad", "jar", "3.0-alpha1"));
       
-      
       this.organization = Project("org.exoplatform.core", "exo.core.component.organization.api", "jar", version) ;
       this.organization.addDependency(Project("org.exoplatform.core", "exo.core.component.organization.jdbc", "jar", version));
       this.security = Project("org.exoplatform.core", "exo.core.component.security", "jar", version) ;
@@ -202,6 +201,17 @@ Module() {
       return this ;
     }
     this.portlet = portlet();
+
+    eXoApplication() {
+      this.web = Project("org.exoplatform.portal", "exo.portal.eXoApplication.web.application", "jar", version);
+      var webWebapp = Project("org.exoplatform.portal", "exo.portal.eXoApplication.web.webResources", "war", version);
+      webWebapp.deployName = "eXoApplicationWeb" ;
+      this.web.addDependency(webWebapp) ;
+
+      this.framework = Project("org.exoplatform.portal", "exo.portal.eXoApplication.framework", "jar", version);
+      return this ;
+    }
+    this.eXoApplication = eXoApplication();
     
     web() {
       this.eXoResources = Project("org.exoplatform.portal", "exo.portal.web.eXoResources", "war", version);

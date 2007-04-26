@@ -8,9 +8,11 @@ Project(String gid, String id, String ptype, String pversion) {
   artifactId = id ;
   version = pversion ;
   type = ptype ;
+  deployName = null ;
+
   String extension = type ;
   if(type.equals("exo-portlet") || type.equals("exo-portal")) extension = "war" ;
-  relativePath = groupId.replace('.','/') + "/" + artifactId + "/" + version + "/" + artifactId + "-" + version + "." + extension ;
+  relativePath = groupId.replace('.', '/') + "/" + artifactId + "/" + version + "/" + artifactId + "-" + version + "." + extension ;
   
   tomcatDependency =  true ;
   jbossDependency =  true ;
@@ -72,14 +74,18 @@ Project(String gid, String id, String ptype, String pversion) {
         eXo.System.verbose("GET", groupId + "/" + artifactId + " version " + version + "\nFrom " + repository[i]) ;
         URL url = new URL(repository[i] + "/" + relativePath);
         is = url.openStream() ;
-        String fileName = null ;
+        String warName = null, fileName = null ;
         if("exo-portal".equals(type) || "exo-portlet".equals(type) || 
            "exo-war".equals(type) ||  "war".equals(type)) {
-          String warName = artifactId ;
-          if(warName.endsWith(".webapp")) {
-            warName = warName.substring(0, warName.lastIndexOf(".")) ;
+          if(deployName != null) {
+            warName = deployName ;
+          } else {
+            warName = artifactId ;
+            if(warName.endsWith(".webapp")) {
+              warName = warName.substring(0, warName.lastIndexOf(".")) ;
+            }
+            warName = warName.substring(warName.lastIndexOf(".") + 1) ;
           }
-          warName = warName.substring(warName.lastIndexOf(".") + 1) ;
           fileName = warName + ".war" ;
           fileName = server.deployWebappDir + "/"  + fileName  ;
         } else {
