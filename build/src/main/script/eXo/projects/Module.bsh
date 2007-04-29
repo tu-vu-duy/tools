@@ -128,6 +128,7 @@ Module() {
       this.jcr.addDependency(Project("concurrent", "concurrent", "jar", "1.3.2"));
       this.jcr.addDependency(Project("javagroups", "jgroups-all", "jar", "2.4"));
       this.jcr.addDependency(Project("lucene", "lucene", "jar", "1.4.3"));
+      this.jcr.addDependency(Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1"));
       
       return this ;
     }
@@ -235,6 +236,12 @@ Module() {
         return this ;
       }
       this.jboss = jboss() ;
+
+      jonas() {
+        this.patch = Project("org.exoplatform.portal", "exo.portal.server.jonas.patch", "jar", version);
+        return this ;
+      }
+      this.jonas = jonas() ;
 
       return this; 
     }

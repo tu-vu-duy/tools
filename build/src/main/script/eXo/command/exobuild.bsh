@@ -48,6 +48,7 @@ exobuild(String[] args) {
     else if ("--ask".equals(arg))  ask = true ;
     else if (arg.startsWith("--deploy"))  {
       if(arg.equals("--deploy=jboss")) server = Jboss(eXo.env.workingDir + "/exo-jboss") ;
+      else if(arg.equals("--deploy=jonas")) server = Jonas(eXo.env.workingDir + "/exo-jonas") ;
       else server = Tomcat(eXo.env.workingDir + "/exo-tomcat") ;
     } else if(arg.startsWith("--database")) {
       if(arg.equals("--database=mysql")) database = Database().MysqlDB() ;

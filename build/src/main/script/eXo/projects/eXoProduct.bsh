@@ -40,6 +40,7 @@ eXoProduct() {
         eXo.IOUtil.delete(server.serverHome) ;
         eXo.System.info("COPY", "Copy a clean server " + server.cleanServer);
         eXo.IOUtil.copyFolder(eXo.env.dependenciesDir + "/" + server.cleanServer, server.serverHome) ;
+        server.preDeploy(product) ;
         patches = getServerPatches(server.name) ;
         for(i = 0; i <  patches.size(); i++) {
           project = patches.get(i) ;
@@ -90,6 +91,7 @@ eXoProduct() {
     
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;
+    product.addServerPatch("jonas",  portal.server.jonas.patch) ;
     
     product.codeRepo = "portal/trunk" ;
     product.dependencyCodeRepos.add("tools/trunk");
@@ -122,6 +124,7 @@ eXoProduct() {
     
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;
+    product.addServerPatch("jonas",  portal.server.jonas.patch) ;
     
     product.codeRepo = "ecm/trunk" ;
     product.dependencyCodeRepos.add("tools/trunk");
@@ -157,6 +160,7 @@ eXoProduct() {
     
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;
+    product.addServerPatch("jonas",  portal.server.jonas.patch) ;
     
     product.codeRepo = "groupware/trunk" ;
     product.dependencyCodeRepos.add("tools/trunk");
@@ -196,6 +200,7 @@ eXoProduct() {
     
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;
+    product.addServerPatch("jonas",  portal.server.jonas.patch) ;
     
     product.codeRepo = "groupware/trunk" ;
     product.dependencyCodeRepos.add("tools/trunk");

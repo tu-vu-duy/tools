@@ -88,7 +88,7 @@ Database() {
   HsqlDB() {
     this.instance = DBInstance() ;
     this.instance.name = "hsql" ;
-    this.instance.drivers.add(Project("hsqldb", "hsqldb", "jar", "1.8.0.1")) ;
+    this.instance.drivers.add(Project("hsqldb", "hsqldb", "jar", "1.8.0.7")) ;
     
     this.instance.driverClass = "org.hsqldb.jdbcDriver";
     this.instance.dialect = "org.hibernate.dialect.HSQLDialect" ;

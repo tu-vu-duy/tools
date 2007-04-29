@@ -59,6 +59,14 @@ IOUtil() {
     out.close();
     eXo.System.verbose("INFO", "Create file " +  path) ;
   }
+  
+  createFolder(String path) {
+    File folder = new File(path);
+    if(!folder.exists()) {
+      folder.mkdirs();
+      eXo.System.verbose("INFO", "Create directory " +  path) ;
+    }
+  }
 
   getJarEntryContent(String fileName, String entryName) {
     JarFile jar = new JarFile(fileName) ;

@@ -28,6 +28,7 @@ ServerUtil() {
       }
     }
     b.append("</application>\n");
+    eXo.IOUtil.createFolder(deployEarDir + "/META-INF");
     FileOutputStream out = 
       new FileOutputStream(deployEarDir + "/META-INF/application.xml");
     out.write(b.toString().getBytes());

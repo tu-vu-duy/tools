@@ -65,7 +65,7 @@ Project(String gid, String id, String ptype, String pversion) {
         return ;
       } catch(java.io.IOException ex) { }
     }
-    throw new Exception("Cannot find the file : " + relativePath) ;
+    throw new Exception("Error while extracting the project : " + relativePath) ;
   }
   
   deployTo(String[] repository, Object server) {
@@ -118,7 +118,7 @@ Project(String gid, String id, String ptype, String pversion) {
         return ;
       } catch(java.io.IOException ex) { }
     }
-    throw new Exception("Cannot find the file : " + relativePath) ;
+    throw new Exception("Error while deploying the project : " + relativePath) ;
   }
   
   return this ;
