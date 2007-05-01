@@ -100,16 +100,16 @@ Module() {
   eXoPortletContainer(String version) {
     this.version = version ;
     services() {
-      /*
-      this.jsr168 = Project("org.exoplatform.portletcontainer", "exo-portlet-container.services.core", "jar", version);
-      this.jsr168.addDependency(Project("org.exoplatform.portletcontainer", "exo-portlet-container.services.plugins.pc", "jar", version));
+      this.jsr168 = Project("org.exoplatform.portletcontainer", "exo.pc.component.core", "jar", version);
+      this.jsr168.addDependency(Project("org.exoplatform.portletcontainer", "exo.pc.component.plugins.pc", "jar", version));
       this.jsr168.addDependency(Project("javax.portlet", "portlet-api", "jar", "2.0"));
-      */
 
+      /*
       this.jsr168 = Project("exo-portlet-container", "exo-portlet-container.services.jsr168.impl", "jar", "1.5");
       this.jsr168.addDependency(Project("exo-portlet-container", "exo-portlet-container.services.jsr168.api", "jar", "1.5"));
       this.jsr168.addDependency(Project("javax.portlet", "portlet-api", "jar", "1.0"));
       this.jsr168.addDependency(Project("commons-pool", "commons-pool", "jar", "1.2"));
+      */
       return this ; 
     }
     this.services = services();
@@ -206,7 +206,7 @@ Module() {
     eXoApplication() {
       this.web = Project("org.exoplatform.portal", "exo.portal.eXoApplication.web.application", "jar", version);
       var webWebapp = Project("org.exoplatform.portal", "exo.portal.eXoApplication.web.webResources", "war", version);
-      webWebapp.deployName = "eXoApplicationWeb" ;
+      webWebapp.deployName = "exo.app.web" ;
       this.web.addDependency(webWebapp) ;
 
       this.framework = Project("org.exoplatform.portal", "exo.portal.eXoApplication.framework", "jar", version);

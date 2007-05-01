@@ -1,5 +1,6 @@
-tomcat() {
-  importCommands("eXo.server") ;
+importCommands("eXo.server") ;
+
+exoproject() {
   server = Tomcat(eXo.env.workingDir + "/exo-tomcat") ; 
 
   ModuleDeploy() {
@@ -21,7 +22,7 @@ tomcat() {
     }
   }
 
-  QuickPortletDeploy() {
+  QuickWarDeploy() {
     maven = maven() ;
     String[] mvnArgs = {"compile", "jar:jar"} ;
     maven.MavenTask(eXo.env.currentDir, mvnArgs).execute() ;
@@ -54,7 +55,7 @@ tomcat() {
   return this ;
 }
 
-tomcat(String[] args) {
+exoproject(String[] args) {
   printInstructions() {
   
   }
@@ -64,14 +65,21 @@ tomcat(String[] args) {
     return ;
   }
 
-  String  tomcatcommand = args[0] ;
-  args =  eXo.util.shift(args) ;
-  tomcat = tomcat() ;
-  if("--deploy=context".equals(tomcatcommand)) {
-    tomcat.ContextDeploy() ;
-  } else if("--deploy=module".equals(tomcatcommand)) {
-    tomcat.ModuleDeploy() ;
-  } else if("--deploy=quickportlet".equals(tomcatcommand)) {
-    tomcat.QuickPortletDeploy() ;
+  exoproject = exoproject() ;
+  for(int i = 0; i < args.length; i++) {
+    String arg = args[i] ;
+    if("--server=jonas".equals(arg)) {
+      exoproject.server = Tomcat(eXo.env.workingDir + "/exo-jonas") ; 
+    } else if("--server=jboss".equals(arg)) {
+      exoproject.server = Tomcat(eXo.env.workingDir + "/exo-jboss") ; 
+    } else if("--server=tomcat".equals(arg)) {
+      exoproject.server = Tomcat(eXo.env.workingDir + "/exo-tomcat") ; 
+    } else if("--deploy=context".equals(arg)) {
+      exoproject.ContextDeploy() ;
+    } else if("--deploy=module".equals(arg)) {
+      exoproject.ModuleDeploy() ;
+    } else if("--deploy=quickwar".equals(arg)) {
+      exoproject.QuickWarDeploy() ;
+    }
   }
 }

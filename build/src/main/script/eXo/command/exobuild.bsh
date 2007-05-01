@@ -1,4 +1,5 @@
 import java.util.ArrayList ; 
+import java.io.File ; 
 
 exobuild(String[] args) {
 
@@ -6,14 +7,14 @@ exobuild(String[] args) {
     print(
       "\n\n" +
       "Usage the exobuild command: \n\n" +
-      "  exobuild --product=[portal,ecm,groupware,all] [--update]  [--build-dependencies] [--deploy=tomcat,jboss,jonas] \n\n" +
+      "  exobuild --product=[portal,ecm,groupware,all] [--update]  [--dependencies] [--deploy=tomcat,jboss,jonas] \n\n" +
       "Options: \n" +
       "  * --product            is mandatory. The possible names are portal, ecm, groupware, all \n" +
       "  * --update             is optional. If you add this option, exobuild  will make a \n" +
       "                         svn update before it builds \n" +
       "  * --build              is optional. If you add this option, the exobuild command \n" +
       "                         will compile and install the sub projects of the product, \n" +
-      "  * --build-dependencies is optional. If you add this option, the exobuild command \n" +
+      "  * --dependencies       is optional. If you add this option, the exobuild command \n" +
       "                         will build the dependant modules of the product, \n" +
       "                         for example: kernel, core, portal... \n" +
       "  * --deploy             is optional. The possible names are tomcat-server, jboss-server, and \n" +
@@ -28,10 +29,10 @@ exobuild(String[] args) {
   importCommands("eXo.server") ;
   importCommands("eXo.projects") ;
   boolean build_ = false ;
-  boolean buildDependencies_ = false ;
+  boolean dependencies_ = false ;
+  String  dependencyCodeRepos_ = null ;
   boolean update_ = false ;
   boolean ask = false ;
-  boolean generateSite = false ;
 
   maven = maven() ;
   exosvn = exosvn() ;
@@ -43,10 +44,12 @@ exobuild(String[] args) {
     String arg = args[i] ;
     if ("--update".equals(arg)) update_ = true ;
     else if ("--build".equals(arg))  build_ = true ;
-    else if ("--build-dependencies".equals(arg))  buildDependencies_ = true ;
-    else if ("--site".equals(arg))  generateSite = true ;
     else if ("--ask".equals(arg))  ask = true ;
-    else if (arg.startsWith("--deploy"))  {
+    else if (arg.startsWith("--dependencies"))  {
+      dependencies_ =  true ;
+      index = arg.indexOf('=') ;
+      if(index > 0) dependencyCodeRepos_ = arg.substring(index + 1) ;
+    } else if (arg.startsWith("--deploy"))  {
       if(arg.equals("--deploy=jboss")) server = Jboss(eXo.env.workingDir + "/exo-jboss") ;
       else if(arg.equals("--deploy=jonas")) server = Jonas(eXo.env.workingDir + "/exo-jonas") ;
       else server = Tomcat(eXo.env.workingDir + "/exo-tomcat") ;
@@ -72,6 +75,7 @@ exobuild(String[] args) {
     return ;
   }
   
+  if(dependencies_ && dependencyCodeRepos_ == null) dependencyCodeRepos_ = product.dependencyCodeRepos ;
   ArrayList tasks =  new ArrayList() ;
   
   if(database == null) database = Database().HsqlDB() ;
@@ -82,25 +86,29 @@ exobuild(String[] args) {
   }
     
   if(update_) {
-    if(buildDependencies_) {
-      for(i = 0; i < product.dependencyCodeRepos.size(); i++) {
-        String moduleDir = eXo.env.eXoProjectsDir + "/" + product.dependencyCodeRepos.get(i) ;
-        tasks.add(exosvn.UpdateTask(moduleDir));
+    if(dependencies_) {
+      String[] dependencyRepo = dependencyCodeRepos_.split(",") ;
+      for(i = 0; i < dependencyRepo.length; i++) {
+        String moduleDir = eXo.env.eXoProjectsDir + "/" + dependencyRepo[i].trim() ;
+        File directory = new File(moduleDir);
+        if(directory.exists()) tasks.add(exosvn.UpdateTask(moduleDir));
       }
     }
     tasks.add(exosvn.UpdateTask(eXo.env.eXoProjectsDir + "/" + product.codeRepo));
   }
 
-  String[] mvnArgs = {"clean", "install"} ;
-  if(buildDependencies_) {
-    for(i = 0; i < product.dependencyCodeRepos.size(); i++) {
-      String dependencyModuleDir = eXo.env.eXoProjectsDir + "/" + product.dependencyCodeRepos.get(i) ;
-      tasks.add(maven.MavenTask(dependencyModuleDir, mvnArgs));
-    }
-  }
 
-  String moduleDir = eXo.env.eXoProjectsDir + "/" + product.codeRepo ;
   if(build_) {
+    String[] mvnArgs = {"clean", "install"} ;
+    if(dependencies_) {
+      String[] dependencyRepo = dependencyCodeRepos_.split(",") ;
+      for(i = 0; i < dependencyRepo.length; i++) {
+        String moduleDir = eXo.env.eXoProjectsDir + "/" + dependencyRepo[i].trim() ;
+        File directory = new File(moduleDir);
+        if(directory.exists()) tasks.add(maven.MavenTask(moduleDir, mvnArgs));
+      }
+    }
+    String moduleDir = eXo.env.eXoProjectsDir + "/" + product.codeRepo ;
     tasks.add(maven.MavenTask(moduleDir, mvnArgs));
   }
   
@@ -110,15 +118,6 @@ exobuild(String[] args) {
     tasks.add(database.ConfigureTask(product, server)) ;
   }
   
-  if(generateSite) {
-    String[] mvnArgs = {"site"} ;
-    for(i = 0; i < product.dependencyCodeRepos.size(); i++) {
-      String dependencyModuleDir = eXo.env.eXoProjectsDir + "/" + product.dependencyCodeRepos.get(i) ;
-      tasks.add(maven.MavenTask(dependencyModuleDir, mvnArgs));
-    }
-    tasks.add(maven.MavenTask(moduleDir, mvnArgs));
-  }
-
   for(int i = 0; i < tasks.size(); i++) {
     task = tasks.get(i) ;
     long start = System.currentTimeMillis() ;
