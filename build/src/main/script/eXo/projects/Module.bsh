@@ -1,12 +1,17 @@
 Module() {    
-  tool(String selectVersion) {
-    String version =  selectVersion ;
+  tool(String version) {
+    this.version =  version ;
+    this.relativeMavenRepo =  "org/exoplatform/tool" ;
+    this.relativeSRCRepo =  "tools/trunk" ;
+    
     this.osbsh = Project("org.exoplatform.tool", "exo.tool.build", "jar", "2.0") ;
     return this ;
   }
   
-  kernel(String selectVersion) {
-    String version =  selectVersion ;
+  kernel(String version) {
+    this.version =  version ;
+    this.relativeMavenRepo =  "org/exoplatform/kernel" ;
+    this.relativeSRCRepo =  "kernel/trunk" ;
     
     this.commons = Project("org.exoplatform.kernel", "exo.kernel.commons", "jar", version) ;
     this.commons.addDependency(Project("commons-lang", "commons-lang", "jar", "2.1"));
@@ -53,8 +58,11 @@ Module() {
     return this ;
   }
 
-  core(String selectVersion) {
-    String version =  selectVersion ;
+  core(String version) {
+    this.version =  version ;
+    this.relativeMavenRepo =  "org/exoplatform/core" ;
+    this.relativeSRCRepo =  "core/trunk" ;
+
     component(){
       this.common = Project("org.exoplatform.core", "exo.core.component.common", "jar", version) ;
       this.common.addDependency(Project("directory-naming", "naming-core", "jar", "0.8"));
@@ -98,7 +106,10 @@ Module() {
   }
 
   eXoPortletContainer(String version) {
-    this.version = version ;
+    this.version =  version ;
+    this.relativeMavenRepo =  "org/exoplatform/portletcontainer" ;
+    this.relativeSRCRepo =  "portlet-container/branches/2.0" ;
+
     services() {
       /*
       this.jsr168 = Project("org.exoplatform.portletcontainer", "exo.pc.component.core", "jar", version);
@@ -116,8 +127,11 @@ Module() {
     return this ;
   }
 
-  eXoJcr(String selectVersion) {
-    String version = selectVersion ;
+  eXoJcr(String version) {
+    this.version =  version ;
+    this.relativeMavenRepo =  "org/exoplatform/jcr" ;
+    this.relativeSRCRepo =  "jcr/trunk" ;
+    
     services(){
       this.jcr = Project("org.exoplatform.jcr", "exo.jcr.component.core", "jar", version);
       this.jcr.addDependency(Project("org.exoplatform.jcr", "exo.jcr.component.ext", "jar", version));
@@ -147,8 +161,10 @@ Module() {
     return this ;
   }
   
-  portal(kernel, core, eXoPortletContainer, jcr, selectVersion) {
-    String version = selectVersion ;
+  portal(kernel, core, eXoPortletContainer, jcr, version) {
+    this.version =  version ;
+    this.relativeMavenRepo =  "org/exoplatform/portal" ;
+    this.relativeSRCRepo =  "portal/trunk" ;
     
     component(){
       this.data  = Project("org.exoplatform.portal", "exo.portal.component.data", "jar", version) ;
@@ -250,8 +266,10 @@ Module() {
     return this ;
   }
 
-  ecm(kernel, core, eXoPortletContainer, jcr, portal, selectVersion) {
-    String version = selectVersion ;
+  ecm(kernel, core, eXoPortletContainer, jcr, portal, version) {
+    this.version =  version ;
+    this.relativeMavenRepo =  "org/exoplatform/ecm" ;
+    this.relativeSRCRepo =  "ecm/trunk" ;
     
     portlet() {
       this.ecm = Project("org.exoplatform.ecm", "exo.ecm.portlet.ecm", "exo-portlet", version);
@@ -284,8 +302,10 @@ Module() {
     return this ;
   }
   
-  groupware(kernel, core, eXoPortletContainer, jcr, portal, selectVersion) {
-    String version = selectVersion ;
+  groupware(kernel, core, eXoPortletContainer, jcr, portal, version) {
+    this.version =  version ;
+    this.relativeMavenRepo =  "org/exoplatform/groupware" ;
+    this.relativeSRCRepo =  "groupware/trunk" ;
     
     portlet() {
       this.forum = Project("org.exoplatform.groupware", "exo.groupware.portlet.forum.webapp", "exo-portlet", version);

@@ -19,6 +19,7 @@ exobuild(String[] args) {
       "                         for example: kernel, core, portal... \n" +
       "  * --deploy             is optional. The possible names are tomcat-server, jboss-server, and \n" +
       "                         jonas-server. If you enter only --deploy, the tomcat-server will be used \n" +
+      "  * --clean              is optional. This option is allowed you to delete the resources such maven repo, target dir.. \n" +
       "  * --database           is optional. This option must use with the --deploy option. The possible \n" +
       "                         values are hsql, mysql, oracle, postgres, derby and mssql \n" +
       "  * --ask                is optional. This option is used with --database option. it allow you to \n" +
@@ -30,9 +31,9 @@ exobuild(String[] args) {
   importCommands("eXo.projects") ;
   boolean build_ = false ;
   boolean dependencies_ = false ;
-  String  dependencyCodeRepos_ = null ;
   boolean update_ = false ;
   boolean ask = false ;
+  boolean clean_ = false ;
 
   maven = maven() ;
   exosvn = exosvn() ;
@@ -45,10 +46,9 @@ exobuild(String[] args) {
     if ("--update".equals(arg)) update_ = true ;
     else if ("--build".equals(arg))  build_ = true ;
     else if ("--ask".equals(arg))  ask = true ;
-    else if (arg.startsWith("--dependencies"))  {
+    else if ("--clean".equals(arg)) clean_ = true ;
+    else if (arg.equals("--dependencies"))  {
       dependencies_ =  true ;
-      index = arg.indexOf('=') ;
-      if(index > 0) dependencyCodeRepos_ = arg.substring(index + 1) ;
     } else if (arg.startsWith("--deploy"))  {
       if(arg.equals("--deploy=jboss")) server = Jboss(eXo.env.workingDir + "/exo-jboss") ;
       else if(arg.equals("--deploy=jonas")) server = Jonas(eXo.env.workingDir + "/exo-jonas") ;
@@ -75,7 +75,6 @@ exobuild(String[] args) {
     return ;
   }
   
-  if(dependencies_ && dependencyCodeRepos_ == null) dependencyCodeRepos_ = product.dependencyCodeRepos ;
   ArrayList tasks =  new ArrayList() ;
   
   if(database == null) database = Database().HsqlDB() ;
@@ -87,9 +86,8 @@ exobuild(String[] args) {
     
   if(update_) {
     if(dependencies_) {
-      String[] dependencyRepo = dependencyCodeRepos_.split(",") ;
-      for(i = 0; i < dependencyRepo.length; i++) {
-        String moduleDir = eXo.env.eXoProjectsDir + "/" + dependencyRepo[i].trim() ;
+      for(i = 0; i < product.dependencyModule.length; i++) {
+        String moduleDir = eXo.env.eXoProjectsDir + "/" + product.dependencyModule[i].relativeSRCRepo ;
         File directory = new File(moduleDir);
         if(directory.exists()) tasks.add(exosvn.UpdateTask(moduleDir));
       }
@@ -101,11 +99,16 @@ exobuild(String[] args) {
   if(build_) {
     String[] mvnArgs = {"clean", "install"} ;
     if(dependencies_) {
-      String[] dependencyRepo = dependencyCodeRepos_.split(",") ;
-      for(i = 0; i < dependencyRepo.length; i++) {
-        String moduleDir = eXo.env.eXoProjectsDir + "/" + dependencyRepo[i].trim() ;
+      for(i = 0; i < product.dependencyModule.length; i++) {
+        if(clean_) {
+          eXo.IOUtil.delete(eXo.env.dependenciesDir + "/repository/" + 
+                            product.dependencyModule[i].relativeMavenRepo) ;
+        }
+        String moduleDir = eXo.env.eXoProjectsDir + "/" + product.dependencyModule[i].relativeSRCRepo ;
         File directory = new File(moduleDir);
-        if(directory.exists()) tasks.add(maven.MavenTask(moduleDir, mvnArgs));
+        if(directory.exists()) {
+          tasks.add(maven.MavenTask(moduleDir, mvnArgs));
+        }
       }
     }
     String moduleDir = eXo.env.eXoProjectsDir + "/" + product.codeRepo ;
