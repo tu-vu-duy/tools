@@ -34,6 +34,7 @@ exobuild(String[] args) {
   boolean update_ = false ;
   boolean ask = false ;
   boolean clean_ = false ;
+  String exclude_ = null ;
 
   maven = maven() ;
   exosvn = exosvn() ;
@@ -49,7 +50,9 @@ exobuild(String[] args) {
     else if ("--clean".equals(arg)) clean_ = true ;
     else if (arg.equals("--dependencies"))  {
       dependencies_ =  true ;
-    } else if (arg.startsWith("--deploy"))  {
+    } else if (arg.startsWith("--exclude="))  {
+      exclude_ = arg.substring("--exclude=".length()) ;
+    } else if (arg.startsWith("--deploy")) {
       if(arg.equals("--deploy=jboss")) server = Jboss(eXo.env.workingDir + "/exo-jboss") ;
       else if(arg.equals("--deploy=jonas")) server = Jonas(eXo.env.workingDir + "/exo-jonas") ;
       else server = Tomcat(eXo.env.workingDir + "/exo-tomcat") ;
@@ -100,14 +103,16 @@ exobuild(String[] args) {
     String[] mvnArgs = {"clean", "install"} ;
     if(dependencies_) {
       for(i = 0; i < product.dependencyModule.length; i++) {
+        module = product.dependencyModule[i] ;
         if(clean_) {
-          eXo.IOUtil.delete(eXo.env.dependenciesDir + "/repository/" + 
-                            product.dependencyModule[i].relativeMavenRepo) ;
+          eXo.IOUtil.delete(eXo.env.dependenciesDir + "/repository/" + module.relativeMavenRepo) ;
         }
-        String moduleDir = eXo.env.eXoProjectsDir + "/" + product.dependencyModule[i].relativeSRCRepo ;
+        String moduleDir = eXo.env.eXoProjectsDir + "/" + module.relativeSRCRepo ;
         File directory = new File(moduleDir);
         if(directory.exists()) {
-          tasks.add(maven.MavenTask(moduleDir, mvnArgs));
+          if(exclude_ == null || exclude_.indexOf(module.name) < 0) {
+            tasks.add(maven.MavenTask(moduleDir, mvnArgs));
+          }
         }
       }
     }
