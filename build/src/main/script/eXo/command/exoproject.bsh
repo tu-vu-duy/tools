@@ -57,7 +57,14 @@ exoproject() {
 
 exoproject(String[] args) {
   printInstructions() {
-  
+    print(
+      "\n\n" +
+      "Usage of exoproject command: \n\n" +
+      "  exoproject --deploy=[context,module,quickwar] [--server=tomcat,jboss,jonas] \n\n" +
+      "Options: \n" +
+      "  * --deploy             is mandatory. Enables to deploy either a context, a module (jar) or a war.\n" +
+      "  * --server             is optional. Enables to specify the target application server.\n"
+    );
   }
 
   if(args.length == 0) {
