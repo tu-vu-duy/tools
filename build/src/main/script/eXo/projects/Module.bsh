@@ -173,7 +173,8 @@ Module() {
     this.name =  "portal" ;
     
     component(){
-      this.data  = Project("org.exoplatform.portal", "exo.portal.component.data", "jar", version) ;
+      this.jcrext = Project("org.exoplatform.portal", "exo.portal.component.jcrext", "jar", version) ;
+      this.portal  = Project("org.exoplatform.portal", "exo.portal.component.portal", "jar", version) ;
       this.web = Project("org.exoplatform.portal", "exo.portal.component.web", "jar", version) ;
       this.applicationRegistry  = Project("org.exoplatform.portal", "exo.portal.component.application-registry", "jar", version) ;
       this.resources = Project("org.exoplatform.portal", "exo.portal.component.resources", "jar", version) ;
@@ -190,9 +191,10 @@ Module() {
       this.portal  = Project("org.exoplatform.portal", "exo.portal.webui.portal", "jar", version) ;
       this.portal.addDependency(webuicore) ;
       this.portal.addDependency(component.web) ;
+      this.portal.addDependency(component.jcrext) ;
       this.portal.addDependency(component.resources) ;
       this.portal.addDependency(component.applicationRegistry) ;
-      this.portal.addDependency(component.data) ;
+      this.portal.addDependency(component.portal) ;
 
       this.portal.addDependency(kernel.container) ;
       this.portal.addDependency(kernel.component.common) ;
