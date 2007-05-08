@@ -14,7 +14,8 @@ exobuild(String[] args) {
       "                         svn update before it builds \n" +
       "  * --build              is optional. If you add this option, the exobuild command \n" +
       "                         will compile and install the sub projects of the product, \n" +
-      "  * --excldue            is optional. You can spe\n" +
+      "  * --exclude            is optional. You can specify any module name. Ideal when one dependency\n" +
+      "                         makes the compilation break. \n" +
       "  * --deploy             is optional. The possible names are tomcat-server, jboss-server, and \n" +
       "                         jonas-server. If you enter only --deploy, the tomcat-server will be used \n" +
       "  * --clean-mvn-repo     is optional. This option is allowed you to delete the exo artifact in the maven repository \n" +
