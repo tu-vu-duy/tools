@@ -6,8 +6,9 @@ Tomcat(tomcatHome) {
   runningInstance_ = null ;
   String name = "tomcat" ;
   String serverHome = tomcatHome ;
-  String cleanServer = "tomcat-5.0.28" ;
-  String deployLibDir = serverHome + "/common/lib" ;
+  //String cleanServer = "tomcat-5.0.28" ;
+  String cleanServer = "tomcat-6.0.10" ;
+  String deployLibDir = serverHome + "/lib" ;
   String deployWebappDir = serverHome + "/webapps";
   String patchDir = serverHome ;
   
@@ -62,7 +63,9 @@ Tomcat(tomcatHome) {
   }
   
   preDeploy(product) {
-    
+    product.addDependencies(Project("commons-logging", "commons-logging-api", "jar", "1.0.4")) ;
+    product.addDependencies(Project("commons-pool", "commons-pool", "jar", "1.2")) ;
+    product.addDependencies(Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;
   }
   
   onDeploy(project) {
@@ -76,8 +79,8 @@ Tomcat(tomcatHome) {
         "  <Manager className='org.apache.catalina.session.PersistentManager' saveOnRestart='false'/> \n" +
         "  <Realm className='org.apache.catalina.realm.JAASRealm' \n" +
         "         appName='exo-domain' \n" +
-        "         userClassNames='org.exoplatform.services.security.impl.UserPrincipalImpl' \n" +
-        "         roleClassNames='org.exoplatform.services.security.impl.RolePrincipalImpl' \n" +
+        "         userClassNames='org.exoplatform.services.organization.auth.UserPrincipal' \n" +
+        "         roleClassNames='org.exoplatform.services.organization.auth.RolePrincipal' \n" +
         "         debug='0' cache='false'/> \n" +
         "</Context> \n";
       eXo.IOUtil.createFile(serverHome + "/conf/Catalina/localhost/" + context + ".xml", config) ;
