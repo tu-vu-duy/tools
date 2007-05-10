@@ -6,7 +6,6 @@ Tomcat(tomcatHome) {
   runningInstance_ = null ;
   String name = "tomcat" ;
   String serverHome = tomcatHome ;
-  //String cleanServer = "tomcat-5.0.28" ;
   String cleanServer = "tomcat-6.0.10" ;
   String deployLibDir = serverHome + "/lib" ;
   String deployWebappDir = serverHome + "/webapps";
@@ -61,6 +60,7 @@ Tomcat(tomcatHome) {
     }
     return this ;
   }
+
   
   preDeploy(product) {
     product.addDependencies(Project("commons-logging", "commons-logging-api", "jar", "1.0.4")) ;

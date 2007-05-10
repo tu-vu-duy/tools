@@ -45,6 +45,16 @@ System() {
   printIndentation() { System.out.print("          "); }
   vprintIndentation() { if(verbose) System.out.print("          "); }
 
+  run(String[] args) {
+    proc = Runtime.getRuntime().exec(args) ;
+    din = new DataInputStream( proc.getInputStream() );
+    StringBuilder b = new StringBuilder() ;
+    while((line = din.readLine()) != null )  {
+     b.append(line).append('\n') ;
+    }
+    return b.toString() ;
+  }
+
   readInput(String message) {
     System.out.print(message) ;
     StringBuilder b = new StringBuilder() ;

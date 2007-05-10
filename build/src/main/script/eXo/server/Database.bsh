@@ -22,7 +22,7 @@ Database() {
       return this ;
     }
 
-    GetConfigTask(Object product, Object server) {
+    GetConfigTask() {
       descriptor =  TaskDescriptor("Configure Database", null) ;
       descriptor.description = "Configure the database environment for "  + name;
       

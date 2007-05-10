@@ -1,3 +1,8 @@
+import java.util.zip.ZipOutputStream;
+import java.util.zip.ZipEntry;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
 IOUtil() {
   emptyFolder(File folder) {
     if(folder.exists() &&  folder.isDirectory()) {
@@ -139,5 +144,38 @@ IOUtil() {
     file.delete() ;
     tmpFile.renameTo(file) ;
   }
+
+  addToArchive(ZipOutputStream zosStream, String entryPath, File file) {
+    if(file.isDirectory()) {
+      File[] children = file.listFiles() ; 
+      for(int i = 0; i < children.length; i++) {
+        addToArchive(zosStream, entryPath + "/" + children[i].getName(), children[i]) ;
+      }
+    } else {
+      zosStream.putNextEntry(new ZipEntry(entryPath + "/" + file.getName()));
+      FileInputStream in =  new FileInputStream(file);
+      byte[] buf = new byte[1024];
+      int len = -1;
+      while((len = in.read(buf)) > 0) {
+        zosStream.write(buf, 0, len);
+      }
+      in.close();
+    }
+  }
+
+  zip(String src, String dest, String zipName) {
+    File srcFile = new File(src) ;  
+    if(!srcFile.exists()) {
+      eXo.System.verbose("INFO", "File Not Exist " +  srcFile.getAbsolutePath()) ;
+      return ;
+    }
+    File destDir = new File(dest);
+    if(!destDir.exists()) destDir.mkdirs() ;
+    File destFile = new File(dest + "/" + zipName + ".zip");
+    ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(destFile));
+    addToArchive(zos, zipName, srcFile) ;
+    zos.close() ;
+  }
+
   return this ;
 }

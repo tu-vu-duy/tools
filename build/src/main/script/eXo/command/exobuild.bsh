@@ -1,6 +1,23 @@
 import java.util.ArrayList ; 
 import java.io.File ; 
 
+ReleaseTask(server, product) {
+  descriptor = TaskDescriptor("Release Task", server.serverHome) ;
+  execute() {
+    String[]  commands = {"svn", "info", eXo.env.eXoProjectsDir + "/" + product.codeRepo} ;
+    String result = eXo.System.run(commands) ; 
+    String[] line = result.split("\n") ;
+    String revision = "???" ;
+    for(int i = 0; i < line.length; i++) {
+      if(line[i].startsWith("Revision: ")) {
+        revision = line[i].substring("Revision: ".length(), line[i].length()) ;
+      }
+    }
+    eXo.IOUtil.zip(server.serverHome, eXo.env.workingDir, "exo-enterprise-webos-r" + revision + "-" + server.name) ;
+  }
+  return this ;
+}
+
 exobuild(String[] args) {
 
   printInstructions() {
@@ -32,11 +49,13 @@ exobuild(String[] args) {
   boolean update_ = false ;
   boolean ask = false ;
   boolean cleanMVNRepo_ = false ;
+  boolean release_ = false ;
   String exclude_ = null ;
 
   maven = maven() ;
   exosvn = exosvn() ;
   server = null ;
+  deployServers = null ;
   product = null ;
   database = null;
   
@@ -46,7 +65,16 @@ exobuild(String[] args) {
     else if ("--build".equals(arg))  build_ = true ;
     else if ("--ask".equals(arg))  ask = true ;
     else if ("--clean-mvn-repo".equals(arg)) cleanMVNRepo_ = true ;
-    else if (arg.startsWith("--exclude="))  {
+    else if ("--release".equals(arg)) {
+      release_ = true ;
+    } else if ("--release=all".equals(arg)) {
+      release_ = true ;
+      deployServers = new Object[] { 
+        Jboss(eXo.env.workingDir + "/exo-jboss") ,
+        //Jonas(eXo.env.workingDir + "/exo-jonas") ,
+        Tomcat(eXo.env.workingDir + "/exo-tomcat")
+      } ; 
+    } else if (arg.startsWith("--exclude="))  {
       exclude_ = arg.substring("--exclude=".length()) ;
     } else if (arg.startsWith("--deploy")) {
       if(arg.equals("--deploy=jboss")) server = Jboss(eXo.env.workingDir + "/exo-jboss") ;
@@ -81,8 +109,16 @@ exobuild(String[] args) {
   
   if(database == null) database = Database().HsqlDB() ;
   
-  if(server != null && ask) {
-    tasks.add(database.GetConfigTask(product, server)) ;
+  if(release_ && server == null) {
+    server = Tomcat(eXo.env.workingDir + "/exo-tomcat") ;
+  }
+
+  if(server != null  && deployServers == null) {
+    deployServers = new Object[] { server } ; 
+  }
+  
+  if(deployServers != null  && ask) {
+    tasks.add(database.GetConfigTask()) ;
   }
     
   if(update_) {
@@ -121,10 +157,14 @@ exobuild(String[] args) {
     tasks.add(maven.MavenTask(moduleDir, mvnArgs));
   }
   
-  if(server != null) { 
-    tasks.add(product.DeployTask(product, server, eXo.env.m2Repos)) ;
-    tasks.add(database.DeployTask(product, server, eXo.env.m2Repos)) ;
-    tasks.add(database.ConfigureTask(product, server)) ;
+  if(deployServers != null) { 
+    for(int i = 0; i < deployServers.length; i++) {
+      server =  deployServers[i] ;
+      tasks.add(product.DeployTask(product, server, eXo.env.m2Repos)) ;
+      tasks.add(database.DeployTask(product, server, eXo.env.m2Repos)) ;
+      tasks.add(database.ConfigureTask(product, server)) ;
+      if(release_)tasks.add(ReleaseTask(server, product)) ;
+    }
   }
   
   for(int i = 0; i < tasks.size(); i++) {

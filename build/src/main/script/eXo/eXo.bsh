@@ -31,7 +31,6 @@ eXo() {
   env = Env()  ;
   util = util() ;
   IOUtil = null ;
-  system = null ;
   
   return this ;
 }
