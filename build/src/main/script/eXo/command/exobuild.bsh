@@ -71,7 +71,7 @@ exobuild(String[] args) {
       release_ = true ;
       deployServers = new Object[] { 
         Jboss(eXo.env.workingDir + "/exo-jboss") ,
-        //Jonas(eXo.env.workingDir + "/exo-jonas") ,
+        Jonas(eXo.env.workingDir + "/exo-jonas") ,
         Tomcat(eXo.env.workingDir + "/exo-tomcat")
       } ; 
     } else if (arg.startsWith("--exclude="))  {
