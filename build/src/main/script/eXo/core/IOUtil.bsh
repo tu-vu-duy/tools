@@ -149,7 +149,7 @@ IOUtil() {
     if(file.isDirectory()) {
       File[] children = file.listFiles() ; 
       for(int i = 0; i < children.length; i++) {
-        addToArchive(zosStream, entryPath + "/" + children[i].getName(), children[i]) ;
+        addToArchive(zosStream, entryPath + "/" + file.getName(), children[i]) ;
       }
     } else {
       zosStream.putNextEntry(new ZipEntry(entryPath + "/" + file.getName()));
@@ -173,7 +173,14 @@ IOUtil() {
     if(!destDir.exists()) destDir.mkdirs() ;
     File destFile = new File(dest + "/" + zipName + ".zip");
     ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(destFile));
-    addToArchive(zos, zipName, srcFile) ;
+    if(srcFile.isDirectory()) {
+      File[] children = srcFile.listFiles() ; 
+      for(int i = 0; i < children.length; i++) {
+        addToArchive(zos, zipName, children[i]) ;
+      }
+    } else {
+      addToArchive(zos, zipName, srcFile) ;
+    }
     zos.close() ;
   }
 
