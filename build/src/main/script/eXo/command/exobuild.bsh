@@ -7,7 +7,7 @@ ReleaseTask(server, product) {
     String[]  commands = {"svn", "info", eXo.env.eXoProjectsDir + "/" + product.codeRepo} ;
     String result = eXo.System.run(commands) ; 
     String[] line = result.split("\n") ;
-    String revision = "???" ;
+    String revision = "unknown" ;
     for(int i = 0; i < line.length; i++) {
       if(line[i].startsWith("Revision: ")) {
         revision = line[i].substring("Revision: ".length(), line[i].length()) ;
