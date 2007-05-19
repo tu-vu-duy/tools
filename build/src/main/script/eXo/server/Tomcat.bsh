@@ -66,6 +66,7 @@ Tomcat(tomcatHome) {
     product.addDependencies(Project("commons-logging", "commons-logging-api", "jar", "1.0.4")) ;
     product.addDependencies(Project("commons-pool", "commons-pool", "jar", "1.2")) ;
     product.addDependencies(Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;
+    product.addDependencies(Project("org.exoplatform.portal", "exo.portal.server.tomcat.plugin", "jar", "2.0")) ;
   }
   
   onDeploy(project) {
