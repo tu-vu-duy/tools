@@ -129,6 +129,7 @@ eXoProduct() {
     product.addDependencies(ecm.portlet.workflow) ;
 
     product.addDependencies(portal.eXoApplication.web) ;
+    product.addDependencies(portal.eXoWidget.web) ;
     
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;
@@ -163,6 +164,7 @@ eXoProduct() {
     product.addDependencies(portal.portlet.site) ;
 
     product.addDependencies(portal.eXoApplication.web) ;
+    product.addDependencies(portal.eXoWidget.web) ;
     
     product.addDependencies(groupware.portlet.forum) ;
     product.addDependencies(groupware.portlet.mail) ;
@@ -205,6 +207,7 @@ eXoProduct() {
     product.addDependencies(ecm.portlet.workflow) ;
 
     product.addDependencies(portal.eXoApplication.web) ;
+    product.addDependencies(portal.eXoWidget.web) ;
     
     product.addDependencies(groupware.portlet.forum) ;
     product.addDependencies(groupware.portlet.mail) ;
