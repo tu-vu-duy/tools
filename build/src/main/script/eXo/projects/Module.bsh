@@ -220,21 +220,15 @@ Module() {
     this.portlet = portlet();
 
     eXoApplication() {
-      this.web = Project("org.exoplatform.portal", "exo.portal.eXoApplication.web.application", "jar", version);
-      var webWebapp = Project("org.exoplatform.portal", "exo.portal.eXoApplication.web.webResources", "war", version);
-      webWebapp.deployName = "exo.app.web" ;
-      this.web.addDependency(webWebapp) ;
-
+      this.web = Project("org.exoplatform.portal", "exo.portal.eXoApplication.web", "war", version);
+      this.web.deployName = "exo.app.web" ;
       return this ;
     }
     this.eXoApplication = eXoApplication();
 
     eXoWidget() {
-      this.web = Project("org.exoplatform.portal", "exo.portal.eXoWidget.web.application", "jar", version);
-      var webWebapp = Project("org.exoplatform.portal", "exo.portal.eXoWidget.web.webResources", "war", version);
-      webWebapp.deployName = "exo.widget.web" ;
-      this.web.addDependency(webWebapp) ;
-
+      this.web = Project("org.exoplatform.portal", "exo.portal.eXoWidget.web", "war", version);
+      this.web.deployName = "exo.widget.web" ;
       return this ;
     }
     this.eXoWidget = eXoWidget();
