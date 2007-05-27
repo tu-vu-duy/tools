@@ -92,6 +92,7 @@ eXoProduct() {
 
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
+    product.addDependencies(portal.eXoSample.framework) ;
     
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;
@@ -130,6 +131,7 @@ eXoProduct() {
 
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
+    product.addDependencies(portal.eXoSample.framework) ;
     
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;
@@ -165,6 +167,7 @@ eXoProduct() {
 
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
+    product.addDependencies(portal.eXoSample.framework) ;
     
     product.addDependencies(groupware.portlet.forum) ;
     product.addDependencies(groupware.portlet.mail) ;
@@ -208,6 +211,7 @@ eXoProduct() {
 
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
+    product.addDependencies(portal.eXoSample.framework) ;
     
     product.addDependencies(groupware.portlet.forum) ;
     product.addDependencies(groupware.portlet.mail) ;
@@ -222,6 +226,45 @@ eXoProduct() {
 
     product.module = groupware  ;
     product.dependencyModule = new Object[] { Module.tool("2.0.3"), kernel, core, eXoPortletContainer, eXoJcr, portal, ecm };
+    return product ;
+  }
+
+  m6Product() {
+    product = Product();
+    product.name = "m6" ;
+    product.portalwar = "portal.war" ;
+    
+    Module = Module();
+    
+    kernel = Module.kernel("2.0.3") ;
+    core = Module.core("2.0.3") ;
+    eXoPortletContainer = Module.eXoPortletContainer("2.0") ;
+    eXoJcr = Module.eXoJcr("1.6") ;
+    portal = Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
+    m6 = Module.m6(kernel, core, eXoPortletContainer, eXoJcr, portal, "1.0");
+    
+    product.addDependencies(portal.web.portal) ;
+    product.addDependencies(portal.portlet.content) ;
+    product.addDependencies(portal.portlet.exoadmin) ;
+    product.addDependencies(portal.portlet.web) ;
+    product.addDependencies(portal.portlet.site) ;
+
+    product.addDependencies(portal.eXoApplication.web) ;
+    product.addDependencies(portal.eXoWidget.web) ;
+    product.addDependencies(portal.eXoSample.framework) ;
+    
+    product.addDependencies(m6.portlet.web) ;
+    product.addDependencies(m6.web.m6Resources) ;
+    
+    product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+    product.addServerPatch("jboss",  portal.server.jboss.patch) ;
+    product.addServerPatch("jonas",  portal.server.jonas.patch) ;
+    
+    product.codeRepo = "m6/trunk" ;
+    product.dependencyCodeRepos = "tools/trunk,kernel/trunk,core/trunk,portal/trunk";
+
+    product.module = m6 ;
+    product.dependencyModule = new Object[] { Module.tool("2.0.3"), kernel, core, eXoPortletContainer, eXoJcr, portal };
     return product ;
   }
   return this ;

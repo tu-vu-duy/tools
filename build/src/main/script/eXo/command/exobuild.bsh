@@ -82,18 +82,16 @@ exobuild(String[] args) {
       else server = Tomcat(eXo.env.workingDir + "/exo-tomcat") ;
     } else if(arg.startsWith("--database")) {
       if(arg.equals("--database=mysql")) database = Database().MysqlDB() ;
-    } else if ("--product=exo-portal".equals(arg)) {
-      product = eXoProduct().eXoPortalProduct();
     } else if ("--product=portal".equals(arg)) {
       product = eXoProduct().eXoPortalProduct();
-    } else if ("--product=exo-ecm".equals(arg)) {
-      product = eXoProduct().eXoECMProduct();
     } else if ("--product=ecm".equals(arg)) {
       product = eXoProduct().eXoECMProduct();
     } else if ("--product=groupware".equals(arg)) {
       product = eXoProduct().eXoGroupwareProduct();
     } else if ("--product=all".equals(arg)) {
       product = eXoProduct().eXoAllProduct();
+    } else if ("--product=m6".equals(arg)) {
+      product = eXoProduct().m6Product();
     } else {
       print("Unknown argument: " + arg);
       printInstructions() ;

@@ -170,6 +170,8 @@ Module() {
       this.web = Project("org.exoplatform.portal", "exo.portal.component.web", "jar", version) ;
       this.applicationRegistry  = Project("org.exoplatform.portal", "exo.portal.component.application-registry", "jar", version) ;
       this.resources = Project("org.exoplatform.portal", "exo.portal.component.resources", "jar", version) ;
+      this.scripting = Project("org.exoplatform.portal", "exo.portal.component.scripting", "jar", version) ;
+      this.scripting.addDependency(Project("rhino", "js", "jar", "1.6R5"));
       this.xmlParser = Project("org.exoplatform.portal", "exo.portal.component.xml-parser", "jar", version) ;
       this.xmlParser.addDependency(Project("commons-httpclient", "commons-httpclient", "jar", "3.0"));
       this.xmlParser.addDependency(Project("commons-codec", "commons-codec", "jar", "1.3"));
@@ -183,6 +185,7 @@ Module() {
       this.portal  = Project("org.exoplatform.portal", "exo.portal.webui.portal", "jar", version) ;
       this.portal.addDependency(webuicore) ;
       this.portal.addDependency(component.web) ;
+      this.portal.addDependency(component.scripting) ;
       this.portal.addDependency(component.jcrext) ;
       this.portal.addDependency(component.resources) ;
       this.portal.addDependency(component.applicationRegistry) ;
@@ -232,6 +235,13 @@ Module() {
       return this ;
     }
     this.eXoWidget = eXoWidget();
+
+    eXoSample() {
+      this.framework = Project("org.exoplatform.portal", "exo.portal.sample.framework", "war", version);
+      this.framework.deployName = "eXoSampleFramework" ;
+      return this ;
+    }
+    this.eXoSample = eXoSample();
     
     web() {
       this.eXoResources = Project("org.exoplatform.portal", "exo.portal.web.eXoResources", "war", version);
@@ -327,5 +337,29 @@ Module() {
     
     return this ;
   }
+
+  m6(kernel, core, eXoPortletContainer, jcr, portal, version) {
+    this.version =  version ;
+    this.relativeMavenRepo =  "org/exoplatform/m6" ;
+    this.relativeSRCRepo =  "m6/trunk" ;
+    this.name =  "m6" ;
+    
+    portlet() {
+      this.web = Project("org.exoplatform.m6", "m6.portlet.web", "exo-portlet", version);
+      this.web.deployName = "m6PortletWeb" ;
+      return this ;
+    }
+    this.portlet = portlet();
+
+    web() {
+      this.m6Resources = Project("org.exoplatform.m6", "m6.web.m6Resources", "war", version);
+      this.m6Resources.deployName = "m6Resources" ;
+      return this ;
+    }
+    this.web = web() ;
+    
+    return this ;
+  }
+
   return  this; 
 }
