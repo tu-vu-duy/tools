@@ -243,7 +243,10 @@ eXoProduct() {
     portal = Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
     m6 = Module.m6(kernel, core, eXoPortletContainer, eXoJcr, portal, "1.0");
     
-    product.addDependencies(portal.web.portal) ;
+    product.addDependencies(m6.web.m6portal) ;
+    product.addDependencies(m6.web.m6Resources) ;
+    product.addDependencies(m6.portlet.web) ;
+    
     product.addDependencies(portal.portlet.content) ;
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
@@ -252,9 +255,6 @@ eXoProduct() {
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
     product.addDependencies(portal.eXoSample.framework) ;
-    
-    product.addDependencies(m6.portlet.web) ;
-    product.addDependencies(m6.web.m6Resources) ;
     
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;

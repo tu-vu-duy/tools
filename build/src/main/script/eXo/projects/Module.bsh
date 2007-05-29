@@ -354,6 +354,11 @@ Module() {
     web() {
       this.m6Resources = Project("org.exoplatform.m6", "m6.web.m6Resources", "war", version);
       this.m6Resources.deployName = "m6Resources" ;
+
+      this.m6portal = Project("org.exoplatform.m6", "m6.web.portal", "exo-portal", version);
+      this.m6portal.addDependency(portal.web.eXoResources) ;
+      this.m6portal.addDependency(portal.webui.portal) ;
+
       return this ;
     }
     this.web = web() ;
