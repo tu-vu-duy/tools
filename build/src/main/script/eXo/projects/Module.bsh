@@ -358,6 +358,8 @@ Module() {
       this.m6portal = Project("org.exoplatform.m6", "m6.web.portal", "exo-portal", version);
       this.m6portal.addDependency(portal.web.eXoResources) ;
       this.m6portal.addDependency(portal.webui.portal) ;
+      this.m6portal.addDependency(jcr.frameworks.command) ;
+      this.m6portal.addDependency(jcr.frameworks.web) ;
 
       return this ;
     }
