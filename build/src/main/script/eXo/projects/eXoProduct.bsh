@@ -268,7 +268,7 @@ eXoProduct() {
     product.dependencyCodeRepos = "tools/trunk,kernel/trunk,core/trunk,portal/trunk";
 
     product.module = m6 ;
-    product.dependencyModule = new Object[] { Module.tool("2.0.3"), kernel, core, eXoPortletContainer, eXoJcr, portal };
+    product.dependencyModule = new Object[] { Module.tool("2.0.3"), kernel, core, eXoPortletContainer, eXoJcr, portal, ecm };
     return product ;
   }
   return this ;
