@@ -16,8 +16,6 @@ import java.util.List;
  */
 public class ProxyServer {
   private int localport = 9090;
-  private int remoteport = 8080;
-  private String remotehost = "localhost" ;
   private List<ConnectionListener> listeners_ = new ArrayList<ConnectionListener>();
   private boolean start = false ;
   
@@ -29,9 +27,8 @@ public class ProxyServer {
     ServerSocket Server = new ServerSocket(localport);
     start =  true ;
     while(start) {
-      Socket incoming = Server.accept();
-      Socket outgoing = new Socket(remotehost, remoteport); 
-      new Connection(listeners_, incoming, outgoing) ;
+      Socket clientSocket = Server.accept();
+      new Connection(listeners_, clientSocket) ;
     }
     Server.close() ;
   }

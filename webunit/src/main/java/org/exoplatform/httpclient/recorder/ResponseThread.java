@@ -13,12 +13,12 @@ import java.io.* ;
  * May 30, 2007  
  */
 class ResponseThread extends Thread {
-  private Socket incoming, outgoing;
+  private Socket serverSocket_, clientSocket_;
   private Connection connection ;
 
   public ResponseThread(Connection conn, Socket in, Socket out){
-    incoming = in;
-    outgoing = out;
+    serverSocket_ = in;
+    clientSocket_ = out;
     connection = conn ;
   }
 
@@ -35,19 +35,20 @@ class ResponseThread extends Thread {
   private void forward(ByteArrayOutputStream content) throws Exception {
     try{
       byte[] buffer = new byte[4096];
-      OutputStream ToClient = outgoing.getOutputStream();      
-      InputStream FromClient = incoming.getInputStream();
+      OutputStream toClient = clientSocket_.getOutputStream();      
+      InputStream fromServer = serverSocket_.getInputStream();
       while(true){
-        int numberRead = FromClient.read(buffer, 0, buffer.length);
+        int numberRead = fromServer.read(buffer);
         if(numberRead == -1) {
-          incoming.close();
-          outgoing.close();
+          serverSocket_.close();
+          clientSocket_.close();
           break ;
         }
-        ToClient.write(buffer, 0, numberRead);
+        toClient.write(buffer, 0, numberRead);
         content.write(buffer, 0, numberRead) ;
       }
     } catch(Throwable t) {
+      t.printStackTrace() ;
       content.write(t.getMessage().getBytes()) ;
     }
   }

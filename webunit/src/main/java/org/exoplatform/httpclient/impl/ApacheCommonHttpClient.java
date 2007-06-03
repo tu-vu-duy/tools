@@ -18,7 +18,7 @@ public class ApacheCommonHttpClient extends HttpClient {
   org.apache.commons.httpclient.HttpClient client = new org.apache.commons.httpclient.HttpClient();
 
   protected void executeGet(WebUnit unit, WebUnitExecuteContext context) throws Exception {
-    GetMethod method = new GetMethod(unit.getUrl());
+    GetMethod method = new GetMethod(unit.getUri());
     try {
       int statusCode = client.executeMethod(method);
       context.setResponseStatus(statusCode) ;

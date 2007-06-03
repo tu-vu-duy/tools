@@ -5,10 +5,13 @@
 package org.exoplatform.httpclient.webunit;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.exoplatform.httpclient.recorder.Connection;
 import org.exoplatform.httpclient.recorder.ConnectionListener;
+import org.exoplatform.httpclient.recorder.RequestFilter;
 
 /**
  * Created by The eXo Platform SARL
@@ -18,13 +21,28 @@ import org.exoplatform.httpclient.recorder.ConnectionListener;
  */
 public class WebUnitCaptor implements ConnectionListener {
   private List<WebUnit> units_ = new ArrayList<WebUnit>();
+  private RequestFilter  filter_ ;
+  
+  public void setRequestFilter(RequestFilter filter) { filter_ = filter ; }
   
   public void onStartConnection(Connection connection) throws Exception {
-    
   }
 
   
   public void onEndConnection(Connection connection) throws Exception {
-    System.out.println(new String(connection.getRequestContent()));
+    String requestString = new String(connection.getRequestContent()).trim() ;
+    if(requestString.startsWith("GET") || requestString.startsWith("POST")) {
+      String[] lines = requestString.split("\n") ;
+      String firstline = lines[0] ;
+      String[] tmp = firstline.split(" ") ;
+      String method = tmp[0] ; 
+      String uri = tmp[1] ;
+      String protocolVersion = tmp[2] ;
+      WebUnit unit = new WebUnit(uri, method, protocolVersion) ;
+      if(filter_.match(unit.getPathInfo())) units_.add(unit) ;
+      System.out.println(unit);
+    } else {
+      return ;
+    }
   }
 }

@@ -16,21 +16,23 @@ import java.util.List;
 public class Connection {
   private byte[]  requestContent_ ;
   private byte[]  responseContent_ ;
-  private Socket incoming_, outgoing_ ;
+  private Socket clientSocket_, serverSocket_ ;
+  private boolean responseComplete_ = false ;
   
   private List<ConnectionListener> listeners_ ;
   
-  public Connection(List<ConnectionListener> listeners, Socket in, Socket out) throws Exception {
+  public Connection(List<ConnectionListener> listeners, Socket client) throws Exception {
     listeners_ =  listeners ;
-    incoming_ = in ;
-    outgoing_ = out ;
     for(ConnectionListener listener : listeners_ ) listener.onStartConnection(this) ;
-    new RequestThread(this, in, out).start();
-    new ResponseThread(this, out, in).start();
+    new RequestThread(this, client).start();
+    //new ResponseThread(this, out, in).start();
   }
   
-  public Socket getIncomingSocket() { return incoming_ ; }
-  public Socket getOutgoingSocket() { return outgoing_; }
+  public Socket getClientSocket() { return clientSocket_ ; }
+  public Socket getServerSocket() { return serverSocket_; }
+  public void setServerSocket(Socket socket) { serverSocket_ =  socket ; }
+  
+  public boolean getResponseComplete()  { return responseComplete_ ; }
   
   public byte[] getRequestContent() { return requestContent_ ; }
   synchronized public void setRequestContent(byte[] content) throws Exception {
@@ -43,6 +45,7 @@ public class Connection {
   public byte[] getResponseContent() { return responseContent_ ; }
   synchronized public void setResponseContent(byte[] content) throws Exception { 
     responseContent_ = content ;
+    responseComplete_  = true ;
     if(requestContent_ != null) {
       for(ConnectionListener listener : listeners_ ) listener.onEndConnection(this) ;
     }

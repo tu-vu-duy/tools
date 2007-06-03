@@ -13,12 +13,11 @@ import java.io.* ;
  * May 30, 2007  
  */
 class RequestThread extends Thread {
-  private Socket incoming, outgoing;
+  private Socket clientSocket_, serverSocket_;
   private Connection connection ;
   
-  public RequestThread(Connection connection, Socket in, Socket out){
-    incoming = in;
-    outgoing = out;
+  public RequestThread(Connection connection, Socket client){
+    clientSocket_ = client;
     this.connection = connection ;
   }
 
@@ -35,20 +34,57 @@ class RequestThread extends Thread {
   private void forward(ByteArrayOutputStream content) throws Exception {
     try{
       byte[] buffer = new byte[4096];
-      OutputStream ToClient = outgoing.getOutputStream();      
-      InputStream FromClient = incoming.getInputStream();
-      while(true){
-        int numberRead = FromClient.read(buffer, 0, buffer.length);
+      InputStream fromClient = clientSocket_.getInputStream();
+      serverSocket_ = getOutgoingSocket(fromClient) ;
+      OutputStream toServer = serverSocket_.getOutputStream();      
+      while(true) {
+        int numberRead = fromClient.read(buffer);
         if(numberRead == -1) {
-          incoming.close();
-          outgoing.close();
+          clientSocket_.close();
+          serverSocket_.close();
           break ;
         }
-        ToClient.write(buffer, 0, numberRead);
+        toServer.write(buffer, 0, numberRead);
         content.write(buffer, 0, numberRead) ;
       }
     } catch(Throwable t) {
-      content.write(t.getMessage().getBytes()) ;
+      if(!connection.getResponseComplete()) {
+        t.printStackTrace() ;
+        content.write(t.getMessage().getBytes()) ;
+      }
     }
+  }
+  
+  private Socket getOutgoingSocket(InputStream is) throws Exception {
+    ByteArrayOutputStream readData = new ByteArrayOutputStream() ;
+    byte[] buf  = new byte[200] ;
+    while(true) {
+      int numberRead = is.read(buf);
+      if(numberRead == -1 || readData.size() >= 200) {
+        break ;
+      }
+      readData.write(buf, 0, numberRead) ;
+    }
+    String text = new String(readData.toByteArray()) ;
+    System.out.println(text) ;
+    String[] line = text.split("\n") ;
+    String uri = line[0].trim() ;
+    int schemeLimitIndex = uri.indexOf("//") + 1 ;
+    int hostPortLimitIndex = uri.indexOf("/", schemeLimitIndex + 1) ;
+    if(hostPortLimitIndex < 0) hostPortLimitIndex = uri.length() ;
+    String hostPort = uri.substring(schemeLimitIndex + 1, hostPortLimitIndex) ;
+    int hostLimitIndex = hostPort.indexOf(':') ;
+    String host =  hostPort ;
+    int port = 80 ;
+    if(hostLimitIndex > 0) {
+      host = hostPort.substring(0, hostLimitIndex) ;
+      port = Integer.parseInt(hostPort.substring(hostLimitIndex + 1, hostPort.length())) ;
+    }
+    System.out.println("host: " + host + ", port: " + port);
+    Socket outgoing = new Socket(host, port);
+    connection.setServerSocket(outgoing) ;
+    new ResponseThread(connection, outgoing, clientSocket_).start();
+    outgoing.getOutputStream().write(readData.toByteArray()) ;
+    return outgoing ;
   }
 }

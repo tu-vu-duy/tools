@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 
 import org.exoplatform.httpclient.impl.ApacheCommonHttpClient;
 import org.exoplatform.httpclient.recorder.ProxyServer;
+import org.exoplatform.httpclient.recorder.RequestFilter;
 import org.exoplatform.httpclient.webunit.WebUnit;
 import org.exoplatform.httpclient.webunit.WebUnitCaptor;
 /**
@@ -17,10 +18,13 @@ public class TestHttpClient extends TestCase {
 
   public void testHttpClient() throws Exception {
     HttpClient client = new ApacheCommonHttpClient() ;
-    WebUnit unit = new WebUnit("test", url) ;
+    WebUnit unit = new WebUnit(url, "GET", "HTTP 1.1") ;
     client.execute(unit) ;
     ProxyServer server = new ProxyServer() ;
+    String[]  pattern = {"/portal/.*"} ;
+    RequestFilter filter = new RequestFilter(pattern) ;
     WebUnitCaptor captor = new WebUnitCaptor() ;
+    captor.setRequestFilter(filter) ;
     server.add(captor) ;
     server.start() ;
   }
