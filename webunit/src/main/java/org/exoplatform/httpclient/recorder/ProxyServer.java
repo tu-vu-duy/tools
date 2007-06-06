@@ -25,6 +25,7 @@ public class ProxyServer extends Thread {
   }
   
   public void run() {
+    System.out.println("INFO:  Start the proxy server........................");
     try {
       ServerSocket Server = new ServerSocket(localport);
       Server.setSoTimeout(1000) ;
