@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen

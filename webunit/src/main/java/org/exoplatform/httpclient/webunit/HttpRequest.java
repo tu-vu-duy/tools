@@ -7,7 +7,7 @@ package org.exoplatform.httpclient.webunit;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -24,7 +24,6 @@ public class HttpRequest {
   private int port_ ;
   
   private Map<String, String> headers_ ;
-  private byte[] headerData_ ;
   private byte[] requestData_ ;
   
   public HttpRequest() {
@@ -49,31 +48,41 @@ public class HttpRequest {
   public Map<String, String>  getHeaders() { return headers_ ; }
   
   public void parse(InputStream is) throws Exception {
-    headers_ = new HashMap<String, String>() ;
-    ByteArrayOutputStream data = new ByteArrayOutputStream() ;
+    headers_ = new LinkedHashMap<String, String>() ;
     ByteArrayOutputStream line = new ByteArrayOutputStream() ;
     String firstline = null ;
+    int i = 0;
     boolean keepReading = true ;
     while(keepReading) {
+      i++ ;
       int code = is.read();
       line.write(code);
-      data.write(code);
       if (code == (byte) '\n') {
         if(firstline == null)  {
-          firstline = new String(line.toByteArray()) ;
+          firstline = new String(line.toByteArray()).trim() ;
           parseFirstLine(firstline) ;
+        } else if(line.size() < 3) {
+          keepReading = false ;
         } else {
-          
+          String headerLine = new String(line.toByteArray()) ;
+          int colonIndex = headerLine.indexOf(':') ;
+          String name = headerLine.substring(0, colonIndex) ;
+          String value = headerLine.substring(colonIndex + 1, headerLine.length()).trim() ;
+          headers_.put(name, value) ;
         }
-        if(line.size() < 3) keepReading = false ;
         line.reset() ;
       }
     }
-    headerData_ = data.toByteArray() ;
   }
   
   public void forward(OutputStream os) throws Exception {
-    os.write(headerData_) ;
+    StringBuilder b = new StringBuilder() ;
+    b.append(method_).append(' ').append(uri_).append(' ').append(protocolVersion_).append("\r\n") ;
+    for(Map.Entry<String, String> entry : headers_.entrySet()) {
+      b.append(entry.getKey()).append(": ").append(entry.getValue()).append("\r\n") ;
+    }
+    b.append("\r\n") ;
+    os.write(b.toString().getBytes()) ;
   }
   
   private void parseFirstLine(String firstline) throws Exception {
