@@ -4,6 +4,7 @@
  **************************************************************************/
 package org.exoplatform.httpclient.recorder;
 
+import java.io.InterruptedIOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -14,24 +15,37 @@ import java.util.List;
  *          tuan.nguyen@exoplatform.com
  * May 30, 2007  
  */
-public class ProxyServer {
+public class ProxyServer extends Thread {
   private int localport = 9090;
   private List<ConnectionListener> listeners_ = new ArrayList<ConnectionListener>();
-  private boolean start = false ;
+  private boolean start_ = false ;
   
   public void add(ConnectionListener listener) {
     listeners_.add(listener) ;
   }
   
-  public void start() throws Exception {
-    ServerSocket Server = new ServerSocket(localport);
-    start =  true ;
-    while(start) {
-      Socket clientSocket = Server.accept();
-      new Connection(listeners_, clientSocket) ;
+  public void run() {
+    try {
+      ServerSocket Server = new ServerSocket(localport);
+      Server.setSoTimeout(1000) ;
+      start_ =  true ;
+      while(start_) {
+        try {
+          Socket clientSocket = Server.accept();
+          new Connection(listeners_, clientSocket).start() ;
+        }  catch (InterruptedIOException e) {
+          // Timeout occurred.  Ignore, and keep looping until we're
+          // told to stop running.
+        }
+      }
+      Server.close() ;
+    } catch(Exception ex) {
+      ex.printStackTrace() ;
     }
-    Server.close() ;
   }
   
-  public void stop() throws Exception { start = false ; }
+  public void stopServer() { 
+    System.out.println("INFO:  Stop the proxy server........................");
+    start_  = false ; 
+  }
 }

@@ -5,14 +5,11 @@
 package org.exoplatform.httpclient.webunit;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.exoplatform.httpclient.recorder.Connection;
 import org.exoplatform.httpclient.recorder.ConnectionListener;
 import org.exoplatform.httpclient.recorder.RequestFilter;
-
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -30,7 +27,7 @@ public class WebUnitCaptor implements ConnectionListener {
 
   
   public void onEndConnection(Connection connection) throws Exception {
-    String requestString = new String(connection.getRequestContent()).trim() ;
+    String requestString = new String("").trim() ;
     if(requestString.startsWith("GET") || requestString.startsWith("POST")) {
       String[] lines = requestString.split("\n") ;
       String firstline = lines[0] ;

@@ -17,15 +17,27 @@ public class TestHttpClient extends TestCase {
   private static String url = "http://vnserver.exoplatform.org/";
 
   public void testHttpClient() throws Exception {
-    HttpClient client = new ApacheCommonHttpClient() ;
-    WebUnit unit = new WebUnit(url, "GET", "HTTP 1.1") ;
-    client.execute(unit) ;
+//    HttpClient client = new ApacheCommonHttpClient() ;
+//    WebUnit unit = new WebUnit(url, "GET", "HTTP 1.1") ;
+//    client.execute(unit) ;
+    
     ProxyServer server = new ProxyServer() ;
+    Runtime.getRuntime().addShutdownHook(new ShutdownThread(server)) ;
     String[]  pattern = {"/portal/.*"} ;
     RequestFilter filter = new RequestFilter(pattern) ;
     WebUnitCaptor captor = new WebUnitCaptor() ;
     captor.setRequestFilter(filter) ;
     server.add(captor) ;
     server.start() ;
+    Thread.sleep(100000000) ;
   }
+  
+  static class ShutdownThread extends Thread {
+    ProxyServer server_ ;
+
+    ShutdownThread(ProxyServer server) {  server_ = server ; }
+    
+    public void run() { server_.stopServer() ; }
+  }
+
 }
