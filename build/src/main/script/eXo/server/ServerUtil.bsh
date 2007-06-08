@@ -6,9 +6,15 @@ ServerUtil() {
     b.append("<!DOCTYPE application PUBLIC \"-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN\" \"http://java.sun.com/dtd/application_1_3.dtd\">");
     b.append("\n<application>\n");
     b.append("  <display-name>exoplatform</display-name>\n");
+    b.append("  <module>\n");
+    b.append("    <web>\n");
+    b.append("      <web-uri>portal.war</web-uri>\n");
+    b.append("      <context-root>portal</context-root>\n");
+    b.append("    </web>\n");
+    b.append("  </module>\n");
     String[] file = earDir.list();
     for (int i = 0; i < file.length; i++) {
-      if(file[i].endsWith("war")) {
+      if(file[i].endsWith("war") && !"portal.war".equals(file[i])) {
         int idx = file[i].indexOf('.');
         String context = file[i].substring(0, idx);
         b.append("  <module>\n");

@@ -242,7 +242,7 @@ eXo.projects.Module = {
       
     var webWebapp = 
       new Project("org.exoplatform.portal", "exo.portal.eXoApplication.web.webResources", "war", version);
-    webWebapp.deployName = "exo.app.web" ;
+    webWebapp.deployName = "eXoAppWeb" ;
     portal.eXoApplication.web.addDependency(webWebapp) ;
 
     

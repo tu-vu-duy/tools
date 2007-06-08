@@ -224,14 +224,14 @@ Module() {
 
     eXoApplication() {
       this.web = Project("org.exoplatform.portal", "exo.portal.eXoApplication.web", "war", version);
-      this.web.deployName = "exo.app.web" ;
+      this.web.deployName = "eXoAppWeb" ;
       return this ;
     }
     this.eXoApplication = eXoApplication();
 
     eXoWidget() {
       this.web = Project("org.exoplatform.portal", "exo.portal.eXoWidget.web", "war", version);
-      this.web.deployName = "exo.widget.web" ;
+      this.web.deployName = "eXoWidgetWeb" ;
       return this ;
     }
     this.eXoWidget = eXoWidget();
