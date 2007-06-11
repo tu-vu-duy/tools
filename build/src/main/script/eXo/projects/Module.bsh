@@ -182,8 +182,10 @@ Module() {
     
     webui() {
       this.webuicore  = Project("org.exoplatform.portal", "exo.portal.webui.core", "jar", version) ;
+      this.webuieXo  = Project("org.exoplatform.portal", "exo.portal.webui.eXo", "jar", version) ;
       this.portal  = Project("org.exoplatform.portal", "exo.portal.webui.portal", "jar", version) ;
       this.portal.addDependency(webuicore) ;
+      this.portal.addDependency(webuieXo) ;
       this.portal.addDependency(component.web) ;
       this.portal.addDependency(component.scripting) ;
       this.portal.addDependency(component.jcrext) ;
