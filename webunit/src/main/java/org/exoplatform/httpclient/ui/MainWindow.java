@@ -19,6 +19,8 @@ import javax.swing.WindowConstants;
 public class MainWindow extends javax.swing.JFrame {
   private static MainWindow instance_ ;
   
+  private SuiteView suiteView_ ;
+  
   public MainWindow() {
     getContentPane().setLayout(new CardLayout());
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -33,9 +35,12 @@ public class MainWindow extends javax.swing.JFrame {
     splitPane.setLeftComponent(scrollPane);
     scrollPane.setViewportView(new ControllerView());
     
-    splitPane.setRightComponent(new SuiteView());
+    suiteView_ = new SuiteView() ;
+    splitPane.setRightComponent(suiteView_);
     setVisible(true);
   }
+  
+  public SuiteView getSuiteView() { return suiteView_ ; }
 
   static  public MainWindow getMainWindowInstance()  {  return instance_ ; }
   

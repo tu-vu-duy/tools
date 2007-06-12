@@ -5,8 +5,8 @@ import junit.framework.TestCase;
 import org.exoplatform.httpclient.impl.ApacheCommonHttpClient;
 import org.exoplatform.httpclient.recorder.ProxyServer;
 import org.exoplatform.httpclient.recorder.RequestFilter;
+import org.exoplatform.httpclient.ui.WebUnitCaptor;
 import org.exoplatform.httpclient.webunit.WebUnit;
-import org.exoplatform.httpclient.webunit.WebUnitCaptor;
 /**
  * Created by The eXo Platform SARL .
  *
@@ -16,14 +16,14 @@ import org.exoplatform.httpclient.webunit.WebUnitCaptor;
 public class TestHttpClient extends TestCase {
   private static String url = "http://vnserver.exoplatform.org/";
 
-  public void testHttpClient() throws Exception {
+public void testHttpClient() throws Exception {
 //    HttpClient client = new ApacheCommonHttpClient() ;
 //    WebUnit unit = new WebUnit(url, "GET", "HTTP 1.1") ;
 //    client.execute(unit) ;
-    
-    ProxyServer server = new ProxyServer() ;
-    Runtime.getRuntime().addShutdownHook(new ShutdownThread(server)) ;
-    String[]  pattern = {"/portal/.*"} ;
+
+  ProxyServer server = new ProxyServer() ;
+  Runtime.getRuntime().addShutdownHook(new ShutdownThread(server)) ;
+  String[]  pattern = {"/portal/.*"} ;
     RequestFilter filter = new RequestFilter(pattern) ;
     WebUnitCaptor captor = new WebUnitCaptor() ;
     captor.setRequestFilter(filter) ;
@@ -35,9 +35,18 @@ public class TestHttpClient extends TestCase {
   static class ShutdownThread extends Thread {
     ProxyServer server_ ;
 
-    ShutdownThread(ProxyServer server) {  server_ = server ; }
-    
-    public void run() { server_.stopServer() ; }
+    ShutdownThread(ProxyServer server) {  
+    	server_ = server ; 
+	    }
+   
+    public void run() { 
+    	server_.stopServer() ;
+    	try {
+    	 Thread.sleep(20000) ;
+    	} catch (Exception ex) {
+    		ex.printStackTrace() ;
+    	}
+    }
   }
 
 }

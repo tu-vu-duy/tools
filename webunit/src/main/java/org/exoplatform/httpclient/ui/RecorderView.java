@@ -15,6 +15,7 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 
 import org.exoplatform.httpclient.recorder.ProxyServer;
+import org.exoplatform.httpclient.recorder.RequestFilter;
 
 /**
  * Created by The eXo Platform SARL
@@ -36,6 +37,11 @@ public class RecorderView extends JPanel {
             return ;
           }
           server_ = new ProxyServer() ;
+          String[]  pattern = {"/portal/.*"} ;
+          RequestFilter filter = new RequestFilter(pattern) ;
+          WebUnitCaptor captor = new WebUnitCaptor() ;
+          captor.setRequestFilter(filter) ;
+          server_.add(captor) ;
           server_.start() ;
         } catch(Exception ex) {
           ex.printStackTrace() ;

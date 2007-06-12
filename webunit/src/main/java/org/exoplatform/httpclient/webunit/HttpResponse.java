@@ -85,9 +85,9 @@ public class HttpResponse {
     else totalRead = parseBody(is) ;
     
     if(totalRead != contentLength) {
-      System.out.println("\nWARNING: " + "total read = " + totalRead + " but content length = " + contentLength) ;
+      //System.out.println("\nWARNING: " + "total read = " + totalRead + " but content length = " + contentLength) ;
     } else {
-      System.out.println("\nOK: " + "total read = " + totalRead + " but content length = " + contentLength) ;
+      //System.out.println("\nOK: " + "total read = " + totalRead + " but content length = " + contentLength) ;
     }
   }
   
