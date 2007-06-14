@@ -6,10 +6,10 @@ Jboss(String home) {
   runningInstance_ = null ;
   serverHome = home ;
   String name = "jboss" ;
-  String cleanServer = "jboss-4.0.5" ;
-  String deployLibDir =  serverHome  + "/server/default/deploy/exoplatform.sar" ;
-  String deployWebappDir = deployLibDir ;
-  String patchDir = deployLibDir ;
+  String cleanServer = "jboss-4.2.0" ;
+  String deployLibDir =  serverHome  +  "/server/default/deploy/exoplatform.sar" ;
+  String deployWebappDir = serverHome  +  "/server/default/deploy/exoplatform.sar" ;
+  String patchDir = deployWebappDir ;
   
 
   RunTask() {
@@ -65,13 +65,14 @@ Jboss(String home) {
   
   preDeploy(product) {  
     product.addDependencies(Project("commons-pool", "commons-pool", "jar", "1.2")) ;
+    product.addDependencies(Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;
   }
   
   onDeploy(project) { }
   
   postDeploy(product) {
     ServerUtil = ServerUtil() ;
-    ServerUtil.createEarApplicationXml(deployLibDir) ;
+    ServerUtil.createEarApplicationXml(deployWebappDir) ;
     ServerUtil.addClasspathForWar(deployLibDir) ;
   }
   
