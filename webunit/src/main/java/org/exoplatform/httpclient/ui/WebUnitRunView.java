@@ -4,10 +4,13 @@
  **************************************************************************/
 package org.exoplatform.httpclient.ui;
 
-import java.awt.CardLayout;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -19,10 +22,11 @@ import javax.swing.table.DefaultTableModel;
  * Jun 3, 2007  
  */
 public class WebUnitRunView extends JPanel {
+  private JButton btn;
   public WebUnitRunView () {
-    setLayout(new CardLayout());
+    setLayout(new BorderLayout());
     JScrollPane scrollPane = new JScrollPane();
-    add(scrollPane, "WebUnitListViewScroller");
+    add(scrollPane, BorderLayout.CENTER);
     JTable table = new JTable();
     table.setModel(new DefaultTableModel(
     new Object[][] {
@@ -41,5 +45,16 @@ public class WebUnitRunView extends JPanel {
       }
     });
     scrollPane.setViewportView(table);
+    
+    btn = new JButton("button1");
+    JPanel pnlControl = new JPanel();
+    pnlControl.add(btn);
+    add(pnlControl, BorderLayout.SOUTH);
+    
+    btn.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+        
+      }
+    });
   }
 }

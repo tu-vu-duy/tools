@@ -4,16 +4,16 @@
  **************************************************************************/
 package org.exoplatform.httpclient.ui;
 
-import java.awt.GridBagLayout;
+import java.awt.BorderLayout;
+
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.event.AncestorListener;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import org.exoplatform.httpclient.recorder.ProxyServer;
 import org.exoplatform.httpclient.recorder.RequestFilter;
 
@@ -25,11 +25,13 @@ import org.exoplatform.httpclient.recorder.RequestFilter;
  */
 public class RecorderView extends JPanel {
   private ProxyServer server_ ;
-  
+  public JTextArea txt;
   public RecorderView ()  {
-    setLayout(new GridBagLayout());
-    JButton button = new JButton("Start") ;
-    button.addActionListener(new ActionListener() {
+    JPanel pnlControl = new JPanel(new FlowLayout());
+    
+    JButton btnStart = new JButton("Start") ;
+    pnlControl.add(btnStart) ;
+    btnStart.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent event) {
         try {
           if(server_ != null) {
@@ -48,9 +50,9 @@ public class RecorderView extends JPanel {
         }
       }
     }) ;
-    add(button) ;
-    button = new JButton("Stop") ;
-    button.addActionListener(new ActionListener() {
+    JButton btnStop = new JButton("Stop") ;
+    pnlControl.add(btnStop) ;
+    btnStop.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent event) {
         try {
           if(server_ == null) {
@@ -63,7 +65,15 @@ public class RecorderView extends JPanel {
           ex.printStackTrace() ;
         }
       }
-    }) ;
-    add(button) ;
+    });
+ 
+    txt = new JTextArea("aaa");
+    //txt.setEditable(false);
+    JScrollPane scrollPane = new JScrollPane(txt);
+    scrollPane.setPreferredSize(new Dimension(150, 150));
+    
+    setLayout(new BorderLayout());
+    add(scrollPane, BorderLayout.CENTER);
+    add(pnlControl, BorderLayout.SOUTH);
   }
 }

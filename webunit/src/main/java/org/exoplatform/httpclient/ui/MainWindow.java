@@ -26,7 +26,6 @@ public class MainWindow extends javax.swing.JFrame {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setLocation(20, 20);
     setSize(850, 650) ;
-    
     setJMenuBar(new MenuBar());
     
     JSplitPane splitPane = new JSplitPane();
