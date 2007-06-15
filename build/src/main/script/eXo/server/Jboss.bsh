@@ -1,6 +1,7 @@
 import java.net.URL ;
 import java.net.URLClassLoader ;
 import java.util.ArrayList ;
+import java.io.File ;
 
 Jboss(String home) {
   runningInstance_ = null ;
@@ -66,14 +67,22 @@ Jboss(String home) {
   preDeploy(product) {  
     product.addDependencies(Project("commons-pool", "commons-pool", "jar", "1.2")) ;
     product.addDependencies(Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;
+    product.addDependencies(Project("org.exoplatform.portal", "exo.portal.server.jboss.plugin", "jar", "2.0")) ;
   }
   
-  onDeploy(project) { }
+  onDeploy(project) { 
+  
+  }
   
   postDeploy(product) {
     ServerUtil = ServerUtil() ;
     ServerUtil.createEarApplicationXml(deployWebappDir) ;
     ServerUtil.addClasspathForWar(deployLibDir) ;
+    //Use jboss PrefixSorter deployer
+    File portalFile = new File(deployWebappDir + "/portal.war"); 
+    File newPortalFile = new File(deployWebappDir + "/01portal.war"); 
+    portalFile.renameTo(newPortalFile) ;
+    product.portalwar = "01portal.war" ;
   }
   
   return this ; 
