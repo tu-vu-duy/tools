@@ -2,11 +2,11 @@ package org.exoplatform.httpclient;
 
 import junit.framework.TestCase;
 
-import org.exoplatform.httpclient.impl.ApacheCommonHttpClient;
-import org.exoplatform.httpclient.recorder.ProxyServer;
-import org.exoplatform.httpclient.recorder.RequestFilter;
-import org.exoplatform.httpclient.ui.WebUnitCaptor;
-import org.exoplatform.httpclient.webunit.WebUnit;
+import org.exoplatform.wsqa.httpclient.ApacheCommonHttpClient;
+import org.exoplatform.wsqa.recorder.ProxyServer;
+import org.exoplatform.wsqa.recorder.RequestFilter;
+import org.exoplatform.wsqa.swing.WebUnitCaptor;
+import org.exoplatform.wsqa.webunit.WebUnit;
 /**
  * Created by The eXo Platform SARL .
  *
