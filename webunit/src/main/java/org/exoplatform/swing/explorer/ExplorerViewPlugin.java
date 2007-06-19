@@ -15,6 +15,9 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import org.exoplatform.swing.Application;
@@ -27,12 +30,14 @@ import org.exoplatform.swing.ViewPlugin;
  */
 public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
   public ExplorerViewPlugin() {
+    setName("FileExplorer") ;
     setLayout(new CardLayout());
     JScrollPane scrollPane = new JScrollPane();
     //scrollPane.setViewportView(new FileExplorerPanel());
     add(scrollPane, "ScrollPane") ;
     JTree jtree = new  JTree() ;
     scrollPane.setViewportView(jtree) ;
+
     File root = new File("/") ;
     FileNode rootNode = new FileNode(root.getName(), root);
     File[] children = root.listFiles() ;
@@ -46,6 +51,8 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
     
     jtree.addTreeSelectionListener(new TreeSelectionListener() {
       public void valueChanged(TreeSelectionEvent evt) {
+        System.out.println("==> Tree Action Listener") ;
+        JTree jtree  = (JTree)evt.getSource() ; //
         FileExplorerPlugin plugin =
           (FileExplorerPlugin)Application.getInstance().getPlugin(FileExplorerPlugin.NAME) ; 
         FileNode selectFileNode = (FileNode)evt.getPath().getLastPathComponent() ;
@@ -59,14 +66,20 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
             }
           }
         } else {
+          TreePath selectionPaths = jtree.getSelectionPath()  ;
+          System.out.println("Selection Path: " + selectionPaths);
+          TreePath parentSelectionPaths = selectionPaths.getParentPath()  ;
           FileNode parentFileNode = (FileNode)selectFileNode.getParent() ;
           if(parentFileNode != null) {
             Enumeration<FileNode> e = parentFileNode.children() ;
             while(e.hasMoreElements()) {
               FileNode fnode = e.nextElement() ;
-              if(fnode.getChildCount() > 0 && fnode != selectFileNode) {
-                fnode.removeAllChildren() ;
-                System.out.println("Remove Children");
+              if(fnode != selectFileNode) {
+                //fnode.removeAllChildren() ;
+                if(!fnode.isLeaf()) {
+                  jtree.collapsePath( parentSelectionPaths.pathByAddingChild(fnode));
+                }
+         
               }
             }
           }
@@ -82,8 +95,10 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
             }
           }
         }
+        jtree.repaint() ;
+        System.out.println("<=== Tree Action Listener") ;
       }
-    }) ;
+    }) ;  // het treeSelectionListenner;
   }
   
   public String getTitle() { return "File Explorer"; }

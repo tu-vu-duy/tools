@@ -4,6 +4,9 @@
  **************************************************************************/
 package org.exoplatform.swing.explorer;
 
+import java.util.Map;
+import java.util.Vector;
+
 import org.exoplatform.swing.Application;
 import org.exoplatform.swing.Plugin;
 /**
@@ -13,8 +16,7 @@ import org.exoplatform.swing.Plugin;
  * Jun 16, 2007  
  */
 public class FileExplorerPlugin implements Plugin {
-  final static public String NAME = "ExplorerWorkspacePlugin" ;
-    
+  final static public String NAME = "ExplorerWorkspacePlugin" ; 
   private ExplorerViewPlugin fileExplorerViewPlugin_ ;
   private OpenedFileViewPlugin  openedFileViewPlugin_ ;
   private ListOpenedFileViewPlugin  listOpenedFileViewPlugin_ ;

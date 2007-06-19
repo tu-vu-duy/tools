@@ -24,6 +24,7 @@ import org.exoplatform.swing.ViewPlugin;
 public class ListOpenedFileViewPlugin extends JPanel implements ViewPlugin {
   
   public ListOpenedFileViewPlugin() {
+    setName("ListOpenedFiles") ;
   }
 
   public String getTitle() { return "Open  Files"; }
