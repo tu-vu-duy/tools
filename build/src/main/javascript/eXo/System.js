@@ -1,29 +1,41 @@
-importPackage(java.io);
-importPackage(java.lang);
-importClass(Packages.java.lang.System) ;
+//importPackage(java.io);
+//importPackage(java.lang);
+//importClass(Packages.java.lang.System) ;
 
 
 eXo.System = {
-  verbose : true  ,
+  verbose : false  ,
+
+	addSystemClasspath : function(url) {
+    var sysClassLoader = java.lang.ClassLoader.getSystemClassLoader();
+    var argTypes = [ java.net.URL.getClass() ];
+    method = java.net.URLClassLoader.getClass().getDeclaredMethod("addURL", argTypes);
+    method.setAccessible(true);
+    for(i = 0; i < url.length; i++) {
+      var args = new Array() ;
+      args[0] = url[i] ;
+      method.invoke(sysClassLoader, args);
+    }
+  },
 
   info : function(tag, message) {
     if(message == null) {
       message = tag ;
       tag = "INFO" ;
     }      
-    System.out.print("[" + tag + "]") ;
-    for (var i = tag.length + 2; i < 10; i++) System.out.print(" ") ;
+    java.lang.System.out.print("[" + tag + "]") ;
+    for (var i = tag.length + 2; i < 10; i++) java.lang.System.out.print(" ") ;
     
     var tmp = message.split("\n") ;
-    System.out.println(tmp[0]) ;
+    java.lang.System.out.println(tmp[0]) ;
     for(var i = 1; i < tmp.length; i++) {
-      System.out.println("         " + tmp[i]  ) ;
+      java.lang.System.out.println("         " + tmp[i]  ) ;
     }
   }, 
 
   error : function(message) {
     this.info("ERROR", message);
-    System.exit(1) ;
+    java.lang.System.exit(1) ;
   } ,
 
   vinfo : function(tag, message) {
@@ -32,11 +44,11 @@ eXo.System = {
 
 
   print : function (message) {  
-    System.out.print(message) ; 
+    java.lang.System.out.print(message) ; 
   },
 
   vprint : function (message) {  
-    if(this.verbose) System.out.print(message) ; 
+    if(this.verbose) java.lang.System.out.print(message) ; 
   },
 
   printIndentation : function() { 
@@ -66,9 +78,9 @@ eXo.System = {
   },
 
   readInput : function(message) {
-    System.out.print(message + ": ") ;
+    java.lang.System.out.print(message + ": ") ;
     var b = new java.lang.StringBuilder() ;
-    var systemin =  System['in'] ;
+    var systemin =  java.lang.System['in'] ;
     while(true) {
       var val =  systemin.read() ;
       if(val == 13) continue ;

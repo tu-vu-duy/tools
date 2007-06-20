@@ -1,11 +1,14 @@
-eXo.require("eXo.server") ;
+//eXo.require("eXo.server") ;
 eXo.require("eXo.server.Tomcat") ;
+eXo.require("eXo.server.Jboss") ;
+eXo.require("eXo.server.Jonas") ;
 eXo.require("eXo.projects") ;
 eXo.require("eXo.server.Database") ;
 eXo.require("eXo.projects.eXoProduct") ;
 eXo.require("eXo.core.TaskDescriptor") ;
 eXo.require("eXo.command.maven") ;
-
+eXo.require("eXo.command.exosvn") ;
+eXo.require("eXo.core.IOUtil") ;
 
 function exobuildInstructions() {
   print(
@@ -29,7 +32,24 @@ function exobuildInstructions() {
    "                       enter the connection url , username and password of the database server \n" 
   );
 }
-  
+
+function ReleaseTask(server, product) {
+  var descriptor = new TaskDescriptor("Release Task", server.serverHome) ;
+  descriptor.execute = function() {
+    var commands = ["svn", "info", eXo.env.eXoProjectsDir + "/" + product.codeRepo] ;
+    var result = eXo.System.run(commands) ; 
+    var line = result.split("\n") ;
+    var revision = "unknown" ;
+    for(var i = 0; i < line.length; i++) {
+      if(line[i].startsWith("Revision: ")) {
+        revision = line[i].substring("Revision: ".length, line[i].length()) ;
+      }
+    }
+    eXo.core.IOUtil.zip(server.serverHome, eXo.env.workingDir, "exo-enterprise-webos-r" + revision + "-" + server.name) ;
+  }
+  return descriptor ;
+}
+
 
 var build_ = false ;
 var update_ = false ;
@@ -62,10 +82,10 @@ for(var i = 0; i <args.length; i++) {
   } else if ("--release=all" == arg) {
     release_ = true ;
     deployServers = [
-      Jboss(eXo.env.workingDir + "/exo-jboss") ,
-      Jonas(eXo.env.workingDir + "/exo-jonas") ,
-      Tomcat(eXo.env.workingDir + "/exo-tomcat")
-    ]  ; 
+      new Jboss(eXo.env.workingDir + "/exo-jboss") ,
+      new Jonas(eXo.env.workingDir + "/exo-jonas") ,
+      new Tomcat(eXo.env.workingDir + "/exo-tomcat")
+    ]  ;
   } else if (arg.match("--exclude="))  {
     exclude_ = arg.substring("--exclude=".length) ;
   } else if (arg.match("--deploy")) {
@@ -73,7 +93,15 @@ for(var i = 0; i <args.length; i++) {
     else if(arg == "--deploy=jonas") server = new Jonas(eXo.env.workingDir + "/exo-jonas") ;
     else server = new Tomcat(eXo.env.workingDir + "/exo-tomcat") ;
   } else if(arg == "--database=mysql") {
-    database = Database().MysqlDB() ;
+    database = eXo.server.Database.MysqlDB() ;
+  } else if(arg == "--database=oracle") {
+    database = eXo.server.Database.OracleDB() ;
+  } else if(arg == "--database=postgresql") {
+    database = eXo.server.Database.PostgresDB() ;
+  } else if(arg == "--database=db2") {
+    database = eXo.server.Database.DB2ExpressDB() ;
+  } else if(arg == "--database=derby") {
+    database = eXo.server.Database.DerbyDB() ;
   } else if ("--product=portal" == arg) {
     product = eXo.projects.eXoProduct.portal();
   } else if ("--product=ecm" == arg) {
@@ -83,9 +111,9 @@ for(var i = 0; i <args.length; i++) {
   } else if ("--product=all" == arg) {
     product = eXo.projects.eXoProduct.eXoAllProduct();
   } else {
-    print("UNKNOW ARHGUMENT: " + arg) 
+    print("UNKNOWN ARGUMENT: " + arg); 
     exobuildInstructions() ;
-    System.exit(1);
+    java.lang.System.exit(1);
   }
 }
 
@@ -109,13 +137,14 @@ if(deployServers != null  && ask) {
     tasks.add(database.GetConfigTask()) ;
 }
 if(update_) {
+	exosvn = new eXo.command.exosvn();
   if("all" != exclude_) {
     for(var i = 0; i < product.dependencyModule.length; i++) {
       var module = product.dependencyModule[i] ;
       if(exclude_ == null || exclude_.indexOf(module.name) < 0) {
         var moduleDir = eXo.env.eXoProjectsDir + "/" + module.relativeSRCRepo ;
         var directory = new java.io.File(moduleDir);
-//        if(directory.exists()) tasks.add(exosvn.UpdateTask(moduleDir));
+        if(directory.exists()) tasks.add(exosvn.UpdateTask(moduleDir));
       }
     }
   }
@@ -142,7 +171,7 @@ if(build_) {
   tasks.add(maven.MavenTask(moduleDir, mvnArgs));
 }
 
-/*
+
 if(deployServers != null) { 
   for(var i = 0; i < deployServers.length; i++) {
     server =  deployServers[i] ;
@@ -152,14 +181,13 @@ if(deployServers != null) {
     if(release_)tasks.add(ReleaseTask(server, product)) ;
   }
 }
-*/
-  
+
 
 for(var i = 0; i < tasks.size(); i++) {
   task = tasks.get(i) ;
-  var start = System.currentTimeMillis() ;
+  var start = java.lang.System.currentTimeMillis() ;
   task.banner() ;
   task.execute() ;
-  task.executionTime = System.currentTimeMillis() - start ;
+  task.executionTime = java.lang.System.currentTimeMillis() - start ;
   task.report() ;
 }

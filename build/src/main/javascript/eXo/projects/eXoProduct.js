@@ -1,4 +1,5 @@
 eXo.require("eXo.projects.Module") ;
+eXo.require("eXo.core.TaskDescriptor") ;
 
 function Product() {
   this.name      = null ;
@@ -39,8 +40,39 @@ Product.prototype.getDependencies = function() {
   return this.dependenciesHolder.values() ; 
 }
 
-Product.prototype.getServerPatches = function(serverName) { 
-  return serverPatches.get(serverName) ; 
+//Product.prototype.getServerPatches = function(serverName) { 
+//  return serverPatches.get(serverName) ; 
+//}
+
+Product.prototype.DeployTask = function(product, server, repos) {
+  var descriptor =  new TaskDescriptor("Deploy Product", server.serverHome) ;
+  descriptor.execute = function() {
+    eXo.System.info("DELETE", "Delete " + server.serverHome);
+    eXo.core.IOUtil.remove(server.serverHome) ;
+    eXo.System.info("COPY", "Copy a clean server " + server.cleanServer);
+    eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/" + server.cleanServer, server.serverHome) ;
+    server.preDeploy(product) ;
+    patches = product.getServerPatches(server.name) ;
+    for(var i = 0; i <  patches.size(); i++) {
+      project = patches.get(i) ;
+      var message = "Patch the server " + server.name + 
+                       " with project " +  project.artifactId + " " + project.version ;
+      eXo.System.info("INFO", message);
+      new java.io.File(server.patchDir).mkdirs();
+      project.extractTo(repos, server.patchDir, "META-INF/maven.*") ;
+    }
+    var i = product.getDependencies().iterator();
+    counter = 0 ;
+    while(i.hasNext()) {
+      project = i.next();
+      project.deployTo(repos, server) ;
+      server.onDeploy(project) ;
+      counter++ ;
+    }
+    eXo.System.info("INFO", "Deploy total " +  counter + " files");
+    server.postDeploy(product) ;
+  }
+  return descriptor ;
 }
 
 /******************************************************************************************/
@@ -70,6 +102,8 @@ eXo.projects.eXoProduct = {
     product.addDependencies(portal.portlet.test) ;
 
     product.addDependencies(portal.eXoApplication.web) ;
+    product.addDependencies(portal.eXoWidget.web) ;
+    product.addDependencies(portal.sample.framework) ;
 
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;
@@ -110,6 +144,8 @@ eXo.projects.eXoProduct = {
     product.addDependencies(ecm.portlet.workflow) ;
 
     product.addDependencies(portal.eXoApplication.web) ;
+    product.addDependencies(portal.eXoWidget.web) ;
+    product.addDependencies(portal.sample.framework) ;
     
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;
@@ -170,7 +206,6 @@ eXo.projects.eXoProduct = {
     var product = new Product();
     product.name = "eXoAllProduct" ;
     product.portalwar = "portal.war" ;
-    
     
     var tool = eXo.projects.Module.tool("2.0") ;
     var kernel = eXo.projects.Module.kernel("2.0.3") ;

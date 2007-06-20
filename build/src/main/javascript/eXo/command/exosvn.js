@@ -22,7 +22,7 @@ exosvn.prototype.Param = function(args) {
 exosvn.prototype.MatchFile = function (param) {
   var proc = java.lang.Runtime.getRuntime().exec("svn st " + param.workingDir) ;
   var din = new java.io.DataInputStream(proc.getInputStream() );
-  var files = new ArrayList() ;
+  var files = new java.util.ArrayList() ;
   var line = din.readLine()
   while( line  != null ) {
     if(line.matches(param.include)) {
@@ -47,7 +47,7 @@ exosvn.prototype.UpdateTask = function(module) {
   return task;
 }
 
-
-exosvn = new exosvn();
-var task = exosvn.UpdateTask(eXo.env.eXoProjectsDir + "/portal/trunk");
-task.execute();
+eXo.command.exosvn = exosvn.prototype.constructor;
+//exosvn = new exosvn();
+//var task = exosvn.UpdateTask(eXo.env.eXoProjectsDir + "/portal/trunk");
+//task.execute();

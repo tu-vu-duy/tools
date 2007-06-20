@@ -1,17 +1,17 @@
-importClass(Packages.java.lang.System) ;
+//importClass(Packages.java.lang.System) ;
 
 function Env() {
-  this.baseDir    =  System.getProperty("exo.base.dir");
+  this.baseDir    =  java.lang.System.getProperty("exo.base.dir");
   this.workingDir =   this.baseDir + "/exo-working" ;
   this.dependenciesDir =  this.baseDir + "/exo-dependencies"  ;
   this.eXoProjectsDir = this.baseDir + "/eXoProjects" ;
-  this.javaHome    =  System.getProperty("exo.java.home");
-  this.currentDir  =  System.getProperty("exo.current.dir");
+  this.javaHome    =  java.lang.System.getProperty("exo.java.home");
+  this.currentDir  =  java.lang.System.getProperty("exo.current.dir");
   if(this.currentDir.startsWith("/cygdrive/")) {
     this.currentDir = this.currentDir.substring("/cygdrive/".length) ;
     this.currentDir = this.currentDir.replaceFirst("/", ":/");
   }
-  this.m2Repos = System.getProperty("exo.m2.repos").split(",") ;
+  this.m2Repos = java.lang.System.getProperty("exo.m2.repos").split(",") ;
   for(var i = 0 ; i< this.m2Repos.length; i++) this.m2Repos[i] = this.m2Repos[i].trim();
 }
 
@@ -27,8 +27,8 @@ var eXo  = {
     try {
       if(eval(module + ' != null'))  return ;
     } catch(err) {
-      eXo.error(err + " : " + module);
-      System.exit(1) ;
+      eXo.System.error(err + " : " + module);
+      java.lang.System.exit(1) ;
     }
     if(jsLocation == null) {
       jsLocation = eXo.env.eXoProjectsDir +  '/tools/trunk/build/src/main/javascript/' ;
@@ -39,17 +39,17 @@ var eXo  = {
     } catch(err){
       print("Cannot load the javascript module " + module + " from " + jsLocation);
       print(err);
-      System.exit(1) ;
+      java.lang.System.exit(1) ;
     }
   },
 } ;
 
 eXo.require("eXo.System")  ;
-eXo.require("eXo.core.IOUtil")  ;
+eXo.require("eXo.core.Util")  ;
 
 if(arguments.length > 0) {
   var  command =  arguments[0] ;
-  arguments = eXo.core.IOUtil.shift(arguments) ;
+  arguments = eXo.core.Util.shift(arguments) ;
   eXo.require("eXo.command." + command) ; 
 }
-print("===============>  " + nam );
+//print("===============>  " + nam );

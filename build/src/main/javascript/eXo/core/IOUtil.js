@@ -1,8 +1,8 @@
-importClass(Packages.java.lang.System) ;
-importClass(Packages.java.io.File) ;
-importClass(Packages.java.io.FileInputStream) ;
-importClass(Packages.java.io.FileOutputStream) ;
-importClass(Packages.java.io.ByteArrayOutputStream) ;
+//importClass(Packages.java.lang.System) ;
+//importClass(Packages.java.io.File) ;
+//importClass(Packages.java.io.FileInputStream) ;
+//importClass(Packages.java.io.FileOutputStream) ;
+//importClass(Packages.java.io.ByteArrayOutputStream) ;
 
 function IOUtil() {
 }
@@ -17,7 +17,7 @@ IOUtil.prototype.shift = function(args) {
 
 IOUtil.prototype.emptyFolder = function(folder) {
   if(typeof(folder) == 'string') {
-    this.emptyFolder(new File(folder)) ;
+    this.emptyFolder(new java.io.File(folder)) ;
   } else {
     if(folder.exists() &&  folder.isDirectory()) {
       var child =  folder.listFiles();
@@ -27,7 +27,7 @@ IOUtil.prototype.emptyFolder = function(folder) {
         var method = file.getClass().getMethod('delete', null);
         var result = method.invoke(file, null);
         if(result) {
-          print("[DELETE] " + file.getAbsolutePath());
+          eXo.System.vinfo("[DELETE] " + file.getAbsolutePath());
         } else {
           print("[ERROR]  Cannot delete " + file.getAbsolutePath());
         }
@@ -38,14 +38,14 @@ IOUtil.prototype.emptyFolder = function(folder) {
 
 IOUtil.prototype.remove = function(path) {
   var file = path ;
-  if(typeof(path) == 'string') file = new File(path) ;
+  if(typeof(path) == 'string') file = new java.io.File(path) ;
 
   if(file.exists())  {
     this.emptyFolder(file) ;
     var method = file.getClass().getMethod('delete', null);
     var result = method.invoke(file, null);
     if(result) {
-      print("[DELETE] " + file.getAbsolutePath());
+      eXo.System.vinfo("[DELETE] " + file.getAbsolutePath());
     } else {
       print("[ERROR]  Cannot delete " + file.getAbsolutePath());
     }
@@ -54,7 +54,7 @@ IOUtil.prototype.remove = function(path) {
   }
 }
 
-IOUtil.prototype.createByteArray = function(size)  {
+IOUtil.prototype.createByteArray = function(size)  { // creates an array of 2^size bytes
   var  buff = new java.io.ByteArrayOutputStream(size) ;
   buff.write(1) ;
   for(var i = 0; i < size; i++) {
@@ -66,16 +66,19 @@ IOUtil.prototype.createByteArray = function(size)  {
 }
 
 IOUtil.prototype.cp = function(src, dest) {
-  var srcFolder = new File(src) ;
+  var srcFolder = new java.io.File(src) ;
   if(!srcFolder.exists()) {
-    throw(src + " is not existed") ;
+    throw(src + " does not exist") ;
   } else if(srcFolder.isFile()) {
-    var destFolder = new File(dest);
+    var destFolder = new java.io.File(dest);
+    if (destFolder.isFile()) {
+    	dest = destFolder.getParent();
+    }
     if (destFolder.exists()) {
       dest = dest + "/" + srcFolder.getName();
     }
-    var input = new FileInputStream(srcFolder) ;
-    var output = new FileOutputStream(dest) ;
+    var input = new java.io.FileInputStream(srcFolder) ;
+    var output = new java.io.FileOutputStream(dest) ;
     var buff = this.createByteArray(12) ;
     var len = 0 ;
     while ((len = input.read(buff)) > 0) {
@@ -85,7 +88,7 @@ IOUtil.prototype.cp = function(src, dest) {
     output.close(); 
     eXo.System.vinfo("COPY", "Copy file " + src) ;
   } else {
-    var destFolder = new File(dest) ;
+    var destFolder = new java.io.File(dest) ;
     if(!destFolder.exists()) {
       destFolder.mkdirs() ;
       eXo.System.vinfo("MKDIR", "Create a directory " + dest) ;
@@ -108,7 +111,7 @@ IOUtil.prototype.cp = function(src, dest) {
 IOUtil.prototype.createFile = function( path, content) {
   var tmp = new java.lang.String(content) ;
   var bytes = tmp.getBytes() ;
-  var out = new FileOutputStream(path);
+  var out = new java.io.FileOutputStream(path);
   out.write(bytes, 0, bytes.length);
   out.close();
   eXo.System.vinfo("NEW", "Create file " +  path) ;
@@ -116,7 +119,7 @@ IOUtil.prototype.createFile = function( path, content) {
   
 
 IOUtil.prototype.createFolder = function( path) {
-  var folder = new File(path);
+  var folder = new java.io.File(path);
   if(!folder.exists()) {
     folder.mkdirs();
     eXo.System.vinfo("MKDIR", "Create a directory " + path) ;
@@ -150,14 +153,14 @@ IOUtil.prototype.getJarEntryContent = function(fileName, entryName) {
 IOUtil.prototype.modifyJarEntry = function(moduleFile, configEntry, properties) {
   var  file = new java.io.File(moduleFile) ;
   if(!file.exists())  return ;
-  var content = new java.lang.String(getJarEntryContent(moduleFile, configEntry)) ;
+  var content = new java.lang.String(eXo.core.IOUtil.getJarEntryContent(moduleFile, configEntry)) ;
   var i = properties.entrySet().iterator();
   while(i.hasNext()) {
     var entry = i.next() ;
     content = content.replace(entry.getKey(), entry.getValue()) ;
   }
 
-  mentries = new HashMap() ;
+  mentries = new java.util.HashMap() ;
   mentries.put(configEntry, content.getBytes("UTF-8")) ;
   eXo.core.IOUtil.modifyJar(moduleFile, mentries, null);
 }
@@ -182,7 +185,7 @@ IOUtil.prototype.modifyJar = function(fileName,mentries, mattrs) {
     }
   }
   var tmpFile = new java.io.File(fileName + ".tmp") ;
-  var jos = new JarOutputStream(new FileOutputStream(tmpFile), mf) ;
+  var jos = new java.util.jar.JarOutputStream(new java.io.FileOutputStream(tmpFile), mf) ;
   var entries = jar.entries() ;
   var buffer = this.createByteArray(12) ;
   var bytesRead;
@@ -191,7 +194,7 @@ IOUtil.prototype.modifyJar = function(fileName,mentries, mattrs) {
     var entryName = entry.getName() ; 
     if(entryName.match("MANIFEST.MF")) {
     } else if(mentries != null && mentries.containsKey(entryName)) {
-      entry = new JarEntry(entryName) ;
+      entry = new java.util.jar.JarEntry(entryName) ;
       jos.putNextEntry(entry) ;
       var content = mentries.get(entryName) ;
       jos.write(content, 0, content.length) ;
@@ -208,9 +211,47 @@ IOUtil.prototype.modifyJar = function(fileName,mentries, mattrs) {
   tmpFile.renameTo(file) ;
 }
 
+IOUtil.prototype.addToArchive = function(zosStream, entryPath, file) {
+  if(file.isDirectory()) {
+    var children = file.listFiles() ; 
+    for(var i = 0; i < children.length; i++) {
+      this.addToArchive(zosStream, entryPath + "/" + file.getName(), children[i]) ;
+    }
+  } else {
+    zosStream.putNextEntry(new java.util.zip.ZipEntry(entryPath + "/" + file.getName()));
+    var fis =  new java.io.FileInputStream(file);
+    var buf = this.createByteArray(12) ;
+    var len = -1;
+    while((len = fis.read(buf)) > 0) {
+      zosStream.write(buf, 0, len);
+    }
+    fis.close();
+  }
+}
+
+IOUtil.prototype.zip = function(src, dest, zipName) {
+  var srcFile = new java.io.File(src) ;  
+  if(!srcFile.exists()) {
+    eXo.System.vinfo("INFO", "File Not Exist " +  srcFile.getAbsolutePath()) ;
+    java.lang.System.exit(1) ;
+  }
+  var destDir = new java.io.File(dest);
+  if(!destDir.exists()) destDir.mkdirs() ;
+  var destFile = new java.io.File(dest + "/" + zipName + ".zip");
+  var zos = new java.util.zip.ZipOutputStream(new java.io.FileOutputStream(destFile));
+  if(srcFile.isDirectory()) {
+    var children = srcFile.listFiles() ; 
+    for(var i = 0; i < children.length; i++) {
+      this.addToArchive(zos, zipName, children[i]) ;
+    }
+  } else {
+    this.addToArchive(zos, zipName, srcFile) ;
+  }
+  zos.close() ;
+}
+
 eXo.core.IOUtil = new IOUtil() ;
 
-var nam="testing";
 
 //eXo.core.IOUtil.remove("target") ;
 //eXo.core.IOUtil.cp("nam.txt", "target");

@@ -189,6 +189,10 @@ eXo.projects.Module = {
       addDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0")).
       addDependency(new Project("commons-codec", "commons-codec", "jar", "1.3"));
       
+    portal.component.scripting =
+    	new Project("org.exoplatform.portal", "exo.portal.component.scripting", "jar", version).
+    	addDependency(new Project("rhino", "js", "jar", "1.6R5")) ;
+
     portal.webui = {};
     portal.webui.core = 
       new Project("org.exoplatform.portal", "exo.portal.webui.core", "jar", version) ;
@@ -201,7 +205,8 @@ eXo.projects.Module = {
       addDependency(portal.component.resources) .
       addDependency(portal.component.applicationRegistry) .
       addDependency(portal.component.portal). 
-
+			addDependency(portal.component.scripting). 
+			
       addDependency(kernel.container) .
       addDependency(kernel.component.common) .
       addDependency(kernel.component.remote) .
@@ -238,13 +243,30 @@ eXo.projects.Module = {
     
     portal.eXoApplication = {};
     portal.eXoApplication.web = 
-      new Project("org.exoplatform.portal", "exo.portal.eXoApplication.web.application", "jar", version);
+      new Project("org.exoplatform.portal", "exo.portal.eXoApplication.web", "war", version);
+    portal.eXoApplication.web.deployName = "exo.app.web";
       
+
+//    var webWebapp = 
+//      new Project("org.exoplatform.portal", "exo.portal.eXoApplication.web.webResources", "war", version);
+//    webWebapp.deployName = "exo.app.web" ;
+//    portal.eXoApplication.web.addDependency(webWebapp) ;
+
     var webWebapp = 
       new Project("org.exoplatform.portal", "exo.portal.eXoApplication.web.webResources", "war", version);
     webWebapp.deployName = "eXoAppWeb" ;
     portal.eXoApplication.web.addDependency(webWebapp) ;
 
+
+    portal.sample = {};
+    portal.sample.framework = 
+    	new Project("org.exoplatform.portal", "exo.portal.sample.framework", "war", version);
+    portal.sample.framework.deployName = "eXoSampleFramework" ;
+    
+    portal.eXoWidget = {};
+    portal.eXoWidget.web = 
+    	new Project("org.exoplatform.portal", "exo.portal.eXoWidget.web", "war", version);
+    portal.eXoWidget.web.deployName = "exo.widget.web" ;
     
     portal.web = {}
     portal.web.eXoResources = 

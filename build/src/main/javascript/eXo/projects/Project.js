@@ -54,8 +54,8 @@ Project.prototype.extractTo = function(repository, dir, ignore) {
         if(!entry.isDirectory()) {
           var name = entry.getName() ;
           if(ignore == null || !name.matches(ignore)) {
-            var file = new File(dir + "/" + name);
-            var parentFolder = new File(file.getParent()) ;
+            var file = new java.io.File(dir + "/" + name);
+            var parentFolder = new java.io.File(file.getParent()) ;
             if(!parentFolder.exists()) parentFolder.mkdirs() ;
             var out = new java.io.FileOutputStream(file) ;
             var buf = new eXo.core.IOUtil.createByteArray(14) ;
@@ -84,7 +84,7 @@ Project.prototype.extractTo = function(repository, dir, ignore) {
 Project.prototype.deployTo = function(repository, server) {
   for(var i = 0; i < repository.length; i++) {
     try {
-      eXo.System.vinfo("GET", this.relativePath + "\n From " + repository[i]) ;
+      eXo.System.info("GET", this.relativePath + "\n From " + repository[i]) ;
       var url = new java.net.URL(repository[i] + "/" + this.relativePath);
       eXo.System.vinfo("TEST", "Use the repository " + repository[i]) ;
       var warName = null, fileName = null ;
@@ -133,7 +133,7 @@ Project.prototype.deployTo = function(repository, server) {
       return ;
     } catch(err) {  print(err.message); }
   }
-  throw("Error while deploying the project : " + this.relativePath) ;
+  //throw("Error while deploying the project : " + this.relativePath) ;
 }
 //  return this ;
 

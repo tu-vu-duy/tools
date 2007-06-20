@@ -12,8 +12,8 @@ maven.prototype.MavenTask = function(projectDir, args) {
 
   descriptor.execute = function() {
     var m2Home= eXo.env.baseDir + "/maven2" ;
-    System.setProperty("maven.home", m2Home) ;
-    System.setProperty("classworlds.conf", m2Home + "/bin/m2.conf") ;
+    java.lang.System.setProperty("maven.home", m2Home) ;
+    java.lang.System.setProperty("classworlds.conf", m2Home + "/bin/m2.conf") ;
 
     java.lang.System.setProperty("user.dir", this.workingDir) ;
     print("path: " + m2Home) ;
@@ -29,7 +29,7 @@ maven.prototype.MavenTask = function(projectDir, args) {
     var exitCode = type.newInstance().mainWithExitCode(this.mavenArgs);
     java.lang.System.gc() ;
     if(exitCode != 0) {
-      throw new Exception("BUILD MODULE :" + this.workingDir + " IS FAIL");
+      throw new java.lang.Exception("BUILD MODULE :" + this.workingDir + " IS FAIL");
     }
     java.lang.Thread.currentThread().setContextClassLoader(contextLoader); 
   }
