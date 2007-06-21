@@ -87,7 +87,7 @@ DBInstance.prototype.ConfigureTask = function(product, server) {
 		var imports = new java.util.HashMap() ;
     imports.put("war:/conf/jcr/exo-jcr-config.tmpl.xml", "war:/conf/jcr/exo-jcr-config.xml") ;
     var properties = new java.util.HashMap() ;
-		properties.put("${dbtype}", this.dbinstance.name);
+		properties.put("${dialect}", this.dbinstance.name);
     eXo.core.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/configuration.xml", imports);
     eXo.core.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/jcr/exo-jcr-config.xml", properties);
     
@@ -121,7 +121,7 @@ Database.prototype.MysqlDB = function() {
    
   instance.driverClass = "com.mysql.jdbc.Driver";
   instance.dialect = "org.hibernate.dialect.MySQLDialect" ;
-  instance.conectionURL = "jdbc:mysql://192.168.1.60:3306/exodb?relaxAutoCommit=true&amp;autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8";
+  instance.conectionURL = "jdbc:mysql://192.168.1.54:3306/exodb?relaxAutoCommit=true&amp;autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8";
   instance.username = "exo" ;
   instance.password = "exo";
     
@@ -175,11 +175,25 @@ Database.prototype.DerbyDB = function() {
   instance.name = "derby" ;
   instance.drivers = [ new Project("org.apache", "derby", "jar", "10.2")] ;
    
-  instance.driverClass = "org.apache.derby.jdbc.EmbeddedDriver";
+  instance.driverClass = "org.apache.derby.jdbc.ClientDriver";
   instance.dialect = "org.hibernate.dialect.DerbyDialect" ;
-  instance.conectionURL = "jdbc:derby://192.168.1.54:1527/exodb;create=true";
-  instance.username = "" ;
-  instance.password = "";
+  instance.conectionURL = "jdbc:derby://192.168.1.54:1527/exodb;create=true;user=exo;password=exo";
+  instance.username = "exo" ;
+  instance.password = "exo";
+    
+  return instance ;
+}
+
+Database.prototype.SqlServerDB = function() {
+  var instance = new DBInstance() ;
+  instance.name = "sqlserver" ;
+  instance.drivers = [ new Project("com.microsoft", "sqljdbc", "jar", "1.1.1501")] ;
+   
+  instance.driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+  instance.dialect = "org.hibernate.dialect.SQLServerDialect" ;
+  instance.conectionURL = "jdbc:sqlserver://192.168.1.55;SQLEXPRESS:1433;databaseName=exodb;user=exo;password=exo";
+  instance.username = "exo" ;
+  instance.password = "exo";
     
   return instance ;
 }

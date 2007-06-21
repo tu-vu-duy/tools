@@ -102,6 +102,8 @@ for(var i = 0; i <args.length; i++) {
     database = eXo.server.Database.DB2ExpressDB() ;
   } else if(arg == "--database=derby") {
     database = eXo.server.Database.DerbyDB() ;
+  } else if(arg == "--database=sqlserver") {
+    database = eXo.server.Database.SqlServerDB() ;
   } else if ("--product=portal" == arg) {
     product = eXo.projects.eXoProduct.portal();
   } else if ("--product=ecm" == arg) {
