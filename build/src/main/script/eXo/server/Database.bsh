@@ -43,20 +43,6 @@ Database() {
       descriptor =  TaskDescriptor("Configure Database", null) ;
       descriptor.description = "Configure the database environment for "  + name;
       
-      modifyDbConfig(String moduleFile, String configEntry) {
-        File  file = new File(moduleFile) ;
-        if(!file.exists())  return ;
-        String configContent = new String(eXo.IOUtil.getJarEntryContent(moduleFile, configEntry)) ;
-        configContent = configContent.replace("${dialect}", dialect) ;
-        configContent = configContent.replace("${driverClass}", driverClass) ;
-        configContent = configContent.replace("${connectionUrl}", conectionURL) ;
-        configContent = configContent.replace("${username}", username) ;
-        configContent = configContent.replace("${password}", password) ;
-        mentries = new HashMap() ;
-        mentries.put(configEntry, configContent.getBytes("UTF-8")) ;
-        eXo.IOUtil.modifyJar(moduleFile, mentries, null);
-      }
-      
       execute() {
         Map properties = new HashMap() ;
         properties.put("${dialect}", dialect) ;
@@ -64,12 +50,15 @@ Database() {
         properties.put("${connectionUrl}", conectionURL) ;
         properties.put("${username}", username) ;
         properties.put("${password}", password) ;
+        properties.put("${dbtype}", name);
         
         Map imports = new HashMap() ;
         imports.put("war:/conf/database-configuration.hsql.xml", "war:/conf/database-configuration.xml") ;
+        //imports.put("war:/conf/jcr/exo-jcr-config.tmpl.xml", "war:/conf/jcr/exo-jcr-config.xml") ;
 
         eXo.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/configuration.xml", imports);
         eXo.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/database-configuration.xml", properties);
+        eXo.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/jcr/exo-jcr-config.xml", properties);
       }
       return this ;
     }

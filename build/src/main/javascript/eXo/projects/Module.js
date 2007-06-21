@@ -244,20 +244,8 @@ eXo.projects.Module = {
     portal.eXoApplication = {};
     portal.eXoApplication.web = 
       new Project("org.exoplatform.portal", "exo.portal.eXoApplication.web", "war", version);
-    portal.eXoApplication.web.deployName = "exo.app.web";
+    portal.eXoApplication.web.deployName = "eXoAppWeb";
       
-
-//    var webWebapp = 
-//      new Project("org.exoplatform.portal", "exo.portal.eXoApplication.web.webResources", "war", version);
-//    webWebapp.deployName = "exo.app.web" ;
-//    portal.eXoApplication.web.addDependency(webWebapp) ;
-
-    var webWebapp = 
-      new Project("org.exoplatform.portal", "exo.portal.eXoApplication.web.webResources", "war", version);
-    webWebapp.deployName = "eXoAppWeb" ;
-    portal.eXoApplication.web.addDependency(webWebapp) ;
-
-
     portal.sample = {};
     portal.sample.framework = 
     	new Project("org.exoplatform.portal", "exo.portal.sample.framework", "war", version);
