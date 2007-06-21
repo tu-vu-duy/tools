@@ -79,7 +79,7 @@ Jboss(String home) {
     ServerUtil.createEarApplicationXml(deployWebappDir) ;
     ServerUtil.addClasspathForWar(deployLibDir) ;
     //Use jboss PrefixSorter deployer
-    File portalFile = new File(deployWebappDir + "/portal.war"); 
+    File portalFile = new File(deployWebappDir + "/" + product.portalwar); 
     File newPortalFile = new File(deployWebappDir + "/01portal.war"); 
     portalFile.renameTo(newPortalFile) ;
     product.portalwar = "01portal.war" ;

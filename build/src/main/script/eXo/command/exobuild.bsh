@@ -70,9 +70,9 @@ exobuild(String[] args) {
     } else if ("--release=all".equals(arg)) {
       release_ = true ;
       deployServers = new Object[] { 
-        Jboss(eXo.env.workingDir + "/exo-jboss") ,
+        Tomcat(eXo.env.workingDir + "/exo-tomcat"),
         Jonas(eXo.env.workingDir + "/exo-jonas") ,
-        Tomcat(eXo.env.workingDir + "/exo-tomcat")
+        Jboss(eXo.env.workingDir + "/exo-jboss") 
       } ; 
     } else if (arg.startsWith("--exclude="))  {
       exclude_ = arg.substring("--exclude=".length()) ;
