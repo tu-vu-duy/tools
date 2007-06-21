@@ -67,6 +67,12 @@ exobuild(String[] args) {
     else if ("--clean-mvn-repo".equals(arg)) cleanMVNRepo_ = true ;
     else if ("--release".equals(arg)) {
       release_ = true ;
+    } else if ("--release=jboss".equals(arg)) {
+      release_ = true ;
+      deployServers = new Object[] { Jboss(eXo.env.workingDir + "/exo-jboss") } ; 
+    } else if ("--release=jonas".equals(arg)) {
+      release_ = true ;
+      deployServers = new Object[] { Jonas(eXo.env.workingDir + "/exo-jonas") } ; 
     } else if ("--release=all".equals(arg)) {
       release_ = true ;
       deployServers = new Object[] { 
