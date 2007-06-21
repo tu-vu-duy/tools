@@ -35,7 +35,7 @@ public class Connection extends Thread {
       for(ConnectionListener listener : listeners_) listener.onStartConnection(this) ;
       InputStream fromClient = new BufferedInputStream(clientSocket_.getInputStream());
       request_ = new HttpRequest(fromClient) ;
-      serverSocket_ = new Socket(request_.getHost(), request_.getPort()) ;
+      serverSocket_ = new Socket(request_.getURI().getHost(), request_.getURI().getPort()) ;
       OutputStream toServer = serverSocket_.getOutputStream() ;
       request_.forward(toServer) ;
       toServer.flush() ;
@@ -56,7 +56,7 @@ public class Connection extends Thread {
       try {
         if(clientSocket_ != null) clientSocket_.close() ;
         if(serverSocket_ != null) serverSocket_.close() ;
-      } catch(Exception ex) {
+      } catch(Throwable ex) {
         ex.printStackTrace() ;
       }
     }

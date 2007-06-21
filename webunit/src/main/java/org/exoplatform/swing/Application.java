@@ -35,7 +35,7 @@ public class Application extends javax.swing.JFrame {
   public Application() throws Exception {
     setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     setLocation(20, 20);
-    setSize(1000, 700) ;
+    setSize(1200, 700) ;
     menuBar_ = new ApplicationMenuBar() ;
     setJMenuBar(menuBar_);
     plugins_.put(FileExplorerPlugin.NAME, new FileExplorerPlugin()) ;
@@ -59,11 +59,6 @@ public class Application extends javax.swing.JFrame {
   }
   
   public Plugin getPlugin(String name) { return plugins_.get(name) ; }
-  
-  public void addWorkspace(ViewPlugin ws) {  
-    workspacesMap_.put(ws.getName(), ws) ; 
-    workspaces_.addTab(ws.getName(), (JComponent)ws) ;
-  }
   
   public Map<String, ViewPlugin>  getWorkspacesMap() { return workspacesMap_ ; }
   

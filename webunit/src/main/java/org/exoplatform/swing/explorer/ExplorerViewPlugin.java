@@ -8,6 +8,7 @@ import java.awt.CardLayout;
 import java.io.File;
 import java.util.Enumeration;
 
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
@@ -15,13 +16,12 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeModel;
-import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import org.exoplatform.swing.Application;
 import org.exoplatform.swing.ViewPlugin;
+import org.exoplatform.swing.Workspaces;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -29,6 +29,7 @@ import org.exoplatform.swing.ViewPlugin;
  * Jun 3, 2007  
  */
 public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
+  
   public ExplorerViewPlugin() {
     setName("FileExplorer") ;
     setLayout(new CardLayout());
@@ -53,14 +54,17 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
       public void valueChanged(TreeSelectionEvent evt) {
         System.out.println("==> Tree Action Listener") ;
         JTree jtree  = (JTree)evt.getSource() ; //
-        FileExplorerPlugin plugin =
-          (FileExplorerPlugin)Application.getInstance().getPlugin(FileExplorerPlugin.NAME) ; 
         FileNode selectFileNode = (FileNode)evt.getPath().getLastPathComponent() ;
         if(selectFileNode.isLeaf()) {
           String filePath = selectFileNode.getFilePath() ;
           if(filePath.endsWith(".txt")) {
             try {
-              plugin.getOpenedFileViewPlugin().openFile(filePath) ;
+              JInternalFrame frame = 
+                Application.getInstance().getWorkspaces().openFrame(filePath, filePath) ;
+              TextEditor textEditor = new TextEditor() ;
+              textEditor.opentFile(filePath) ;
+              textEditor.setVisible(true) ;
+              frame.add(textEditor) ;
             } catch(Exception ex) {
               ex.printStackTrace() ;
             }

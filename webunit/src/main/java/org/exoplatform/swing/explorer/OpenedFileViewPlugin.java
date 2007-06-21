@@ -13,7 +13,6 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
 import org.exoplatform.swing.ViewPlugin;
-
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen

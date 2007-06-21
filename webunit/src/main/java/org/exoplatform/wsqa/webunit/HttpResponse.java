@@ -19,20 +19,20 @@ public class HttpResponse {
   final static public int NOT_MODIFIED_CODE_304 = 304 ;
   final static public int STATUS_STRING_MOVED_CODE_302 = 302 ;
   
-  private Map<String, String> headers_ ;
+  private HttpResponseHeader headers_ ;
   private ByteArrayOutputStream responseBody_ ;
   private ByteArrayOutputStream headerBody_ ;
   private String protocol_ ;
   private int statusCode_ ;
   private String statusString_ ;
-  private String requestURI_ ;
+  private URI requestURI_ ;
   
-  public HttpResponse(String requestURI) {
+  public HttpResponse(URI requestURI) {
     requestURI_ =  requestURI;
   }
   
-  public HttpResponse(InputStream is, String requestURI) throws Exception {
-    requestURI_ =  requestURI;
+  public HttpResponse(InputStream is, URI requestURI) throws Exception {
+    requestURI_ =  requestURI ;
     parse(is) ;
   }
   
@@ -48,7 +48,7 @@ public class HttpResponse {
    * character ascii code:  \r = 13, \n = 10
    */
   public void parse(InputStream is) throws Exception {
-    headers_  = new LinkedHashMap<String, String>() ;
+    headers_  = new HttpResponseHeader() ;
     responseBody_ = new ByteArrayOutputStream() ;
     headerBody_ = new ByteArrayOutputStream() ;
     ByteArrayOutputStream line = new ByteArrayOutputStream() ;

@@ -4,6 +4,8 @@
  **************************************************************************/
 package org.exoplatform.wsqa.swing;
 
+import javax.swing.JInternalFrame;
+
 import org.exoplatform.swing.Application;
 import org.exoplatform.swing.Plugin;
 /**
@@ -25,7 +27,8 @@ public class WSQAPlugin implements Plugin {
   
   public void onInitApplication(Application app) throws Exception {
     webunitRecorderPl_ = new WebunitRecorderViewPlugin() ;
-    app.getWorkspaces().addView(webunitRecorderPl_) ;
+    JInternalFrame frame = app.getWorkspaces().openFrame("WSQA", "WSQA") ;
+    frame.add(webunitRecorderPl_) ;
   }
   
   public void onDestroyApplication(Application app) throws Exception {

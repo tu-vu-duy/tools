@@ -19,8 +19,6 @@ import org.exoplatform.wsqa.webunit.WebUnit;
  * May 31, 2007  
  */
 public class WebUnitCaptor implements ConnectionListener {
-  private List<WebUnit> units_ = new ArrayList<WebUnit>();
-  
   private RequestFilter  filter_ ;
   
   public WebUnitCaptor() {
@@ -34,9 +32,8 @@ public class WebUnitCaptor implements ConnectionListener {
   public void onEndConnection(Connection connection) throws Exception {
     String method = connection.getHttpRequest().getMethod() ;
     if(method.startsWith("GET") || method.startsWith("POST")) {
-      String uri = connection.getHttpRequest().getURI() ;
-      WebUnit unit = new WebUnit(uri, method, connection.getHttpRequest().getProtocolVersion()) ;
-      if(filter_.match(unit.getPathInfo())){
+      WebUnit unit = new WebUnit(connection.getHttpRequest()) ;
+      if(filter_.match(unit.getUri().getPathInfo())){
         Application app = Application.getInstance() ;
         WSQAPlugin plugin = (WSQAPlugin)app.getPlugin(WSQAPlugin.NAME) ;
         WebunitRecorderViewPlugin view = plugin.getWebunitRecorderViewPlugin()  ;

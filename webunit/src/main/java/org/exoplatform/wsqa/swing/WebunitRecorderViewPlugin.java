@@ -11,14 +11,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
+import org.exoplatform.swing.Application;
 import org.exoplatform.swing.ViewPlugin;
+import org.exoplatform.swing.event.EventManager;
+import org.exoplatform.swing.log.LogPlugin;
 import org.exoplatform.wsqa.recorder.ProxyServer;
 import org.exoplatform.wsqa.recorder.RequestFilter;
+import org.exoplatform.wsqa.webunit.Suite;
 import org.exoplatform.wsqa.webunit.WebUnit;
 /**
  * Created by The eXo Platform SARL
@@ -32,88 +38,129 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
   private static String[]  TABLE_HEADERS = {"#","Name", "Description"} ;
   
   private ProxyServer server_ ;
-  public MyDefaultTableModel tableDatas_ ;
+  private Suite suite_ = new Suite() ;
+  
+  public WebunitTableModel webunitTableModel_ ;
   
   public  WebunitRecorderViewPlugin() {
-    JPanel pnlControl = new JPanel(new FlowLayout());
-    JButton btnStart = new JButton("Start") ;
-    pnlControl.add(btnStart) ;
-    btnStart.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent event) {
-        try {
-          if(server_ != null) {
-            System.out.println("Server is already start..........................");
-            return ;
-          }
-          server_ = new ProxyServer() ;
-          String[]  pattern = {"/portal/.*"} ;
-          RequestFilter filter = new RequestFilter(pattern) ;
-          WebUnitCaptor captor = new WebUnitCaptor() ;
-          captor.setRequestFilter(filter) ;
-          server_.add(captor) ;
-          server_.start() ;
-        } catch(Exception ex) {
-          ex.printStackTrace() ;
-        }
-      }
-    }) ;
-    JButton btnStop = new JButton("Stop") ;
-    pnlControl.add(btnStop) ;
-    btnStop.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent event) {
-        try {
-          if(server_ == null) {
-            System.out.println("Server is already stop..........................");
-            return ;
-          }
-          server_.stopServer() ;
-          server_ = null ;
-        } catch(Exception ex) {
-          ex.printStackTrace() ;
-        }
-      }
-    });
-
-    
+    setLayout(new BorderLayout());
     
     JTable table = new JTable();
-    tableDatas_ =  new MyDefaultTableModel(getTableData(), TABLE_HEADERS) ;
-    
-    table.setModel(tableDatas_);
+    webunitTableModel_ =  new WebunitTableModel(null, TABLE_HEADERS) ;
+    table.setModel(webunitTableModel_);
+    table.getColumnModel().getColumn(0).setMaxWidth(3);
 
-    table.getColumnModel().getColumn(0).setMaxWidth(50);
-    table.getColumnModel().getColumn(0).setMinWidth(50); 
-
-    final JPopupMenu tabellenPopup = new WebUnitPopupMenu();
+    final JPopupMenu popupMenu = new WebUnitPopupMenu();
     table.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mousePressed(java.awt.event.MouseEvent evt) {
         if (evt.getButton()==java.awt.event.MouseEvent.BUTTON3){
           JTable source = (JTable)evt.getSource();
-          tabellenPopup.show(source, evt.getX(),evt.getY());
+          popupMenu.show(source, evt.getX(),evt.getY());
         }
       }
       
     });
     
     JScrollPane scrollPane = new JScrollPane(table);
-    scrollPane.setPreferredSize(new Dimension(150, 150));
-    
-    setLayout(new BorderLayout());
+    scrollPane.setPreferredSize(new Dimension(150, 150)) ;    
     add(scrollPane, BorderLayout.CENTER);
+    
+    JPanel pnlControl = new JPanel(new FlowLayout());
+    JButton button = new JButton("Start") ;
+    button.addActionListener(new StartServerListener()) ;
+    pnlControl.add(button) ;
+    
+    button = new JButton("Stop") ;
+    button.addActionListener(new StopServerListener());
+    pnlControl.add(button) ;
+    
+    button = new JButton("Clear") ;
+    button.addActionListener(new ClearWebunitsListener());
+    pnlControl.add(button) ;
+    
+    button = new JButton("Replay") ;
+    button.addActionListener(new ReplayWebunitsListener());
+    pnlControl.add(button) ;
+    
     add(pnlControl, BorderLayout.SOUTH);
   }
   
   public String getName() { return WORKSPACE_NAME ;} ;
   public String getTitle() { return "WSQA Workspace" ; }
   
-  public Object[][] getTableData() {
-    Object[][] data = new Object[][] {
-    }; 
-    return data ;
+  public void addUnit(WebUnit unit) throws Exception {
+    suite_.addWebUnit(unit) ;
+    webunitTableModel_.addRow(new String[] {"?", unit.getUri().getPathInfo(), "new " });
+    webunitTableModel_.fireTableDataChanged();
   }
   
-  public void addUnit(WebUnit unit) throws Exception {
-    tableDatas_.addRow(new String[] {"?", unit.getName(), "new " });
-    tableDatas_.fireTableDataChanged();
+  static public class WebunitTableModel extends DefaultTableModel {
+    
+    public WebunitTableModel(Object[][] obj, String[] str) {
+      super(obj, str);
+    }
+    
+    public boolean isCellEditable(int row, int column) {  return false; }
+  }
+  
+  public class StartServerListener implements ActionListener {
+    public void actionPerformed(ActionEvent event) {
+      try {
+        if(server_ != null) {
+          final String message = "Server is already start.........................." ;
+          EventManager.getInstance().broadcast(LogPlugin.INFO_EVENT_NAME, server_, message);
+          return ;
+        }
+        server_ = new ProxyServer() ;
+        String[]  pattern = {"/portal/.*"} ;
+        RequestFilter filter = new RequestFilter(pattern) ;
+        WebUnitCaptor captor = new WebUnitCaptor() ;
+        captor.setRequestFilter(filter) ;
+        server_.add(captor) ;
+        server_.start() ;
+        final String message = "Start The Proxy Server.........................." ;
+        EventManager.getInstance().broadcast(LogPlugin.INFO_EVENT_NAME, server_, message);
+      } catch(Exception ex) {
+        ex.printStackTrace() ;
+      }
+    }
+  }
+  
+  public class StopServerListener implements ActionListener {
+    public void actionPerformed(ActionEvent event) {
+      try {
+        if(server_ == null) {
+          final String message = "Server is already stop.........................." ;
+          EventManager.getInstance().broadcast(LogPlugin.INFO_EVENT_NAME, server_, message);
+          return ;
+        }
+        server_.stopServer() ;
+        server_ = null ;
+        final String message = "Stop The Proxy Server.........................." ;
+        EventManager.getInstance().broadcast(LogPlugin.INFO_EVENT_NAME, server_, message);
+      } catch(Exception ex) {
+        ex.printStackTrace() ;
+      }
+    }
+  }
+  
+  public class ClearWebunitsListener implements ActionListener {
+    public void actionPerformed(ActionEvent event) {
+      webunitTableModel_.setDataVector(null, TABLE_HEADERS) ;
+      suite_.getWebUnits().clear() ;
+    }
+  }
+  
+  public class ReplayWebunitsListener implements ActionListener {
+    public void actionPerformed(ActionEvent event) {
+      WebunitPlayerViewPlugin player = new WebunitPlayerViewPlugin(suite_) ;
+      try {
+        JInternalFrame frame = 
+          Application.getInstance().getWorkspaces().openFrame("WebunitPlayer", "Webunit Player") ;
+        frame.add(player) ;
+      } catch(Exception ex) {
+        ex.printStackTrace() ;
+      }
+    }
   }
 }

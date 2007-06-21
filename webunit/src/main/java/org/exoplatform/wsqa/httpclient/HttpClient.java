@@ -5,7 +5,9 @@
 package org.exoplatform.wsqa.httpclient;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.exoplatform.wsqa.webunit.Suite;
 import org.exoplatform.wsqa.webunit.SuiteExecuteContext;
@@ -23,9 +25,13 @@ import org.exoplatform.wsqa.webunit.WebUnitListener;
 abstract public class HttpClient {
   private List<WebUnitListener> webUnitListeners_ = new ArrayList<WebUnitListener>();
   private List<SuiteListener> suiteListeners_ = new ArrayList<SuiteListener>();
+  private Map<String,String>  defaultRequestHeaders_ = new  HashMap<String, String>() ;
+  private String sessionId_ ;
   
   public void add(WebUnitListener listener) { webUnitListeners_.add(listener) ; }
   public void add(SuiteListener listener) { suiteListeners_.add(listener) ; }
+  
+  public Map<String, String> getDefaultRequestHeader() { return defaultRequestHeaders_ ; }
   
   public void execute(Suite suite) throws Exception {
     List<WebUnit> units = suite.getWebUnits() ;
@@ -41,7 +47,7 @@ abstract public class HttpClient {
     WebUnitExecuteContext context = new WebUnitExecuteContext() ;
     for(WebUnitListener listener : webUnitListeners_) listener.onPreExecute(unit, context) ;
     context.setStartTime(System.currentTimeMillis()) ;
-    if(unit.getMethod() == WebUnit.GET_METHOD) {
+    if(unit.isGETMethod()) {
       executeGet(unit, context) ;
     } else {
       executePost(unit, context) ;

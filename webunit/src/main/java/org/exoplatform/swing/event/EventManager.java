@@ -16,7 +16,7 @@ import java.util.Map;
  * Jun 16, 2007  
  */
 public class EventManager {
-  static private EventManager singleton_ ;
+  static private EventManager singleton_ = new EventManager();
   
   private Map<String, List<EventListener>> listeners_ = new HashMap<String, List<EventListener>>();
   

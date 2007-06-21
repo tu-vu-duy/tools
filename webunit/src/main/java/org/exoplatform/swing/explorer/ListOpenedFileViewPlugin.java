@@ -4,14 +4,7 @@
  **************************************************************************/
 package org.exoplatform.swing.explorer;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.swing.JDesktopPane;
-import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
-import javax.swing.event.InternalFrameEvent;
-import javax.swing.event.InternalFrameListener;
 
 import org.exoplatform.swing.ViewPlugin;
 

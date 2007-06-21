@@ -15,6 +15,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import org.exoplatform.swing.ViewPlugin;
+import org.exoplatform.swing.event.Event;
+import org.exoplatform.swing.event.EventListener;
+import org.exoplatform.swing.event.EventManager;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -30,7 +33,7 @@ public class LogViewPlugin extends JPanel implements  ViewPlugin {
   public LogViewPlugin() {
     setLayout(new BorderLayout());
     
-    txt = new JTextArea("Log Data");
+    txt = new JTextArea();
     txt.setEditable(false);
     JScrollPane scroll = new JScrollPane(txt);
     scroll.setPreferredSize(new Dimension());
@@ -45,8 +48,34 @@ public class LogViewPlugin extends JPanel implements  ViewPlugin {
       public void actionPerformed(ActionEvent ae) {
       }
     });
+    
+    EventManager.getInstance().
+      addEventListener(new LogEventListener(LogPlugin.ERROR_EVENT_NAME, "[ERROR]", txt)) ;
+    EventManager.getInstance().
+      addEventListener(new LogEventListener(LogPlugin.INFO_EVENT_NAME, "[INFO] ", txt)) ;
   }
   
   public String getName() { return NAME ;} ;
   public String getTitle() { return "Log" ; }
+  
+  static public class LogEventListener extends EventListener {
+    private JTextArea txt;
+    private String prefix ;
+    private String eventName ;
+    
+    public LogEventListener(String eventName, String prefix, JTextArea txt) {
+      this.txt = txt ;
+      this.prefix = prefix + " ";
+      this.eventName = eventName ;
+    }
+    
+    public String getListenedEventName()  { return eventName ; }
+
+    public void onEvent(Event event) throws Exception {
+      txt.append(prefix) ;
+      txt.append(event.getData().toString()) ;
+      txt.append("\n") ;
+    }
+    
+  }
 }

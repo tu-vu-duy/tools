@@ -37,7 +37,7 @@ public class FileExplorerPlugin implements Plugin {
     fileExplorerViewPlugin_ = new ExplorerViewPlugin() ;
     openedFileViewPlugin_ = new OpenedFileViewPlugin() ;
     listOpenedFileViewPlugin_ = new ListOpenedFileViewPlugin() ;
-    app.getWorkspaces().addView(openedFileViewPlugin_) ;
+    //app.getWorkspaces().addView(openedFileViewPlugin_) ;
     
     app.getControlSpace().addView(fileExplorerViewPlugin_) ;
     app.getControlSpace().addView(listOpenedFileViewPlugin_) ;

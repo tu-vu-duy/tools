@@ -40,7 +40,7 @@ public class ProxyServer extends Thread {
         }
       }
       Server.close() ;
-    } catch(Exception ex) {
+    } catch(Throwable ex) {
       ex.printStackTrace() ;
     }
   }

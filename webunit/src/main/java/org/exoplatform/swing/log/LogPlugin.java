@@ -4,6 +4,8 @@
  **************************************************************************/
 package org.exoplatform.swing.log;
 
+import javax.swing.JInternalFrame;
+
 import org.exoplatform.swing.Application;
 import org.exoplatform.swing.Plugin;
 /**
@@ -28,7 +30,8 @@ public class LogPlugin implements Plugin {
   
   public void onInitApplication(Application app) throws Exception {
     logViewPlugin_ = new LogViewPlugin() ;
-    app.getWorkspaces().addView(logViewPlugin_) ;
+    JInternalFrame frame = app.getWorkspaces().openFrame("Log", "Log") ;
+    frame.add(logViewPlugin_) ;
   }
   
   public void onDestroyApplication(Application app) throws Exception {

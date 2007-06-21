@@ -22,13 +22,19 @@ import javax.swing.text.DefaultStyledDocument;
  */
 public class TextEditor extends JPanel {
   private DefaultStyledDocument document_ = new DefaultStyledDocument();
-  private JTextPane textPane_ = new JTextPane(document_);
-
+  private JTextPane textPane_ = new JTextPane(document_); 
+  
   public TextEditor() {
     setLayout(new CardLayout());
     JScrollPane scrollPane = new JScrollPane(textPane_);
     scrollPane.setViewportView(textPane_) ;
     add(scrollPane, "ScrollPane")  ;
+  }
+  
+  public TextEditor(String text) {
+    this() ;
+    setVisible(true) ;
+    textPane_.setText(text) ;
   }
   
   public void opentFile(String filePath) throws Exception {
@@ -42,5 +48,7 @@ public class TextEditor extends JPanel {
     }
     textPane_.setText(new String(os.toByteArray())) ;
   }
+  
+  public void setText(String text) { textPane_.setText(text) ; }
   
 }

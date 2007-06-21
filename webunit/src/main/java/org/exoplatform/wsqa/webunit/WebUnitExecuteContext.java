@@ -15,8 +15,8 @@ public class WebUnitExecuteContext {
   
   private long startTime_ ;
   private long endTime_ ;
-  private byte[]  responseData_ ;
-  private int responseStatus_ ;
+  private HttpRequest request_ ;
+  private HttpResponse response_ ;
   
   public WebUnitExecuteContext() {
   
@@ -27,10 +27,11 @@ public class WebUnitExecuteContext {
   
   public long getEndTime() { return endTime_; }
   public void setEndTime(long time) { endTime_ = time ; }
+
+  public HttpRequest getRequest() { return request_ ; }
+  public void  setRequest(HttpRequest request) { request_ = request  ; }
   
-  public byte[]  getResponseData()  { return responseData_ ; }
-  public void setResponseData(byte[] data)  { responseData_ = data ; }
-  
-  public int  getResponseStatus() { return responseStatus_ ; }
-  public void setResponseStatus(int status) { responseStatus_ = status ; }
+  public HttpResponse getResponse() { return response_; }
+  public void setResponse(HttpResponse response) { response_ = response ; }
+
 }
