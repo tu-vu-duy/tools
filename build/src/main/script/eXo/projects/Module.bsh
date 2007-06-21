@@ -251,6 +251,7 @@ Module() {
       this.portal = Project("org.exoplatform.portal", "exo.portal.web.portal", "exo-portal", version);
       this.portal.addDependency(webui.portal) ;
       this.portal.addDependency(eXoResources) ;
+      this.portal.addDependency(jcr.frameworks.command) ;
       return this ;
     }
     this.web = web() ;
@@ -309,7 +310,6 @@ Module() {
       this.ecmportal = Project("org.exoplatform.ecm", "exo.ecm.web.portal", "exo-portal", version);
       this.ecmportal.addDependency(portal.web.eXoResources) ;
       this.ecmportal.addDependency(portal.webui.portal) ;
-      this.ecmportal.addDependency(jcr.frameworks.command) ;
       this.ecmportal.addDependency(jcr.frameworks.web) ;
       return this ;
     }
