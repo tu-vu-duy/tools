@@ -135,10 +135,10 @@ Database.prototype.PostgresDB = function() {
    
   instance.driverClass = "org.postgresql.Driver";
   instance.dialect = "org.hibernate.dialect.PostgreSQLDialect" ;
-  instance.conectionURL = "jdbc:postgresql://192.168.1.60:5432/exodb";
+  instance.conectionURL = "jdbc:postgresql://192.168.1.70:5432/exodb";
   instance.username = "exo" ;
   instance.password = "exo";
-    
+  
   return instance ;
 }
   
@@ -177,7 +177,7 @@ Database.prototype.DerbyDB = function() {
    
   instance.driverClass = "org.apache.derby.jdbc.ClientDriver";
   instance.dialect = "org.hibernate.dialect.DerbyDialect" ;
-  instance.conectionURL = "jdbc:derby://192.168.1.54:1527/exodb;create=true;user=exo;password=exo";
+  instance.conectionURL = "jdbc:derby://192.168.1.71:1527/exodb;create=true";
   instance.username = "exo" ;
   instance.password = "exo";
     
@@ -186,12 +186,12 @@ Database.prototype.DerbyDB = function() {
 
 Database.prototype.SqlServerDB = function() {
   var instance = new DBInstance() ;
-  instance.name = "sqlserver" ;
+  instance.name = "mssql" ;
   instance.drivers = [ new Project("com.microsoft", "sqljdbc", "jar", "1.1.1501")] ;
    
   instance.driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
   instance.dialect = "org.hibernate.dialect.SQLServerDialect" ;
-  instance.conectionURL = "jdbc:sqlserver://192.168.1.55;SQLEXPRESS:1433;databaseName=exodb;user=exo;password=exo";
+  instance.conectionURL = "jdbc:sqlserver://192.168.1.55:1433;databaseName=exodb";
   instance.username = "exo" ;
   instance.password = "exo";
     
