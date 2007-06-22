@@ -9,6 +9,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -27,6 +30,7 @@ import org.exoplatform.wsqa.recorder.ProxyServer;
 import org.exoplatform.wsqa.recorder.RequestFilter;
 import org.exoplatform.wsqa.webunit.Suite;
 import org.exoplatform.wsqa.webunit.WebUnit;
+import org.mozilla.javascript.Script;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -53,8 +57,8 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
 
     final JPopupMenu popupMenu = new WebUnitPopupMenu();
     table.addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mousePressed(java.awt.event.MouseEvent evt) {
-        if (evt.getButton()==java.awt.event.MouseEvent.BUTTON3){
+      public void mousePressed(MouseEvent evt) {
+        if (evt.getButton()== MouseEvent.BUTTON2 ||evt.getButton()== MouseEvent.BUTTON3){
           JTable source = (JTable)evt.getSource();
           popupMenu.show(source, evt.getX(),evt.getY());
         }
@@ -118,7 +122,7 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
           return ;
         }
         server_ = new ProxyServer() ;
-        String[]  pattern = {"/portal/.*"} ;
+        String[]  pattern = {"/portal/private/.*","/portal/public/.*"} ;
         RequestFilter filter = new RequestFilter(pattern) ;
         WebUnitCaptor captor = new WebUnitCaptor() ;
         captor.setRequestFilter(filter) ;
@@ -173,8 +177,18 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
   public class GenerateScriptListener implements ActionListener {
     public void actionPerformed(ActionEvent event) {
       System.out.println("Generate script ");
-      JavaScriptEngine engine = new JavaScriptEngine() ;
-      String script = "print('hello..................') ;" ;
+      try {
+        JavaScriptEngine engine = new JavaScriptEngine() ;
+        String scriptText = 
+          "java.lang.System.out.println('hello..................') ;" +
+          "var suite = new org.exoplatform.wsqa.webunit.Suite() ;" +
+          "java.lang.System.out.println(suite) ;" ;
+        Script sobject = engine.compileScript("TestScript", scriptText) ;
+        Map<String, Object> variables = new HashMap<String, Object>() ;
+        engine.execute(sobject, variables) ;
+      } catch (Exception ex) {
+        ex.printStackTrace() ;
+      }
     }
   }  
 }

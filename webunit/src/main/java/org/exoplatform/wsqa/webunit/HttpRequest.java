@@ -4,6 +4,7 @@
  **************************************************************************/
 package org.exoplatform.wsqa.webunit;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -51,27 +52,29 @@ public class HttpRequest {
     boolean keepReading = true ;
     while(keepReading) {
       i++ ;
-      int code = is.read();
+      int code = is.read();      
       if(code <= 0) break ;
       rdata.write(code) ;
       line.write(code);
       if (code == (byte) '\n') {
-        if(firstline == null)  {
-          firstline = new String(line.toByteArray()).trim() ;
-          parseFirstLine(firstline) ;
-        } else if(line.size() < 3) {
+//        if(firstline == null)  {
+//          firstline = new String(line.toByteArray()).trim() ;
+//          parseFirstLine(firstline) ;
+//        } 
+        if(line.size() < 3) {
           keepReading = false ;
         } else {
           String headerLine = new String(line.toByteArray()) ;
           int colonIndex = headerLine.indexOf(':') ;
           String name = headerLine.substring(0, colonIndex) ;
-          String value = headerLine.substring(colonIndex + 1, headerLine.length()).trim() ;
+          String value = headerLine.substring(colonIndex + 1, headerLine.length()).trim() ;          
           headers_.put(name, value) ;
         }
         line.reset() ;
       }
-    }
-    requestData_ = rdata.toByteArray() ;
+    }    
+    requestData_ = rdata.toByteArray() ;    
+    
   }
   
   public void forward(OutputStream os) throws Exception {
@@ -93,6 +96,6 @@ public class HttpRequest {
     }
     method_ = tmp[0] ;
     uri_ = new URI(tmp[1] );
-    protocolVersion_ = tmp[2] ;
+    protocolVersion_ = tmp[2] ;        
   }
 }

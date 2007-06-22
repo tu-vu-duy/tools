@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,8 +54,8 @@ public class WebunitPlayerViewPlugin extends JPanel implements ViewPlugin {
     jtable_.setModel(webunitTableModel_);
     jtable_.getColumnModel().getColumn(0).setMaxWidth(3);
     jtable_.addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mousePressed(java.awt.event.MouseEvent evt) {
-        if (evt.isPopupTrigger()) {
+      public void mousePressed(MouseEvent evt) {
+        if (evt.getButton() == MouseEvent.BUTTON3|| evt.isPopupTrigger()) {
           JTable source = (JTable)evt.getSource();
           source.getSelectedRow() ;
           popupMenu.show(source, evt.getX(),evt.getY());
@@ -85,7 +86,7 @@ public class WebunitPlayerViewPlugin extends JPanel implements ViewPlugin {
   
   public int getSelectedRow()  { return jtable_.getSelectedRow() ; }
   
-  public WebUnitExecuteContext getSelectedRunData() { 
+  public WebUnitExecuteContext getSelectedRunData() {    
     return runDatas_.get(jtable_.getSelectedRow()) ;
   }
   
