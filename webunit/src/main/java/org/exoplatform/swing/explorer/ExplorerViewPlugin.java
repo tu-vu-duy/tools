@@ -21,7 +21,6 @@ import javax.swing.tree.TreeSelectionModel;
 
 import org.exoplatform.swing.Application;
 import org.exoplatform.swing.ViewPlugin;
-import org.exoplatform.swing.Workspaces;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen

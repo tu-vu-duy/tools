@@ -21,7 +21,7 @@ public class HttpResponseHeader extends LinkedHashMap<String, String> {
 //  Content-Type: text/html;charset=UTF-8
 //  Transfer-Encoding: chunked
 //  Date: Thu, 21 Jun 2007 07:53:10 GMT
-  
+      
   public String getSetCookie() { return get("Set-Cookie") ; }
   public void   setSetCookie(String s) { put("Set-Cookie", s) ; }
 

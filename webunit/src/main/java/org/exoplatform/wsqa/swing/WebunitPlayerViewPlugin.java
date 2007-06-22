@@ -92,7 +92,7 @@ public class WebunitPlayerViewPlugin extends JPanel implements ViewPlugin {
   
   public void addData(WebUnitExecuteContext context) throws Exception {
     runDatas_.add(context) ;
-    String[] rowData = {"?", context.getRequest().getURI().getPathInfo(), "....."} ;
+    String[] rowData = {"?", context.getRequest().getHeaders().getUri().getPathInfo(), "....."} ;
     webunitTableModel_.addRow(rowData);
     webunitTableModel_.fireTableDataChanged();
   }

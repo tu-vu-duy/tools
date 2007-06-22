@@ -4,7 +4,6 @@
  **************************************************************************/
 package org.exoplatform.wsqa.webunit;
 
-import java.util.Map;
 
 /**
  * Created by The eXo Platform SARL
@@ -23,11 +22,11 @@ public class WebUnit {
   private String protocolVersion_ ;
   
   public WebUnit(HttpRequest request) {
-    name_ = request.getURI().getURI() ;
-    uri_ = request.getURI() ;
     headers_ = request.getHeaders() ;
-    method_ = request.getMethod() ;
-    protocolVersion_ =  request.getProtocolVersion() ;
+    name_ = headers_.getUri().getURI() ;
+    uri_ = headers_.getUri() ;    
+    method_ = headers_.getMethod() ;
+    protocolVersion_ =  headers_.getProtocolVersion() ;
   }
   
   

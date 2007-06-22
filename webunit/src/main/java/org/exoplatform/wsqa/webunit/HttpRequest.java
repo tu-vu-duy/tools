@@ -4,7 +4,6 @@
  **************************************************************************/
 package org.exoplatform.wsqa.webunit;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -15,34 +14,27 @@ import java.util.Map;
  *          tuan.nguyen@exoplatform.com
  * Jun 5, 2007  
  */
-public class HttpRequest {
-  private String method_ ;
-  private URI    uri_ ;
-  private String protocolVersion_ ; 
+public class HttpRequest {  
   private HttpRequestHeader headers_ ;
   private byte[] requestData_ ;
-  
-  public HttpRequest(WebUnit unit) {
-    method_ = unit.getMethod() ;
-    uri_ =  unit.getUri() ;
-    protocolVersion_ =  unit.getProtocolVersion() ;
+
+  public HttpRequest(WebUnit unit) {    
     headers_ = unit.getHeaders() ;
+    
+    headers_.setMethod(unit.getMethod()) ;
+    headers_.setUri(unit.getUri()) ;
+    headers_.setProtocolVersion(unit.getProtocolVersion()) ;
   }
-  
+
   public HttpRequest(InputStream is) throws Exception {
     parse(is) ;
   }
-  
-  public boolean isGETMethod() { return "GET".equals(method_) ; }
-  public boolean isPOSTMethod() { return "POST".equals(method_) ; }
-  public String getMethod() { return method_; }
-  
-  public URI getURI()  { return uri_ ; }
-  
-  public String getProtocolVersion() { return protocolVersion_ ; }
+
+  public boolean isGETMethod() { return "GET".equals(headers_.getMethod()) ; }
+  public boolean isPOSTMethod() { return "POST".equals(headers_.getMethod()) ; }
   
   public HttpRequestHeader  getHeaders() { return headers_ ; }
-  
+
   public void parse(InputStream is) throws Exception {
     headers_ = new HttpRequestHeader() ;
     ByteArrayOutputStream line = new ByteArrayOutputStream() ;
@@ -57,11 +49,10 @@ public class HttpRequest {
       rdata.write(code) ;
       line.write(code);
       if (code == (byte) '\n') {
-//        if(firstline == null)  {
-//          firstline = new String(line.toByteArray()).trim() ;
-//          parseFirstLine(firstline) ;
-//        } 
-        if(line.size() < 3) {
+        if(firstline == null)  {
+          firstline = new String(line.toByteArray()).trim() ;
+          parseFirstLine(firstline) ;
+        } else if(line.size() < 3) {
           keepReading = false ;
         } else {
           String headerLine = new String(line.toByteArray()) ;
@@ -74,28 +65,28 @@ public class HttpRequest {
       }
     }    
     requestData_ = rdata.toByteArray() ;    
-    
+
   }
-  
+
   public void forward(OutputStream os) throws Exception {
     StringBuilder b = new StringBuilder() ;
-    b.append(method_).append(' ').append(uri_.getURI()).append(' ').append(protocolVersion_).append("\r\n") ;
+    b.append(headers_.getMethod()).append(' ').append(headers_.getUri().getURI()).append(' ').append(headers_.getProtocolVersion()).append("\r\n") ;
     for(Map.Entry<String, String> entry : headers_.entrySet()) {
       b.append(entry.getKey()).append(": ").append(entry.getValue()).append("\r\n") ;
     }
     b.append("\r\n") ;
     os.write(b.toString().getBytes()) ;
   }
-  
+
   public byte[]  getRequestData()  { return requestData_ ; }
-  
+
   private void parseFirstLine(String firstline) throws Exception {
     String[] tmp = firstline.split(" ") ;
     if(tmp.length != 3) {
       throw new Exception("Cannot  parse the first line: " +  firstline) ;
     }
-    method_ = tmp[0] ;
-    uri_ = new URI(tmp[1] );
-    protocolVersion_ = tmp[2] ;        
+    headers_.setMethod(tmp[0]) ;
+    headers_.setUri(new URI(tmp[1] )) ;
+    headers_.setProtocolVersion(tmp[2]) ;            
   }
 }

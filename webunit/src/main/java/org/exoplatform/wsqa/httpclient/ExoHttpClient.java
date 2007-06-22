@@ -26,12 +26,12 @@ public class ExoHttpClient extends HttpClient {
     String setCookie = getSetCookie() ;
     if(setCookie != null) request.getHeaders().setCookie(setCookie) ;
     context.setRequest(request) ;
-    Socket serverSocket = new Socket(request.getURI().getHost(), request.getURI().getPort()) ;
+    Socket serverSocket = new Socket(request.getHeaders().getUri().getHost(), request.getHeaders().getUri().getPort()) ;
     OutputStream toServer = serverSocket.getOutputStream() ;
     request.forward(toServer) ;
     toServer.flush() ;
     InputStream fromServer = new BufferedInputStream(serverSocket.getInputStream()) ;
-    HttpResponse response = new HttpResponse(fromServer, request.getURI()) ;
+    HttpResponse response = new HttpResponse(fromServer, request.getHeaders().getUri()) ;
     context.setResponse(response) ;
   }
   

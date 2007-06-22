@@ -7,7 +7,6 @@ package org.exoplatform.wsqa.webunit;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Map;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -31,7 +30,7 @@ public class HttpResponse {
   }
   
   public HttpResponse(InputStream is, URI requestURI) throws Exception {
-    requestURI_ =  requestURI ;
+    requestURI_ =  requestURI ;    
     parse(is) ;
   }
   
@@ -46,11 +45,11 @@ public class HttpResponse {
   /**
    * character ascii code:  \r = 13, \n = 10
    */
-  public void parse(InputStream is) throws Exception {
+  public void parse(InputStream is) throws Exception {    
     headers_  = new HttpResponseHeader() ;
     responseBody_ = new ByteArrayOutputStream() ;
     headerBody_ = new ByteArrayOutputStream() ;
-    ByteArrayOutputStream line = new ByteArrayOutputStream() ;
+    ByteArrayOutputStream line = new ByteArrayOutputStream() ;    
     String firstline = null ;
     boolean keepReading = true ;
     while(keepReading) {
@@ -64,7 +63,7 @@ public class HttpResponse {
           parseFirstLine(firstline) ;
         } else if(line.size() < 3) {
           keepReading = false ;
-        } else {
+        } else {                    
           parseHeaderLine(new String(line.toByteArray())) ;
         }
         line.reset() ;
@@ -88,7 +87,7 @@ public class HttpResponse {
       //System.out.println("\nWARNING: " + "total read = " + totalRead + " but content length = " + contentLength) ;
     } else {
       //System.out.println("\nOK: " + "total read = " + totalRead + " but content length = " + contentLength) ;
-    }
+    }    
   }
   
   public void forward(OutputStream out) throws Exception {
@@ -113,7 +112,7 @@ public class HttpResponse {
     }
     if(totalRead != bodySize) {
       throw new Exception("Expect body size " + bodySize + ", but the total read " + totalRead) ;
-    }
+    }    
     return totalRead ;
   }
   
@@ -156,12 +155,12 @@ public class HttpResponse {
     return totalRead ;
   }
   
-  private void parseHeaderLine(String line) throws Exception {
+  private void parseHeaderLine(String line) throws Exception {    
     int colonIndex = line.indexOf(":") ;
     if(colonIndex < 1) throw new Exception("Line \"" + line + "\" is not a header line") ;
     String name =  line.substring(0, colonIndex).trim() ;
     String value =  line.substring(colonIndex + 1, line.length()).trim() ;
-    headers_.put(name, value) ;
+    headers_.put(name, value) ;    
   }
   
   private void parseFirstLine(String line) {
@@ -175,8 +174,8 @@ public class HttpResponse {
     System.out.println("--------------------------------------------------------");
     System.out.println("Cannot detect EOF for " + requestURI_);
     System.out.println("Status " + statusCode_ + ", Status String " + statusString_);
-    System.out.println(new String(headerBody_.toByteArray()));
-    System.out.println(new String(responseBody_.toByteArray()));
+//    System.out.println(new String(headerBody_.toByteArray()));
+//    System.out.println(new String(responseBody_.toByteArray()));
 //    for(byte b : responseBody_.toByteArray()) {
 //      System.out.println("code : " + (int) b);
 //    }

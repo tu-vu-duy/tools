@@ -4,9 +4,12 @@
  **************************************************************************/
 package org.exoplatform.wsqa.recorder;
 
-import java.net.* ;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.util.List;
-import java.io.* ;
 
 import org.exoplatform.wsqa.webunit.HttpRequest;
 import org.exoplatform.wsqa.webunit.HttpResponse;
@@ -35,12 +38,12 @@ public class Connection extends Thread {
       for(ConnectionListener listener : listeners_) listener.onStartConnection(this) ;
       InputStream fromClient = new BufferedInputStream(clientSocket_.getInputStream());
       request_ = new HttpRequest(fromClient) ;
-      serverSocket_ = new Socket(request_.getURI().getHost(), request_.getURI().getPort()) ;
+      serverSocket_ = new Socket(request_.getHeaders().getUri().getHost(), request_.getHeaders().getUri().getPort()) ;
       OutputStream toServer = serverSocket_.getOutputStream() ;
       request_.forward(toServer) ;
       toServer.flush() ;
       InputStream fromServer = new BufferedInputStream(serverSocket_.getInputStream()) ;
-      response_ = new HttpResponse(fromServer, request_.getURI()) ;
+      response_ = new HttpResponse(fromServer, request_.getHeaders().getUri()) ;
       OutputStream toClient = new BufferedOutputStream(clientSocket_.getOutputStream());
       response_.forward(toClient) ;
       toClient.flush() ;

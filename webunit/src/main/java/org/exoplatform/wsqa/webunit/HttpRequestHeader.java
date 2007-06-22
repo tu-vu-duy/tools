@@ -31,6 +31,10 @@ public class HttpRequestHeader extends LinkedHashMap<String, String> {
   final static public String USER_AGENT_FIREFOX = 
     "Mozilla/5.0 (Macintosh; U; Intel Mac OS X; en-US; rv:1.8.1.4) Gecko/20070515 Firefox/2.0.0.4" ;
   
+  private String method_ ;
+  private URI    uri_ ;
+  private String protocolVersion_ ;
+  
   public HttpRequestHeader() {
     setHost("localhost:8080") ;
     setUserAgent(USER_AGENT_FIREFOX) ;
@@ -77,8 +81,18 @@ public class HttpRequestHeader extends LinkedHashMap<String, String> {
   public String getIfNoneMatch() { return get("If-None-Match") ; }
   public void   setIfNoneMatch(String s) { put("If-None-Match", s) ; }
   
+  public String getProtocolVersion() { return protocolVersion_ ; }
+  public void setProtocolVersion(String s) { protocolVersion_ = s ; }
+  
+  public String getMethod() { return method_ ; }
+  public void setMethod(String s) { method_ = s ; }
+  
+  public URI getUri() { return uri_ ; }
+  public void setUri(URI uri) { uri_ = uri ; }
+  
   public String toString() {
     StringBuilder b = new StringBuilder() ;
+    b.append(getMethod()).append(' ').append(getUri().getURI()).append(' ').append(getProtocolVersion()).append("\r\n") ;
     for(Map.Entry<String, String> entry : entrySet()) {
       b.append(entry.getKey()).append(": ").append(entry.getValue()).append("\r\n") ;
     }

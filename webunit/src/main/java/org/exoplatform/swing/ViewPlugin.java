@@ -4,7 +4,6 @@
  **************************************************************************/
 package org.exoplatform.swing;
 
-import javax.swing.JComponent;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen

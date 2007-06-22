@@ -4,9 +4,6 @@
  **************************************************************************/
 package org.exoplatform.wsqa.swing;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.exoplatform.swing.Application;
 import org.exoplatform.wsqa.recorder.Connection;
 import org.exoplatform.wsqa.recorder.ConnectionListener;
@@ -30,7 +27,7 @@ public class WebUnitCaptor implements ConnectionListener {
   }
   
   public void onEndConnection(Connection connection) throws Exception {
-    String method = connection.getHttpRequest().getMethod() ;
+    String method = connection.getHttpRequest().getHeaders().getMethod() ;
     if(method.startsWith("GET") || method.startsWith("POST")) {
       WebUnit unit = new WebUnit(connection.getHttpRequest()) ;
       if(filter_.match(unit.getUri().getPathInfo())){

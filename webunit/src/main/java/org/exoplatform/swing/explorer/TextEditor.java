@@ -5,9 +5,7 @@
 package org.exoplatform.swing.explorer;
 
 import java.awt.CardLayout;
-import java.awt.Dimension;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 
 import javax.swing.JPanel;

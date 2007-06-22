@@ -4,9 +4,6 @@
  **************************************************************************/
 package org.exoplatform.swing.explorer;
 
-import java.util.Map;
-import java.util.Vector;
-
 import org.exoplatform.swing.Application;
 import org.exoplatform.swing.Plugin;
 /**
