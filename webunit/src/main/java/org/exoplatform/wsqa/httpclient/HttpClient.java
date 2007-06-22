@@ -26,12 +26,15 @@ abstract public class HttpClient {
   private List<WebUnitListener> webUnitListeners_ = new ArrayList<WebUnitListener>();
   private List<SuiteListener> suiteListeners_ = new ArrayList<SuiteListener>();
   private Map<String,String>  defaultRequestHeaders_ = new  HashMap<String, String>() ;
-  private String sessionId_ ;
+  private String setCookie = null ;
   
   public void add(WebUnitListener listener) { webUnitListeners_.add(listener) ; }
   public void add(SuiteListener listener) { suiteListeners_.add(listener) ; }
   
   public Map<String, String> getDefaultRequestHeader() { return defaultRequestHeaders_ ; }
+  
+  public String getSetCookie() {  return setCookie ; }
+  public void   setSetCookie(String s) {  setCookie = s; }
   
   public void execute(Suite suite) throws Exception {
     List<WebUnit> units = suite.getWebUnits() ;
@@ -53,6 +56,8 @@ abstract public class HttpClient {
       executePost(unit, context) ;
     }
     context.setEndTime(System.currentTimeMillis()) ;
+    String setCookie = context.getResponse().getHeaders().getSetCookie()  ;
+    if(setCookie != null) setSetCookie(setCookie) ;
     for(WebUnitListener listener : webUnitListeners_) listener.onPostExecute(unit, context) ;
   }
   

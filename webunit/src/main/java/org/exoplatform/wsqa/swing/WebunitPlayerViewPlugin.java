@@ -119,7 +119,8 @@ public class WebunitPlayerViewPlugin extends JPanel implements ViewPlugin {
       try {
         ExoHttpClient client = new ExoHttpClient() ;
         client.add(new RunDataCaptureListener()) ;
-        client.execute(suite_) ;
+        WebunitSuiteRunner runner = new WebunitSuiteRunner(client, suite_) ;
+        runner.start() ;
       } catch(Exception ex) {
         ex.printStackTrace() ;
       }

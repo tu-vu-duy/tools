@@ -22,8 +22,9 @@ import org.exoplatform.wsqa.webunit.WebUnitExecuteContext;
 public class ExoHttpClient extends HttpClient {
 
   protected void executeGet(WebUnit unit, WebUnitExecuteContext context) throws Exception {
-    System.out.println("--> execuet get");
     HttpRequest request = new HttpRequest(unit) ;
+    String setCookie = getSetCookie() ;
+    if(setCookie != null) request.getHeaders().setCookie(setCookie) ;
     context.setRequest(request) ;
     Socket serverSocket = new Socket(request.getURI().getHost(), request.getURI().getPort()) ;
     OutputStream toServer = serverSocket.getOutputStream() ;
@@ -32,7 +33,6 @@ public class ExoHttpClient extends HttpClient {
     InputStream fromServer = new BufferedInputStream(serverSocket.getInputStream()) ;
     HttpResponse response = new HttpResponse(fromServer, request.getURI()) ;
     context.setResponse(response) ;
-    System.out.println("<-- execute get");
   }
   
   protected void executePost(WebUnit unit, WebUnitExecuteContext context) throws Exception {

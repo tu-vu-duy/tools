@@ -39,7 +39,7 @@ public class HttpResponse {
   public int getStatusCode()  { return statusCode_ ; }
   public String getStatusString()  { return statusString_ ; }
   
-  public Map<String, String>  getHeaders()  { return headers_ ; }
+  public HttpResponseHeader  getHeaders()  { return headers_ ; }
   
   public ByteArrayOutputStream  getResponseBody() { return responseBody_ ; }
   
