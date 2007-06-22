@@ -16,14 +16,19 @@ import java.util.Map;
  */
 public class HttpResponseHeader extends LinkedHashMap<String, String> {
 //  Server: Apache-Coyote/1.1
+//  Set-Cookie: JSESSIONID=7CE44E759DF6E8EFCA156D921CA45736; Path=/portal
 //  Cache-Control: no-cache
 //  Content-Type: text/html;charset=UTF-8
 //  Transfer-Encoding: chunked
-//  Date: Wed, 20 Jun 2007 09:27:44 GMT
+//  Date: Thu, 21 Jun 2007 07:53:10 GMT
   
+  public String getSetCookie() { return get("Set-Cookie") ; }
+  public void   setSetCookie(String s) { put("Set-Cookie", s) ; }
+
   public String getServer() { return get("Server") ; }
   public void   setServer(String s) { put("Server", s) ; }
- 
+
+  
   public String getContentType() { return get("Content-Type") ; }
   public void   setContentType(String s) { put("Content-Type", s) ; }
  

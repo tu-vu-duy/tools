@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import org.exoplatform.javascript.JavaScriptEngine;
 import org.exoplatform.swing.Application;
 import org.exoplatform.swing.ViewPlugin;
 import org.exoplatform.swing.event.EventManager;
@@ -74,13 +75,18 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
     button.addActionListener(new StopServerListener());
     pnlControl.add(button) ;
     
-    button = new JButton("Clear") ;
-    button.addActionListener(new ClearWebunitsListener());
+    button = new JButton("Generate Script") ;
+    button.addActionListener(new GenerateScriptListener());
     pnlControl.add(button) ;
     
     button = new JButton("Replay") ;
     button.addActionListener(new ReplayWebunitsListener());
     pnlControl.add(button) ;
+    
+    button = new JButton("Clear") ;
+    button.addActionListener(new ClearWebunitsListener());
+    pnlControl.add(button) ;
+    
     
     add(pnlControl, BorderLayout.SOUTH);
   }
@@ -163,4 +169,12 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
       }
     }
   }
+  
+  public class GenerateScriptListener implements ActionListener {
+    public void actionPerformed(ActionEvent event) {
+      System.out.println("Generate script ");
+      JavaScriptEngine engine = new JavaScriptEngine() ;
+      String script = "print('hello..................') ;" ;
+    }
+  }  
 }

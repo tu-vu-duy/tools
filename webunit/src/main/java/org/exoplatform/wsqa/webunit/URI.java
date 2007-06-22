@@ -48,8 +48,12 @@ public class URI {
       paramsString = paramsString.replace("&amp;", "&") ;
       String[] params =  paramsString.split("&") ;
       for(String param : params) {
-        String[] pair = param.split("=") ;
-        params_.put(pair[0], pair[1]) ;
+        String[] pair = param.split("=", 2) ;
+        if(pair.length == 2) {
+          params_.put(pair[0], pair[1]) ;
+        } else {
+          params_.put(pair[0], "") ;
+        }
       }
     }
   }

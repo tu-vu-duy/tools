@@ -33,7 +33,6 @@ public class WebunitPlayerPopupMenu extends JPopupMenu {
     JMenuItem menuItem = new JMenuItem("View Request Header");
     menuItem.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
-        System.out.println("View Response");
         try {
           WebUnitExecuteContext rundata = player_.getSelectedRunData() ;
           String text = rundata.getRequest().getHeaders().toString() ;
@@ -50,7 +49,6 @@ public class WebunitPlayerPopupMenu extends JPopupMenu {
     menuItem = new JMenuItem("View Request Body");
     menuItem.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
-        System.out.println("View Response");
         try {
           WebUnitExecuteContext rundata = player_.getSelectedRunData() ;
           String text = "NOT AVAILABLE";
@@ -71,7 +69,6 @@ public class WebunitPlayerPopupMenu extends JPopupMenu {
     JMenuItem menuItem = new JMenuItem("View Response Header");
     menuItem.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
-        System.out.println("View Response");
         try {
           WebUnitExecuteContext rundata = player_.getSelectedRunData() ;
           String text = rundata.getResponse().getHeaders().toString() ;
@@ -88,7 +85,6 @@ public class WebunitPlayerPopupMenu extends JPopupMenu {
     menuItem = new JMenuItem("View Response Data");
     menuItem.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent evt) {
-        System.out.println("View Response");
         try {
           WebUnitExecuteContext rundata = player_.getSelectedRunData() ;
           String responseText = new String(rundata.getResponse().getResponseBody().toByteArray()) ;

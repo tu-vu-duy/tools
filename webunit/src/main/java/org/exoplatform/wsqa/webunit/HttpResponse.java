@@ -7,7 +7,6 @@ package org.exoplatform.wsqa.webunit;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.LinkedHashMap;
 import java.util.Map;
 /**
  * Created by The eXo Platform SARL
@@ -56,6 +55,7 @@ public class HttpResponse {
     boolean keepReading = true ;
     while(keepReading) {
       int code = is.read();
+      if(code < 0) break ;
       headerBody_.write(code);
       if(code == 13) {
       } else if (code == (byte) '\n') {
@@ -176,9 +176,10 @@ public class HttpResponse {
     System.out.println("Cannot detect EOF for " + requestURI_);
     System.out.println("Status " + statusCode_ + ", Status String " + statusString_);
     System.out.println(new String(headerBody_.toByteArray()));
-    for(byte b : responseBody_.toByteArray()) {
-      System.out.println("code : " + (int) b);
-    }
+    System.out.println(new String(responseBody_.toByteArray()));
+//    for(byte b : responseBody_.toByteArray()) {
+//      System.out.println("code : " + (int) b);
+//    }
     System.out.println("--------------------------------------------------------");
   }
  }

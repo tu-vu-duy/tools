@@ -88,6 +88,9 @@ public class HttpRequest {
   
   private void parseFirstLine(String firstline) throws Exception {
     String[] tmp = firstline.split(" ") ;
+    if(tmp.length != 3) {
+      throw new Exception("Cannot  parse the first line: " +  firstline) ;
+    }
     method_ = tmp[0] ;
     uri_ = new URI(tmp[1] );
     protocolVersion_ = tmp[2] ;

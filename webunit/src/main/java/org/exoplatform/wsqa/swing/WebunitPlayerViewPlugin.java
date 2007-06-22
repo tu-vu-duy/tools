@@ -67,12 +67,12 @@ public class WebunitPlayerViewPlugin extends JPanel implements ViewPlugin {
     add(scrollPane, BorderLayout.CENTER);
     
     JPanel pnlControl = new JPanel(new FlowLayout());
-    JButton button = new JButton("Clear") ;
-    button.addActionListener(new ClearWebunitsListener());
+    JButton button = new JButton("Play") ;
+    button.addActionListener(new PlayWebunitsListener());
     pnlControl.add(button) ;
     
-    button = new JButton("Play") ;
-    button.addActionListener(new PlayWebunitsListener());
+    button = new JButton("Clear") ;
+    button.addActionListener(new ClearWebunitsListener());
     pnlControl.add(button) ;
     
     add(pnlControl, BorderLayout.SOUTH);
