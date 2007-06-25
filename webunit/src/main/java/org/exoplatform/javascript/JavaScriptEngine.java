@@ -17,7 +17,7 @@ import java.util.Map;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Script;
 import org.mozilla.javascript.Scriptable;
-
+import org.mozilla.javascript.ImporterTopLevel;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -57,7 +57,8 @@ public class JavaScriptEngine {
     Context cx = Context.enter();
     try {
       cx.setApplicationClassLoader(Thread.currentThread().getContextClassLoader()) ;
-      Scriptable scope = cx.initStandardObjects() ;
+      //Scriptable scope = cx.initStandardObjects() ;
+      ImporterTopLevel scope = new ImporterTopLevel(cx) ;
       Iterator<Map.Entry<String, Object>> i = context.entrySet().iterator() ;
       while(i.hasNext()) {
         Map.Entry<String, Object> entry = i.next() ;

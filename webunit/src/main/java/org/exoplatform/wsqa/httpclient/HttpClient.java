@@ -23,18 +23,28 @@ import org.exoplatform.wsqa.webunit.WebUnitListener;
  * May 31, 2007  
  */
 abstract public class HttpClient {
+  private String scheme_ = "http://" ;
+  private String host_ = "localhost";
+  private int    port_ = 8080;
+  private String protocol_ = "HTTP/1.1" ;
+  private String cookie_ = "JSESSIONID=AAF6D8E0FE36B9874D1225BFFE4D2E6D" ;
+  
+  public String getScheme()  { return scheme_ ; }
+  public String getHost() { return host_ ; }
+  public int getPort() { return port_ ; }
+  public String getProtocol() { return protocol_ ; }
+  
   private List<WebUnitListener> webUnitListeners_ = new ArrayList<WebUnitListener>();
   private List<SuiteListener> suiteListeners_ = new ArrayList<SuiteListener>();
   private Map<String,String>  defaultRequestHeaders_ = new  HashMap<String, String>() ;
-  private String setCookie = null ;
   
   public void add(WebUnitListener listener) { webUnitListeners_.add(listener) ; }
   public void add(SuiteListener listener) { suiteListeners_.add(listener) ; }
   
   public Map<String, String> getDefaultRequestHeader() { return defaultRequestHeaders_ ; }
   
-  public String getSetCookie() {  return setCookie ; }
-  public void   setSetCookie(String s) {  setCookie = s; }
+  public String getCookie() {  return cookie_ ; }
+  public void   setCookie(String s) {  cookie_ = s; }
   
   public void execute(Suite suite) throws Exception {
     List<WebUnit> units = suite.getWebUnits() ;
@@ -57,7 +67,7 @@ abstract public class HttpClient {
     }
     context.setEndTime(System.currentTimeMillis()) ;
     String setCookie = context.getResponse().getHeaders().getSetCookie()  ;
-    if(setCookie != null) setSetCookie(setCookie) ;
+    if(setCookie != null) setCookie(setCookie) ;
     for(WebUnitListener listener : webUnitListeners_) listener.onPostExecute(unit, context) ;
   }
   

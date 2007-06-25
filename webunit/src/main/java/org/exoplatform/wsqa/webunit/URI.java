@@ -21,6 +21,25 @@ public class URI {
   private String pathInfo_ ;
   private Map<String, String>  params_ ;
   
+  public URI(String scheme, String host, int port, String pathInfo, Map<String, String>  params) { 
+    scheme_ =  scheme ;
+    host_ =  host ;
+    port_ = port ;
+    pathInfo_ = pathInfo ;
+    params_ =  params ;
+    StringBuilder b = new StringBuilder() ;
+    b.append(scheme_).append(host_).append(":").append(port_).append(pathInfo_) ;
+    if(params_ != null && params_.size() > 0) {
+      b.append("?") ;
+      int counter = 0 ;
+      for(Map.Entry<String, String> entry : params_.entrySet()) {
+        b.append(entry.getKey()).append('=').append(entry.getValue()) ;
+        if(counter != params_.size() - 1)  b.append("&") ;
+        counter++ ;
+      }
+    }
+    uri_ = b.toString() ;
+  }
   
   public URI(String uri) throws Exception {
     uri_ = uri ;
@@ -65,6 +84,10 @@ public class URI {
   public  int getPort() { return  port_ ; }
   public  String getPathInfo() { return pathInfo_ ; }
   public  Map<String, String>  getParameters() { return params_ ; } 
+  public  Map<String, String>  getCloneParameters() { 
+    if(params_ == null)  return null ;
+    return new LinkedHashMap<String, String>(params_) ; 
+  } 
   
   public String toString() {
     StringBuilder b = new StringBuilder() ;

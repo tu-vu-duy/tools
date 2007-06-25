@@ -17,17 +17,17 @@ public class ApacheCommonHttpClient extends HttpClient {
   org.apache.commons.httpclient.HttpClient client = new org.apache.commons.httpclient.HttpClient();
 
   protected void executeGet(WebUnit unit, WebUnitExecuteContext context) throws Exception {
-    GetMethod method = new GetMethod(unit.getUri().getURI());
-    try {
-      int statusCode = client.executeMethod(method);
-      //context.setResponseStatus(statusCode) ;
-      System.err.println("Status code: " + statusCode);
-      System.err.println("Status message: " + method.getStatusLine());
-      byte[] responseData = method.getResponseBody();
-      //context.setResponseData(responseData) ;
-    } finally {
-      method.releaseConnection();
-    }
+//    GetMethod method = new GetMethod(unit.getUri().getURI());
+//    try {
+//      int statusCode = client.executeMethod(method);
+//      //context.setResponseStatus(statusCode) ;
+//      System.err.println("Status code: " + statusCode);
+//      System.err.println("Status message: " + method.getStatusLine());
+//      byte[] responseData = method.getResponseBody();
+//      //context.setResponseData(responseData) ;
+//    } finally {
+//      method.releaseConnection();
+//    }
   }
   
   protected void executePost(WebUnit unit, WebUnitExecuteContext context) throws Exception {

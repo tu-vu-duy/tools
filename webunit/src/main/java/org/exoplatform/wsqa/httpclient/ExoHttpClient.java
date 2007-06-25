@@ -10,7 +10,9 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 import org.exoplatform.wsqa.webunit.HttpRequest;
+import org.exoplatform.wsqa.webunit.HttpRequestHeader;
 import org.exoplatform.wsqa.webunit.HttpResponse;
+import org.exoplatform.wsqa.webunit.URI;
 import org.exoplatform.wsqa.webunit.WebUnit;
 import org.exoplatform.wsqa.webunit.WebUnitExecuteContext;
 /**
@@ -22,8 +24,8 @@ import org.exoplatform.wsqa.webunit.WebUnitExecuteContext;
 public class ExoHttpClient extends HttpClient {
 
   protected void executeGet(WebUnit unit, WebUnitExecuteContext context) throws Exception {
-    HttpRequest request = new HttpRequest(unit) ;
-    String setCookie = getSetCookie() ;
+    HttpRequest request = createHttpRequest(unit) ;
+    String setCookie = getCookie() ;
     if(setCookie != null) request.getHeaders().setCookie(setCookie) ;
     context.setRequest(request) ;
     Socket serverSocket = new Socket(request.getHeaders().getUri().getHost(), request.getHeaders().getUri().getPort()) ;
@@ -37,5 +39,15 @@ public class ExoHttpClient extends HttpClient {
   
   protected void executePost(WebUnit unit, WebUnitExecuteContext context) throws Exception {
     throw new Exception("To be implemented") ;
+  }
+  
+  private HttpRequest createHttpRequest(WebUnit unit) {
+    URI uri = new URI(getScheme(), getHost(), getPort(), unit.getPathInfo(), unit.getParameters()) ;
+    HttpRequestHeader headers = new HttpRequestHeader()  ;
+    headers.setUri(uri) ;
+    headers.setMethod(unit.getMethod()) ;
+    headers.setProtocol(getProtocol()) ;
+    HttpRequest request = new HttpRequest(headers) ; 
+    return request ;
   }
 }

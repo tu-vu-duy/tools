@@ -18,14 +18,10 @@ public class HttpRequest {
   private HttpRequestHeader headers_ ;
   private byte[] requestData_ ;
 
-  public HttpRequest(WebUnit unit) {    
-    headers_ = unit.getHeaders() ;
-    
-    headers_.setMethod(unit.getMethod()) ;
-    headers_.setUri(unit.getUri()) ;
-    headers_.setProtocolVersion(unit.getProtocolVersion()) ;
+  public HttpRequest(HttpRequestHeader headers)  {
+    headers_ =  headers ;
   }
-
+  
   public HttpRequest(InputStream is) throws Exception {
     parse(is) ;
   }
@@ -70,7 +66,7 @@ public class HttpRequest {
 
   public void forward(OutputStream os) throws Exception {
     StringBuilder b = new StringBuilder() ;
-    b.append(headers_.getMethod()).append(' ').append(headers_.getUri().getURI()).append(' ').append(headers_.getProtocolVersion()).append("\r\n") ;
+    b.append(headers_.getMethod()).append(' ').append(headers_.getUri().getURI()).append(' ').append(headers_.getProtocol()).append("\r\n") ;
     for(Map.Entry<String, String> entry : headers_.entrySet()) {
       b.append(entry.getKey()).append(": ").append(entry.getValue()).append("\r\n") ;
     }
@@ -87,6 +83,6 @@ public class HttpRequest {
     }
     headers_.setMethod(tmp[0]) ;
     headers_.setUri(new URI(tmp[1] )) ;
-    headers_.setProtocolVersion(tmp[2]) ;            
+    headers_.setProtocol(tmp[2]) ;            
   }
 }

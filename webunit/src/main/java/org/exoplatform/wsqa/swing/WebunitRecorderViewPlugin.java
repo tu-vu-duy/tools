@@ -100,7 +100,7 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
   
   public void addUnit(WebUnit unit) throws Exception {
     suite_.addWebUnit(unit) ;
-    webunitTableModel_.addRow(new String[] {"?", unit.getUri().getPathInfo(), "new " });
+    webunitTableModel_.addRow(new String[] {"?", unit.getPathInfo(), "new " });
     webunitTableModel_.fireTableDataChanged();
   }
   
@@ -180,9 +180,11 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
       try {
         JavaScriptEngine engine = new JavaScriptEngine() ;
         String scriptText = 
-          "java.lang.System.out.println('hello..................') ;" +
-          "var suite = new org.exoplatform.wsqa.webunit.Suite() ;" +
-          "java.lang.System.out.println(suite) ;" ;
+          "java.lang.System.out.println('hello..................') ;\n" +
+          "importPackage(Packages.org.exoplatform.wsqa.webunit); \n" +
+          "importPackage(Packages.org.exoplatform.wsqa.webunit); \n" +
+          "var suite = new Suite() ;\n" +
+          "java.lang.System.out.println('hello..................' + suite) ;"  ;
         Script sobject = engine.compileScript("TestScript", scriptText) ;
         Map<String, Object> variables = new HashMap<String, Object>() ;
         engine.execute(sobject, variables) ;

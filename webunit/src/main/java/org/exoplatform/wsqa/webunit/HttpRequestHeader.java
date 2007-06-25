@@ -81,8 +81,8 @@ public class HttpRequestHeader extends LinkedHashMap<String, String> {
   public String getIfNoneMatch() { return get("If-None-Match") ; }
   public void   setIfNoneMatch(String s) { put("If-None-Match", s) ; }
   
-  public String getProtocolVersion() { return protocolVersion_ ; }
-  public void setProtocolVersion(String s) { protocolVersion_ = s ; }
+  public String getProtocol() { return protocolVersion_ ; }
+  public void setProtocol(String s) { protocolVersion_ = s ; }
   
   public String getMethod() { return method_ ; }
   public void setMethod(String s) { method_ = s ; }
@@ -92,7 +92,7 @@ public class HttpRequestHeader extends LinkedHashMap<String, String> {
   
   public String toString() {
     StringBuilder b = new StringBuilder() ;
-    b.append(getMethod()).append(' ').append(getUri().getURI()).append(' ').append(getProtocolVersion()).append("\r\n") ;
+    b.append(getMethod()).append(' ').append(getUri().getURI()).append(' ').append(getProtocol()).append("\r\n") ;
     for(Map.Entry<String, String> entry : entrySet()) {
       b.append(entry.getKey()).append(": ").append(entry.getValue()).append("\r\n") ;
     }
