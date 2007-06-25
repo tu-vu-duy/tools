@@ -56,7 +56,7 @@ abstract public class HttpClient {
     for(SuiteListener listener : suiteListeners_) listener.onPostExecute(suite, context) ;
   }
   
-  public void execute(WebUnit unit) throws Exception {
+  public WebUnitExecuteContext execute(WebUnit unit) throws Exception {
     WebUnitExecuteContext context = new WebUnitExecuteContext() ;
     for(WebUnitListener listener : webUnitListeners_) listener.onPreExecute(unit, context) ;
     context.setStartTime(System.currentTimeMillis()) ;
@@ -69,6 +69,7 @@ abstract public class HttpClient {
     String setCookie = context.getResponse().getHeaders().getSetCookie()  ;
     if(setCookie != null) setCookie(setCookie) ;
     for(WebUnitListener listener : webUnitListeners_) listener.onPostExecute(unit, context) ;
+    return context ;
   }
   
   abstract protected void executeGet(WebUnit unit, WebUnitExecuteContext context) throws Exception ;

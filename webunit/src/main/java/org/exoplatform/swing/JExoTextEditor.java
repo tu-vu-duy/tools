@@ -59,7 +59,7 @@ public class JExoTextEditor extends JPanel {
     textPane_.setText(text) ;
   }
   
-  public JToolBar getToobar() { return toolBar_ ; }
+  public JExoToolBar getToobar() { return toolBar_ ; }
   
   public void opentFile(String filePath) throws Exception {
     FileInputStream is = new FileInputStream(filePath) ;
@@ -72,6 +72,8 @@ public class JExoTextEditor extends JPanel {
     }
     textPane_.setText(new String(os.toByteArray())) ;
   }
+  
+  public String getText() { return textPane_.getText() ; }
   
   public void setText(String text) { textPane_.setText(text) ; }
 }

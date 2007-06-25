@@ -4,6 +4,7 @@
  **************************************************************************/
 package org.exoplatform.wsqa.webunit;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 
@@ -21,15 +22,15 @@ public class WebUnit {
   private int    port_ ;
   private String pathInfo_ ;
   private Map<String, String> parameters_ ;
-  private HttpRequestHeader headers ;
   
-  public WebUnit(String pathInfo) {
-    pathInfo_ =  pathInfo ;
+  public WebUnit(String name) {
+    name_ = name ;
   }
   
   public WebUnit(HttpRequest request) {
-    headers = request.getHeaders() ;
-    name_ = headers.getUri().getURI() ;
+    HttpRequestHeader headers = request.getHeaders() ;
+    name_ = headers.getUri().getPathInfo() ;
+    if(name_.length() > 60) name_ = name_.substring(0, 60) + "..." ;
     host_ = headers.getUri().getHost() + ":" + headers.getUri().getPort() ;
     method_ = headers.getMethod() ;
     pathInfo_ = headers.getUri().getPathInfo() ;
@@ -37,21 +38,42 @@ public class WebUnit {
   }
   
   public String getName()  { return name_ ; }
-  
-  public HttpRequestHeader getRequestHeader() {  return headers ; }
+  public WebUnit setName(String name) { 
+    name_ =  name ;
+    return this ;
+  }
   
   public boolean isGETMethod() { return "GET".equals(method_) ; }
   public String  getMethod()  { return method_ ; }
-  public void    setMethod(String method) { method_ = method ; }
+  public WebUnit setMethod(String method) { 
+    method_ = method ;
+    return this ;
+  }
 
   public String getHost() { return host_ ; }
-  public void   setHost(String host) { host_ = host ; }
+  public WebUnit setHost(String host) { 
+    host_ = host ; 
+    return this ;
+  }
   
   public int getPort() { return port_ ; }
-  public void   setHost(int port) { port_ = port  ; }
+  public WebUnit setHost(int port) { 
+    port_ = port  ;
+    return this ;
+  }
   
   public String getPathInfo() { return pathInfo_ ; }
-  public void   setPathInfo(String s) { pathInfo_ = s ; }
+  public WebUnit setPathInfo(String s) { 
+    pathInfo_ = s ;
+    return this ;
+  }
   
   public Map<String, String> getParameters()  { return parameters_ ; }
+  public WebUnit addParameter(String name, String value) {
+    if(parameters_ == null) {
+      parameters_ = new LinkedHashMap<String, String>() ;
+    }
+    parameters_.put(name, value) ;
+    return this ;
+  }
 }

@@ -6,12 +6,9 @@ package org.exoplatform.wsqa.swing;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
@@ -21,8 +18,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import org.exoplatform.javascript.JavaScriptEngine;
 import org.exoplatform.swing.Application;
+import org.exoplatform.swing.JExoJavascriptEditor;
 import org.exoplatform.swing.JExoToolBar;
 import org.exoplatform.swing.ViewPlugin;
 import org.exoplatform.swing.event.EventManager;
@@ -31,7 +28,6 @@ import org.exoplatform.wsqa.recorder.ProxyServer;
 import org.exoplatform.wsqa.recorder.RequestFilter;
 import org.exoplatform.wsqa.webunit.Suite;
 import org.exoplatform.wsqa.webunit.WebUnit;
-import org.mozilla.javascript.Script;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -178,18 +174,13 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
   
   public class GenerateScriptListener implements ActionListener {
     public void actionPerformed(ActionEvent event) {
-      System.out.println("Generate script ");
       try {
-        JavaScriptEngine engine = new JavaScriptEngine() ;
-        String scriptText = 
-          "java.lang.System.out.println('hello..................') ;\n" +
-          "importPackage(Packages.org.exoplatform.wsqa.webunit); \n" +
-          "importPackage(Packages.org.exoplatform.wsqa.webunit); \n" +
-          "var suite = new Suite() ;\n" +
-          "java.lang.System.out.println('hello..................' + suite) ;"  ;
-        Script sobject = engine.compileScript("TestScript", scriptText) ;
-        Map<String, Object> variables = new HashMap<String, Object>() ;
-        engine.execute(sobject, variables) ;
+        String scriptText = WebunitJavaScriptGenerator.generate(suite_) ;
+        JInternalFrame frame = 
+          Application.getInstance().getWorkspaces().openFrame("", "") ;
+        JExoJavascriptEditor editor = new JExoJavascriptEditor() ;
+        editor.setText(scriptText) ;
+        frame.add(editor) ;
       } catch (Exception ex) {
         ex.printStackTrace() ;
       }

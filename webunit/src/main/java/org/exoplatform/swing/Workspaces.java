@@ -38,7 +38,7 @@ public class Workspaces extends JDesktopPane {
     frame.addInternalFrameListener(new FrameEventListener()) ;
     add(frame);
     openFrames_.add(frame) ;
-    frame.toFront();
+    frame.toFront() ;
     return frame ;
   }
   
