@@ -147,6 +147,7 @@ Module() {
     
     frameworks() {
       this.web= Project("org.exoplatform.jcr", "exo.jcr.framework.web", "jar", version);
+      this.web.addDependency(Project("org.exoplatform.jcr", "exo.jcr.component.rest", "jar", version));
       this.web.addDependency(Project("commons-chain", "commons-chain", "jar", "1.0"));
       this.web.addDependency(Project("log4j", "log4j", "jar", "1.2.8"));
       
