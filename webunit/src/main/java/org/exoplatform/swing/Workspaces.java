@@ -34,10 +34,11 @@ public class Workspaces extends JDesktopPane {
     frame.setLocation(15 * openFrames_.size(), 20 * openFrames_.size());
     frame.setVisible(true) ;
     frame.setSelected(true) ;
-    //frame.setLayer(openFrames_.size()) ;
+    //frame.setLayer(openFrames_.size()) ;    
     frame.addInternalFrameListener(new FrameEventListener()) ;
     add(frame);
     openFrames_.add(frame) ;
+    frame.toFront();
     return frame ;
   }
   

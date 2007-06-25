@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 
 import org.exoplatform.javascript.JavaScriptEngine;
 import org.exoplatform.swing.Application;
+import org.exoplatform.swing.JExoToolBar;
 import org.exoplatform.swing.ViewPlugin;
 import org.exoplatform.swing.event.EventManager;
 import org.exoplatform.swing.log.LogPlugin;
@@ -39,7 +40,7 @@ import org.mozilla.javascript.Script;
  */
 public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
   final static public String WORKSPACE_NAME = "WSQAWorkspace" ;
-  
+  private JExoToolBar toolBar_ = new JExoToolBar();
   private static String[]  TABLE_HEADERS = {"#","Name", "Description"} ;
   
   private ProxyServer server_ ;
@@ -70,29 +71,30 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
     scrollPane.setPreferredSize(new Dimension(150, 150)) ;    
     add(scrollPane, BorderLayout.CENTER);
     
-    JPanel pnlControl = new JPanel(new FlowLayout());
     JButton button = new JButton("Start") ;
     button.addActionListener(new StartServerListener()) ;
-    pnlControl.add(button) ;
+    toolBar_.addButton(button) ;
     
     button = new JButton("Stop") ;
     button.addActionListener(new StopServerListener());
-    pnlControl.add(button) ;
+    toolBar_.addButton(button) ;
+    
+    toolBar_.addSeparator(new Dimension(10, 20));
     
     button = new JButton("Generate Script") ;
     button.addActionListener(new GenerateScriptListener());
-    pnlControl.add(button) ;
+    toolBar_.addButton(button) ;
     
     button = new JButton("Replay") ;
     button.addActionListener(new ReplayWebunitsListener());
-    pnlControl.add(button) ;
+    toolBar_.addButton(button) ;
     
     button = new JButton("Clear") ;
     button.addActionListener(new ClearWebunitsListener());
-    pnlControl.add(button) ;
+    toolBar_.addButton(button) ;
     
     
-    add(pnlControl, BorderLayout.SOUTH);
+    add(toolBar_, BorderLayout.NORTH);
   }
   
   public String getName() { return WORKSPACE_NAME ;} ;
