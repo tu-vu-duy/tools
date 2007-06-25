@@ -12,6 +12,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 
+import org.exoplatform.swing.JExoTextEditor;
 import org.exoplatform.swing.ViewPlugin;
 /**
  * Created by The eXo Platform SARL
@@ -37,7 +38,7 @@ public class OpenedFileViewPlugin extends JDesktopPane implements ViewPlugin {
     frame.setVisible(true);
     frame.setSelected(true);
     frame.toFront() ;
-    TextEditor textEditor = new TextEditor() ;
+    JExoTextEditor textEditor = new JExoTextEditor() ;
     textEditor.opentFile(filePath) ;
     frame.add(textEditor) ;
     frame.addInternalFrameListener(new FrameEventListener()) ;

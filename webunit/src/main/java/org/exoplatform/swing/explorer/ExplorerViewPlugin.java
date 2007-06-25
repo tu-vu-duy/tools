@@ -5,9 +5,16 @@
 package org.exoplatform.swing.explorer;
 
 import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.event.*;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.util.Enumeration;
 
+import javax.swing.*;
+import javax.swing.event.*;
 import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,6 +27,7 @@ import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 import org.exoplatform.swing.Application;
+import org.exoplatform.swing.JExoTextEditor;
 import org.exoplatform.swing.ViewPlugin;
 /**
  * Created by The eXo Platform SARL
@@ -28,6 +36,10 @@ import org.exoplatform.swing.ViewPlugin;
  * Jun 3, 2007  
  */
 public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
+  private static DefaultTreeModel tmodel;
+  private static FileNode selectFileNode;
+  private static JTree jtree;
+  private boolean menuItemXmlAdded  = false;
   
   public ExplorerViewPlugin() {
     setName("FileExplorer") ;
@@ -35,17 +47,17 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
     JScrollPane scrollPane = new JScrollPane();
     //scrollPane.setViewportView(new FileExplorerPanel());
     add(scrollPane, "ScrollPane") ;
-    JTree jtree = new  JTree() ;
+    jtree = new  JTree() ;
     scrollPane.setViewportView(jtree) ;
 
-    File root = new File("/") ;
+    File root = new File("E:/") ;
     FileNode rootNode = new FileNode(root.getName(), root);
     File[] children = root.listFiles() ;
     for(File file :  children) {
       FileNode fnode = new FileNode(file.getName(), file) ;
       rootNode.add(fnode);
     }
-    DefaultTreeModel tmodel = new DefaultTreeModel(rootNode) ;
+    tmodel = new DefaultTreeModel(rootNode) ;
     jtree.setModel(tmodel);
     jtree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
     
@@ -53,14 +65,21 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
       public void valueChanged(TreeSelectionEvent evt) {
         System.out.println("==> Tree Action Listener") ;
         JTree jtree  = (JTree)evt.getSource() ; //
-        FileNode selectFileNode = (FileNode)evt.getPath().getLastPathComponent() ;
+        selectFileNode = (FileNode)evt.getPath().getLastPathComponent() ;
+        
+       
+        if (menuItemXmlAdded) {
+          System.out.println("removeeee");
+          OptionMenu.menuOpenAs.remove(OptionMenu.menuItemXml);
+        }
+        
         if(selectFileNode.isLeaf()) {
           String filePath = selectFileNode.getFilePath() ;
           if(filePath.endsWith(".txt")) {
             try {
               JInternalFrame frame = 
                 Application.getInstance().getWorkspaces().openFrame(filePath, filePath) ;
-              TextEditor textEditor = new TextEditor() ;
+              JExoTextEditor textEditor = new JExoTextEditor() ;
               textEditor.opentFile(filePath) ;
               textEditor.setVisible(true) ;
               frame.add(textEditor) ;
@@ -68,8 +87,17 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
               ex.printStackTrace() ;
             }
           }
+          else if (filePath.endsWith(".xml")) {
+            OptionMenu.menuOpenAs.add(OptionMenu.menuItemXml, 1);
+            menuItemXmlAdded = true;
+          }
+          
         } else {
-          TreePath selectionPaths = jtree.getSelectionPath()  ;
+          TreePath selectionPaths = null;
+          if (jtree.getSelectionPath() != null) {
+            selectionPaths = jtree.getSelectionPath()  ;
+          
+          
           System.out.println("Selection Path: " + selectionPaths);
           TreePath parentSelectionPaths = selectionPaths.getParentPath()  ;
           FileNode parentFileNode = (FileNode)selectFileNode.getParent() ;
@@ -78,7 +106,6 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
             while(e.hasMoreElements()) {
               FileNode fnode = e.nextElement() ;
               if(fnode != selectFileNode) {
-                //fnode.removeAllChildren() ;
                 if(!fnode.isLeaf()) {
                   jtree.collapsePath( parentSelectionPaths.pathByAddingChild(fnode));
                 }
@@ -98,10 +125,21 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
             }
           }
         }
+        }
         jtree.repaint() ;
         System.out.println("<=== Tree Action Listener") ;
       }
     }) ;  // het treeSelectionListenner;
+    
+    final JPopupMenu popup = new OptionMenu();
+    
+    jtree.addMouseListener(new MouseAdapter() {
+      public void mousePressed(MouseEvent evt) {
+        if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
+          popup.show((JComponent)evt.getSource(), evt.getX(), evt.getY());
+        }
+      }
+    });
   }
   
   public String getTitle() { return "File Explorer"; }
@@ -121,5 +159,87 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
     public boolean isLeaf() { return !directory_ ; }
     
     public String getFilePath() { return filePath_ ; } 
+  }
+  
+  static class OptionMenu extends JPopupMenu {
+    static JMenuItem menuItemOpen, menuItemAdmin, menuItemUser, menuItemText, menuItemXml, menuItemDelete, menuItemRename;
+    static JMenu menuOpenAs; 
+    
+    public OptionMenu() {
+      setPreferredSize(new Dimension(150, 150));
+      menuItemOpen = new JMenuItem("Open");
+      menuItemAdmin = new JMenuItem("Admin");
+      menuItemUser = new JMenuItem("User");
+      menuItemText = new JMenuItem("text file    ");
+      menuItemXml = new JMenuItem("xml file    ");
+      menuOpenAs = new JMenu("Open as  >");
+     
+      menuOpenAs.add(menuItemText);
+      menuOpenAs.add(menuItemAdmin);
+      menuOpenAs.add(menuItemUser);
+      add(menuItemOpen);
+      add(menuOpenAs);
+      addSeparator();
+      
+      menuItemDelete = new JMenuItem("Delete");
+      menuItemRename = new JMenuItem("Rename");
+      add(menuItemDelete);
+      add(menuItemRename);
+      
+      menuItemOpen.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+         System.out.println("Open"); 
+        }
+      });
+      menuItemAdmin.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+         System.out.println("Admin"); 
+        }
+      });
+      menuItemUser.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+         System.out.println("User"); 
+        }
+      });
+      
+      menuItemDelete.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+          if ((selectFileNode != null)&&(selectFileNode.getParent() != null)) {
+            System.out.println("select nodeeeee: " + selectFileNode.toString());
+            int result = JOptionPane.showConfirmDialog(null, "Are you sure want to delete?", "Confirm", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (result == 0) {
+              try {
+                
+                System.out.println("file path: " + selectFileNode.getFilePath());
+                File f = new File(selectFileNode.getFilePath());
+                
+                System.out.println("exist: " + f.exists());
+                if (f.isDirectory()) {
+                  File[] fileList = f.listFiles();
+                  if (fileList.length > 1) {
+                    JOptionPane.showMessageDialog(null, "directory is not empty","error", JOptionPane.ERROR_MESSAGE);
+                  }
+                  else {
+                    System.out.println("delete :" + f.delete());
+                    tmodel.removeNodeFromParent(selectFileNode);
+                  }
+                  
+                }
+                
+                else {
+                  System.out.println("deleted :" + f.delete());
+                  tmodel.removeNodeFromParent(selectFileNode);
+                }
+              }
+              catch (Exception ex) {
+                ex.printStackTrace();
+              }
+              
+            }
+            
+          }          
+        }
+      });
+    }
   }
 }

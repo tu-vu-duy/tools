@@ -9,7 +9,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 import org.exoplatform.swing.Application;
-import org.exoplatform.swing.explorer.TextEditor;
+import org.exoplatform.swing.JExoTextEditor;
 import org.exoplatform.wsqa.webunit.WebUnitExecuteContext;
 
 public class WebunitPlayerPopupMenu extends JPopupMenu {
@@ -38,7 +38,7 @@ public class WebunitPlayerPopupMenu extends JPopupMenu {
           String text = rundata.getRequest().getHeaders().toString() ;
           JInternalFrame frame = 
             Application.getInstance().getWorkspaces().openFrame("HttpRequestHeader", "Http Request Header") ;
-          frame.add(new TextEditor(text)) ;
+          frame.add(new JExoTextEditor(text)) ;
         } catch(Exception ex) {
           ex.printStackTrace() ;
         }
@@ -54,7 +54,7 @@ public class WebunitPlayerPopupMenu extends JPopupMenu {
           String text = "NOT AVAILABLE";
           JInternalFrame frame = 
             Application.getInstance().getWorkspaces().openFrame("HttpRequestBody", "Http Request Body") ;
-          frame.add(new TextEditor(text)) ;
+          frame.add(new JExoTextEditor(text)) ;
         } catch(Exception ex) {
           ex.printStackTrace() ;
         }
@@ -74,7 +74,7 @@ public class WebunitPlayerPopupMenu extends JPopupMenu {
           String text = rundata.getResponse().getHeaders().toString() ;
           JInternalFrame frame = 
             Application.getInstance().getWorkspaces().openFrame("HttpResponse", "Http Response") ;
-          frame.add(new TextEditor(text)) ;
+          frame.add(new JExoTextEditor(text)) ;
         } catch(Exception ex) {
           ex.printStackTrace() ;
         }
@@ -90,7 +90,7 @@ public class WebunitPlayerPopupMenu extends JPopupMenu {
           String responseText = new String(rundata.getResponse().getResponseBody().toByteArray()) ;
           JInternalFrame frame = 
             Application.getInstance().getWorkspaces().openFrame("HttpResponse", "Http Response") ;
-          frame.add(new TextEditor(responseText)) ;
+          frame.add(new JExoTextEditor(responseText)) ;
         } catch(Exception ex) {
           ex.printStackTrace() ;
         }

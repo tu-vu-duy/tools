@@ -6,13 +6,14 @@ package org.exoplatform.swing;
 
 import java.awt.CardLayout;
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.swing.JComponent;
 import javax.swing.JSplitPane;
-import javax.swing.WindowConstants;
 
 import org.exoplatform.swing.explorer.FileExplorerPlugin;
 import org.exoplatform.swing.log.LogPlugin;
@@ -33,7 +34,13 @@ public class Application extends javax.swing.JFrame {
   private Workspaces    workspaces_ ;
   
   public Application() throws Exception {
-    setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    //setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    addWindowListener(new WindowAdapter() {
+      public void windowClosing(WindowEvent we) {
+        System.out.println("Window Exit");
+        System.exit(0);
+      }
+    });
     setLocation(20, 20);
     setSize(1200, 700) ;
     menuBar_ = new ApplicationMenuBar() ;

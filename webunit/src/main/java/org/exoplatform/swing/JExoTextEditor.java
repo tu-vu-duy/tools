@@ -2,38 +2,64 @@
  * Copyright 2001-2007 The eXo Platform SARL         All rights reserved.  *
  * Please look at license.txt in info directory for more license detail.   *
  **************************************************************************/
-package org.exoplatform.swing.explorer;
+package org.exoplatform.swing;
 
-import java.awt.CardLayout;
+import java.awt.BorderLayout;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.awt.event.MouseListener;
+import java.awt.Insets;
+import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
+import javax.swing.ImageIcon;
+import javax.swing.Icon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.JToolBar;
 import javax.swing.text.DefaultStyledDocument;
+import javax.swing.AbstractAction;
+import javax.swing.border.Border;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.Action;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
  *          tuan.nguyen@exoplatform.com
  * Jun 3, 2007  
  */
-public class TextEditor extends JPanel {
+public class JExoTextEditor extends JPanel {
   private DefaultStyledDocument document_ = new DefaultStyledDocument();
   private JTextPane textPane_ = new JTextPane(document_); 
+  private JExoToolBar toolBar_ = new JExoToolBar();
   
-  public TextEditor() {
-    setLayout(new CardLayout());
+  public JExoTextEditor() {
+    setLayout(new BorderLayout());
+    
     JScrollPane scrollPane = new JScrollPane(textPane_);
     scrollPane.setViewportView(textPane_) ;
-    add(scrollPane, "ScrollPane")  ;
+    add(scrollPane, BorderLayout.CENTER)  ;
+    
+    JButton bNew = new JButton("New");
+    toolBar_.addButton(bNew);
+    JButton bOpen = new JButton("Open");
+    toolBar_.addButton(bOpen);
+    JButton bSave = new JButton("Save");
+    toolBar_.addButton(bSave);    
+    
+    add(toolBar_, BorderLayout.NORTH);
   }
   
-  public TextEditor(String text) {
+  public JExoTextEditor(String text) {
     this() ;
     setVisible(true) ;
     textPane_.setText(text) ;
   }
+  
+  public JToolBar getToobar() { return toolBar_ ; }
   
   public void opentFile(String filePath) throws Exception {
     FileInputStream is = new FileInputStream(filePath) ;
@@ -48,5 +74,4 @@ public class TextEditor extends JPanel {
   }
   
   public void setText(String text) { textPane_.setText(text) ; }
-  
 }
