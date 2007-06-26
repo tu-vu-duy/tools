@@ -252,6 +252,7 @@ Module() {
       this.portal = Project("org.exoplatform.portal", "exo.portal.web.portal", "exo-portal", version);
       this.portal.addDependency(webui.portal) ;
       this.portal.addDependency(eXoResources) ;
+      this.portal.addDependency(jcr.frameworks.web) ;
       this.portal.addDependency(jcr.frameworks.command) ;
       return this ;
     }
