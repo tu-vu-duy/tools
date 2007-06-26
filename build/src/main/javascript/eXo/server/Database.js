@@ -86,10 +86,12 @@ DBInstance.prototype.ConfigureTask = function(product, server) {
 
 		var imports = new java.util.HashMap() ;
     imports.put("war:/conf/jcr/exo-jcr-config.tmpl.xml", "war:/conf/jcr/exo-jcr-config.xml") ;
+    imports.put("war:/conf/jcr/jcr-configuration.tmpl.xml", "war:/conf/jcr/jcr-configuration.xml") ;
     var properties = new java.util.HashMap() ;
 		properties.put("${dialect}", this.dbinstance.name);
     eXo.core.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/configuration.xml", imports);
     eXo.core.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/jcr/exo-jcr-config.xml", properties);
+    eXo.core.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/jcr/jcr-configuration.xml", properties);
     
   }
   return descriptor;
@@ -108,7 +110,7 @@ Database.prototype.HsqlDB = function() {
 
   instance.driverClass = "org.hsqldb.jdbcDriver";
   instance.dialect = "org.hibernate.dialect.HSQLDialect" ;
-  instance.conectionURL = "jdbc:hsqldb:file:/tmp/hsql/exodb";
+  instance.conectionURL = "jdbc:hsqldb:file:../temp/data/exodb";
   instance.username = "sa" ;
   instance.password = "";
   return instance ;
@@ -121,7 +123,7 @@ Database.prototype.MysqlDB = function() {
    
   instance.driverClass = "com.mysql.jdbc.Driver";
   instance.dialect = "org.hibernate.dialect.MySQLDialect" ;
-  instance.conectionURL = "jdbc:mysql://192.168.1.54:3306/exodb?relaxAutoCommit=true&amp;autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8";
+  instance.conectionURL = "jdbc:mysql://192.168.1.56:3306/exodb?relaxAutoCommit=true&amp;autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8";
   instance.username = "exo" ;
   instance.password = "exo";
     
@@ -135,7 +137,7 @@ Database.prototype.PostgresDB = function() {
    
   instance.driverClass = "org.postgresql.Driver";
   instance.dialect = "org.hibernate.dialect.PostgreSQLDialect" ;
-  instance.conectionURL = "jdbc:postgresql://192.168.1.70:5432/exodb";
+  instance.conectionURL = "jdbc:postgresql://192.168.1.56:5432/exodb";
   instance.username = "exo" ;
   instance.password = "exo";
   

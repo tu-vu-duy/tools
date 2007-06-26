@@ -157,6 +157,7 @@ eXo.projects.Module = {
     eXoJcr.frameworks = {}
     eXoJcr.frameworks.web = 
       new Project("org.exoplatform.jcr", "exo.jcr.framework.web", "jar", version).
+      addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.rest", "jar", version)).
       addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0")).
       addDependency(new Project("log4j", "log4j", "jar", "1.2.8"));
 
@@ -266,7 +267,9 @@ eXo.projects.Module = {
     portal.web.portal = 
       new Project("org.exoplatform.portal", "exo.portal.web.portal", "exo-portal", version).
       addDependency(portal.webui.portal) .
-      addDependency(portal.web.eXoResources) ;
+      addDependency(portal.web.eXoResources).
+      addDependency(jcr.frameworks.web).
+      addDependency(jcr.frameworks.command) ;
     
     portal.server = {}
       portal.server.tomcat = {}
