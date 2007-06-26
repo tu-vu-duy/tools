@@ -5,10 +5,10 @@
 package org.exoplatform.wsqa.swing;
 
 import org.exoplatform.swing.Application;
+import org.exoplatform.wsqa.httpclient.WebUnit;
 import org.exoplatform.wsqa.recorder.Connection;
 import org.exoplatform.wsqa.recorder.ConnectionListener;
 import org.exoplatform.wsqa.recorder.RequestFilter;
-import org.exoplatform.wsqa.webunit.WebUnit;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen

@@ -9,12 +9,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 
-import org.exoplatform.wsqa.webunit.HttpRequest;
-import org.exoplatform.wsqa.webunit.HttpRequestHeader;
-import org.exoplatform.wsqa.webunit.HttpResponse;
-import org.exoplatform.wsqa.webunit.URI;
-import org.exoplatform.wsqa.webunit.WebUnit;
-import org.exoplatform.wsqa.webunit.WebUnitExecuteContext;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen

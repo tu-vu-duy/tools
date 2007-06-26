@@ -29,7 +29,6 @@ public class JExoJavascriptEditor extends JExoTextEditor {
     JButton button = new JButton("exec");
     button.addActionListener(new ExecutecScriptListener()) ;
     toolbar.addButton(button);
-    
   }
   
   public class ExecutecScriptListener implements ActionListener {
@@ -66,7 +65,6 @@ public class JExoJavascriptEditor extends JExoTextEditor {
       script_ = script ;
       variables_ = variables ;
     }
-    
 
     public void run() {
       try {

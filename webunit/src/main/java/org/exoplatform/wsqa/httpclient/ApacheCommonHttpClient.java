@@ -5,8 +5,6 @@
 package org.exoplatform.wsqa.httpclient;
 
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.exoplatform.wsqa.webunit.WebUnit;
-import org.exoplatform.wsqa.webunit.WebUnitExecuteContext;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen

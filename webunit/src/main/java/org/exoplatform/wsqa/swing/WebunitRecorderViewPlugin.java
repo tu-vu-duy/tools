@@ -24,10 +24,10 @@ import org.exoplatform.swing.JExoToolBar;
 import org.exoplatform.swing.ViewPlugin;
 import org.exoplatform.swing.event.EventManager;
 import org.exoplatform.swing.log.LogPlugin;
+import org.exoplatform.wsqa.httpclient.Suite;
+import org.exoplatform.wsqa.httpclient.WebUnit;
 import org.exoplatform.wsqa.recorder.ProxyServer;
 import org.exoplatform.wsqa.recorder.RequestFilter;
-import org.exoplatform.wsqa.webunit.Suite;
-import org.exoplatform.wsqa.webunit.WebUnit;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -75,20 +75,21 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
     button.addActionListener(new StopServerListener());
     toolBar_.addButton(button) ;
     
-    toolBar_.addSeparator(new Dimension(10, 20));
-    
-    button = new JButton("Generate Script") ;
-    button.addActionListener(new GenerateScriptListener());
-    toolBar_.addButton(button) ;
-    
-    button = new JButton("Replay") ;
-    button.addActionListener(new ReplayWebunitsListener());
-    toolBar_.addButton(button) ;
-    
     button = new JButton("Clear") ;
     button.addActionListener(new ClearWebunitsListener());
     toolBar_.addButton(button) ;
     
+    toolBar_.addSeparator();
+    
+    button = new JButton("Generate") ;
+    button.setToolTipText("Generate Javascript code") ;
+    button.addActionListener(new GenerateScriptListener());
+    
+    toolBar_.addButton(button) ;
+    button = new JButton("Log") ;
+    button.setToolTipText("Show Http Client Log") ;
+    button.addActionListener(new ShowLogListener());
+    toolBar_.addButton(button) ;
     
     add(toolBar_, BorderLayout.NORTH);
   }
@@ -159,15 +160,18 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
     }
   }
   
-  public class ReplayWebunitsListener implements ActionListener {
+  public class ShowLogListener implements ActionListener {
     public void actionPerformed(ActionEvent event) {
-      WebunitPlayerViewPlugin player = new WebunitPlayerViewPlugin(suite_) ;
-      try {
-        JInternalFrame frame = 
-          Application.getInstance().getWorkspaces().openFrame("WebunitPlayer", "Webunit Player") ;
-        frame.add(player) ;
-      } catch(Exception ex) {
-        ex.printStackTrace() ;
+      JInternalFrame frame = 
+        Application.getInstance().getWorkspaces().getFrame(HttpClientLogViewPlugin.NAME) ;
+      if(frame == null) {
+        try {
+          frame = 
+            Application.getInstance().getWorkspaces().openFrame(HttpClientLogViewPlugin.NAME, "Http Client Log") ;
+          frame.add(HttpClientLogViewPlugin.getInstance()) ;
+        } catch(Exception ex) {
+          ex.printStackTrace() ;
+        }
       }
     }
   }

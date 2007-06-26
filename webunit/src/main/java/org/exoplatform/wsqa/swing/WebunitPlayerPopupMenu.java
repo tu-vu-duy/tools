@@ -10,12 +10,12 @@ import javax.swing.JPopupMenu;
 
 import org.exoplatform.swing.Application;
 import org.exoplatform.swing.JExoTextEditor;
-import org.exoplatform.wsqa.webunit.WebUnitExecuteContext;
+import org.exoplatform.wsqa.httpclient.WebUnitExecuteContext;
 
 public class WebunitPlayerPopupMenu extends JPopupMenu {
-  private WebunitPlayerViewPlugin player_ ;
+  private HttpClientResultPanel player_ ;
   
-  public WebunitPlayerPopupMenu(WebunitPlayerViewPlugin player) {
+  public WebunitPlayerPopupMenu(HttpClientResultPanel player) {
     player_  = player ;
     JMenuItem menuItem = new JMenuItem("Remove");
     menuItem.addActionListener(new ActionListener() {

@@ -9,12 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.exoplatform.wsqa.webunit.Suite;
-import org.exoplatform.wsqa.webunit.SuiteExecuteContext;
-import org.exoplatform.wsqa.webunit.SuiteListener;
-import org.exoplatform.wsqa.webunit.WebUnit;
-import org.exoplatform.wsqa.webunit.WebUnitExecuteContext;
-import org.exoplatform.wsqa.webunit.WebUnitListener;
 
 /**
  * Created by The eXo Platform SARL
@@ -23,12 +17,25 @@ import org.exoplatform.wsqa.webunit.WebUnitListener;
  * May 31, 2007  
  */
 abstract public class HttpClient {
+  private String id_ ;
+  private String suiteName_ = "Default";
   private String scheme_ = "http://" ;
   private String host_ = "localhost";
   private int    port_ = 8080;
   private String protocol_ = "HTTP/1.1" ;
   private String cookie_ = "JSESSIONID=AAF6D8E0FE36B9874D1225BFFE4D2E6D" ;
   
+  public HttpClient() {
+    id_ = Integer.toString(hashCode()) ;
+  }
+  
+  public HttpClient(String suiteName) {
+    suiteName_ = suiteName ;
+    id_ = Integer.toString(hashCode()) ;
+  }
+  
+  public String getId() { return id_ ; }
+  public String getSuiteName() { return suiteName_ ; } 
   public String getScheme()  { return scheme_ ; }
   public String getHost() { return host_ ; }
   public int getPort() { return port_ ; }
@@ -57,7 +64,7 @@ abstract public class HttpClient {
   }
   
   public WebUnitExecuteContext execute(WebUnit unit) throws Exception {
-    WebUnitExecuteContext context = new WebUnitExecuteContext() ;
+    WebUnitExecuteContext context = new WebUnitExecuteContext(this) ;
     for(WebUnitListener listener : webUnitListeners_) listener.onPreExecute(unit, context) ;
     context.setStartTime(System.currentTimeMillis()) ;
     if(unit.isGETMethod()) {

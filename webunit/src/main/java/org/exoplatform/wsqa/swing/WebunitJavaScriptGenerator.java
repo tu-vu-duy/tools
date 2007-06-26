@@ -6,8 +6,8 @@ package org.exoplatform.wsqa.swing;
 
 import java.util.Map;
 
-import org.exoplatform.wsqa.webunit.Suite;
-import org.exoplatform.wsqa.webunit.WebUnit;
+import org.exoplatform.wsqa.httpclient.Suite;
+import org.exoplatform.wsqa.httpclient.WebUnit;
 
 /**
  * Created by The eXo Platform SARL

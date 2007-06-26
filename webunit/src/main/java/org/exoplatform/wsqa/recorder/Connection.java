@@ -11,8 +11,8 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.List;
 
-import org.exoplatform.wsqa.webunit.HttpRequest;
-import org.exoplatform.wsqa.webunit.HttpResponse;
+import org.exoplatform.wsqa.httpclient.HttpRequest;
+import org.exoplatform.wsqa.httpclient.HttpResponse;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen

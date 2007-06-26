@@ -4,7 +4,8 @@
  **************************************************************************/
 package org.exoplatform.swing;
 
-import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -17,7 +18,7 @@ import javax.swing.event.InternalFrameListener;
  * Jun 3, 2007  
  */
 public class Workspaces extends JDesktopPane {
-  private HashSet<ViewFrame> openFrames_ = new HashSet<ViewFrame>();
+  private Map<String, ViewFrame> openFrames_ = new HashMap<String,ViewFrame>();
   
   public Workspaces() {
     setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
@@ -37,10 +38,16 @@ public class Workspaces extends JDesktopPane {
     //frame.setLayer(openFrames_.size()) ;    
     frame.addInternalFrameListener(new FrameEventListener()) ;
     add(frame);
-    openFrames_.add(frame) ;
+    openFrames_.put(id, frame) ;
     frame.toFront() ;
     return frame ;
   }
+  
+  public JInternalFrame getFrame(String id) {
+    return openFrames_.get(id) ;
+  }
+  
+  public Map<String, ViewFrame> getOpenFrames() { return openFrames_ ; }
   
   static class ViewFrame  extends JInternalFrame {
     public ViewFrame(String label) {
