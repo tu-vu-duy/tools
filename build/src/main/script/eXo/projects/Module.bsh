@@ -146,7 +146,7 @@ Module() {
     this.services = services() ;
     
     frameworks() {
-      this.web= Project("org.exoplatform.jcr", "exo.jcr.framework.web", "jar", version);
+      this.web = Project("org.exoplatform.jcr", "exo.jcr.framework.web", "jar", version);
       this.web.addDependency(Project("org.exoplatform.jcr", "exo.jcr.component.rest", "jar", version));
       this.web.addDependency(Project("commons-chain", "commons-chain", "jar", "1.0"));
       this.web.addDependency(Project("log4j", "log4j", "jar", "1.2.8"));
@@ -300,6 +300,7 @@ Module() {
       this.ecm.addDependency(Project("com.totsp.feedpod", "itunes-com-podcast", "jar", "0.2")) ;
       this.ecm.addDependency(Project("ical4j", "ical4j", "jar", "0.9.20")) ;
       this.ecm.addDependency(Project("jdom", "jdom", "jar", "1.0")) ;
+      this.ecm.addDependency(Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")) ;
       //this.ecm.addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.bonita", "jar", version)) ;
 
       this.workflow = Project("org.exoplatform.ecm", "exo.ecm.portlet.workflow", "exo-portlet", version);
