@@ -105,7 +105,7 @@ function Database() {
 
 Database.prototype.HsqlDB = function() {
   var instance = new DBInstance() ;
-  instance.name = "hsql" ;
+  instance.name = "hsqldb" ;
   instance.drivers = [ new Project("hsqldb", "hsqldb", "jar", "1.8.0.7") ] ;
 
   instance.driverClass = "org.hsqldb.jdbcDriver";
@@ -151,7 +151,7 @@ Database.prototype.OracleDB = function() {
    
   instance.driverClass = "oracle.jdbc.OracleDriver";
   instance.dialect = "org.hibernate.dialect.Oracle9Dialect" ;
-  instance.conectionURL = "jdbc:oracle:thin:@//192.168.1.57:1521/xe";
+  instance.conectionURL = "jdbc:oracle:thin:@//192.168.1.58:1521/xe";
   instance.username = "exo" ;
   instance.password = "exo";
     
