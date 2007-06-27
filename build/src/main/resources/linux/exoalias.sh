@@ -20,6 +20,6 @@ alias tomcatCleanRun="cd $EXO_WORKING_DIR/exo-tomcat/bin &&
                       rm -rf ../logs/*  &&
                       chmod +x *.sh && ./eXo.sh run "
 
-alias exoproject="exobsh.sh exoproject"
-alias exobuild="exobsh.sh exobuild"
+alias exoproject="js.sh exoproject"
+alias exobuild="js.sh exobuild"
 alias exosvn="exobsh.sh exosvn"
