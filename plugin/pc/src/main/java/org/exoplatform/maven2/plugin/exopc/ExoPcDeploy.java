@@ -33,7 +33,7 @@ import org.codehaus.plexus.archiver.ear.EarArchiver;
  */
 public class ExoPcDeploy extends AbstractMojo {   
   /**
-   * @parameter expression="${exo.directory.working}"
+   * @parameter expression="${exo.projects.directory.working}"
    * @required
    */
   private String workingDir;
