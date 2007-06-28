@@ -123,7 +123,7 @@ Database.prototype.MysqlDB = function() {
    
   instance.driverClass = "com.mysql.jdbc.Driver";
   instance.dialect = "org.hibernate.dialect.MySQLDialect" ;
-  instance.conectionURL = "jdbc:mysql://192.168.1.56:3306/exodb?relaxAutoCommit=true&amp;autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8";
+  instance.conectionURL = "jdbc:mysql://192.168.1.15:3306/exodb?relaxAutoCommit=true&amp;autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8";
   instance.username = "exo" ;
   instance.password = "exo";
     
@@ -137,7 +137,7 @@ Database.prototype.PostgresDB = function() {
    
   instance.driverClass = "org.postgresql.Driver";
   instance.dialect = "org.hibernate.dialect.PostgreSQLDialect" ;
-  instance.conectionURL = "jdbc:postgresql://192.168.1.56:5432/exodb";
+  instance.conectionURL = "jdbc:postgresql://192.168.1.15:5432/exodb";
   instance.username = "exo" ;
   instance.password = "exo";
   
@@ -151,7 +151,7 @@ Database.prototype.OracleDB = function() {
    
   instance.driverClass = "oracle.jdbc.OracleDriver";
   instance.dialect = "org.hibernate.dialect.Oracle9Dialect" ;
-  instance.conectionURL = "jdbc:oracle:thin:@//192.168.1.58:1521/xe";
+  instance.conectionURL = "jdbc:oracle:thin:@//192.168.1.15:1521/xe";
   instance.username = "exo" ;
   instance.password = "exo";
     
@@ -161,11 +161,12 @@ Database.prototype.OracleDB = function() {
 Database.prototype.DB2ExpressDB = function() {
   var instance = new DBInstance() ;
   instance.name = "db2" ;
-  instance.drivers = [ new Project("com.ibm.db2", "db2jcc", "jar", "9.1")] ;
+  instance.drivers = [ new Project("com.ibm.db2", "db2jcc", "jar", "9.1"),
+  										 new Project("com.ibm.db2", "db2jcc_license_cu", "jar", "9.1")] ;
    
   instance.driverClass = "com.ibm.db2.jcc.DB2Driver";
   instance.dialect = "org.hibernate.dialect.DB2Dialect" ;
-  instance.conectionURL = "jdbc:db2://192.168.1.50:50000/exodb";
+  instance.conectionURL = "jdbc:db2://192.168.1.15:50000/exodb";
   instance.username = "exoinst" ;
   instance.password = "exo";
     
@@ -179,7 +180,7 @@ Database.prototype.DerbyDB = function() {
    
   instance.driverClass = "org.apache.derby.jdbc.ClientDriver";
   instance.dialect = "org.hibernate.dialect.DerbyDialect" ;
-  instance.conectionURL = "jdbc:derby://192.168.1.71:1527/exodb;create=true";
+  instance.conectionURL = "jdbc:derby://192.168.1.15:1527/exodb;create=true";
   instance.username = "exo" ;
   instance.password = "exo";
     
@@ -193,7 +194,7 @@ Database.prototype.SqlServerDB = function() {
    
   instance.driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
   instance.dialect = "org.hibernate.dialect.SQLServerDialect" ;
-  instance.conectionURL = "jdbc:sqlserver://192.168.1.55:1433;databaseName=exodb";
+  instance.conectionURL = "jdbc:sqlserver://192.168.1.15:1433;databaseName=exodb";
   instance.username = "exo" ;
   instance.password = "exo";
     
