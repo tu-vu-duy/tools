@@ -15,6 +15,7 @@ import java.util.Map;
 import javax.swing.JComponent;
 import javax.swing.JSplitPane;
 
+import org.exoplatform.server.tomcat.TomcatPlugin;
 import org.exoplatform.swing.explorer.FileExplorerPlugin;
 import org.exoplatform.swing.log.LogPlugin;
 import org.exoplatform.wsqa.swing.WSQAPlugin;
@@ -45,14 +46,16 @@ public class Application extends javax.swing.JFrame {
     setSize(1200, 700) ;
     menuBar_ = new ApplicationMenuBar() ;
     setJMenuBar(menuBar_);
+    
     plugins_.put(FileExplorerPlugin.NAME, new FileExplorerPlugin()) ;
     plugins_.put(LogPlugin.NAME, new LogPlugin()) ;
     plugins_.put(WSQAPlugin.NAME, new WSQAPlugin()) ;
+    plugins_.put(TomcatPlugin.NAME, new TomcatPlugin());
     
     getContentPane().setLayout(new CardLayout());
     JSplitPane splitPane = new JSplitPane();
     splitPane.setDividerSize(5);
-    splitPane.setDividerLocation(250);
+    splitPane.setDividerLocation(300);
     add(splitPane, "SplitPane");
     controlSpace_ = new ControlSpace() ;
     splitPane.setLeftComponent(controlSpace_);

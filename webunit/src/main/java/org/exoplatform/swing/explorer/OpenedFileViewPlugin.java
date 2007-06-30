@@ -4,9 +4,12 @@
  **************************************************************************/
 package org.exoplatform.swing.explorer;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.event.InternalFrameEvent;
@@ -26,6 +29,7 @@ public class OpenedFileViewPlugin extends JDesktopPane implements ViewPlugin {
   public OpenedFileViewPlugin() {
     setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
     setName("OpenFiles") ;
+    
   }
   
   public String getTitle() { return "Open Files"; }

@@ -11,6 +11,8 @@ import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
+
+import org.exoplatform.swing.explorer.ListOpenedFileViewPlugin;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -19,6 +21,7 @@ import javax.swing.event.InternalFrameListener;
  */
 public class Workspaces extends JDesktopPane {
   private Map<String, ViewFrame> openFrames_ = new HashMap<String,ViewFrame>();
+  public static ViewFrame frame;
   
   public Workspaces() {
     setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
@@ -30,12 +33,15 @@ public class Workspaces extends JDesktopPane {
   }
   
   public JInternalFrame openFrame(String id, String label) throws Exception {
-    ViewFrame frame = new ViewFrame(label) ;
+    frame = new ViewFrame(label) ;
+    
+    //
+    //ListOpenedFileViewPlugin().addButton(label);
+    
     frame.setSize(700, 500) ;
     frame.setLocation(15 * openFrames_.size(), 20 * openFrames_.size());
     frame.setVisible(true) ;
-    frame.setSelected(true) ;
-    //frame.setLayer(openFrames_.size()) ;    
+    frame.setSelected(true) ;   
     frame.addInternalFrameListener(new FrameEventListener()) ;
     add(frame);
     openFrames_.put(id, frame) ;

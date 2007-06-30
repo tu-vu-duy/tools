@@ -23,6 +23,7 @@ import org.exoplatform.swing.JExoJavascriptEditor;
 import org.exoplatform.swing.JExoToolBar;
 import org.exoplatform.swing.ViewPlugin;
 import org.exoplatform.swing.event.EventManager;
+import org.exoplatform.swing.explorer.ListOpenedFileViewPlugin;
 import org.exoplatform.swing.log.LogPlugin;
 import org.exoplatform.wsqa.httpclient.Suite;
 import org.exoplatform.wsqa.httpclient.WebUnit;
@@ -92,6 +93,8 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
     toolBar_.addButton(button) ;
     
     add(toolBar_, BorderLayout.NORTH);
+    
+    //ListOpenedFileViewPlugin.addButton(getTitle());
   }
   
   public String getName() { return WORKSPACE_NAME ;} ;

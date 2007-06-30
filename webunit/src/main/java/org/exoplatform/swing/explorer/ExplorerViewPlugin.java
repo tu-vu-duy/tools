@@ -32,6 +32,8 @@ import javax.swing.tree.TreeSelectionModel;
 import org.exoplatform.swing.Application;
 import org.exoplatform.swing.JExoTextEditor;
 import org.exoplatform.swing.ViewPlugin;
+
+import sun.security.action.OpenFileInputStreamAction;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -84,7 +86,7 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
               JExoTextEditor textEditor = new JExoTextEditor() ;
               textEditor.opentFile(filePath) ;
               textEditor.setVisible(true) ;
-              frame.add(textEditor) ;
+              frame.add(textEditor) ;             
             } catch(Exception ex) {
               ex.printStackTrace() ;
             }

@@ -6,10 +6,13 @@ package org.exoplatform.swing;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.filechooser.FileSystemView;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -33,6 +36,19 @@ public class ApplicationMenuBar extends JMenuBar{
         System.exit(0);
       }
     });
+    
+    JMenuItem menuItemOs = new JMenuItem("Os Infor");
+    fileMenu_.add(menuItemOs);
+    
+    menuItemOs.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+        for (File file : File.listRoots()) {
+          System.out.println(file.toString());
+        }
+
+      }
+    });
+    
     add(fileMenu_);
   }
   

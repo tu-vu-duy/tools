@@ -30,13 +30,16 @@ public class ControlSpace extends JPanel {
   public ControlSpace() {
     setLayout(new BorderLayout());
     JComboBox combo = new JComboBox(model);
+    
     combo.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent ae) {
         System.out.println("selected item : " + model.getSelectedItem().toString());
         controlPanel.remove(0) ;
         SelectionModel smodel = (SelectionModel)model.getSelectedItem() ;
-        ViewPlugin view =  viewPlugins_.get(smodel.name);   
-        controlPanel.add((JComponent) view, view.getName());
+        ViewPlugin view =  viewPlugins_.get(smodel.name);  
+        JComponent jcomponent = (JComponent) view ;
+        controlPanel.add(jcomponent, view.getName());
+        controlPanel.updateUI() ;
       }
     });
    
@@ -55,7 +58,6 @@ public class ControlSpace extends JPanel {
     if(controlPanel.getComponentCount() == 0) {
       controlPanel.add(jcomponent, view.getName());
     }
-    //model.addElement(view.getName());
     SelectionModel smodel = new SelectionModel(view.getName(), view.getTitle()) ;
     model.addElement(smodel);
   }
