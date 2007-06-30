@@ -19,9 +19,9 @@ public class URI {
   private String host_ ;
   int     port_ = 80 ;
   private String pathInfo_ ;
-  private Map<String, String>  params_ ;
+  private Map<String, Parameter>  params_ ;
   
-  public URI(String scheme, String host, int port, String pathInfo, Map<String, String>  params) { 
+  public URI(String scheme, String host, int port, String pathInfo, Map<String, Parameter>  params) { 
     scheme_ =  scheme ;
     host_ =  host ;
     port_ = port ;
@@ -32,8 +32,8 @@ public class URI {
     if(params_ != null && params_.size() > 0) {
       b.append("?") ;
       int counter = 0 ;
-      for(Map.Entry<String, String> entry : params_.entrySet()) {
-        b.append(entry.getKey()).append('=').append(entry.getValue()) ;
+      for(Parameter param : params_.values()) {
+        b.append(param.name).append('=').append(param.value) ;
         if(counter != params_.size() - 1)  b.append("&") ;
         counter++ ;
       }
@@ -43,10 +43,16 @@ public class URI {
   
   public URI(String uri) throws Exception {
     uri_ = uri ;
+    System.out.println(uri_);
     int schemeLimitIndex = uri.indexOf("//") + 1 ;
+    if(schemeLimitIndex > 0) {
+      scheme_ = uri.substring(0, schemeLimitIndex + 1) ;
+    } else {
+      schemeLimitIndex = -1 ;
+      scheme_ = "" ;
+    }
     int hostPortLimitIndex = uri.indexOf("/", schemeLimitIndex + 1) ;
     if(hostPortLimitIndex < 0) hostPortLimitIndex = uri.length() ;
-    scheme_ = uri.substring(0, schemeLimitIndex + 1) ;
     String hostPort = uri.substring(schemeLimitIndex + 1, hostPortLimitIndex) ;
     int hostLimitIndex = hostPort.indexOf(':') ;
     host_ =  hostPort ;
@@ -62,16 +68,16 @@ public class URI {
     }
 
     if(questionMarkIndex > 0) {
-      params_ = new LinkedHashMap<String, String>() ;
+      params_ = new LinkedHashMap<String, Parameter>() ;
       String paramsString = uri.substring(questionMarkIndex + 1, uri.length()) ;
       paramsString = paramsString.replace("&amp;", "&") ;
       String[] params =  paramsString.split("&") ;
       for(String param : params) {
         String[] pair = param.split("=", 2) ;
         if(pair.length == 2) {
-          params_.put(pair[0], pair[1]) ;
+          params_.put(pair[0], new Parameter(pair[0], pair[1])) ;
         } else {
-          params_.put(pair[0], "") ;
+          params_.put(pair[0], new Parameter(pair[0], "")) ;
         }
       }
     }
@@ -83,10 +89,10 @@ public class URI {
   public  String getHost() { return host_ ; }
   public  int getPort() { return  port_ ; }
   public  String getPathInfo() { return pathInfo_ ; }
-  public  Map<String, String>  getParameters() { return params_ ; } 
-  public  Map<String, String>  getCloneParameters() { 
+  public  Map<String, Parameter>  getParameters() { return params_ ; } 
+  public  Map<String, Parameter>  getCloneParameters() { 
     if(params_ == null)  return null ;
-    return new LinkedHashMap<String, String>(params_) ; 
+    return new LinkedHashMap<String, Parameter>(params_) ; 
   } 
   
   public String toString() {
@@ -97,8 +103,8 @@ public class URI {
     b.append("path info = ").append(pathInfo_).append(", ") ;
    if(params_ != null) {
      b.append("params =[ ") ; ;
-     for(Map.Entry<String, String> entry : params_.entrySet()) {
-       b.append(entry.getKey()).append("=").append(entry.getValue()).append("|") ;
+     for(Parameter entry : params_.values()) {
+       b.append(entry.name).append("=").append(entry.value).append("|") ;
      }
    }
     return b.toString() ;

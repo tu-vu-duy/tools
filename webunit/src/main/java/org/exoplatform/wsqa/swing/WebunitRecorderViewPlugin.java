@@ -121,7 +121,10 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
           return ;
         }
         server_ = new ProxyServer() ;
-        String[]  pattern = {"/portal/private/.*","/portal/public/.*"} ;
+        String[]  pattern = {
+            "/portal/private/.*","/portal/public/.*", 
+            "/portal/j_security_check.*", "/portal/post.jsp.*"
+        } ;
         RequestFilter filter = new RequestFilter(pattern) ;
         WebUnitCaptor captor = new WebUnitCaptor() ;
         captor.setRequestFilter(filter) ;

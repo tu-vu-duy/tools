@@ -63,6 +63,10 @@ public class HttpRequestHeader extends LinkedHashMap<String, String> {
   public String getAcceptCharset() { return get("Accept-Charset") ; }
   public void   setAcceptCharset(String s) { put("Accept-Charset", s) ; }
   
+
+  public String getContentType() { return get("Content-Type") ; }
+  public void   setContentType(String s) { put("Content-Type", s) ; }
+  
   public String getKeepAlive() { return get("Keep-Alive") ; }
   public void   setKeepAlive(String s) { put("Keep-Alive", s) ; }
   
@@ -89,6 +93,16 @@ public class HttpRequestHeader extends LinkedHashMap<String, String> {
   
   public URI getUri() { return uri_ ; }
   public void setUri(URI uri) { uri_ = uri ; }
+  
+  public byte[]  toBytes() {
+    StringBuilder b = new StringBuilder() ;
+    b.append(getMethod()).append(' ').append(getUri().getURI()).append(' ').append(getProtocol()).append("\r\n") ;
+    for(Map.Entry<String, String> entry : entrySet()) {
+      b.append(entry.getKey()).append(": ").append(entry.getValue()).append("\r\n") ;
+    }
+    b.append("\r\n") ;
+    return b.toString().getBytes() ;
+  }
   
   public String toString() {
     StringBuilder b = new StringBuilder() ;

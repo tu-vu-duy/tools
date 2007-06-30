@@ -33,7 +33,7 @@ public class HttpClientResultPanel extends JPanel implements ViewPlugin {
   
   private static String[]  TABLE_HEADERS = {"#","Name", "Description"} ;
   
-  private List<WebUnitExecuteContext> runDatas_ = new ArrayList<WebUnitExecuteContext>() ;
+  private List<WebUnitExecuteContext> datas_ = new ArrayList<WebUnitExecuteContext>() ;
   
   private RunDataTableModel webunitTableModel_ ;
   private JTable jtable_ ;
@@ -45,7 +45,6 @@ public class HttpClientResultPanel extends JPanel implements ViewPlugin {
     jtable_ = new JTable();
     webunitTableModel_ =  new RunDataTableModel(null, TABLE_HEADERS) ;
     jtable_.setModel(webunitTableModel_);
-    jtable_.getColumnModel().getColumn(0).setMaxWidth(3);
     jtable_.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mousePressed(MouseEvent evt) {
         if (evt.getButton() == MouseEvent.BUTTON3|| evt.isPopupTrigger()) {
@@ -63,18 +62,39 @@ public class HttpClientResultPanel extends JPanel implements ViewPlugin {
   public String getName() { return WORKSPACE_NAME ;} ;
   public String getTitle() { return "WSQA Workspace" ; }
   
-  public List<WebUnitExecuteContext> getRunDatas() { return runDatas_ ; }
+  public List<WebUnitExecuteContext> getRunDatas() { return datas_ ; }
   
   public int getSelectedRow()  { return jtable_.getSelectedRow() ; }
   
   public WebUnitExecuteContext getSelectedRunData() {    
-    return runDatas_.get(jtable_.getSelectedRow()) ;
+    return datas_.get(jtable_.getSelectedRow()) ;
   }
   
   public void addData(WebUnitExecuteContext context) throws Exception {
-    runDatas_.add(context) ;
-    String[] rowData = {"?", context.getRequest().getHeaders().getUri().getPathInfo(), "....."} ;
+    datas_.add(context) ;
+    String[] rowData = {
+      Integer.toString(webunitTableModel_.getRowCount()), 
+      context.getRequest().getHeaders().getUri().getPathInfo(), 
+      "....."
+    } ;
     webunitTableModel_.addRow(rowData);
+    webunitTableModel_.fireTableDataChanged();
+  }
+  
+  public void update(List<WebUnitExecuteContext> contexts) throws Exception {
+    webunitTableModel_.setDataVector(null, TABLE_HEADERS) ;
+    datas_ = contexts ;
+    int counter = 0 ;
+    for(WebUnitExecuteContext context :  contexts) {
+      String[] rowData = {
+        Integer.toString(counter), 
+        context.getRequest().getHeaders().getUri().getPathInfo(), 
+        "....."
+      } ;
+      webunitTableModel_.addRow(rowData);
+      counter++ ;
+    }
+    jtable_.getColumnModel().getColumn(0).setMaxWidth(3);
     webunitTableModel_.fireTableDataChanged();
   }
   
@@ -89,7 +109,7 @@ public class HttpClientResultPanel extends JPanel implements ViewPlugin {
   
   public class ClearWebunitsListener implements ActionListener {
     public void actionPerformed(ActionEvent event) {
-      runDatas_.clear() ;
+      datas_.clear() ;
       webunitTableModel_.setDataVector(null, TABLE_HEADERS) ;
       
     }

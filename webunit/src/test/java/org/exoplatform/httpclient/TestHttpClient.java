@@ -2,8 +2,6 @@ package org.exoplatform.httpclient;
 
 import junit.framework.TestCase;
 
-import org.exoplatform.wsqa.httpclient.ApacheCommonHttpClient;
-import org.exoplatform.wsqa.httpclient.WebUnit;
 import org.exoplatform.wsqa.recorder.ProxyServer;
 import org.exoplatform.wsqa.recorder.RequestFilter;
 import org.exoplatform.wsqa.swing.WebUnitCaptor;

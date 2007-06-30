@@ -8,7 +8,6 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -17,7 +16,11 @@ import java.net.Socket;
  */
 public class ExoHttpClient extends HttpClient {
 
-  protected void executeGet(WebUnit unit, WebUnitExecuteContext context) throws Exception {
+  public ExoHttpClient(String suiteName) {
+    super(suiteName) ;
+  }
+  
+  protected void execute(WebUnit unit, WebUnitExecuteContext context) throws Exception {
     HttpRequest request = createHttpRequest(unit) ;
     String setCookie = getCookie() ;
     if(setCookie != null) request.getHeaders().setCookie(setCookie) ;
@@ -31,17 +34,24 @@ public class ExoHttpClient extends HttpClient {
     context.setResponse(response) ;
   }
   
-  protected void executePost(WebUnit unit, WebUnitExecuteContext context) throws Exception {
-    throw new Exception("To be implemented") ;
-  }
-  
-  private HttpRequest createHttpRequest(WebUnit unit) {
-    URI uri = new URI(getScheme(), getHost(), getPort(), unit.getPathInfo(), unit.getParameters()) ;
+  private HttpRequest createHttpRequest(WebUnit unit) throws Exception {
+    HttpRequestBody body = null ;
+    URI  uri = new URI(getScheme(), getHost(), getPort(), unit.getPathInfo(), unit.getParameters()) ;
     HttpRequestHeader headers = new HttpRequestHeader()  ;
     headers.setUri(uri) ;
     headers.setMethod(unit.getMethod()) ;
     headers.setProtocol(getProtocol()) ;
-    HttpRequest request = new HttpRequest(headers) ; 
+    if(unit.getContentType() != null) {
+      
+    }
+    if(unit.getMethod().equals("POST")) {
+      if(HttpPostFormRequestBody.isFormRequest(unit.getContentType())) {
+        body = new HttpPostFormRequestBody(unit.getContentType(), unit.getBodyParameters()) ;
+      } else {
+        
+      }
+    }
+    HttpRequest request = new HttpRequest(headers, body) ; 
     return request ;
   }
 }

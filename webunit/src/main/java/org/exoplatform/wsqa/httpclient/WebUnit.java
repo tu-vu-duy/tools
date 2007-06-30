@@ -6,8 +6,6 @@ package org.exoplatform.wsqa.httpclient;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -21,7 +19,9 @@ public class WebUnit {
   private String host_ ;
   private int    port_ ;
   private String pathInfo_ ;
-  private Map<String, String> parameters_ ;
+  private Map<String, Parameter> parameters_ ;
+  private String contentType_ ;
+  private Map<String, Parameter> bodyParameters_ ;
   
   public WebUnit(String name) {
     name_ = name ;
@@ -35,6 +35,12 @@ public class WebUnit {
     method_ = headers.getMethod() ;
     pathInfo_ = headers.getUri().getPathInfo() ;
     parameters_ = headers.getUri().getCloneParameters();
+    
+    if(method_.equals("POST")) {
+      HttpRequestBody body = request.getRequestBody() ;
+      contentType_ = body.getContentType() ;
+      bodyParameters_ = body.getParameters() ;
+    }
   }
   
   public String getName()  { return name_ ; }
@@ -68,12 +74,35 @@ public class WebUnit {
     return this ;
   }
   
-  public Map<String, String> getParameters()  { return parameters_ ; }
+  public String getContentType() { return contentType_ ; }
+  public WebUnit setContentType(String s) { 
+    contentType_ = s ;
+    return this ;
+  }
+  
+  public Map<String, Parameter> getParameters()  { return parameters_ ; }
   public WebUnit addParameter(String name, String value) {
     if(parameters_ == null) {
-      parameters_ = new LinkedHashMap<String, String>() ;
+      parameters_ = new LinkedHashMap<String, Parameter>() ;
     }
-    parameters_.put(name, value) ;
+    parameters_.put(name, new Parameter(name, value)) ;
+    return this ;
+  }
+  
+  public Map<String, Parameter> getBodyParameters()  { return bodyParameters_ ; }
+  public WebUnit addBodyParameter(String name, String value) {
+    if(bodyParameters_ == null) {
+      bodyParameters_ = new LinkedHashMap<String, Parameter>() ;
+    }
+    bodyParameters_.put(name, new Parameter(name, value)) ;
+    return this ;
+  }
+  
+  public WebUnit addBodyFileParameter(String name, String filename, String filetype, Object value) {
+    if(bodyParameters_ == null) {
+      bodyParameters_ = new LinkedHashMap<String, Parameter>() ;
+    }
+    bodyParameters_.put(name, new FileParameter(name, filename, filetype, value)) ;
     return this ;
   }
 }

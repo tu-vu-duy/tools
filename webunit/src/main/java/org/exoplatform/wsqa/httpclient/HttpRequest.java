@@ -7,7 +7,6 @@ package org.exoplatform.wsqa.httpclient;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Map;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -16,10 +15,12 @@ import java.util.Map;
  */
 public class HttpRequest {  
   private HttpRequestHeader headers_ ;
-  private byte[] requestData_ ;
+  private HttpRequestBody requestBody_ ;
+  private byte[] headerData_ ;
 
-  public HttpRequest(HttpRequestHeader headers)  {
+  public HttpRequest(HttpRequestHeader headers, HttpRequestBody body)  {
     headers_ =  headers ;
+    requestBody_ = body ;
   }
   
   public HttpRequest(InputStream is) throws Exception {
@@ -44,10 +45,10 @@ public class HttpRequest {
       if(code <= 0) break ;
       rdata.write(code) ;
       line.write(code);
-      if (code == (byte) '\n') {
+      if (code == '\n') {
         if(firstline == null)  {
           firstline = new String(line.toByteArray()).trim() ;
-          parseFirstLine(firstline) ;
+          parseFirstLine(firstline, headers_) ;
         } else if(line.size() < 3) {
           keepReading = false ;
         } else {
@@ -59,30 +60,41 @@ public class HttpRequest {
         }
         line.reset() ;
       }
-    }    
-    requestData_ = rdata.toByteArray() ;    
-
-  }
-
-  public void forward(OutputStream os) throws Exception {
-    StringBuilder b = new StringBuilder() ;
-    b.append(headers_.getMethod()).append(' ').append(headers_.getUri().getURI()).append(' ').append(headers_.getProtocol()).append("\r\n") ;
-    for(Map.Entry<String, String> entry : headers_.entrySet()) {
-      b.append(entry.getKey()).append(": ").append(entry.getValue()).append("\r\n") ;
     }
-    b.append("\r\n") ;
-    os.write(b.toString().getBytes()) ;
+    headerData_ = rdata.toByteArray() ;
+    if("POST".equals(headers_.getMethod())) {
+      String contentType = headers_.get("Content-Type") ;
+      String contentLengthHeader = headers_.get("Content-Length") ;
+      int contentLength = -1 ;
+      if(contentLengthHeader != null) contentLength = Integer.parseInt(contentLengthHeader) ;
+      if(HttpPostFormRequestBody.isFormRequest(contentType)) {
+        requestBody_ = new HttpPostFormRequestBody(contentType, contentLength, is) ;
+      } else {
+        requestBody_ = new HttpRequestBody(contentType, contentLength, is) ;
+      }
+    }
+
+  }
+  
+  public HttpRequestBody  getRequestBody() { return requestBody_ ;}
+  
+  public void forward(OutputStream os) throws Exception {
+    os.write(headers_.toBytes()) ;
+    System.out.println("============================================================================") ;
+    System.out.print(new String(headers_.toBytes()));
+    if(requestBody_ != null) {
+      os.write(requestBody_.getContentBody()) ;
+      System.out.print(new String(requestBody_.getContentBody()));
+    }
   }
 
-  public byte[]  getRequestData()  { return requestData_ ; }
-
-  private void parseFirstLine(String firstline) throws Exception {
+  private void parseFirstLine(String firstline, HttpRequestHeader headers) throws Exception {
     String[] tmp = firstline.split(" ") ;
     if(tmp.length != 3) {
       throw new Exception("Cannot  parse the first line: " +  firstline) ;
     }
-    headers_.setMethod(tmp[0]) ;
-    headers_.setUri(new URI(tmp[1] )) ;
-    headers_.setProtocol(tmp[2]) ;            
+    headers.setMethod(tmp[0]) ;
+    headers.setUri(new URI(tmp[1] )) ;
+    headers.setProtocol(tmp[2]) ;            
   }
 }
