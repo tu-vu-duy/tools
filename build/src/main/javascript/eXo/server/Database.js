@@ -194,7 +194,7 @@ Database.prototype.SqlServerDB = function() {
    
   instance.driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
   instance.dialect = "org.hibernate.dialect.SQLServerDialect" ;
-  instance.conectionURL = "jdbc:sqlserver://192.168.1.15:1433;databaseName=exodb";
+  instance.conectionURL = "jdbc:sqlserver://192.168.1.19:1433;databaseName=exodb";
   instance.username = "exo" ;
   instance.password = "exo";
     

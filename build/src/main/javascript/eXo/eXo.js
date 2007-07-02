@@ -46,10 +46,11 @@ var eXo  = {
 
 eXo.require("eXo.System")  ;
 eXo.require("eXo.core.Util")  ;
+//eXo.require("eXo.projects.Module")  ;
 
 if(arguments.length > 0) {
   var  command =  arguments[0] ;
   arguments = eXo.core.Util.shift(arguments) ;
   eXo.require("eXo.command." + command) ; 
 }
-//print("===============>  " + nam );
+print("===============> END \n"  );

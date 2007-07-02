@@ -345,6 +345,32 @@ eXo.projects.Module = {
 
   return  groupware ;
   },
+  
+
+  m6: function (kernel, core, eXoPortletContainer, jcr, portal, version) {
+    var m6 ={}
+    m6.version =  version ;
+    m6.relativeMavenRepo =  "org/exoplatform/m6" ;
+    m6.relativeSRCRepo =  "m6/trunk" ;
+    m6.name =  "m6" ;
+    
+    m6.portlet = {}
+    m6.portlet.web = new Project("org.exoplatform.m6", "m6.portlet.web", "exo-portlet", version);
+    m6.portlet.web.deployName = "m6PortletWeb" ;
+    
+    m6.web = {}
+    m6.web.m6Resources = new Project("org.exoplatform.m6", "m6.web.m6Resources", "war", version);
+    m6.web.m6Resources.deployName = "m6Resources" ;
+
+    m6.web.m6portal = 
+      new Project("org.exoplatform.m6", "m6.web.portal", "exo-portal", version).
+      addDependency(portal.web.eXoResources) .
+      addDependency(portal.webui.portal). 
+      addDependency(jcr.frameworks.command) .
+      addDependency(jcr.frameworks.web) ;
+
+    return m6 ;
+  },
 }
 /*
 var kernel = eXo.projects.Module.kernel("2.0.3") ;
@@ -354,13 +380,14 @@ var jcr    = eXo.projects.Module.eXoJcr("1.6") ;
 var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, jcr, "2.0") ;
 var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, jcr, portal, "2.0") ;
 var  groupware = eXo.projects.Module.groupware(kernel, core, eXoPortletContainer, jcr, portal, "2.0") ;
+var m6 = eXo.projects.Module.m6(kernel, core, eXoPortletContainer, jcr, "1.0") ;
 
 var project = portal.server.tomcat.patch ;
 
 
 
 
-print("\n[" + portal.name + "]\n") ;
+print("\n[" + m6.name + "]\n") ;
 print("Project relative path: " + project.relativePath) ;
 if (project.dependencies != null) {
 print("\nNumber of the dependeny : " +  project.dependencies.size()) ;
@@ -372,4 +399,5 @@ print("\nNumber of the dependeny : " +  project.dependencies.size()) ;
 
 
 print("\n============[TEST PASS]==============");
+
 */

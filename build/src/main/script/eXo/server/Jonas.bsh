@@ -5,7 +5,7 @@ Jonas(String home) {
   runningInstance_ = null ;
   serverHome = home ;
   String name = "jonas" ;
-  String cleanServer = "JONAS_4_8_4" ;
+  String cleanServer = "JONAS_4_8_5" ;
   String deployLibDir =  serverHome  + "/lib/apps" ;
   String deployWebappDir = serverHome + "/apps/autoload/exoplatform.ear" ;
   String deployEarDir = deployWebappDir;
