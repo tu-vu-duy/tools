@@ -27,9 +27,9 @@ import javax.swing.border.*;
 import javax.swing.*;
 
 import org.exoplatform.swing.Application;
-import org.exoplatform.swing.JExoSplitTextEditor;
 import org.exoplatform.swing.JExoTextEditor;
 import org.exoplatform.swing.ViewPlugin;
+import org.exoplatform.wsqa.swing.WebUnitDataViewPlugin;
 
 /**
  * Created by The eXo Platform SARL
@@ -88,7 +88,7 @@ public class TomcatInfoPlugin extends JPanel implements ViewPlugin {
         try {
           JInternalFrame frame = 
             Application.getInstance().getWorkspaces().openFrame("aaa", "New text Editor") ;
-          JExoSplitTextEditor newTextEditor = new JExoSplitTextEditor() ;          
+          WebUnitDataViewPlugin newTextEditor = new WebUnitDataViewPlugin() ;          
           newTextEditor.setVisible(true) ;
           frame.add(newTextEditor) ;
         }

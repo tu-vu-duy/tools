@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -23,7 +24,6 @@ import org.exoplatform.swing.JExoJavascriptEditor;
 import org.exoplatform.swing.JExoToolBar;
 import org.exoplatform.swing.ViewPlugin;
 import org.exoplatform.swing.event.EventManager;
-import org.exoplatform.swing.explorer.ListOpenedFileViewPlugin;
 import org.exoplatform.swing.log.LogPlugin;
 import org.exoplatform.wsqa.httpclient.Suite;
 import org.exoplatform.wsqa.httpclient.WebUnit;
@@ -37,34 +37,35 @@ import org.exoplatform.wsqa.recorder.RequestFilter;
  */
 public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
   final static public String WORKSPACE_NAME = "WSQAWorkspace" ;
-  private JExoToolBar toolBar_ = new JExoToolBar();
   private static String[]  TABLE_HEADERS = {"#","Name", "Description"} ;
+  
+  private JExoToolBar toolBar_ = new JExoToolBar();
   
   private ProxyServer server_ ;
   private Suite suite_ = new Suite() ;
   
-  public WebunitTableModel webunitTableModel_ ;
+  private WebunitTableModel webunitTableModel_ ;
+  private JTable webunitTable_ ;
   
   public  WebunitRecorderViewPlugin() {
     setLayout(new BorderLayout());
     
-    JTable table = new JTable();
+    webunitTable_ = new JTable();
     webunitTableModel_ =  new WebunitTableModel(null, TABLE_HEADERS) ;
-    table.setModel(webunitTableModel_);
-    table.getColumnModel().getColumn(0).setMaxWidth(3);
+    webunitTable_.setModel(webunitTableModel_);
+    webunitTable_.getColumnModel().getColumn(0).setMaxWidth(3);
 
     final JPopupMenu popupMenu = new WebUnitPopupMenu();
-    table.addMouseListener(new java.awt.event.MouseAdapter() {
+    webunitTable_.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mousePressed(MouseEvent evt) {
-        if (evt.getButton()== MouseEvent.BUTTON2 ||evt.getButton()== MouseEvent.BUTTON3){
+        if (evt.getButton()== MouseEvent.BUTTON3 || evt.isPopupTrigger()){
           JTable source = (JTable)evt.getSource();
           popupMenu.show(source, evt.getX(),evt.getY());
         }
       }
-      
     });
     
-    JScrollPane scrollPane = new JScrollPane(table);
+    JScrollPane scrollPane = new JScrollPane(webunitTable_);
     scrollPane.setPreferredSize(new Dimension(150, 150)) ;    
     add(scrollPane, BorderLayout.CENTER);
     
@@ -196,4 +197,60 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
       }
     }
   }  
+  
+  public class WebUnitPopupMenu extends JPopupMenu {
+    public WebUnitPopupMenu() {
+      JMenuItem menuItem = new JMenuItem("View Data");
+      menuItem.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
+          try {
+            int selectedRow = webunitTable_.getSelectedRow() ;
+            WebUnit unit = suite_.getWebUnits().get(selectedRow) ;
+            JInternalFrame frame = 
+              Application.getInstance().getWorkspaces().openFrame("WebUnitData", "Webunit Data") ;
+            WebUnitDataViewPlugin view = new WebUnitDataViewPlugin() ;
+            String requestData = unit.getHttpRequest().getRequestDataAsText() ;
+            String responseData = unit.getHttpResponse().getResponseDataAsText() ;
+            view.setData(requestData, responseData) ;
+            frame.add(view) ;
+          } catch(Exception ex) {
+            ex.printStackTrace();
+          }
+        }});
+      add(menuItem);
+      
+      menuItem = new JMenuItem("View Original Data");
+      menuItem.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
+          try {
+            int selectedRow = webunitTable_.getSelectedRow() ;
+            WebUnit unit = suite_.getWebUnits().get(selectedRow) ;
+            JInternalFrame frame = 
+              Application.getInstance().getWorkspaces().openFrame("WebUnitOrginalData", "Webunit Original Data") ;
+            WebUnitDataViewPlugin view = new WebUnitDataViewPlugin() ;
+            String requestData =new String(unit.getHttpRequest().getOriginalRequestData()) ;
+            String responseData = new String(unit.getHttpResponse().getOriginalResponseData()) ;
+            view.setData(requestData, responseData) ;
+            frame.add(view) ;
+          } catch(Exception ex) {
+            ex.printStackTrace();
+          }
+        }});
+      add(menuItem);
+      
+      menuItem = new JMenuItem("Remove");
+      menuItem.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
+         
+        }});
+      add(menuItem);
+      
+      menuItem = new JMenuItem("Add Row");
+      menuItem.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
+          new AddRowDialog();
+        }});
+      add(menuItem);
+    }
+  }
 }

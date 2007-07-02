@@ -17,7 +17,7 @@ import java.util.Map;
 public class HttpRequestBody {
   protected String contentType_ ;
   protected int contentLength_ ;
-  protected byte[] contentBody_ ;
+  protected byte[] originalData_ ;
   
   public HttpRequestBody(String contentType) throws Exception {
     contentType_ =  contentType ;
@@ -26,15 +26,18 @@ public class HttpRequestBody {
   public HttpRequestBody(String contentType, int contentLength, InputStream is) throws Exception {
     contentType_ = contentType ;
     contentLength_ = contentLength ;
-    contentBody_ = parseBody(is, contentLength) ;
+    originalData_ = parse(is, contentLength) ;
   }
   
   public String getContentType() { return contentType_ ; }
   public int getContentLength() { return contentLength_ ; }
-  public byte[]  getContentBody() { return contentBody_ ; }
-  public Map<String, Parameter> getParameters() { return null ; }
+  public byte[]  toBytes() { return originalData_ ; }
   
-  private byte[] parseBody(InputStream is, int bodySize) throws Exception {
+  public byte[] getOrgininalData() { return originalData_ ; }
+  
+  public Map<String, Parameter> getBodyParameters() { return null ; }
+  
+  private byte[] parse(InputStream is, int bodySize) throws Exception {
     ByteArrayOutputStream body = new ByteArrayOutputStream() ;
     int totalRead = 0 ;
     byte[] buf = new byte[4092] ;
@@ -50,7 +53,7 @@ public class HttpRequestBody {
     if(totalRead != bodySize) {
       throw new Exception("Expect body size " + bodySize + ", but the total read " + totalRead) ;
     }    
-    contentBody_ = body.toByteArray() ;
-    return contentBody_ ;
+    originalData_ = body.toByteArray() ;
+    return originalData_ ;
   }
 }

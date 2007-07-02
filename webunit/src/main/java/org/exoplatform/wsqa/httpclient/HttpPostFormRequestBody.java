@@ -65,13 +65,13 @@ public class HttpPostFormRequestBody extends HttpRequestBody{
   public HttpPostFormRequestBody(String contentType, int contentLength, InputStream is) throws Exception {
     super(contentType, contentLength, is) ;
     if(contentType_.startsWith(X_WWW_FORM_URLENCODED_TYPE )) {
-      parseURLEncodedBody(contentBody_) ;
+      parseURLEncodedBody(originalData_) ;
     } else if(contentType_.startsWith(MULTIPART_FORM_DATA_TYPE)) {
-      parseMultipartFormDataBody(contentBody_) ;
+      parseMultipartFormDataBody(originalData_) ;
     }
   }
   
-  public byte[]  getContentBody() {
+  public byte[]  toBytes() {
     StringBuilder b = new StringBuilder() ;
     if(contentType_.startsWith(X_WWW_FORM_URLENCODED_TYPE )) {
       int counter = 0 ;
@@ -114,7 +114,7 @@ public class HttpPostFormRequestBody extends HttpRequestBody{
     }
   }
 
-  public Map<String, Parameter> getParameters() { return parameters_ ; }
+  public Map<String, Parameter> getBodyParameters() { return parameters_ ; }
   
   private void parseMultipartFormDataBody(byte[] body) throws Exception {
     parameters_ = new LinkedHashMap<String, Parameter>() ;

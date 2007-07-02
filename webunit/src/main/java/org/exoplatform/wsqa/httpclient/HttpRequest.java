@@ -16,7 +16,6 @@ import java.io.OutputStream;
 public class HttpRequest {  
   private HttpRequestHeader headers_ ;
   private HttpRequestBody requestBody_ ;
-  private byte[] headerData_ ;
 
   public HttpRequest(HttpRequestHeader headers, HttpRequestBody body)  {
     headers_ =  headers ;
@@ -24,44 +23,7 @@ public class HttpRequest {
   }
   
   public HttpRequest(InputStream is) throws Exception {
-    parse(is) ;
-  }
-
-  public boolean isGETMethod() { return "GET".equals(headers_.getMethod()) ; }
-  public boolean isPOSTMethod() { return "POST".equals(headers_.getMethod()) ; }
-  
-  public HttpRequestHeader  getHeaders() { return headers_ ; }
-
-  public void parse(InputStream is) throws Exception {
-    headers_ = new HttpRequestHeader() ;
-    ByteArrayOutputStream line = new ByteArrayOutputStream() ;
-    ByteArrayOutputStream rdata = new ByteArrayOutputStream() ;
-    String firstline = null ;
-    int i = 0;
-    boolean keepReading = true ;
-    while(keepReading) {
-      i++ ;
-      int code = is.read();      
-      if(code <= 0) break ;
-      rdata.write(code) ;
-      line.write(code);
-      if (code == '\n') {
-        if(firstline == null)  {
-          firstline = new String(line.toByteArray()).trim() ;
-          parseFirstLine(firstline, headers_) ;
-        } else if(line.size() < 3) {
-          keepReading = false ;
-        } else {
-          String headerLine = new String(line.toByteArray()) ;
-          int colonIndex = headerLine.indexOf(':') ;
-          String name = headerLine.substring(0, colonIndex) ;
-          String value = headerLine.substring(colonIndex + 1, headerLine.length()).trim() ;          
-          headers_.put(name, value) ;
-        }
-        line.reset() ;
-      }
-    }
-    headerData_ = rdata.toByteArray() ;
+    headers_ = new HttpRequestHeader(is) ;
     if("POST".equals(headers_.getMethod())) {
       String contentType = headers_.get("Content-Type") ;
       String contentLengthHeader = headers_.get("Content-Length") ;
@@ -73,28 +35,41 @@ public class HttpRequest {
         requestBody_ = new HttpRequestBody(contentType, contentLength, is) ;
       }
     }
-
   }
+
+  public boolean isGETMethod() { return "GET".equals(headers_.getMethod()) ; }
+  public boolean isPOSTMethod() { return "POST".equals(headers_.getMethod()) ; }
   
+  public HttpRequestHeader  getHeaders() { return headers_ ; }
   public HttpRequestBody  getRequestBody() { return requestBody_ ;}
+
+  public byte[] getOriginalRequestData() throws Exception {
+    ByteArrayOutputStream os = new ByteArrayOutputStream() ;
+    if(headers_.getOriginalData() != null) {
+      os.write(headers_.getOriginalData()) ;
+    }
+    if(requestBody_ != null && requestBody_.getOrgininalData() != null) {
+      os.write(requestBody_.getOrgininalData()) ;
+    }
+    return os.toByteArray() ;
+  }
   
   public void forward(OutputStream os) throws Exception {
     os.write(headers_.toBytes()) ;
-    System.out.println("============================================================================") ;
-    System.out.print(new String(headers_.toBytes()));
+    //System.out.println("============================================================================") ;
+    //System.out.print(new String(headers_.toBytes()));
     if(requestBody_ != null) {
-      os.write(requestBody_.getContentBody()) ;
-      System.out.print(new String(requestBody_.getContentBody()));
+      os.write(requestBody_.toBytes()) ;
+      //System.out.print(new String(requestBody_.getContentBody()));
     }
   }
 
-  private void parseFirstLine(String firstline, HttpRequestHeader headers) throws Exception {
-    String[] tmp = firstline.split(" ") ;
-    if(tmp.length != 3) {
-      throw new Exception("Cannot  parse the first line: " +  firstline) ;
+  public String getRequestDataAsText() throws Exception {
+    StringBuilder b = new StringBuilder() ;
+    b.append(new String(headers_.toBytes()));
+    if(requestBody_ != null) {
+      b.append(new String(requestBody_.toBytes()));
     }
-    headers.setMethod(tmp[0]) ;
-    headers.setUri(new URI(tmp[1] )) ;
-    headers.setProtocol(tmp[2]) ;            
+    return b.toString() ;
   }
 }

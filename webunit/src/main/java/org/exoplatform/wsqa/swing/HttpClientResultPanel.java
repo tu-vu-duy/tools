@@ -12,12 +12,15 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JInternalFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import org.exoplatform.swing.Application;
 import org.exoplatform.swing.ViewPlugin;
 import org.exoplatform.wsqa.httpclient.WebUnit;
 import org.exoplatform.wsqa.httpclient.WebUnitExecuteContext;
@@ -40,7 +43,7 @@ public class HttpClientResultPanel extends JPanel implements ViewPlugin {
   private JPopupMenu popupMenu ;
   
   public  HttpClientResultPanel() {
-    popupMenu = new WebunitPlayerPopupMenu(this);
+    popupMenu = new WebunitExecuteContextPopupMenu();
     setLayout(new BorderLayout()) ;
     jtable_ = new JTable();
     webunitTableModel_ =  new RunDataTableModel(null, TABLE_HEADERS) ;
@@ -121,6 +124,46 @@ public class HttpClientResultPanel extends JPanel implements ViewPlugin {
 
     public void onPostExecute(WebUnit unit, WebUnitExecuteContext context) throws Exception {
       addData(context) ;
+    }
+  }
+  
+  public class WebunitExecuteContextPopupMenu extends JPopupMenu {
+    public WebunitExecuteContextPopupMenu() {
+      JMenuItem menuItem = new JMenuItem("View Parse Data");
+      menuItem.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
+          try {
+            WebUnitExecuteContext rundata = getSelectedRunData() ;
+            JInternalFrame frame = 
+              Application.getInstance().getWorkspaces().openFrame("WebUnitData", "Webunit Data") ;
+            WebUnitDataViewPlugin view = new WebUnitDataViewPlugin() ;
+            String requestData = rundata.getRequest().getRequestDataAsText() ;
+            String responseData = rundata.getResponse().getResponseDataAsText() ;
+            view.setData(requestData, responseData) ;
+            frame.add(view) ;
+          } catch(Exception ex) {
+            ex.printStackTrace() ;
+          }
+        }});
+      add(menuItem);
+      
+      menuItem = new JMenuItem("View Original Data");
+      menuItem.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent evt) {
+          try {
+            WebUnitExecuteContext rundata = getSelectedRunData() ;
+            JInternalFrame frame = 
+              Application.getInstance().getWorkspaces().openFrame("WebUnitOrginalData", "Webunit Orginal Data") ;
+            WebUnitDataViewPlugin view = new WebUnitDataViewPlugin() ;
+            String requestData = new String(rundata.getRequest().getOriginalRequestData()) ;
+            String responseData = new String(rundata.getResponse().getOriginalResponseData()) ;
+            view.setData(requestData, responseData) ;
+            frame.add(view) ;
+          } catch(Exception ex) {
+            ex.printStackTrace() ;
+          }
+        }});
+      add(menuItem);
     }
   }
 }

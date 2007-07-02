@@ -30,7 +30,7 @@ public class WebUnitCaptor implements ConnectionListener {
     String method = connection.getHttpRequest().getHeaders().getMethod() ;
     System.out.println() ;
     if(method.startsWith("GET") || method.startsWith("POST")) {
-      WebUnit unit = new WebUnit(connection.getHttpRequest()) ;
+      WebUnit unit = new WebUnit(connection.getHttpRequest(), connection.getHttpResponse()) ;
       if(filter_.match(unit.getPathInfo())){
         Application app = Application.getInstance() ;
         WSQAPlugin plugin = (WSQAPlugin)app.getPlugin(WSQAPlugin.NAME) ;

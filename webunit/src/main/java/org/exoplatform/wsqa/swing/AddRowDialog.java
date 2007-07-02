@@ -49,14 +49,12 @@ public class AddRowDialog {
     btnOk.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent ae) {
         dlg.setVisible(false);
-        WebUnitPopupMenu.showDialog = true;
       }
     });
     
     btnCancel.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent ae) {
         dlg.setVisible(false);
-        WebUnitPopupMenu.showDialog = true;
       }
     });
   }

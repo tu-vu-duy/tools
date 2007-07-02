@@ -23,11 +23,16 @@ public class WebUnit {
   private String contentType_ ;
   private Map<String, Parameter> bodyParameters_ ;
   
+  private HttpRequest request_ ;
+  private HttpResponse response_ ;
+  
   public WebUnit(String name) {
     name_ = name ;
   }
   
-  public WebUnit(HttpRequest request) {
+  public WebUnit(HttpRequest request, HttpResponse response) {
+    request_ = request ;
+    response_ =  response ;
     HttpRequestHeader headers = request.getHeaders() ;
     name_ = headers.getUri().getPathInfo() ;
     if(name_.length() > 60) name_ = name_.substring(0, 60) + "..." ;
@@ -39,7 +44,7 @@ public class WebUnit {
     if(method_.equals("POST")) {
       HttpRequestBody body = request.getRequestBody() ;
       contentType_ = body.getContentType() ;
-      bodyParameters_ = body.getParameters() ;
+      bodyParameters_ = body.getBodyParameters() ;
     }
   }
   
@@ -105,4 +110,7 @@ public class WebUnit {
     bodyParameters_.put(name, new FileParameter(name, filename, filetype, value)) ;
     return this ;
   }
+  
+  public HttpRequest getHttpRequest() { return request_ ; }
+  public HttpResponse getHttpResponse() { return response_ ; }
 }

@@ -31,7 +31,7 @@ public class Connection extends Thread {
   }
   
   public HttpRequest getHttpRequest() { return request_ ; }
-  public HttpResponse getHttoResponse() { return response_ ; }
+  public HttpResponse getHttpResponse() { return response_ ; }
 
   public void run() {
     try {

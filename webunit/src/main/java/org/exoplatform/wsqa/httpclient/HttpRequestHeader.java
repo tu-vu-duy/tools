@@ -4,6 +4,8 @@
  **************************************************************************/
 package org.exoplatform.wsqa.httpclient;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 /**
@@ -11,7 +13,6 @@ import java.util.Map;
  * Author : Tuan Nguyen
  *          tuan.nguyen@exoplatform.com
  * Jun 20, 2007  
- * 
  */
 public class HttpRequestHeader extends LinkedHashMap<String, String> {
 //    Host: localhost:8080
@@ -34,6 +35,7 @@ public class HttpRequestHeader extends LinkedHashMap<String, String> {
   private String method_ ;
   private URI    uri_ ;
   private String protocolVersion_ ;
+  private byte[] originalData_ ;
   
   public HttpRequestHeader() {
     setHost("localhost:8080") ;
@@ -43,6 +45,49 @@ public class HttpRequestHeader extends LinkedHashMap<String, String> {
     setAcceptCharset("UTF-8,*") ;
     setKeepAlive("300") ;
     setProxyConnection("keep-alive") ;
+  }
+  
+  public HttpRequestHeader(InputStream is) throws Exception {
+    ByteArrayOutputStream line = new ByteArrayOutputStream() ;
+    ByteArrayOutputStream rdata = new ByteArrayOutputStream() ;
+    String firstline = null ;
+    int i = 0;
+    boolean keepReading = true ;
+    while(keepReading) {
+      i++ ;
+      int code = is.read();      
+      if(code <= 0) break ;
+      rdata.write(code) ;
+      line.write(code);
+      if (code == '\n') {
+        if(firstline == null)  {
+          firstline = new String(line.toByteArray()).trim() ;
+          parseFirstLine(firstline) ;
+        } else if(line.size() < 3) {
+          keepReading = false ;
+        } else {
+          String headerLine = new String(line.toByteArray()) ;
+          int colonIndex = headerLine.indexOf(':') ;
+          String name = headerLine.substring(0, colonIndex) ;
+          String value = headerLine.substring(colonIndex + 1, headerLine.length()).trim() ;          
+          put(name, value) ;
+        }
+        line.reset() ;
+      }
+    }
+    originalData_ = rdata.toByteArray() ;
+  }
+
+  public byte[] getOriginalData() { return originalData_ ; }
+  
+  private void parseFirstLine(String firstline) throws Exception {
+    String[] tmp = firstline.split(" ") ;
+    if(tmp.length != 3) {
+      throw new Exception("Cannot  parse the first line: " +  firstline) ;
+    }
+    setMethod(tmp[0]) ;
+    setUri(new URI(tmp[1] )) ;
+    setProtocol(tmp[2]) ;            
   }
   
   public String getHost() { return get("Host") ; }

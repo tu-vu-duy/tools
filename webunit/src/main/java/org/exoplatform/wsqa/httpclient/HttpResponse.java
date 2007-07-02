@@ -25,10 +25,6 @@ public class HttpResponse {
   private String statusString_ ;
   private URI requestURI_ ;
   
-  public HttpResponse(URI requestURI) {
-    requestURI_ =  requestURI;
-  }
-  
   public HttpResponse(InputStream is, URI requestURI) throws Exception {
     requestURI_ =  requestURI ;    
     parse(is) ;
@@ -41,6 +37,17 @@ public class HttpResponse {
   public HttpResponseHeader  getHeaders()  { return headers_ ; }
   
   public ByteArrayOutputStream  getResponseBody() { return responseBody_ ; }
+  
+  public byte[] getOriginalResponseData() throws Exception {
+    ByteArrayOutputStream os = new ByteArrayOutputStream() ;
+    if(headerBody_ != null) {
+      os.write(headerBody_.toByteArray()) ;
+    }
+    if(responseBody_ != null) {
+      os.write(responseBody_.toByteArray()) ;
+    }
+    return os.toByteArray();
+  }
   
   /**
    * character ascii code:  \r = 13, \n = 10
@@ -95,6 +102,15 @@ public class HttpResponse {
     if(statusCode_ == NOT_MODIFIED_CODE_304)  return ;
     if(statusCode_ == STATUS_STRING_MOVED_CODE_302)  return ;
     out.write(responseBody_.toByteArray()) ;
+  }
+  
+  public String getResponseDataAsText() throws Exception {
+    StringBuilder b = new StringBuilder() ;
+    b.append(new String(headerBody_.toByteArray())) ;
+    if(statusCode_ == NOT_MODIFIED_CODE_304)  b.toString() ;
+    if(statusCode_ == STATUS_STRING_MOVED_CODE_302)  return b.toString();
+    b.append(new String(responseBody_.toByteArray())) ;
+    return b.toString() ;
   }
   
   private int parseBody(InputStream is , int bodySize) throws Exception {
