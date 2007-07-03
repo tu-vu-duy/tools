@@ -84,17 +84,22 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
     button = new JButton("Clear") ;
     button.addActionListener(new ClearWebunitsListener());
     toolBar_.addButton(button) ;
-    
     toolBar_.addSeparator();
     
     button = new JButton("Generate") ;
     button.setToolTipText("Generate Javascript code") ;
     button.addActionListener(new GenerateScriptListener());
-    
     toolBar_.addButton(button) ;
+    
     button = new JButton("Log") ;
     button.setToolTipText("Show Http Client Log") ;
     button.addActionListener(new ShowLogListener());
+    toolBar_.addButton(button) ;
+    toolBar_.addSeparator();
+    
+    button = new JButton("Compare") ;
+    button.setToolTipText("Show Byte Comparator Panel") ;
+    button.addActionListener(new ShowByteComparatorPanel());
     toolBar_.addButton(button) ;
     
     add(toolBar_, BorderLayout.NORTH);
@@ -116,8 +121,7 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
     webunitTableModel_.fireTableDataChanged();
   }
   
-  static public class WebunitTableModel extends DefaultTableModel {
-    
+  static public class WebunitTableModel extends DefaultTableModel { 
     public WebunitTableModel(Object[][] obj, String[] str) {
       super(obj, str);
     }
@@ -205,7 +209,21 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
         ex.printStackTrace() ;
       }
     }
-  }  
+  }
+  
+  public class ShowByteComparatorPanel implements ActionListener {
+    public void actionPerformed(ActionEvent ae) {
+      try {
+        JInternalFrame frame = Application.getInstance().getWorkspaces().openFrame("a", "b") ; 
+        ByteComparatorPanel panel = new ByteComparatorPanel();
+        frame.add(panel);
+      }
+      catch (Exception ex) {
+        ex.printStackTrace();
+      }
+        
+    }
+  }
   
   public class WebUnitPopupMenu extends JPopupMenu {
     public WebUnitPopupMenu() {

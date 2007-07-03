@@ -11,8 +11,6 @@ import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
-
-import org.exoplatform.swing.explorer.ListOpenedFileViewPlugin;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -55,7 +53,7 @@ public class Workspaces extends JDesktopPane {
   
   public Map<String, ViewFrame> getOpenFrames() { return openFrames_ ; }
   
-  static class ViewFrame  extends JInternalFrame {
+  static public class ViewFrame  extends JInternalFrame {
     public ViewFrame(String label) {
       super(label, true, true, true, true) ;
     }

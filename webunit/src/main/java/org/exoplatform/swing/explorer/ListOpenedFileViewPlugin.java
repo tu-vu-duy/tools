@@ -9,20 +9,18 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.*;
 import java.awt.*;
+import java.util.Map;
 
 
-import javax.swing.BoxLayout;
 import javax.swing.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.*;
 
+import org.exoplatform.swing.Application;
 import org.exoplatform.swing.ViewPlugin;
 import org.exoplatform.swing.Workspaces;
+import org.exoplatform.swing.Workspaces.ViewFrame;
 
 /**
  * Created by The eXo Platform SARL
@@ -36,6 +34,7 @@ public class ListOpenedFileViewPlugin extends JPanel implements ViewPlugin {
   public ListOpenedFileViewPlugin() {
     setLayout(new BorderLayout());
     setName("ListOpenedFiles") ;
+    setMinimumSize(new Dimension(300, 400));
     setPreferredSize(new Dimension(200, 500));
     
     Action actionWSQA = new AbstractAction("WSQA") {
@@ -80,6 +79,9 @@ public class ListOpenedFileViewPlugin extends JPanel implements ViewPlugin {
     
     btnShowHide.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent ae) {
+        Workspaces workspaces = Application.getInstance().getWorkspaces() ;
+        Map<String, Workspaces.ViewFrame> frames = workspaces.getOpenFrames() ;
+        
         if (btnShowHide.getText().equalsIgnoreCase("Hide All")) btnShowHide.setText("Show All");
         else btnShowHide.setText("Hide All");
       }

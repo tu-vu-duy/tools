@@ -8,10 +8,12 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Enumeration;
+import java.awt.event.*;
 
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
@@ -22,12 +24,15 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameListener;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
+import javax.swing.event.*;
 
 import org.exoplatform.swing.Application;
 import org.exoplatform.swing.JExoTextEditor;
@@ -43,7 +48,7 @@ import sun.security.action.OpenFileInputStreamAction;
 public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
   private static DefaultTreeModel tmodel;
   private static FileNode selectFileNode;
-  private static JTree jtree;
+  private static JTree jtree = null;
   private boolean menuItemXmlAdded  = false;
 
   public ExplorerViewPlugin() {
@@ -69,11 +74,11 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
     jtree.addTreeSelectionListener(new TreeSelectionListener() {
       public void valueChanged(TreeSelectionEvent evt) {
         System.out.println("==> Tree Action Listener") ;
-        JTree jtree  = (JTree)evt.getSource() ; //
+        final JTree jtree  = (JTree)evt.getSource() ; //
         selectFileNode = (FileNode)evt.getPath().getLastPathComponent() ;
 
         if (menuItemXmlAdded) {
-          System.out.println("removeeee");
+          //System.out.println("removeeee");
           OptionMenu.menuOpenAs.remove(OptionMenu.menuItemXml);
         }
 
@@ -81,19 +86,27 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
           String filePath = selectFileNode.getFilePath() ;
           if(filePath.endsWith(".txt")) {
             try {
-              JInternalFrame frame = 
+              final JInternalFrame frame = 
                 Application.getInstance().getWorkspaces().openFrame(filePath, filePath) ;
+              frame.addComponentListener(new ComponentAdapter() {
+                public void componentHidden(ComponentEvent e) {
+                 jtree.setSelectionPath(new TreePath(selectFileNode.getParent())); 
+                }
+              });
               JExoTextEditor textEditor = new JExoTextEditor() ;
               textEditor.opentFile(filePath) ;
               textEditor.setVisible(true) ;
-              frame.add(textEditor) ;             
+              frame.add(textEditor) ; 
+              
+              
             } catch(Exception ex) {
               ex.printStackTrace() ;
             }
+           
           } else if (filePath.endsWith(".xml")) {
             OptionMenu.menuOpenAs.add(OptionMenu.menuItemXml, 1);
             menuItemXmlAdded = true;
-          }
+          }          
         } else {
           TreePath selectionPaths = null;
           if (jtree.getSelectionPath() != null) {
@@ -101,8 +114,9 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
 
             System.out.println("Selection Path: " + selectionPaths);
             TreePath parentSelectionPaths = selectionPaths.getParentPath()  ;
+            
             FileNode parentFileNode = (FileNode)selectFileNode.getParent() ;
-            if(parentFileNode != null) {
+            if ((parentFileNode != null)&&(parentSelectionPaths != null)) {
               Enumeration<FileNode> e = parentFileNode.children() ;
               while(e.hasMoreElements()) {
                 FileNode fnode = e.nextElement() ;
@@ -129,7 +143,7 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
         jtree.repaint() ;
         System.out.println("<=== Tree Action Listener") ;
       }
-    }) ;  // het treeSelectionListenner;
+    }) ;
 
     final JPopupMenu popup = new OptionMenu();
 

@@ -66,19 +66,19 @@ public class TomcatInfoPlugin extends JPanel implements ViewPlugin {
     addComponent(scroll, 0, 1, 3, 1, GridBagConstraints.BOTH, 1, 0.5d);
     
     final JPanel pnlLeftUp = new JPanel(new BorderLayout());
-    pnlLeftUp.setPreferredSize(new Dimension(30, 100));
+    pnlLeftUp.setPreferredSize(new Dimension(90, 100));
     pnlLeftUp.setBorder(BorderFactory.createTitledBorder("CPU Usage"));   
-    addComponent(pnlLeftUp, 0, 2, 2, 1, GridBagConstraints.HORIZONTAL, 1, 0);    
+    addComponent(pnlLeftUp, 0, 2, 2, 1, GridBagConstraints.NONE, 0, 0);    
     
     final JPanel pnlRightUp = new JPanel(new BorderLayout());
     pnlRightUp.setPreferredSize(new Dimension(100, 100));
-    pnlRightUp.setBorder(BorderFactory.createTitledBorder("PF Usage"));
-    addComponent(pnlRightUp, 2, 2, 1, 1, GridBagConstraints.HORIZONTAL, 1, 0);
+    pnlRightUp.setBorder(BorderFactory.createTitledBorder("CPU Usage History"));
+    addComponent(pnlRightUp, 2, 2, 1, 1, GridBagConstraints.BOTH, 1, 0);
     
     final JPanel pnlLeftDown = new JPanel(new BorderLayout());
-    pnlLeftDown.setPreferredSize(new Dimension(30, 100));
-    pnlLeftDown.setBorder(BorderFactory.createTitledBorder("CPU Usage History"));
-    addComponent(pnlLeftDown, 0, 3, 2, 1, GridBagConstraints.BOTH, 1, 0);
+    pnlLeftDown.setPreferredSize(new Dimension(90, 100));
+    pnlLeftDown.setBorder(BorderFactory.createTitledBorder("PF Usage"));
+    addComponent(pnlLeftDown, 0, 3, 2, 1, GridBagConstraints.NONE, 0, 0);
     
     final JPanel pnlRightDown = new JPanel(new BorderLayout());
     pnlRightDown.setPreferredSize(new Dimension(100, 100));
@@ -90,29 +90,12 @@ public class TomcatInfoPlugin extends JPanel implements ViewPlugin {
     btnStop = new JButton("Stop");
     pnlControl.add(btnStart);
     pnlControl.add(btnStop);
-    JButton btnShowText = new JButton("Text");
-    pnlControl.add(btnShowText);
     addComponent(pnlControl, 1, 4, 2, 1, GridBagConstraints.HORIZONTAL, 0, 0);
     
     addComponent(new JPanel(), 0, 5, 3, 1, GridBagConstraints.REMAINDER, 1, 1);
     
     add(centerPanel, BorderLayout.CENTER);
     
-    btnShowText.addActionListener(new ActionListener() {
-      public void actionPerformed(ActionEvent ae) {
-        try {
-          JInternalFrame frame = 
-            Application.getInstance().getWorkspaces().openFrame("aaa", "New text Editor") ;
-          WebUnitDataViewPlugin newTextEditor = new WebUnitDataViewPlugin() ;          
-          newTextEditor.setVisible(true) ;
-          frame.add(newTextEditor) ;
-          frame.updateUI();
-        }
-        catch(Exception ex) {
-          ex.printStackTrace();
-        }
-      }
-    });
     btnStart.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent ae) {
         try {
