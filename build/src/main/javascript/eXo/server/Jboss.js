@@ -8,7 +8,7 @@ function Jboss(jbossHome) {
   this.runningInstance_ = null ;
   this.name = "jboss" ;
   this.serverHome = jbossHome ;
-  this.cleanServer = "jboss-4.0.3SP1" ;
+  this.cleanServer = "jboss-4.2.0" ;
   this.deployLibDir = this.serverHome + "/server/default/deploy/exoplatform.sar" ;
   this.deployWebappDir = this.deployLibDir;
   this.patchDir = this.deployLibDir ;
@@ -70,6 +70,9 @@ Jboss.prototype.CleanTask = function() {
 
 Jboss.prototype.preDeploy = function(product) {
 	product.addDependencies(new Project("commons-pool", "commons-pool", "jar", "1.2")) ;
+  product.addDependencies(new Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;
+  product.addDependencies(new Project("org.exoplatform.portal", "exo.portal.server.jboss.plugin", "jar", "2.0")) ;
+
 }
 
 Jboss.prototype.onDeploy = function(project) { }
@@ -78,6 +81,12 @@ Jboss.prototype.postDeploy = function(product) {
   ServerUtil = eXo.server.ServerUtil ;
   ServerUtil.createEarApplicationXml(this.deployLibDir) ;
   ServerUtil.addClasspathForWar(this.deployLibDir) ;
+  
+  //Use jboss PrefixSorter deployer
+  var portalFile = new java.io.File(this.deployWebappDir + "/" + product.portalwar);
+  var newPortalFile = new java.io.File(this.deployWebappDir + "/01portal.war");
+  portalFile.renameTo(newPortalFile) ;
+  product.portalwar = "01portal.war" ;
 }
 
 eXo.server.Jboss = Jboss.prototype.constructor ;

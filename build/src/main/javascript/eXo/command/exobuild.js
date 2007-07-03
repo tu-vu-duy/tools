@@ -79,6 +79,12 @@ for(var i = 0; i <args.length; i++) {
     cleanMVNRepo_ = true ;
   } else if ("--release" == arg) {
     release_ = true ;
+  } else if ("--release=jboss" == arg) {
+    release_ = true ;
+    deployServers = [new Jboss(eXo.env.workingDir + "/exo-jboss")];
+  } else if ("--release=jonas" == arg) {
+    release_ = true ;
+    deployServers = [new Jonas(eXo.env.workingDir + "/exo-jonas")];
   } else if ("--release=all" == arg) {
     release_ = true ;
     deployServers = [
@@ -175,9 +181,12 @@ if(build_) {
   tasks.add(maven.MavenTask(moduleDir, mvnArgs));
 }
 
+//print (server + "\n" + deployServers + "\n" + product) ; 
 
 if(deployServers != null) { 
+  print (deployServers);
   for(var i = 0; i < deployServers.length; i++) {
+  print ("test here");
     server =  deployServers[i] ;
     tasks.add(product.DeployTask(product, server, eXo.env.m2Repos)) ;
     tasks.add(database.DeployTask(product, server, eXo.env.m2Repos)) ;
