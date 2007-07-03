@@ -18,13 +18,16 @@ import javax.swing.JPanel;
  *          tuan.nguyen@exoplatform.com
  * Jun 27, 2007  
  */
-public class JVMMonitor extends Canvas {
+public class JVMMonitor extends JPanel {
   
-  public void paint(Graphics g) {
-
+  public JVMMonitor() {
+    setPreferredSize(new Dimension(30, 30));
+  }
+  public void paintComponent(Graphics g) {
+      
       Graphics2D g2 = (Graphics2D)g;
       
-      BufferedImage bufferedImg = (BufferedImage) createImage(30, 100);
+      BufferedImage bufferedImg = (BufferedImage) createImage(30, 80);
       
       Graphics2D gc = bufferedImg.createGraphics();    
       gc.setColor(Color.green);

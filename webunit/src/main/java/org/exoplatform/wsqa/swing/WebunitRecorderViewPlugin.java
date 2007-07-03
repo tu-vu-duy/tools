@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
@@ -55,16 +56,19 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
     webunitTable_.setModel(webunitTableModel_);
     webunitTable_.getColumnModel().getColumn(0).setMaxWidth(3);
 
-    final JPopupMenu popupMenu = new WebUnitPopupMenu();
+    final WebUnitPopupMenu popupMenu = new WebUnitPopupMenu();
     webunitTable_.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mousePressed(MouseEvent evt) {
         if (evt.getButton()== MouseEvent.BUTTON3 || evt.isPopupTrigger()){
           JTable source = (JTable)evt.getSource();
           popupMenu.show(source, evt.getX(),evt.getY());
+  
+          //removeUnit(webunitTable_.getSelectedRow());
         }
       }
     });
     
+  
     JScrollPane scrollPane = new JScrollPane(webunitTable_);
     scrollPane.setPreferredSize(new Dimension(150, 150)) ;    
     add(scrollPane, BorderLayout.CENTER);
@@ -104,6 +108,11 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
   public void addUnit(WebUnit unit) throws Exception {
     suite_.addWebUnit(unit) ;
     webunitTableModel_.addRow(new String[] {"?", unit.getPathInfo(), "new " });
+    webunitTableModel_.fireTableDataChanged();
+  }
+  
+  public void removeUnit(int row) {
+    webunitTableModel_.removeRow(row);
     webunitTableModel_.fireTableDataChanged();
   }
   
@@ -241,7 +250,8 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
       menuItem = new JMenuItem("Remove");
       menuItem.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent evt) {
-         
+          int n = JOptionPane.showConfirmDialog(webunitTable_, "Do you want to delete this row ?", "Confirm", JOptionPane.YES_NO_OPTION);
+          if (n == 0)  removeUnit(webunitTable_.getSelectedRow());            
         }});
       add(menuItem);
       

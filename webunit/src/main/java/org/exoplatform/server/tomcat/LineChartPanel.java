@@ -20,19 +20,18 @@ import javax.swing.JPanel;
  *          tuan.nguyen@exoplatform.com
  * Jun 28, 2007  
  */
-public class LineChartPanel extends Canvas {
+public class LineChartPanel extends JPanel {
   Color color;
   
   public LineChartPanel(Color c) {
     color = c;
-    setPreferredSize(new Dimension(200, 200));
+    setPreferredSize(new Dimension(30, 30));
   }
 
-  public void paint(Graphics g) {
+  public void paintComponent(Graphics g) {
     Graphics2D g2 = (Graphics2D)g;
-   
 
-    BufferedImage bufferedImg = (BufferedImage) createImage(200, 100);
+    BufferedImage bufferedImg = (BufferedImage) createImage(200, 80);
     
     Graphics2D gc = bufferedImg.createGraphics();    
     gc.setColor(color);

@@ -16,17 +16,19 @@ import javax.swing.JPopupMenu;
 
 public class WebUnitPopupMenu extends JPopupMenu {
   public static boolean showDialog = true;
+  public JMenuItem menuItemRemove;
+  
   public WebUnitPopupMenu() {
   
-    JMenuItem menuItem = new JMenuItem("Insert Row");
-    menuItem.addActionListener(new java.awt.event.ActionListener() {
+    JMenuItem menuItemInsert = new JMenuItem("Insert Row");
+    menuItemInsert.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println("=============================");
       }});
-    add(menuItem);
+    add(menuItemInsert);
     
-    menuItem = new JMenuItem("Add Row");
-    menuItem.addActionListener(new java.awt.event.ActionListener() {
+    JMenuItem menuItemAdd = new JMenuItem("Add Row");
+    menuItemAdd.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println("=============================");
         if (showDialog == true) {
@@ -34,14 +36,14 @@ public class WebUnitPopupMenu extends JPopupMenu {
           showDialog = false;
         }
       }});
-    add(menuItem);
+    add(menuItemAdd);
     
-    menuItem = new JMenuItem("Remove Row");
-    menuItem.addActionListener(new java.awt.event.ActionListener() {
+    menuItemRemove = new JMenuItem("Remove Row");
+    menuItemRemove.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println("=============================");
        
       }});
-    add(menuItem);
+    add(menuItemRemove);
   }
 }

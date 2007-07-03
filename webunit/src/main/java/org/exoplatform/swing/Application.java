@@ -54,6 +54,11 @@ public class Application extends javax.swing.JFrame {
     
     getContentPane().setLayout(new CardLayout());
     JSplitPane splitPane = new JSplitPane();
+    
+    //? 
+    splitPane.setContinuousLayout(true);
+    splitPane.updateUI();
+    
     splitPane.setDividerSize(5);
     splitPane.setDividerLocation(300);
     add(splitPane, "SplitPane");

@@ -59,25 +59,29 @@ public class ListOpenedFileViewPlugin extends JPanel implements ViewPlugin {
     btnLog = new SmallButton(actionLog);
     btnText = new SmallButton(actionText);
     
+    btnWSQA.setHorizontalAlignment(SwingConstants.LEFT);
+    btnLog.setHorizontalAlignment(SwingConstants.LEFT);
+    btnText.setHorizontalAlignment(SwingConstants.LEFT);
+    
     JPanel pnlTop = new JPanel(new GridLayout(4, 1));
     pnlTop.add(btnWSQA);
     pnlTop.add(btnLog);
     pnlTop.add(btnText);
-    //pnlTop.add(new JButton("addddddddddd"));
     add(pnlTop, BorderLayout.PAGE_START);
    
     JPanel pnlDown = new JPanel();
-    btnShowHide = new JButton("Hide");
+    btnShowHide = new JButton("Hide All");
     btn1 = new JButton("Cascade");
-    btn2 = new JButton("Min");
+    btn2 = new JButton("Button");
     pnlDown.add(btnShowHide);
     pnlDown.add(btn1);
     pnlDown.add(btn2);
     add(pnlDown, BorderLayout.SOUTH);
     
-    btnText.addActionListener(new ActionListener() {
+    btnShowHide.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent ae) {
-        
+        if (btnShowHide.getText().equalsIgnoreCase("Hide All")) btnShowHide.setText("Show All");
+        else btnShowHide.setText("Hide All");
       }
     });
   }
@@ -104,8 +108,6 @@ public class ListOpenedFileViewPlugin extends JPanel implements ViewPlugin {
       this();
       setAction(act);
       setRequestFocusEnabled(false);
-  
-      //      addActionListener(act);
       addMouseListener(this);
     }
     

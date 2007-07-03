@@ -5,26 +5,24 @@
 package org.exoplatform.server.tomcat;
 
 import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Locale;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.border.*;
-import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
 import org.exoplatform.swing.Application;
 import org.exoplatform.swing.JExoTextEditor;
@@ -41,47 +39,64 @@ public class TomcatInfoPlugin extends JPanel implements ViewPlugin {
   private JTextField txtLocate;
   private JTextPane txtSysPro;
   private JButton btnStart, btnStop;
+  private JPanel centerPanel = new JPanel(new GridBagLayout());
+  private GridBagConstraints gbc = new GridBagConstraints();
   
   public TomcatInfoPlugin() {
-    setName("TomcatPlugin");
+    setName("TomcatPlugin");    
     setLayout(new BorderLayout());
-    setMinimumSize(new Dimension(500, 400));
-    setPreferredSize(new Dimension(300, 400));
-    setMaximumSize(new Dimension(1000, 500));
-    resize(new Dimension(200, 400));
+    setMinimumSize(new Dimension(250, 400));
     
-    JPanel pnl = new JPanel(new BorderLayout());
+    centerPanel.setPreferredSize(new Dimension(100, 400));
     
-    txtLocate = new JTextField();
+    gbc.insets = new Insets(0, 0, 2, 2);
+    gbc.anchor = gbc.WEST;
+    
+    txtLocate = new JTextField("location");
     TitledBorder locateBorder = BorderFactory.createTitledBorder("Location");
-    locateBorder.setTitleJustification(TitledBorder.LEFT);
     txtLocate.setBorder(locateBorder);
-    pnl.add(txtLocate, BorderLayout.NORTH);
+    txtLocate.setPreferredSize(new Dimension(100, 50));
+    addComponent(txtLocate, 0, 0, 3, 1, GridBagConstraints.HORIZONTAL, 0, 0);
     
-    JPanel pnlSysPro = new JPanel(new BorderLayout());
-  
     txtSysPro = new JTextPane();
+    txtSysPro.setText("System Pro");
     JScrollPane scroll = new JScrollPane(txtSysPro);
     scroll.setPreferredSize(new Dimension(50, 150));    
     scroll.setBorder(BorderFactory.createTitledBorder("System Properties"));
-    pnlSysPro.add(scroll, BorderLayout.CENTER);
-    pnl.add(pnlSysPro, BorderLayout.CENTER);
+    addComponent(scroll, 0, 1, 3, 1, GridBagConstraints.BOTH, 1, 0.5d);
     
+    final JPanel pnlLeftUp = new JPanel(new BorderLayout());
+    pnlLeftUp.setPreferredSize(new Dimension(30, 100));
+    pnlLeftUp.setBorder(BorderFactory.createTitledBorder("CPU Usage"));   
+    addComponent(pnlLeftUp, 0, 2, 2, 1, GridBagConstraints.HORIZONTAL, 1, 0);    
     
+    final JPanel pnlRightUp = new JPanel(new BorderLayout());
+    pnlRightUp.setPreferredSize(new Dimension(100, 100));
+    pnlRightUp.setBorder(BorderFactory.createTitledBorder("PF Usage"));
+    addComponent(pnlRightUp, 2, 2, 1, 1, GridBagConstraints.HORIZONTAL, 1, 0);
+    
+    final JPanel pnlLeftDown = new JPanel(new BorderLayout());
+    pnlLeftDown.setPreferredSize(new Dimension(30, 100));
+    pnlLeftDown.setBorder(BorderFactory.createTitledBorder("CPU Usage History"));
+    addComponent(pnlLeftDown, 0, 3, 2, 1, GridBagConstraints.BOTH, 1, 0);
+    
+    final JPanel pnlRightDown = new JPanel(new BorderLayout());
+    pnlRightDown.setPreferredSize(new Dimension(100, 100));
+    pnlRightDown.setBorder(BorderFactory.createTitledBorder("Page file Usage History"));
+    addComponent(pnlRightDown, 2, 3, 1, 1, GridBagConstraints.BOTH, 1, 0);
+     
     JPanel pnlControl = new JPanel();
-    
     btnStart = new JButton("Start");
     btnStop = new JButton("Stop");
     pnlControl.add(btnStart);
     pnlControl.add(btnStop);
-    
-    add(pnl, BorderLayout.NORTH);
-    
-    updateUI();
-    
     JButton btnShowText = new JButton("Text");
     pnlControl.add(btnShowText);
+    addComponent(pnlControl, 1, 4, 2, 1, GridBagConstraints.HORIZONTAL, 0, 0);
     
+    addComponent(new JPanel(), 0, 5, 3, 1, GridBagConstraints.REMAINDER, 1, 1);
+    
+    add(centerPanel, BorderLayout.CENTER);
     
     btnShowText.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent ae) {
@@ -91,24 +106,13 @@ public class TomcatInfoPlugin extends JPanel implements ViewPlugin {
           WebUnitDataViewPlugin newTextEditor = new WebUnitDataViewPlugin() ;          
           newTextEditor.setVisible(true) ;
           frame.add(newTextEditor) ;
+          frame.updateUI();
         }
         catch(Exception ex) {
           ex.printStackTrace();
         }
       }
     });
-    
-    final JPanel pnlCenter = new JPanel(new BorderLayout());
-    final JPanel leftPanelChart = new JPanel(new GridLayout(2, 1));
-    
-    final JPanel centerPanelChart = new JPanel(new BorderLayout());
-    centerPanelChart.setBorder(BorderFactory.createTitledBorder("CPU Usage History"));
-    
-    leftPanelChart.setPreferredSize(new Dimension(100, 200));
-    
-    pnlCenter.add(leftPanelChart, BorderLayout.WEST);
-    
-    
     btnStart.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent ae) {
         try {
@@ -142,64 +146,35 @@ public class TomcatInfoPlugin extends JPanel implements ViewPlugin {
         catch(Exception ex) {
           ex.printStackTrace();
         }
+       
+        JVMMonitor canvasLeftUp = new JVMMonitor();
+        JVMMonitor canvasLeftDown = new JVMMonitor();
+        pnlLeftUp.add(canvasLeftUp);
+        pnlLeftDown.add(canvasLeftDown);
         
-        JVMMonitor canvasUp, canvasDown;
-        canvasUp = new JVMMonitor();
-        canvasDown = new JVMMonitor();
-        
-        JPanel pnlUp = new JPanel(new BorderLayout());
-        JPanel pnlDown = new JPanel(new BorderLayout());
-        pnlUp.add(canvasUp);
-        pnlDown.add(canvasDown);
-        pnlUp.setBorder(BorderFactory.createTitledBorder("CPU Usage"));        
-        pnlDown.setBorder(BorderFactory.createTitledBorder("PF Usage"));
-        
-        leftPanelChart.add(pnlUp);
-        leftPanelChart.add(pnlDown);
-        leftPanelChart.updateUI();
-        
-        LineChartPanel canvas1 = new LineChartPanel(Color.red);
-        LineChartPanel canvas2 = new LineChartPanel(Color.gray);
-        
-        JPanel lineChart1 = new JPanel(new BorderLayout());
-        JPanel lineChart2 = new JPanel(new BorderLayout());
-        lineChart1.add(canvas1);
-        lineChart2.add(canvas2);
-        
-        lineChart1.updateUI();
-        lineChart2.updateUI();
-        
-        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, true, lineChart1, lineChart2);
-        splitPane.setDividerSize(5);
-        splitPane.setDividerLocation(200);
-        centerPanelChart.add(splitPane, BorderLayout.CENTER);    
-        
+        LineChartPanel canvasRightUp = new LineChartPanel(Color.red);
+        LineChartPanel canvasRightDown = new LineChartPanel(Color.gray);
+        pnlRightUp.add(canvasRightUp);
+        pnlRightDown.add(canvasRightDown);  
+        updateUI();
       }
-    });
+    });   
     
-    pnlCenter.add(centerPanelChart, BorderLayout.CENTER);
-    centerPanelChart.setPreferredSize(new Dimension(100, 200));
-    leftPanelChart.setPreferredSize(new Dimension(100, 200));
+   updateUI(); 
     
-    pnlCenter.updateUI();
-    
-    centerPanelChart.updateUI();
-    leftPanelChart.updateUI();
-    updateUI();
-    
-    
-    pnlCenter.setPreferredSize(new Dimension(250, 300));
-    JPanel pnlAdd = new JPanel();
-    pnlAdd.setPreferredSize(new Dimension(100, 200));
-    pnlAdd.add(new JButton("gg"));
-    pnlCenter.add(pnlAdd, BorderLayout.EAST);
-   
-    
-    setIgnoreRepaint(false);
-    add(pnlCenter, BorderLayout.CENTER);
-    pnlControl.updateUI();
-    add(pnlControl, BorderLayout.SOUTH);
   }
+  public void addComponent(Component comp, int x, int y, int width, int height, int fill,
+                                        double  weightx, double  weighty) {
+    gbc.gridx = x;
+    gbc.gridy = y;
+    gbc.gridwidth = width;
+    gbc.gridheight = height;
+    gbc.fill = fill;
+    gbc.weightx = weightx;
+    gbc.weighty = weighty;
+    centerPanel.add(comp, gbc);
+  }
+  
   
   public String getTitle() { return "Tomcat"; }
   
