@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -26,6 +27,9 @@ import javax.swing.JToolBar;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.filechooser.FileSystemView;
+
+import org.exoplatform.swing.Workspaces.ViewFrame;
+import org.exoplatform.swing.explorer.ExplorerViewPlugin;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -41,22 +45,39 @@ public class JExoTextEditor extends JPanel {
   public JExoTextEditor() {
     setLayout(new BorderLayout());
     
-    //parent = (JFrame) this.getParent();
-    
     scrollPane = new JScrollPane(textPane_);
     scrollPane.setViewportView(textPane_) ;
-    
     
     JButton btnNew = new JButton("New");
     toolBar_.addButton(btnNew);
     JButton btnOpen = new JButton("Open");
     toolBar_.addButton(btnOpen);
     JButton btnSave = new JButton("Save");
-    toolBar_.addButton(btnSave);    
+    toolBar_.addButton(btnSave);   
+    
+    btnNew.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+        try {
+          final JInternalFrame frame = 
+            Application.getInstance().getWorkspaces().openFrame("", "") ;
+            JExoTextEditor textEditor = new JExoTextEditor() ;
+            frame.add(textEditor);
+              
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+      }
+    });
     
     btnSave.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent ae) { 
         saveFile();
+      }
+    });
+    
+    btnOpen.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+        OpenFileToolbar();
       }
     });
     
@@ -75,6 +96,29 @@ public class JExoTextEditor extends JPanel {
   }
   
   public JExoToolBar getToobar() { return toolBar_ ; }
+  
+  public void OpenFileToolbar() {
+    JFileChooser fileChooser = new JFileChooser();
+    int returnVal = fileChooser.showOpenDialog(this);
+    if (returnVal == JFileChooser.APPROVE_OPTION) {
+      File file = fileChooser.getSelectedFile();
+      try {
+        opentFile(file.getPath());
+        
+        Workspaces workspaces = Application.getInstance().getWorkspaces() ;
+        Map<String, Workspaces.ViewFrame> frames = workspaces.getOpenFrames() ;
+        Object[] objFrames = frames.values().toArray(); 
+        ViewFrame[] viewFrames = new ViewFrame[objFrames.length];
+        for (int i = 0; i < objFrames.length; i ++) {
+          viewFrames[i] = (ViewFrame)objFrames[i];
+          if (viewFrames[i].isSelected())  viewFrames[i].setTitle(file.getPath());
+        }
+      }
+      catch (Exception ex) {
+        ex.printStackTrace();
+      }
+    }
+  }
   
   public void opentFile(String filePath) throws Exception {
     FileInputStream is = new FileInputStream(filePath) ;

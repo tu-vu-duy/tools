@@ -4,11 +4,17 @@
  **************************************************************************/
 package org.exoplatform.swing;
 
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentListener;
+import java.awt.event.ContainerAdapter;
 import java.util.HashMap;
 import java.util.Map;
+import java.awt.event.ComponentEvent;
+
 
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
+import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 /**
@@ -24,6 +30,7 @@ public class Workspaces extends JDesktopPane {
   public Workspaces() {
     setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
     setName("Workspaces") ;
+    
   }
   
   public void closeFrame(JInternalFrame frame) throws Exception {
@@ -32,9 +39,6 @@ public class Workspaces extends JDesktopPane {
   
   public JInternalFrame openFrame(String id, String label) throws Exception {
     frame = new ViewFrame(label) ;
-    
-    //
-    //ListOpenedFileViewPlugin().addButton(label);
     
     frame.setSize(700, 500) ;
     frame.setLocation(15 * openFrames_.size(), 20 * openFrames_.size());
@@ -56,6 +60,13 @@ public class Workspaces extends JDesktopPane {
   static public class ViewFrame  extends JInternalFrame {
     public ViewFrame(String label) {
       super(label, true, true, true, true) ;
+      
+      addInternalFrameListener(new InternalFrameAdapter() {
+        public void internalFrameIconified(InternalFrameEvent ie) {
+          //setVisible(false);
+          
+        }
+      });
     }
   }
   

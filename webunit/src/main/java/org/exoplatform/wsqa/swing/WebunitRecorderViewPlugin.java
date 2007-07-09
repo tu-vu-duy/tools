@@ -214,7 +214,7 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
   public class ShowByteComparatorPanel implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
       try {
-        JInternalFrame frame = Application.getInstance().getWorkspaces().openFrame("a", "b") ; 
+        JInternalFrame frame = Application.getInstance().getWorkspaces().openFrame("table", "Table") ; 
         ByteComparatorPanel panel = new ByteComparatorPanel();
         frame.add(panel);
       }

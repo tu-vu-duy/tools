@@ -60,7 +60,7 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
     jtree = new  JTree() ;
     scrollPane.setViewportView(jtree) ;
 
-    File root = new File("/") ;
+    final File root = new File("/") ;
     FileNode rootNode = new FileNode(root.getName(), root);
     File[] children = root.listFiles() ;
     for(File file :  children) {
@@ -74,8 +74,10 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
     jtree.addTreeSelectionListener(new TreeSelectionListener() {
       public void valueChanged(TreeSelectionEvent evt) {
         System.out.println("==> Tree Action Listener") ;
-        final JTree jtree  = (JTree)evt.getSource() ; //
-        selectFileNode = (FileNode)evt.getPath().getLastPathComponent() ;
+        final JTree jtree  = (JTree)evt.getSource() ; 
+        System.out.println("evt : " + evt.getPath().getLastPathComponent());
+        if (evt.getPath().getLastPathComponent() == null) selectFileNode = new FileNode(root.getName(), root); 
+        else selectFileNode = (FileNode)evt.getPath().getLastPathComponent() ;
 
         if (menuItemXmlAdded) {
           //System.out.println("removeeee");
@@ -85,20 +87,21 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
         if(selectFileNode.isLeaf()) {
           String filePath = selectFileNode.getFilePath() ;
           if(filePath.endsWith(".txt")) {
+           
             try {
               final JInternalFrame frame = 
                 Application.getInstance().getWorkspaces().openFrame(filePath, filePath) ;
               frame.addComponentListener(new ComponentAdapter() {
                 public void componentHidden(ComponentEvent e) {
-                 jtree.setSelectionPath(new TreePath(selectFileNode.getParent())); 
+                 System.out.println("select file node" + selectFileNode.getParent()); 
+                 if (selectFileNode.getParent() != null) jtree.setSelectionPath(new TreePath(selectFileNode.getParent())); 
+                 else jtree.setSelectionPath(new TreePath("D:/"));
                 }
               });
               JExoTextEditor textEditor = new JExoTextEditor() ;
               textEditor.opentFile(filePath) ;
               textEditor.setVisible(true) ;
               frame.add(textEditor) ; 
-              
-              
             } catch(Exception ex) {
               ex.printStackTrace() ;
             }
@@ -176,12 +179,11 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
   }
 
   static class OptionMenu extends JPopupMenu {
-    static JMenuItem menuItemOpen, menuItemAdmin, menuItemUser, menuItemText, menuItemXml, menuItemDelete, menuItemRename;
+    static JMenuItem menuItemAdmin, menuItemUser, menuItemText, menuItemXml, menuItemDelete, menuItemRename;
     static JMenu menuOpenAs; 
 
     public OptionMenu() {
       setPreferredSize(new Dimension(150, 150));
-      menuItemOpen = new JMenuItem("Open");
       menuItemAdmin = new JMenuItem("Admin");
       menuItemUser = new JMenuItem("User");
       menuItemText = new JMenuItem("text file    ");
@@ -191,7 +193,6 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
       menuOpenAs.add(menuItemText);
       menuOpenAs.add(menuItemAdmin);
       menuOpenAs.add(menuItemUser);
-      add(menuItemOpen);
       add(menuOpenAs);
       addSeparator();
 
@@ -199,12 +200,19 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
       menuItemRename = new JMenuItem("Rename");
       add(menuItemDelete);
       add(menuItemRename);
-
-      menuItemOpen.addActionListener(new ActionListener() {
+      
+      menuItemText.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent ae) {
-          System.out.println("Open"); 
+          openFileAs();
         }
       });
+      
+      menuItemXml.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+          openFileAs();
+        }
+      });
+  
       menuItemAdmin.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent ae) {
           System.out.println("Admin"); 
@@ -249,5 +257,28 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
         }
       });
     }
+    
+    public void openFileAs() {
+      if(selectFileNode.isLeaf()) {
+        String filePath = selectFileNode.getFilePath() ;
+        try {
+          final JInternalFrame frame = 
+            Application.getInstance().getWorkspaces().openFrame(filePath, filePath) ;
+          frame.addComponentListener(new ComponentAdapter() {
+            public void componentHidden(ComponentEvent e) {
+             if (selectFileNode.getParent() != null)  jtree.setSelectionPath(new TreePath(selectFileNode.getParent()));
+             else jtree.setSelectionPath(new TreePath("/"));
+            }
+          });
+          JExoTextEditor textEditor = new JExoTextEditor() ;
+          textEditor.opentFile(filePath) ;
+          textEditor.setVisible(true) ;
+          frame.add(textEditor) ;
+        } catch(Exception ex) {
+          ex.printStackTrace() ;
+        }          
+      }
+    }
   }
+
 }

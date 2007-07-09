@@ -16,11 +16,14 @@ import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.text.ViewFactory;
 
 import org.exoplatform.swing.Application;
 import org.exoplatform.swing.ViewPlugin;
 import org.exoplatform.swing.Workspaces;
 import org.exoplatform.swing.Workspaces.ViewFrame;
+//import org.exoplatform.swing.explorer.OpenedFileViewPlugin.ViewFrame;
 
 /**
  * Created by The eXo Platform SARL
@@ -29,14 +32,13 @@ import org.exoplatform.swing.Workspaces.ViewFrame;
  * Jun 3, 2007  
  */
 public class ListOpenedFileViewPlugin extends JPanel implements ViewPlugin {
-  JButton btnWSQA, btnLog, btnText, btnShowHide, btn1, btn2;
+  
   
   public ListOpenedFileViewPlugin() {
     setLayout(new BorderLayout());
     setName("ListOpenedFiles") ;
-    setMinimumSize(new Dimension(300, 400));
     setPreferredSize(new Dimension(200, 500));
-    
+    setMinimumSize(new Dimension(200, 400));
     Action actionWSQA = new AbstractAction("WSQA") {
       public void actionPerformed(ActionEvent ae) {
         System.out.println("a");
@@ -54,9 +56,9 @@ public class ListOpenedFileViewPlugin extends JPanel implements ViewPlugin {
         System.out.println("a");
       }
     };
-    btnWSQA = new SmallButton(actionWSQA);
-    btnLog = new SmallButton(actionLog);
-    btnText = new SmallButton(actionText);
+    JButton btnWSQA = new SmallButton(actionWSQA);
+    JButton btnLog = new SmallButton(actionLog);
+    JButton btnText = new SmallButton(actionText);
     
     btnWSQA.setHorizontalAlignment(SwingConstants.LEFT);
     btnLog.setHorizontalAlignment(SwingConstants.LEFT);
@@ -69,27 +71,74 @@ public class ListOpenedFileViewPlugin extends JPanel implements ViewPlugin {
     add(pnlTop, BorderLayout.PAGE_START);
    
     JPanel pnlDown = new JPanel();
-    btnShowHide = new JButton("Hide All");
-    btn1 = new JButton("Cascade");
-    btn2 = new JButton("Button");
+    final JButton btnShowHide = new JButton("Hide All");
+    JButton btnCascade = new JButton("Cascade");
     pnlDown.add(btnShowHide);
-    pnlDown.add(btn1);
-    pnlDown.add(btn2);
+    pnlDown.add(btnCascade);
     add(pnlDown, BorderLayout.SOUTH);
     
     btnShowHide.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent ae) {
         Workspaces workspaces = Application.getInstance().getWorkspaces() ;
         Map<String, Workspaces.ViewFrame> frames = workspaces.getOpenFrames() ;
+        Object[] objFrames = frames.values().toArray(); 
+        ViewFrame[] viewFrames = new ViewFrame[objFrames.length];
+        for (int i = 0; i < objFrames.length; i ++) {
+          viewFrames[i] = (ViewFrame)objFrames[i];
+        }
         
-        if (btnShowHide.getText().equalsIgnoreCase("Hide All")) btnShowHide.setText("Show All");
-        else btnShowHide.setText("Hide All");
+        if (btnShowHide.getText().equalsIgnoreCase("Hide All")) {
+          for (int i = 0; i < objFrames.length; i ++) {
+            try {
+              minimizeFrame(viewFrames[i]);
+            }
+            catch (Exception ex) {
+              ex.printStackTrace();
+            }
+          }
+          btnShowHide.setText("Show All");
+        }
+        else {
+          for (int i = 0; i < objFrames.length; i ++) {
+            try {
+              maximizeFrame(viewFrames[i]);
+            }
+            catch (Exception ex) {
+              ex.printStackTrace();
+            }
+          }
+          btnShowHide.setText("Hide All");
+        }
+      }
+    });
+    
+    btnCascade.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+        Workspaces workspaces = Application.getInstance().getWorkspaces() ;
+        Map<String, Workspaces.ViewFrame> frames = workspaces.getOpenFrames() ;
+        Object[] objFrames = frames.values().toArray(); 
+        ViewFrame[] viewFrames = new ViewFrame[objFrames.length]; ;
+        for (int i = 0; i < objFrames.length; i ++) {
+          viewFrames[i] = (ViewFrame)objFrames[i];
+          viewFrames[i].setLocation(15 *i, 20*i);
+          viewFrames[i].toFront();
+        }
       }
     });
   }
   
-  public String getTitle() { return "Open  Files"; }
+  public void minimizeFrame(JInternalFrame frame) throws Exception {
+    frame.setIcon(true);
+  }
   
+  public void maximizeFrame(JInternalFrame frame) throws Exception {
+    //JDesktopPane pane = new JDesktopPane();
+    //pane.getDesktopManager().maximizeFrame(frame);
+    frame.setVisible(true);
+    frame.setIcon(false);
+  }
+  
+  public String getTitle() { return "Open  Files"; }
   
   class SmallButton extends JButton implements MouseListener {
     protected Border m_inactive = new EmptyBorder(3, 3, 3, 3);
