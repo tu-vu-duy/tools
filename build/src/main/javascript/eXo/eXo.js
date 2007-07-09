@@ -53,4 +53,4 @@ if(arguments.length > 0) {
   arguments = eXo.core.Util.shift(arguments) ;
   eXo.require("eXo.command." + command) ; 
 }
-print("===============> END \n"  );
+//print("===============> END \n"  );
