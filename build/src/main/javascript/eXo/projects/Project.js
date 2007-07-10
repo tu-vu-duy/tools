@@ -133,7 +133,7 @@ Project.prototype.deployTo = function(repository, server) {
       return ;
     } catch(err) {  print(err.message); }
   }
-  //throw("Error while deploying the project : " + this.relativePath) ;
+  throw("Error while deploying the project : " + this.relativePath) ;
 }
 //  return this ;
 
