@@ -197,13 +197,13 @@ eXo.projects.Module = {
     portal.webui = {};
     portal.webui.core = 
       new Project("org.exoplatform.portal", "exo.portal.webui.core", "jar", version) ;
-    portal.webui.exo = 
-      new Project("org.exoplatform.portal", "exo.portal.webui.exo", "jar", version) ;
+    portal.webui.eXo = 
+      new Project("org.exoplatform.portal", "exo.portal.webui.eXo", "jar", version) ;
 
     portal.webui.portal = 
       new Project("org.exoplatform.portal", "exo.portal.webui.portal", "jar", version).
       addDependency(portal.webui.core) .
-      addDependency(portal.webui.exo) .
+      addDependency(portal.webui.eXo) .
       addDependency(portal.component.web).
       addDependency(portal.component.jcrext) .
       addDependency(portal.component.resources) .
