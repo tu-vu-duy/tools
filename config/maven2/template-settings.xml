@@ -68,6 +68,21 @@
           <layout>default</layout>
         </repository>
       </repositories>
+      
+      <pluginRepositories>
+		<pluginRepository>
+		  <id>vietnam</id>
+		  <name>Viet Nam LAN Offical Repository</name>
+		  <url>http://vnserver.exoplatform.org/maven2</url>
+		  <releases>
+		    <updatePolicy>never</updatePolicy>
+		  </releases>
+		  <snapshots>
+		    <enabled>false</enabled>
+		  </snapshots>
+		</pluginRepository>
+      </pluginRepositories>       
+      
     </profile>
 
     <profile>

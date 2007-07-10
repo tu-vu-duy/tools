@@ -22,7 +22,7 @@ eXo.projects.Module = {
     kernel.commons = 
       new Project("org.exoplatform.kernel", "exo.kernel.commons", "jar", version).
       addDependency(new Project("commons-lang", "commons-lang", "jar", "2.1")).
-      addDependency(new Project("xpp3", "xpp3", "jar", "1.1.2a")).
+      addDependency(new Project("xpp3", "xpp3", "jar", "1.1.3.4.O")).
       addDependency(new Project("xstream", "xstream", "jar", "1.1")).
       addDependency(new Project("dom4j", "dom4j", "jar", "1.6.1"));
     
@@ -32,7 +32,7 @@ eXo.projects.Module = {
       addDependency(new Project("picocontainer", "picocontainer", "jar", "1.1")).
       addDependency(new Project("groovy", "groovy-all", "jar", "1.0")).
       addDependency(new Project("commons-beanutils", "commons-beanutils", "jar", "1.6")).
-      addDependency(new Project("jibx", "jibx-run", "jar", "1.0")).
+      addDependency(new Project("jibx", "jibx-run", "jar", "1.1.3")).
       addDependency(new Project("asm", "asm", "jar", "1.5.3")).
       addDependency(new Project("cglib", "cglib", "jar", "2.1_2"));
 
