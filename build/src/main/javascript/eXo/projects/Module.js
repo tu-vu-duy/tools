@@ -86,6 +86,7 @@ eXo.projects.Module = {
 
     core.component.database = 
       new Project("org.exoplatform.core", "exo.core.component.database", "jar", version) .
+      addDependency(new Project("com.experlog", "xapool", "jar", "1.5.0")).
       addDependency(new Project("org.hibernate", "hibernate", "jar", "3.1.2")).
       addDependency(new Project("commons-collections", "commons-collections", "jar", "3.1")).
       addDependency(new Project("c3p0", "c3p0", "jar", "0.8.4.5")).
