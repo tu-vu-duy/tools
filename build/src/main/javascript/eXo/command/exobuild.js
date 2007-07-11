@@ -158,7 +158,7 @@ if(update_) {
       }
     }
   }
-//  tasks.add(exosvn.UpdateTask(eXo.env.eXoProjectsDir + "/" + product.codeRepo));
+  tasks.add(exosvn.UpdateTask(eXo.env.eXoProjectsDir + "/" + product.codeRepo));
 }
 
 
