@@ -9,5 +9,13 @@ Util.prototype.shift = function(args) {
   return newargs ;
 }
 
-eXo.core.Util = new Util() ;
+Util.prototype.modifyText = function(content, properties) {
+  var i = properties.entrySet().iterator();
+  while(i.hasNext()) {
+    var entry = i.next() ;
+    content = content.replace(entry.getKey(), entry.getValue()) ;
+  }
+  return content
+}
 
+eXo.core.Util = new Util() ;

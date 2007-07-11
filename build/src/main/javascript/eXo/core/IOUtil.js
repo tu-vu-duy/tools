@@ -1,9 +1,3 @@
-//importClass(Packages.java.lang.System) ;
-//importClass(Packages.java.io.File) ;
-//importClass(Packages.java.io.FileInputStream) ;
-//importClass(Packages.java.io.FileOutputStream) ;
-//importClass(Packages.java.io.ByteArrayOutputStream) ;
-
 function IOUtil() {
 }
 
@@ -251,18 +245,6 @@ IOUtil.prototype.zip = function(src, dest, zipName) {
 }
 
 eXo.core.IOUtil = new IOUtil() ;
-
-
-//eXo.core.IOUtil.remove("target") ;
-//eXo.core.IOUtil.cp("nam.txt", "target");
-//eXo.core.IOUtil.cp("target", "target1");
-//eXo.core.IOUtil.createFile("test2.txt","jhkjhyibnkjhyiu");
-
-//var rentries = new java.util.HashMap() ;
-////var content = new java.lang.String("This is a test 1") ;
-//rentries.put("linux/exobsh.sh", "linux/exobsh.sh") ;
-//rentries.put("linux/exobuild.sh", content.getBytes()) ;
-//eXo.core.IOUtil.modifyJar("target/exo.tool.build-2.0.jar", rentries, null);
 
 //var test = eXo.core.IOUtil.getJarEntryContent("target/exo.tool.build-2.0.jar", "linux/exobuild.sh");
 //print (new java.lang.String(test));

@@ -52,24 +52,7 @@ DBInstance.prototype.GetConfigTask = function() {
 DBInstance.prototype.ConfigureTask = function(product, server) {
   var descriptor =  new TaskDescriptor("Configure Database", null) ;
   descriptor.description = "Configure the database environment for " + this.name;
-//  descriptor.product = product;
-//  descriptor.server = server;
   descriptor.dbinstance = this ;
-      
-//  descriptor.modifyDbConfig = function(moduleFile, configEntry) {
-//    file = new java.io.File(moduleFile) ;
-//    if(!file.exists())  return ;
-//    var configContent = new java.lang.String(eXo.core.IOUtil.getJarEntryContent(moduleFile, configEntry)) ;
-//    configContent = configContent.replace("${dialect}", this.dbinstance.dialect) ;
-//    configContent = configContent.replace("${driverClass}", this.dbinstance.driverClass) ;
-//    configContent = configContent.replace("${connectionUrl}", this.dbinstance.conectionURL) ;
-//    configContent = configContent.replace("${username}", this.dbinstance.username) ;
-//    configContent = configContent.replace("${password}", this.dbinstance.password) ;
-//    configContent = configContent.replace("${dbtype}", this.dbinstance.name) ;
-//    var mentries = new java.util.HashMap() ;
-//    mentries.put(configEntry, configContent.getBytes("UTF-8")) ;
-//    eXo.core.IOUtil.modifyJar(moduleFile, mentries, null);
-//  }
  
   descriptor.execute =function () {
     var properties = new java.util.HashMap() ;
@@ -79,20 +62,22 @@ DBInstance.prototype.ConfigureTask = function(product, server) {
     properties.put("${username}", this.dbinstance.username) ;
     properties.put("${password}", this.dbinstance.password) ;
         
-    var imports = new java.util.HashMap() ;
-    imports.put("war:/conf/database-configuration.hsql.xml", "war:/conf/database-configuration.xml") ;
-    eXo.core.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/configuration.xml", imports);
-    eXo.core.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/database-configuration.xml", properties);
+    var mentries = new java.util.HashMap() ;
+    var configTmpl = eXo.core.IOUtil.getJarEntryContent(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/database-configuration.tmpl.xml");
+    var config = eXo.core.Util.modifyText(new java.lang.String(configTmpl), properties) ;
+    mentries.put("war:/conf/jcr/database-configuration.xml", config) ;
 
-		var imports = new java.util.HashMap() ;
-    imports.put("war:/conf/jcr/exo-jcr-config.tmpl.xml", "war:/conf/jcr/exo-jcr-config.xml") ;
-    imports.put("war:/conf/jcr/jcr-configuration.tmpl.xml", "war:/conf/jcr/jcr-configuration.xml") ;
     var properties = new java.util.HashMap() ;
 		properties.put("${dialect}", this.dbinstance.name);
-    eXo.core.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/configuration.xml", imports);
-    eXo.core.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/jcr/exo-jcr-config.xml", properties);
-    eXo.core.IOUtil.modifyJarEntry(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/jcr/jcr-configuration.xml", properties);
     
+    configTmpl = eXo.core.IOUtil.getJarEntryContent(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/jcr/exo-jcr-config.tmpl.xml");
+    config = eXo.core.Util.modifyText(new java.lang.String(configTmpl), properties) ;
+    mentries.put("war:/conf/jcr/jcr/exo-jcr-config.xml", config) ;
+    
+    configTmpl = eXo.core.IOUtil.getJarEntryContent(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/jcr/jcr-configuration.tmpl.xml");
+    config = eXo.core.Util.modifyText(new java.lang.String(configTmpl), properties) ;
+    mentries.put("war:/conf/jcr/jcr/jcr-configuration.xml", config) ;
+    eXo.core.IOUtil.modifyJar(server.deployWebappDir + "/" + product.portalwar, mentries, null) ;
   }
   return descriptor;
 }
