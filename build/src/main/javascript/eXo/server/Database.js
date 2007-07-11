@@ -67,7 +67,7 @@ DBInstance.prototype.ConfigureTask = function(product, server) {
     var configTmpl = 
       IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/database-configuration.tmpl.xml");
     var config = eXo.core.Util.modifyText(configTmpl, properties) ;
-    mentries.put("war:/conf/jcr/database-configuration.xml", config) ;
+    mentries.put("WEB-INF/conf/database-configuration.xml", config.getBytes()) ;
 
     var properties = new java.util.HashMap() ;
 		properties.put("${dialect}", this.dbinstance.name);
@@ -75,13 +75,14 @@ DBInstance.prototype.ConfigureTask = function(product, server) {
     configTmpl = 
       IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/jcr/exo-jcr-config.tmpl.xml");
     config = eXo.core.Util.modifyText(configTmpl, properties) ;
-    mentries.put("war:/conf/jcr/jcr/exo-jcr-config.xml", config) ;
+    mentries.put("WEB-INF/conf/jcr/exo-jcr-config.xml", config.getBytes()) ;
     
     configTmpl = 
       IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/jcr/jcr-configuration.tmpl.xml");
     config = eXo.core.Util.modifyText(configTmpl, properties) ;
-    mentries.put("war:/conf/jcr/jcr/jcr-configuration.xml", config) ;
-    eXo.core.IOUtil.modifyJar(server.deployWebappDir + "/" + product.portalwar, mentries, null) ;
+    mentries.put("WEB-INF/conf/jcr/jcr-configuration.xml", config.getBytes()) ;
+
+    IOUtil.modifyJar(server.deployWebappDir + "/" + product.portalwar, mentries, null) ;
   }
   return descriptor;
 }
