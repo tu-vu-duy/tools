@@ -144,6 +144,10 @@ IOUtil.prototype.getJarEntryContent = function(fileName, entryName) {
   return null;
 }
 
+IOUtil.prototype.getJarEntryAsText = function(fileName, entryName) {
+  return new java.lang.String(this.getJarEntryContent(fileName, entryName));
+}
+
 IOUtil.prototype.modifyJarEntry = function(moduleFile, configEntry, properties) {
   var  file = new java.io.File(moduleFile) ;
   if(!file.exists())  return ;

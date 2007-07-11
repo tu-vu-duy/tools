@@ -56,26 +56,30 @@ DBInstance.prototype.ConfigureTask = function(product, server) {
  
   descriptor.execute =function () {
     var properties = new java.util.HashMap() ;
+    var IOUtil =  eXo.core.IOUtil ;
     properties.put("${dialect}", this.dbinstance.dialect) ;
     properties.put("${driverClass}", this.dbinstance.driverClass) ;
     properties.put("${connectionUrl}", this.dbinstance.conectionURL) ;
     properties.put("${username}", this.dbinstance.username) ;
     properties.put("${password}", this.dbinstance.password) ;
-        
+    var jarFile =  server.deployWebappDir + "/" + product.portalwar ;
     var mentries = new java.util.HashMap() ;
-    var configTmpl = eXo.core.IOUtil.getJarEntryContent(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/database-configuration.tmpl.xml");
-    var config = eXo.core.Util.modifyText(new java.lang.String(configTmpl), properties) ;
+    var configTmpl = 
+      IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/database-configuration.tmpl.xml");
+    var config = eXo.core.Util.modifyText(configTmpl, properties) ;
     mentries.put("war:/conf/jcr/database-configuration.xml", config) ;
 
     var properties = new java.util.HashMap() ;
 		properties.put("${dialect}", this.dbinstance.name);
     
-    configTmpl = eXo.core.IOUtil.getJarEntryContent(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/jcr/exo-jcr-config.tmpl.xml");
-    config = eXo.core.Util.modifyText(new java.lang.String(configTmpl), properties) ;
+    configTmpl = 
+      IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/jcr/exo-jcr-config.tmpl.xml");
+    config = eXo.core.Util.modifyText(configTmpl, properties) ;
     mentries.put("war:/conf/jcr/jcr/exo-jcr-config.xml", config) ;
     
-    configTmpl = eXo.core.IOUtil.getJarEntryContent(server.deployWebappDir + "/" + product.portalwar, "WEB-INF/conf/jcr/jcr-configuration.tmpl.xml");
-    config = eXo.core.Util.modifyText(new java.lang.String(configTmpl), properties) ;
+    configTmpl = 
+      IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/jcr/jcr-configuration.tmpl.xml");
+    config = eXo.core.Util.modifyText(configTmpl, properties) ;
     mentries.put("war:/conf/jcr/jcr/jcr-configuration.xml", config) ;
     eXo.core.IOUtil.modifyJar(server.deployWebappDir + "/" + product.portalwar, mentries, null) ;
   }
