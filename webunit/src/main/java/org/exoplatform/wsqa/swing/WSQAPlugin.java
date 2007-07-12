@@ -27,7 +27,7 @@ public class WSQAPlugin implements Plugin {
   
   public void onInitApplication(Application app) throws Exception {
     webunitRecorderPl_ = new WebunitRecorderViewPlugin() ;
-    JInternalFrame frame = app.getWorkspaces().openFrame("WSQA", "WSQA") ;
+    JInternalFrame frame = app.getWorkspaces().openFrame("WSQA") ;
     frame.add(webunitRecorderPl_) ;
   }
   

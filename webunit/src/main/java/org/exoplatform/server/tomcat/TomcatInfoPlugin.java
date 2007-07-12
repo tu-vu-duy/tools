@@ -100,7 +100,7 @@ public class TomcatInfoPlugin extends JPanel implements ViewPlugin {
       public void actionPerformed(ActionEvent ae) {
         try {
           JInternalFrame frame = 
-            Application.getInstance().getWorkspaces().openFrame("bbb", "Chart") ;
+            Application.getInstance().getWorkspaces().openFrame("Chart") ;
           
           JPanel pnlRight = new JPanel(new BorderLayout());
           JExoTextEditor textEditor = new JExoTextEditor();

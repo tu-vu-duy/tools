@@ -12,11 +12,18 @@ import java.util.Map;
 import java.awt.event.ComponentEvent;
 
 
+import javax.swing.DefaultDesktopManager;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
 import javax.swing.event.InternalFrameAdapter;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
+import javax.swing.plaf.InternalFrameUI;
+import javax.swing.tree.TreePath;
+
+import org.exoplatform.swing.event.EventManager;
+import org.exoplatform.swing.explorer.ExplorerViewPlugin;
+import org.exoplatform.swing.log.LogPlugin;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -24,30 +31,37 @@ import javax.swing.event.InternalFrameListener;
  * Jun 3, 2007  
  */
 public class Workspaces extends JDesktopPane {
-  private Map<String, ViewFrame> openFrames_ = new HashMap<String,ViewFrame>();
+  final static public String OPEN_FRAME_EVENT =  "app.event.open-frame" ;
+  final static public String CLOSE_FRAME_EVENT = "app.event.close-frame" ;
+  
+  private static Map<String, ViewFrame> openFrames_ = new HashMap<String,ViewFrame>();
   public static ViewFrame frame;
+
+  
   
   public Workspaces() {
     setDragMode(JDesktopPane.OUTLINE_DRAG_MODE);
     setName("Workspaces") ;
-    
+
   }
   
   public void closeFrame(JInternalFrame frame) throws Exception {
-    openFrames_.remove(frame) ;
+    openFrames_.remove(Integer.toString(frame.hashCode())) ;
+    EventManager.getInstance().broadcast(CLOSE_FRAME_EVENT, this, frame);
   }
   
-  public JInternalFrame openFrame(String id, String label) throws Exception {
+  public JInternalFrame openFrame(String label) throws Exception {
     frame = new ViewFrame(label) ;
-    
     frame.setSize(700, 500) ;
-    frame.setLocation(15 * openFrames_.size(), 20 * openFrames_.size());
+    frame.setLocation(15 * openFrames_.size(), 15 * openFrames_.size());
     frame.setVisible(true) ;
     frame.setSelected(true) ;   
     frame.addInternalFrameListener(new FrameEventListener()) ;
     add(frame);
-    openFrames_.put(id, frame) ;
+    openFrames_.put(Integer.toString(frame.hashCode()), frame) ;
     frame.toFront() ;
+    System.out.println("frame:" + frame.getTitle());
+    EventManager.getInstance().broadcast(OPEN_FRAME_EVENT, this, frame);
     return frame ;
   }
   
@@ -60,13 +74,6 @@ public class Workspaces extends JDesktopPane {
   static public class ViewFrame  extends JInternalFrame {
     public ViewFrame(String label) {
       super(label, true, true, true, true) ;
-      
-      addInternalFrameListener(new InternalFrameAdapter() {
-        public void internalFrameIconified(InternalFrameEvent ie) {
-          //setVisible(false);
-          
-        }
-      });
     }
   }
   
@@ -94,7 +101,9 @@ public class Workspaces extends JDesktopPane {
     public void internalFrameDeiconified(InternalFrameEvent event) {
     }
 
-    public void internalFrameIconified(InternalFrameEvent event) {
+    public void internalFrameIconified(InternalFrameEvent event) {     
+    
+      event.getInternalFrame().hide();
     }
 
     public void internalFrameOpened(InternalFrameEvent event) {

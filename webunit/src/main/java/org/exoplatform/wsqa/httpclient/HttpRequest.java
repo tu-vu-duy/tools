@@ -54,22 +54,21 @@ public class HttpRequest {
     return os.toByteArray() ;
   }
   
+  public byte[] getRequestData() throws Exception {
+    ByteArrayOutputStream os = new ByteArrayOutputStream() ;
+    os.write(headers_.toBytes());
+    if(requestBody_ != null) os.write(requestBody_.toBytes());
+    return os.toByteArray() ;
+  }
+  
+  public String getRequestDataAsText() throws Exception {
+    return new String(getRequestData()) ;
+  }
+  
   public void forward(OutputStream os) throws Exception {
     os.write(headers_.toBytes()) ;
-    //System.out.println("============================================================================") ;
-    //System.out.print(new String(headers_.toBytes()));
     if(requestBody_ != null) {
       os.write(requestBody_.toBytes()) ;
-      //System.out.print(new String(requestBody_.getContentBody()));
     }
-  }
-
-  public String getRequestDataAsText() throws Exception {
-    StringBuilder b = new StringBuilder() ;
-    b.append(new String(headers_.toBytes()));
-    if(requestBody_ != null) {
-      b.append(new String(requestBody_.toBytes()));
-    }
-    return b.toString() ;
   }
 }

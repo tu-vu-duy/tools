@@ -5,12 +5,24 @@
 package org.exoplatform.wsqa.swing;
 
 import java.awt.CardLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.PopupMenu;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JComponent;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTree;
@@ -20,6 +32,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import org.exoplatform.swing.ViewPlugin;
+
 import org.exoplatform.wsqa.httpclient.WebUnitExecuteContext;
 /**
  * Created by The eXo Platform SARL
@@ -32,9 +45,10 @@ public class HttpClientLogViewPlugin extends JPanel implements ViewPlugin {
   private static HttpClientLogViewPlugin  singleton_ =  new HttpClientLogViewPlugin() ;
 
   private HttpClientResultModel httpClientResultModel_ ;
-  private JTree jtree_ ; 
+  private static JTree jtree_ ; 
   private HttpClientNodeModel selectClientNode_ = null ;
   private HttpClientResultPanel resultPanel_ ;
+  private static DefaultMutableTreeNode selectNode;
   
   private HttpClientLogViewPlugin() {
     setName(NAME) ;
@@ -49,7 +63,7 @@ public class HttpClientLogViewPlugin extends JPanel implements ViewPlugin {
     jtree_ = new  JTree(httpClientResultModel_) ;
     jtree_.addTreeSelectionListener(new TreeSelectionListener() {
       public void valueChanged(TreeSelectionEvent evt) {
-        DefaultMutableTreeNode selectNode = (DefaultMutableTreeNode)evt.getPath().getLastPathComponent() ;
+        selectNode = (DefaultMutableTreeNode)evt.getPath().getLastPathComponent() ;
         if(selectNode instanceof HttpClientNodeModel) {
           HttpClientNodeModel selectClientNode = (HttpClientNodeModel) selectNode ;
           if(selectClientNode != selectClientNode_) {
@@ -63,12 +77,45 @@ public class HttpClientLogViewPlugin extends JPanel implements ViewPlugin {
         }
       }
     }) ;
+   
+    final LogPopupMenu popup = new LogPopupMenu(); 
+    jtree_.addMouseListener(new MouseAdapter() {
+      public void mousePressed(MouseEvent evt) {
+        if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
+          popup.show((JComponent)evt.getSource(), evt.getX(), evt.getY());
+          jtree_.updateUI();
+        }
+      }
+    });
+    
+    
     scrollPane.setViewportView(jtree_) ;
     splitPane.setLeftComponent(scrollPane);
     resultPanel_ = new HttpClientResultPanel() ;
     splitPane.setRightComponent(resultPanel_) ;
   }
 
+  static class LogPopupMenu extends JPopupMenu {
+    static JMenuItem menuItemOpen, menuItemDelete;
+
+    public LogPopupMenu() {
+      setPreferredSize(new Dimension(150, 150));
+      menuItemOpen = new JMenuItem("Open");
+      menuItemDelete = new JMenuItem("Delete");
+      menuItemDelete.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+          int result = JOptionPane.showConfirmDialog(null, "Are you sure want to delete?", "Confirm", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+          if (result == 0) {
+            //jtree_.remove((Component)(Object)selectNode);
+          }
+        }
+      });
+      
+      add(menuItemOpen);
+      add(menuItemDelete);
+    }
+  }
+  
   public String getTitle() { return "Http Client Log"; }
   
   static public HttpClientLogViewPlugin getInstance() { 

@@ -30,7 +30,7 @@ public class LogPlugin implements Plugin {
   
   public void onInitApplication(Application app) throws Exception {
     logViewPlugin_ = new LogViewPlugin() ;
-    JInternalFrame frame = app.getWorkspaces().openFrame("Log", "Log") ;
+    JInternalFrame frame = app.getWorkspaces().openFrame("Log") ;
     frame.add(logViewPlugin_) ;
   }
   

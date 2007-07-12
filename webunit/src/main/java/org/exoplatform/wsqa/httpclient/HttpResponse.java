@@ -104,13 +104,17 @@ public class HttpResponse {
     out.write(responseBody_.toByteArray()) ;
   }
   
+  public byte[] getResponseData() throws Exception {
+    ByteArrayOutputStream os = new ByteArrayOutputStream() ;
+    os.write(headerBody_.toByteArray()) ;
+    if(statusCode_ == NOT_MODIFIED_CODE_304)  os.toByteArray() ;
+    if(statusCode_ == STATUS_STRING_MOVED_CODE_302)  return os.toByteArray();
+    os.write(responseBody_.toByteArray()) ;
+    return os.toByteArray() ;
+  }
+  
   public String getResponseDataAsText() throws Exception {
-    StringBuilder b = new StringBuilder() ;
-    b.append(new String(headerBody_.toByteArray())) ;
-    if(statusCode_ == NOT_MODIFIED_CODE_304)  b.toString() ;
-    if(statusCode_ == STATUS_STRING_MOVED_CODE_302)  return b.toString();
-    b.append(new String(responseBody_.toByteArray())) ;
-    return b.toString() ;
+    return new String(getResponseData()) ;
   }
   
   private int parseBody(InputStream is , int bodySize) throws Exception {

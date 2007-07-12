@@ -59,7 +59,7 @@ public class JExoTextEditor extends JPanel {
       public void actionPerformed(ActionEvent ae) {
         try {
           final JInternalFrame frame = 
-            Application.getInstance().getWorkspaces().openFrame("", "") ;
+            Application.getInstance().getWorkspaces().openFrame("New") ;
             JExoTextEditor textEditor = new JExoTextEditor() ;
             frame.add(textEditor);
               

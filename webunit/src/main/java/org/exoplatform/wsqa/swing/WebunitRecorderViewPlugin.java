@@ -39,14 +39,12 @@ import org.exoplatform.wsqa.recorder.RequestFilter;
 public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
   final static public String WORKSPACE_NAME = "WSQAWorkspace" ;
   private static String[]  TABLE_HEADERS = {"#","Name", "Description"} ;
-  
   private JExoToolBar toolBar_ = new JExoToolBar();
-  
   private ProxyServer server_ ;
   private Suite suite_ = new Suite() ;
-  
   private WebunitTableModel webunitTableModel_ ;
   private JTable webunitTable_ ;
+  private int count = 1;
   
   public  WebunitRecorderViewPlugin() {
     setLayout(new BorderLayout());
@@ -62,8 +60,6 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
         if (evt.getButton()== MouseEvent.BUTTON3 || evt.isPopupTrigger()){
           JTable source = (JTable)evt.getSource();
           popupMenu.show(source, evt.getX(),evt.getY());
-  
-          //removeUnit(webunitTable_.getSelectedRow());
         }
       }
     });
@@ -97,11 +93,6 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
     toolBar_.addButton(button) ;
     toolBar_.addSeparator();
     
-    button = new JButton("Compare") ;
-    button.setToolTipText("Show Byte Comparator Panel") ;
-    button.addActionListener(new ShowByteComparatorPanel());
-    toolBar_.addButton(button) ;
-    
     add(toolBar_, BorderLayout.NORTH);
     
     //ListOpenedFileViewPlugin.addButton(getTitle());
@@ -112,7 +103,9 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
   
   public void addUnit(WebUnit unit) throws Exception {
     suite_.addWebUnit(unit) ;
-    webunitTableModel_.addRow(new String[] {"?", unit.getPathInfo(), "new " });
+    if (webunitTableModel_.getRowCount() == 0) count = 1;
+    else count = 1 + Integer.parseInt(webunitTableModel_.getValueAt(webunitTableModel_.getRowCount() - 1, 0).toString());
+    webunitTableModel_.addRow(new String[] {"" + count, unit.getPathInfo(), "new " });
     webunitTableModel_.fireTableDataChanged();
   }
   
@@ -187,7 +180,7 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
       if(frame == null) {
         try {
           frame = 
-            Application.getInstance().getWorkspaces().openFrame(HttpClientLogViewPlugin.NAME, "Http Client Log") ;
+            Application.getInstance().getWorkspaces().openFrame("Http Client Log") ;
           frame.add(HttpClientLogViewPlugin.getInstance()) ;
         } catch(Exception ex) {
           ex.printStackTrace() ;
@@ -201,7 +194,7 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
       try {
         String scriptText = WebunitJavaScriptGenerator.generate(suite_) ;
         JInternalFrame frame = 
-          Application.getInstance().getWorkspaces().openFrame("", "") ;
+          Application.getInstance().getWorkspaces().openFrame("Webunit Script") ;
         JExoJavascriptEditor editor = new JExoJavascriptEditor() ;
         editor.setText(scriptText) ;
         frame.add(editor) ;
@@ -211,14 +204,37 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
     }
   }
   
-  public class ShowByteComparatorPanel implements ActionListener {
+  //TODO Rename to Compare Request Data
+  public class RequestComparatorActionListener implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
       try {
-        JInternalFrame frame = Application.getInstance().getWorkspaces().openFrame("table", "Table") ; 
-        ByteComparatorPanel panel = new ByteComparatorPanel();
-        frame.add(panel);
+        JInternalFrame frame = 
+          Application.getInstance().getWorkspaces().openFrame("Request Data Comparator") ; 
+        int selectedRow = webunitTable_.getSelectedRow() ;
+        WebUnit unit = suite_.getWebUnits().get(selectedRow) ;
+        byte[] requestData = unit.getHttpRequest().getRequestData() ;
+        byte[] origReqData = unit.getHttpRequest().getOriginalRequestData() ;
+        ByteComparatorPanel byteComparatorPanel = new ByteComparatorPanel(requestData, origReqData);
+        frame.add(byteComparatorPanel);
+      } catch (Exception ex) {
+        ex.printStackTrace();
       }
-      catch (Exception ex) {
+        
+    }
+  }
+  
+  public class ResponseComparatorActionListener implements ActionListener {
+    public void actionPerformed(ActionEvent ae) {
+      try {
+        JInternalFrame frame = 
+          Application.getInstance().getWorkspaces().openFrame("Response Data Comparator") ; 
+        int selectedRow = webunitTable_.getSelectedRow() ;
+        WebUnit unit = suite_.getWebUnits().get(selectedRow) ;
+        byte[] resData = unit.getHttpResponse().getResponseData() ;
+        byte[] origResData = unit.getHttpResponse().getOriginalResponseData() ;
+        ByteComparatorPanel byteComparatorPanel = new ByteComparatorPanel(resData, origResData);
+        frame.add(byteComparatorPanel);
+      } catch (Exception ex) {
         ex.printStackTrace();
       }
         
@@ -234,7 +250,7 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
             int selectedRow = webunitTable_.getSelectedRow() ;
             WebUnit unit = suite_.getWebUnits().get(selectedRow) ;
             JInternalFrame frame = 
-              Application.getInstance().getWorkspaces().openFrame("WebUnitData", "Webunit Data") ;
+              Application.getInstance().getWorkspaces().openFrame("Webunit Data") ;
             WebUnitDataViewPlugin view = new WebUnitDataViewPlugin() ;
             String requestData = unit.getHttpRequest().getRequestDataAsText() ;
             String responseData = unit.getHttpResponse().getResponseDataAsText() ;
@@ -253,7 +269,7 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
             int selectedRow = webunitTable_.getSelectedRow() ;
             WebUnit unit = suite_.getWebUnits().get(selectedRow) ;
             JInternalFrame frame = 
-              Application.getInstance().getWorkspaces().openFrame("WebUnitOrginalData", "Webunit Original Data") ;
+              Application.getInstance().getWorkspaces().openFrame("Webunit Original Data") ;
             WebUnitDataViewPlugin view = new WebUnitDataViewPlugin() ;
             String requestData =new String(unit.getHttpRequest().getOriginalRequestData()) ;
             String responseData = new String(unit.getHttpResponse().getOriginalResponseData()) ;
@@ -278,6 +294,14 @@ public class WebunitRecorderViewPlugin extends JPanel implements ViewPlugin {
         public void actionPerformed(ActionEvent evt) {
           new AddRowDialog();
         }});
+      //add(menuItem);
+      
+      menuItem = new JMenuItem("Compare Request");
+      menuItem.addActionListener(new RequestComparatorActionListener());
+      add(menuItem);
+      
+      menuItem = new JMenuItem("Compare Response");
+      menuItem.addActionListener(new ResponseComparatorActionListener());
       add(menuItem);
     }
   }

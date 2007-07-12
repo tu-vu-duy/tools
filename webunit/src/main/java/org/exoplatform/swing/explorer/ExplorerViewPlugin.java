@@ -8,12 +8,10 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.Enumeration;
-import java.awt.event.*;
 
 import javax.swing.JComponent;
 import javax.swing.JInternalFrame;
@@ -25,20 +23,17 @@ import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.event.InternalFrameAdapter;
-import javax.swing.event.InternalFrameListener;
+import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-import javax.swing.event.*;
 
 import org.exoplatform.swing.Application;
 import org.exoplatform.swing.JExoTextEditor;
 import org.exoplatform.swing.ViewPlugin;
-
-import sun.security.action.OpenFileInputStreamAction;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -60,7 +55,7 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
     jtree = new  JTree() ;
     scrollPane.setViewportView(jtree) ;
 
-    final File root = new File("/") ;
+    final File root = new File("D:/") ;
     FileNode rootNode = new FileNode(root.getName(), root);
     File[] children = root.listFiles() ;
     for(File file :  children) {
@@ -75,12 +70,20 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
       public void valueChanged(TreeSelectionEvent evt) {
         System.out.println("==> Tree Action Listener") ;
         final JTree jtree  = (JTree)evt.getSource() ; 
-        System.out.println("evt : " + evt.getPath().getLastPathComponent());
-        if (evt.getPath().getLastPathComponent() == null) selectFileNode = new FileNode(root.getName(), root); 
-        else selectFileNode = (FileNode)evt.getPath().getLastPathComponent() ;
+        if (evt.getPath().getLastPathComponent() == null) {
+          selectFileNode = new FileNode(root.getName(), root); 
+        }
+        else {
+          try {
+            selectFileNode = (FileNode)evt.getPath().getLastPathComponent() ;
+            System.out.println("no exception: " + evt.getPath().getLastPathComponent().toString());
+          } catch (Exception ex) {
+            System.out.println("exception: " + evt.getPath().getLastPathComponent().toString());
+            ex.printStackTrace();
+          }  
+        }
 
         if (menuItemXmlAdded) {
-          //System.out.println("removeeee");
           OptionMenu.menuOpenAs.remove(OptionMenu.menuItemXml);
         }
 
@@ -90,14 +93,14 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
            
             try {
               final JInternalFrame frame = 
-                Application.getInstance().getWorkspaces().openFrame(filePath, filePath) ;
-              frame.addComponentListener(new ComponentAdapter() {
-                public void componentHidden(ComponentEvent e) {
-                 System.out.println("select file node" + selectFileNode.getParent()); 
-                 if (selectFileNode.getParent() != null) jtree.setSelectionPath(new TreePath(selectFileNode.getParent())); 
-                 else jtree.setSelectionPath(new TreePath("D:/"));
+                Application.getInstance().getWorkspaces().openFrame(filePath) ;
+              frame.addInternalFrameListener(new InternalFrameAdapter() {
+                public void internalFrameClosed(InternalFrameEvent e) { 
+                  if (selectFileNode.getParent() != null) jtree.setSelectionPath(new TreePath(selectFileNode.getParent())); 
+                  else jtree.setSelectionPath(new TreePath(null));   ////
                 }
               });
+             
               JExoTextEditor textEditor = new JExoTextEditor() ;
               textEditor.opentFile(filePath) ;
               textEditor.setVisible(true) ;
@@ -159,6 +162,7 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
     });
   }
 
+  public static JTree getTree() { return jtree; }
   public String getTitle() { return "File Explorer"; }
 
   static class FileNode extends DefaultMutableTreeNode {
@@ -227,7 +231,6 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
       menuItemDelete.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent ae) {
           if ((selectFileNode != null)&&(selectFileNode.getParent() != null)) {
-            System.out.println("select nodeeeee: " + selectFileNode.toString());
             int result = JOptionPane.showConfirmDialog(null, "Are you sure want to delete?", "Confirm", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
             if (result == 0) {
               try {
@@ -262,12 +265,13 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
       if(selectFileNode.isLeaf()) {
         String filePath = selectFileNode.getFilePath() ;
         try {
-          final JInternalFrame frame = 
-            Application.getInstance().getWorkspaces().openFrame(filePath, filePath) ;
-          frame.addComponentListener(new ComponentAdapter() {
-            public void componentHidden(ComponentEvent e) {
-             if (selectFileNode.getParent() != null)  jtree.setSelectionPath(new TreePath(selectFileNode.getParent()));
-             else jtree.setSelectionPath(new TreePath("/"));
+          JInternalFrame frame = 
+            Application.getInstance().getWorkspaces().openFrame(filePath) ;
+          
+          frame.addInternalFrameListener(new InternalFrameAdapter() {
+            public void internalFrameClosed(InternalFrameEvent e) { 
+              if (selectFileNode.getParent() != null) jtree.setSelectionPath(new TreePath(selectFileNode.getParent())); 
+              else jtree.setSelectionPath(new TreePath(null));
             }
           });
           JExoTextEditor textEditor = new JExoTextEditor() ;

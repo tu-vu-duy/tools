@@ -135,7 +135,7 @@ public class HttpClientResultPanel extends JPanel implements ViewPlugin {
           try {
             WebUnitExecuteContext rundata = getSelectedRunData() ;
             JInternalFrame frame = 
-              Application.getInstance().getWorkspaces().openFrame("WebUnitData", "Webunit Data") ;
+              Application.getInstance().getWorkspaces().openFrame("Webunit Data") ;
             WebUnitDataViewPlugin view = new WebUnitDataViewPlugin() ;
             String requestData = rundata.getRequest().getRequestDataAsText() ;
             String responseData = rundata.getResponse().getResponseDataAsText() ;
@@ -153,7 +153,7 @@ public class HttpClientResultPanel extends JPanel implements ViewPlugin {
           try {
             WebUnitExecuteContext rundata = getSelectedRunData() ;
             JInternalFrame frame = 
-              Application.getInstance().getWorkspaces().openFrame("WebUnitOrginalData", "Webunit Orginal Data") ;
+              Application.getInstance().getWorkspaces().openFrame("Webunit Orginal Data") ;
             WebUnitDataViewPlugin view = new WebUnitDataViewPlugin() ;
             String requestData = new String(rundata.getRequest().getOriginalRequestData()) ;
             String responseData = new String(rundata.getResponse().getOriginalResponseData()) ;

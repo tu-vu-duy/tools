@@ -5,25 +5,30 @@
 package org.exoplatform.swing.explorer;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.*;
-import java.awt.*;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Map;
 
-
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.text.ViewFactory;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
+import javax.swing.JButton;
+import javax.swing.JInternalFrame;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.SoftBevelBorder;
 
 import org.exoplatform.swing.Application;
 import org.exoplatform.swing.ViewPlugin;
 import org.exoplatform.swing.Workspaces;
 import org.exoplatform.swing.Workspaces.ViewFrame;
-//import org.exoplatform.swing.explorer.OpenedFileViewPlugin.ViewFrame;
 
 /**
  * Created by The eXo Platform SARL
@@ -82,7 +87,11 @@ public class ListOpenedFileViewPlugin extends JPanel implements ViewPlugin {
         Workspaces workspaces = Application.getInstance().getWorkspaces() ;
         Map<String, Workspaces.ViewFrame> frames = workspaces.getOpenFrames() ;
         Object[] objFrames = frames.values().toArray(); 
+        
+        
+        
         ViewFrame[] viewFrames = new ViewFrame[objFrames.length];
+        System.out.println("open frame: " + objFrames.length);
         for (int i = 0; i < objFrames.length; i ++) {
           viewFrames[i] = (ViewFrame)objFrames[i];
         }
@@ -120,8 +129,10 @@ public class ListOpenedFileViewPlugin extends JPanel implements ViewPlugin {
         ViewFrame[] viewFrames = new ViewFrame[objFrames.length]; ;
         for (int i = 0; i < objFrames.length; i ++) {
           viewFrames[i] = (ViewFrame)objFrames[i];
-          viewFrames[i].setLocation(15 *i, 20*i);
-          viewFrames[i].toFront();
+          if (viewFrames[i].isVisible()) {
+            viewFrames[i].setLocation(15 *i, 20*i);
+            viewFrames[i].toFront();
+          }
         }
       }
     });

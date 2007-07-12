@@ -29,62 +29,36 @@ import javax.swing.event.*;
  * Jul 3, 2007  
  */
 public class ByteComparatorPanel extends JPanel {
-  final static String TEXT = " What I've doneI face myselfto cross-out what I've become"
-                 +"erase myselfand let go of what I've donePut to restwhat you've thought of me"
-                 +"Well I clean this slatewith the hands of uncertainty[ Wtp://www.completealbumlyrics.com "
-                 +"So let mercy comeand wash away[chorus]What I've doneI face ss-out what I've become" 
-                 +"erase myselfand let go of what I've doneFor what I've doneI starpain may come"
-                 +"today this endsIm forgiving what I've doneI face myselfto cross-out what I've become" 
-                 +"erase myselfand let go of what I've doneWhat I've doneWhat I've done" 
-                 +"orgiving what I've done" 
-                 +"erase myselfand let go of what I've donePut to restwhat you've thought of me"
-                 +"Well I clean this slatewith the hands of uncertainty[ Wtp://www.completealbumlyrics.com "
-                 +"So let mercy comeand wash away[chorus]What I've doneI face ss-out what I've become" 
-                 +"erase myselfand let go of what I've doneFor what I've doneI starpain may come"
-                 +"today this endsIm forgiving what I've doneI face myselfto cross-out what I've become" 
-                 +"erase myselfand let go of what I've doneWhat I've doneWhat I've done" 
-                 +"orgiving what I've done"
-                 +"erase myselfand let go of what I've donePut to restwhat you've thought of me"
-                 +"Well I clean this slatewith the hands of uncertainty[ Wtp://www.completealbumlyrics.com "
-                 +"So let mercy comeand wash away[chorus]What I've doneI face ss-out what I've become" 
-                 +"erase myselfand let go of what I've doneFor what I've doneI starpain may come"
-                 +"today this endsIm forgiving what I've doneI face myselfto cross-out what I've become" 
-                 +"erase myselfand let go of what I've doneWhat I've doneWhat I've done" 
-                 +"orgiving what I've done";
   
-  final public int PAGE_SIZE = 1000 ;
-  
-  private byte[] buffer1, buffer2 ;
+  final public int PAGE_SIZE = 100 ;
+
   private DefaultTableModel model = new DefaultTableModel();
-  private String[] cols = {"id", "Code 1", "Character 1", "Code 2", "Character 2"}; 
+  private String[] cols = {"id", "Byte Execute","Char Execute", "Byte Original", "Char Original"}; 
   private final JTable tbl = new JTable(model);
   private JTextPane txtInfo = new JTextPane();
   private int currentStart = 0;
+  private byte[] buffer1, buffer2;
+  private int shorterBuffer_ = 0;
   
-  public ByteComparatorPanel() {
+  public ByteComparatorPanel(byte[] request, byte[] origReq) {
     setLayout(new BorderLayout());
     
-    buffer1 = TEXT.getBytes() ;
-    buffer2 = TEXT.getBytes() ;
-    System.out.println("leng: " + buffer1.length);
+    buffer1 = request;
+    buffer2 = origReq;    
+    if (buffer1.length > buffer2.length) shorterBuffer_ = buffer2.length;
+    else shorterBuffer_ = buffer1.length;
     
-    buffer2[5] = (byte) 'c' ;
-    buffer2[8] = (byte) 's' ;
-    buffer2[260] = (byte) 'a';
-    buffer2[355] = (byte) 'c' ;
-    buffer2[821] = (byte) 's' ;
-    buffer2[903] = (byte) 'a';
-    
+    buffer2[5] = (byte) 12;    
     
     JPanel pnlTable = new JPanel(new BorderLayout());
     for (int i = 0; i < cols.length; i ++) {
       model.addColumn(cols[i]);
     }
-    for (int  i = 0; i < 100; i ++) {
-      Object[] rowData = { i + 1, buffer1[i], "" + (char) buffer1[i], buffer2[i], "" + (char) buffer2[i]};  
+    for (int  i = 0; i < PAGE_SIZE; i ++) {
+      Object[] rowData = { i + 1, buffer1[i],(char) buffer1[i], buffer2[i], (char) buffer2[i]};  
       model.addRow(rowData);
     }
-    displayInfo(0, 100);
+    displayInfo();
     tbl.setDefaultRenderer(Object.class, new ColorRenderer());     
     pnlTable.add(new JScrollPane(tbl), BorderLayout.CENTER);
     
@@ -117,7 +91,7 @@ public class ByteComparatorPanel extends JPanel {
         if (model.getRowCount() > 0) {
           currentStart = Integer.parseInt(model.getValueAt(0, 0).toString()) - 1;
         }
-        else currentStart = buffer1.length - 1;        
+        else currentStart = shorterBuffer_ - 1;        
         changeViewTable(currentStart - 1000); 
       }
     });
@@ -126,7 +100,7 @@ public class ByteComparatorPanel extends JPanel {
         if (model.getRowCount() > 0) {
           currentStart = Integer.parseInt(model.getValueAt(0, 0).toString()) - 1;
         }
-        else currentStart = buffer1.length - 1;
+        else currentStart = shorterBuffer_ - 1;
         changeViewTable(currentStart - 500);  
       }
     });
@@ -135,7 +109,7 @@ public class ByteComparatorPanel extends JPanel {
         if (model.getRowCount() > 0) {
           currentStart = Integer.parseInt(model.getValueAt(0, 0).toString()) - 1;
         }
-        else currentStart = buffer1.length - 1;
+        else currentStart = shorterBuffer_ - 1;
         changeViewTable(currentStart - 100); 
       }
     });
@@ -144,7 +118,7 @@ public class ByteComparatorPanel extends JPanel {
       public void actionPerformed(ActionEvent ae) {
         if (model.getRowCount() > 0) {
           currentStart = Integer.parseInt(model.getValueAt(0, 0).toString()) - 1;
-          if (buffer1.length - currentStart > 100) changeViewTable(currentStart + 100);
+          if (shorterBuffer_ - currentStart > 100) changeViewTable(currentStart + 100);
           else {
           JOptionPane.showMessageDialog(null, "This is last view", "alert", JOptionPane.INFORMATION_MESSAGE); 
           }
@@ -156,7 +130,7 @@ public class ByteComparatorPanel extends JPanel {
       public void actionPerformed(ActionEvent ae) {
         if (model.getRowCount() > 0) {
           currentStart = Integer.parseInt(model.getValueAt(0, 0).toString()) - 1;
-          if (buffer1.length - currentStart > 500) changeViewTable(currentStart + 500);
+          if (shorterBuffer_ - currentStart > 500) changeViewTable(currentStart + 500);
           else {
           JOptionPane.showMessageDialog(null, "This is last view", "alert", JOptionPane.INFORMATION_MESSAGE); 
           }
@@ -168,7 +142,7 @@ public class ByteComparatorPanel extends JPanel {
       public void actionPerformed(ActionEvent ae) { 
         if (model.getRowCount() > 0) {
           currentStart = Integer.parseInt(model.getValueAt(0, 0).toString()) - 1;
-          if (buffer1.length - currentStart > 1000) changeViewTable(currentStart + 1000);
+          if (shorterBuffer_ - currentStart > 1000) changeViewTable(currentStart + 1000);
           else {
           JOptionPane.showMessageDialog(null, "This is last view", "alert", JOptionPane.INFORMATION_MESSAGE); 
           }
@@ -187,30 +161,32 @@ public class ByteComparatorPanel extends JPanel {
     else start = 0;
     
     int end = 0;
-    if (buffer1.length < start + 100)  end = buffer1.length;
-    else end = start + 100;
+    if (shorterBuffer_ < start + PAGE_SIZE)  end = shorterBuffer_;
+    else end = start + PAGE_SIZE;
       
     for (int  i = start; i < end; i ++) {
-      Object[] rowData = { i + 1, buffer1[i], "" + (char) buffer1[i], buffer2[i], "" + (char) buffer2[i]};  
+      Object[] rowData = { i + 1, buffer1[i], (char) buffer1[i], buffer2[i], (char) buffer2[i]};  
       model.addRow(rowData);
     }
-    displayInfo(start, end); 
   }
   
-  public void displayInfo(int start, int end) {
-    System.out.println("display info");
-    StringBuffer ErrorPosition = new StringBuffer("");
-    int countDifference = 0;
-    for (int  i = 0; i < model.getRowCount(); i ++) {
-      if (!tbl.getValueAt(i, 1).toString().trim().equals(tbl.getValueAt(i, 3).toString().trim())) {
-        countDifference ++;
-        ErrorPosition.append("" + (start + i + 1) + ",");
-      }
+  public void displayInfo() {
+    int FirstErrorPosition = -1;
+    if (buffer1.length == buffer2.length)     
+      for (int  i = 0; i < shorterBuffer_; i ++)
+        if (buffer1[i] != buffer2[i]) {
+          FirstErrorPosition = i;
+          break;
+        }
+    else FirstErrorPosition = shorterBuffer_;  
+    
+    StringBuffer str = new StringBuffer("Execute has " + buffer1.length + " bytes\nOriginal has " + buffer2.length + " bytes\n");
+    if (FirstErrorPosition == -1) {
+      str.append("Don't find error");
     }
-      
-    StringBuffer str = new StringBuffer("From byte " + (start + 1) + " to " + end + "\nHave " + countDifference + " error" );
-    str.append("\nError positions : " + ErrorPosition.toString());
-    str.deleteCharAt(str.length() - 1);
+    else {
+      str.append("First position of byte occur error:" + FirstErrorPosition);
+    }
     txtInfo.setText(str.toString());
   }
   
