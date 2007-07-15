@@ -41,9 +41,9 @@ public class ExoHttpClient extends HttpClient {
     headers.setUri(uri) ;
     headers.setMethod(unit.getMethod()) ;
     headers.setProtocol(getProtocol()) ;
-    if(unit.getContentType() != null) {
-      
-    }
+    if(unit.getContentType() != null)  headers.setContentType(unit.getContentType()) ;
+    if(unit.getReferer() != null) headers.setReferer(unit.getReferer()) ;
+    
     if(unit.getMethod().equals("POST")) {
       if(HttpPostFormRequestBody.isFormRequest(unit.getContentType())) {
         body = new HttpPostFormRequestBody(unit.getContentType(), unit.getBodyParameters()) ;

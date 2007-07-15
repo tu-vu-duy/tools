@@ -45,6 +45,11 @@ public class WebunitJavaScriptGenerator {
       b.append(". \n") ;
       b.append("  setContentType('").append(unit.getContentType()).append("')") ;
     }
+    if(unit.getReferer() != null) {
+      b.append(". \n") ;
+      b.append("  setReferer('").append(unit.getReferer()).append("')") ;
+    }
+    
     Map<String, Parameter> params = unit.getParameters() ;
     if(params != null ) {
       int counter = 0 ;

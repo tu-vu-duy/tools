@@ -21,6 +21,7 @@ public class WebUnit {
   private String pathInfo_ ;
   private Map<String, Parameter> parameters_ ;
   private String contentType_ ;
+  private String referer_ ;
   private Map<String, Parameter> bodyParameters_ ;
   
   private HttpRequest request_ ;
@@ -40,6 +41,7 @@ public class WebUnit {
     method_ = headers.getMethod() ;
     pathInfo_ = headers.getUri().getPathInfo() ;
     parameters_ = headers.getUri().getCloneParameters();
+    referer_ = headers.getReferer() ;
     
     if(method_.equals("POST")) {
       HttpRequestBody body = request.getRequestBody() ;
@@ -84,6 +86,13 @@ public class WebUnit {
     contentType_ = s ;
     return this ;
   }
+  
+  public String getReferer() { return referer_ ; }
+  public WebUnit setReferer(String s) { 
+    referer_ = s ;
+    return this ;
+  }
+  
   
   public Map<String, Parameter> getParameters()  { return parameters_ ; }
   public WebUnit addParameter(String name, String value) {
