@@ -55,7 +55,7 @@ public class ExplorerViewPlugin extends JPanel implements ViewPlugin {
     jtree = new  JTree() ;
     scrollPane.setViewportView(jtree) ;
 
-    final File root = new File("D:/") ;
+    final File root = new File("/") ;
     FileNode rootNode = new FileNode(root.getName(), root);
     File[] children = root.listFiles() ;
     for(File file :  children) {

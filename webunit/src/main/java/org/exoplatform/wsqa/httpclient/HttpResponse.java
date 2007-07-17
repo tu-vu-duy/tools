@@ -87,13 +87,16 @@ public class HttpResponse {
     int contentLength = -1 ;
     if(contentLengthHeader != null) contentLength = Integer.parseInt(contentLengthHeader) ;
     int totalRead = 0 ;
-    if(contentLength != -1) totalRead = parseBody(is, contentLength) ;
-    else totalRead = parseBody(is) ;
+    if(contentLength > 0) {
+      totalRead = parseBody(is, contentLength) ;
+    } else if(contentLength == 0) {
+    } else {
+      totalRead = parseBody(is) ;
+    }
     
     if(totalRead != contentLength) {
-      //System.out.println("\nWARNING: " + "total read = " + totalRead + " but content length = " + contentLength) ;
-    } else {
-      //System.out.println("\nOK: " + "total read = " + totalRead + " but content length = " + contentLength) ;
+      System.out.println("\nWARNING: " + "total read = " + totalRead + " but content length = " + contentLength +
+                         "  \n URI: " + requestURI_.getURI()) ;
     }    
   }
   
