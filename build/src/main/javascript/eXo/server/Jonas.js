@@ -6,7 +6,7 @@ function Jonas(jonasHome) {
   this.runningInstance_ = null ;
   this.name = "jonas" ;
   this.serverHome = jonasHome ;
-  this.cleanServer = "JONAS_4_8_4" ;
+  this.cleanServer = "JONAS_4_8_5" ;
   this.deployLibDir = this.serverHome + "/lib/apps" ;
   this.deployWebappDir = this.serverHome + "/apps/autoload/exoplatform.ear";
   this.patchDir = this.serverHome ;
