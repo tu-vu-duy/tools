@@ -71,7 +71,7 @@ abstract public class HttpClient {
     execute(unit, context) ;
       
     context.setEndTime(System.currentTimeMillis()) ;
-    String setCookie = context.getResponse().getHeaders().getSetCookie()  ;
+    String setCookie = context.getResponse().getHttpResponseHeader().getSetCookie()  ;
     if(setCookie != null) setCookie(setCookie) ;
     for(WebUnitListener listener : webUnitListeners_) listener.onPostExecute(unit, context) ;
     return context ;

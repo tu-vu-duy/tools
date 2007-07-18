@@ -8,6 +8,9 @@ import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.List;
+
+import org.exoplatform.wsqa.httpclient.validator.Validator;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -32,6 +35,13 @@ public class ExoHttpClient extends HttpClient {
     InputStream fromServer = new BufferedInputStream(serverSocket.getInputStream()) ;
     HttpResponse response = new HttpResponse(fromServer, request.getHeaders().getUri()) ;
     context.setResponse(response) ;
+    List<Validator>  validators = unit.getValidators() ;
+    if(validators != null) {
+      for(Validator validator : validators) {
+        boolean test = validator.validate(context) ;
+        if(!test) context.setError(true) ;
+      }
+    }
   }
   
   private HttpRequest createHttpRequest(WebUnit unit) throws Exception {

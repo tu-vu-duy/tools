@@ -14,194 +14,50 @@ import java.io.OutputStream;
  * Jun 4, 2007  
  */
 public class HttpResponse {
-  final static public int NOT_MODIFIED_CODE_304 = 304 ;
-  final static public int STATUS_STRING_MOVED_CODE_302 = 302 ;
-  
-  private HttpResponseHeader headers_ ;
-  private ByteArrayOutputStream responseBody_ ;
-  private ByteArrayOutputStream headerBody_ ;
-  private String protocol_ ;
-  private int statusCode_ ;
-  private String statusString_ ;
+  private HttpResponseHeader header_ ;
+  private HttpResponseBody   body_ ;
   private URI requestURI_ ;
-  
+
   public HttpResponse(InputStream is, URI requestURI) throws Exception {
     requestURI_ =  requestURI ;    
-    parse(is) ;
+    /**
+     * character ascii code:  \r = 13, \n = 10
+     */
+    header_  = new HttpResponseHeader(is) ;
+    body_ = new HttpResponseBody(is, requestURI_, header_) ;
   }
-  
-  public String getProtocol()  { return protocol_ ; }
-  public int getStatusCode()  { return statusCode_ ; }
-  public String getStatusString()  { return statusString_ ; }
-  
-  public HttpResponseHeader  getHeaders()  { return headers_ ; }
-  
-  public ByteArrayOutputStream  getResponseBody() { return responseBody_ ; }
-  
+
+  public HttpResponseHeader  getHttpResponseHeader()  { return header_ ; }
+
+  public HttpResponseBody  getHttpResponseBody() { return body_ ; }
+
   public byte[] getOriginalResponseData() throws Exception {
     ByteArrayOutputStream os = new ByteArrayOutputStream() ;
-    if(headerBody_ != null) {
-      os.write(headerBody_.toByteArray()) ;
+    if(header_.getOriginalHeaderDataAsByte() != null) {
+      os.write(header_.getOriginalHeaderDataAsByte()) ;
     }
-    if(responseBody_ != null) {
-      os.write(responseBody_.toByteArray()) ;
+    byte[] bodyData = body_.getBodyDataAsByte() ;
+    if(bodyData.length > 0) {
+      os.write(bodyData) ;
     }
     return os.toByteArray();
   }
-  
-  /**
-   * character ascii code:  \r = 13, \n = 10
-   */
-  public void parse(InputStream is) throws Exception {    
-    headers_  = new HttpResponseHeader() ;
-    responseBody_ = new ByteArrayOutputStream() ;
-    headerBody_ = new ByteArrayOutputStream() ;
-    ByteArrayOutputStream line = new ByteArrayOutputStream() ;    
-    String firstline = null ;
-    boolean keepReading = true ;
-    while(keepReading) {
-      int code = is.read();
-      if(code < 0) break ;
-      headerBody_.write(code);
-      if(code == 13) {
-      } else if (code == (byte) '\n') {
-        if(firstline == null)  {
-          firstline = new String(line.toByteArray()) ;
-          parseFirstLine(firstline) ;
-        } else if(line.size() < 3) {
-          keepReading = false ;
-        } else {                    
-          parseHeaderLine(new String(line.toByteArray())) ;
-        }
-        line.reset() ;
-      } else {
-        line.write(code);
-      }
-    } 
-    
-    if(statusCode_ == NOT_MODIFIED_CODE_304)  return ;
 
-    if(statusCode_ == STATUS_STRING_MOVED_CODE_302)  return ;
-    
-    String contentLengthHeader = headers_.get("Content-Length") ;
-    int contentLength = -1 ;
-    if(contentLengthHeader != null) contentLength = Integer.parseInt(contentLengthHeader) ;
-    int totalRead = 0 ;
-    if(contentLength > 0) {
-      totalRead = parseBody(is, contentLength) ;
-    } else if(contentLength == 0) {
-    } else {
-      totalRead = parseBody(is) ;
-    }
-    
-    if(totalRead != contentLength) {
-      System.out.println("\nWARNING: " + "total read = " + totalRead + " but content length = " + contentLength +
-                         "  \n URI: " + requestURI_.getURI()) ;
-    }    
-  }
-  
   public void forward(OutputStream out) throws Exception {
-    out.write(headerBody_.toByteArray()) ;
-    if(statusCode_ == NOT_MODIFIED_CODE_304)  return ;
-    if(statusCode_ == STATUS_STRING_MOVED_CODE_302)  return ;
-    out.write(responseBody_.toByteArray()) ;
+    out.write(header_.getOriginalHeaderDataAsByte()) ;
+    if(header_.getStatusCode() == HttpResponseHeader.NOT_MODIFIED_CODE_304)  return ;
+    if(header_.getStatusCode() == HttpResponseHeader.STATUS_STRING_MOVED_CODE_302)  return ;
+    out.write(body_.getBodyDataAsByte()) ;
   }
-  
+
   public byte[] getResponseData() throws Exception {
     ByteArrayOutputStream os = new ByteArrayOutputStream() ;
-    os.write(headerBody_.toByteArray()) ;
-    if(statusCode_ == NOT_MODIFIED_CODE_304)  os.toByteArray() ;
-    if(statusCode_ == STATUS_STRING_MOVED_CODE_302)  return os.toByteArray();
-    os.write(responseBody_.toByteArray()) ;
+    os.write(header_.getHeaderDataAsByte()) ;
+    if(header_.getStatusCode() == HttpResponseHeader.NOT_MODIFIED_CODE_304)  os.toByteArray() ;
+    if(header_.getStatusCode() == HttpResponseHeader.STATUS_STRING_MOVED_CODE_302)  return os.toByteArray();
+    os.write(body_.getBodyDataAsByte()) ;
     return os.toByteArray() ;
   }
-  
-  public String getResponseDataAsText() throws Exception {
-    return new String(getResponseData()) ;
-  }
-  
-  private int parseBody(InputStream is , int bodySize) throws Exception {
-    int totalRead = 0 ;
-    byte[] buf = new byte[4092] ;
-    while(true) {
-      int read = is.read(buf);
-      if(read == -1) {
-        cannotDetectEOF() ;
-        break ;
-      }
-      totalRead += read ;
-      responseBody_.write(buf, 0, read);
-      if(totalRead >= bodySize) break ;
-    }
-    if(totalRead != bodySize) {
-      throw new Exception("Expect body size " + bodySize + ", but the total read " + totalRead) ;
-    }    
-    return totalRead ;
-  }
-  
-  private int parseBody(InputStream is) throws Exception {
-    int totalRead = 0 ;
-    while(true) {
-      int code = is.read();
-      if(code == -1) {
-        cannotDetectEOF() ;
-        break ;
-      }
-      if(code == '0') {
-        totalRead++ ;
-        responseBody_.write(code);
-        int c1 = is.read(), c2 = is.read() , c3 = is.read() , c4 = is.read() ;
-        if(c1 != -1) {
-          totalRead++ ;
-          responseBody_.write(c1);
-        }
-        if(c2 != -1) {
-          totalRead++ ;
-          responseBody_.write(c2);
-        }
-        if(c3 != -1) {
-          totalRead++ ;
-          responseBody_.write(c3);
-        }
-        if(c4 != -1) {
-          totalRead++ ;
-          responseBody_.write(c4);
-        }
-        if(c1 == '\r' && c2 == '\n' && c3 == '\r' && c4 == '\n') { //END OF FILE
-          break ;
-        }
-      } else {
-        totalRead++ ;
-        responseBody_.write(code);
-      }
-    }
-    return totalRead ;
-  }
-  
-  private void parseHeaderLine(String line) throws Exception {    
-    int colonIndex = line.indexOf(":") ;
-    if(colonIndex < 1) throw new Exception("Line \"" + line + "\" is not a header line") ;
-    String name =  line.substring(0, colonIndex).trim() ;
-    String value =  line.substring(colonIndex + 1, line.length()).trim() ;
-    headers_.put(name, value) ;    
-  }
-  
-  private void parseFirstLine(String line) {
-    String[]  tmp = line.split(" ") ;
-    protocol_  = tmp[0] ;
-    statusCode_ =  Integer.parseInt(tmp[1]) ;
-    statusString_ = tmp[2] ;
-  }
-  
-  private void cannotDetectEOF() {
-    System.out.println("--------------------------------------------------------");
-    System.out.println("Cannot detect EOF for " + requestURI_);
-    System.out.println("Status " + statusCode_ + ", Status String " + statusString_);
-//    System.out.println(new String(headerBody_.toByteArray()));
-//    System.out.println(new String(responseBody_.toByteArray()));
-//    for(byte b : responseBody_.toByteArray()) {
-//      System.out.println("code : " + (int) b);
-//    }
-    System.out.println("--------------------------------------------------------");
-  }
- }
+
+  public String getResponseDataAsText() throws Exception { return new String(getResponseData()) ; }
+}

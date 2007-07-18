@@ -14,50 +14,50 @@ import java.io.OutputStream;
  * Jun 5, 2007  
  */
 public class HttpRequest {  
-  private HttpRequestHeader headers_ ;
-  private HttpRequestBody requestBody_ ;
+  private HttpRequestHeader header_ ;
+  private HttpRequestBody body_ ;
 
   public HttpRequest(HttpRequestHeader headers, HttpRequestBody body)  {
-    headers_ =  headers ;
-    requestBody_ = body ;
+    header_ =  headers ;
+    body_ = body ;
   }
   
   public HttpRequest(InputStream is) throws Exception {
-    headers_ = new HttpRequestHeader(is) ;
-    if("POST".equals(headers_.getMethod())) {
-      String contentType = headers_.get("Content-Type") ;
-      String contentLengthHeader = headers_.get("Content-Length") ;
+    header_ = new HttpRequestHeader(is) ;
+    if("POST".equals(header_.getMethod())) {
+      String contentType = header_.get("Content-Type") ;
+      String contentLengthHeader = header_.get("Content-Length") ;
       int contentLength = -1 ;
       if(contentLengthHeader != null) contentLength = Integer.parseInt(contentLengthHeader) ;
       if(HttpPostFormRequestBody.isFormRequest(contentType)) {
-        requestBody_ = new HttpPostFormRequestBody(contentType, contentLength, is) ;
+        body_ = new HttpPostFormRequestBody(contentType, contentLength, is) ;
       } else {
-        requestBody_ = new HttpRequestBody(contentType, contentLength, is) ;
+        body_ = new HttpRequestBody(contentType, contentLength, is) ;
       }
     }
   }
 
-  public boolean isGETMethod() { return "GET".equals(headers_.getMethod()) ; }
-  public boolean isPOSTMethod() { return "POST".equals(headers_.getMethod()) ; }
+  public boolean isGETMethod() { return "GET".equals(header_.getMethod()) ; }
+  public boolean isPOSTMethod() { return "POST".equals(header_.getMethod()) ; }
   
-  public HttpRequestHeader  getHeaders() { return headers_ ; }
-  public HttpRequestBody  getRequestBody() { return requestBody_ ;}
+  public HttpRequestHeader  getHeaders() { return header_ ; }
+  public HttpRequestBody  getRequestBody() { return body_ ;}
 
   public byte[] getOriginalRequestData() throws Exception {
     ByteArrayOutputStream os = new ByteArrayOutputStream() ;
-    if(headers_.getOriginalData() != null) {
-      os.write(headers_.getOriginalData()) ;
+    if(header_.getOriginalData() != null) {
+      os.write(header_.getOriginalData()) ;
     }
-    if(requestBody_ != null && requestBody_.getOrgininalData() != null) {
-      os.write(requestBody_.getOrgininalData()) ;
+    if(body_ != null && body_.getOrgininalData() != null) {
+      os.write(body_.getOrgininalData()) ;
     }
     return os.toByteArray() ;
   }
   
   public byte[] getRequestData() throws Exception {
     ByteArrayOutputStream os = new ByteArrayOutputStream() ;
-    os.write(headers_.toBytes());
-    if(requestBody_ != null) os.write(requestBody_.toBytes());
+    os.write(header_.toBytes());
+    if(body_ != null) os.write(body_.toBytes());
     return os.toByteArray() ;
   }
   
@@ -66,9 +66,18 @@ public class HttpRequest {
   }
   
   public void forward(OutputStream os) throws Exception {
-    os.write(headers_.toBytes()) ;
-    if(requestBody_ != null) {
-      os.write(requestBody_.toBytes()) ;
+    byte[] bodyData = null ;
+    if(body_ != null) {
+      bodyData = body_.toBytes() ;
+      header_.setContentLength(bodyData.length) ;
     }
+    os.write(header_.toBytes()) ;
+    if(bodyData != null) os.write(body_.toBytes()) ;
+//    if(!"POST".equals(header_.getMethod()))  return ;
+//    
+//    System.out.println(new String(header_.toBytes())) ;
+//    if(bodyData != null) {
+//      System.out.println(new String(bodyData)) ;
+//    }
   }
 }

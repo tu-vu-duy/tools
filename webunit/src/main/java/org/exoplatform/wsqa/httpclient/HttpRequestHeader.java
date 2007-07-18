@@ -108,9 +108,12 @@ public class HttpRequestHeader extends LinkedHashMap<String, String> {
   public String getAcceptCharset() { return get("Accept-Charset") ; }
   public void   setAcceptCharset(String s) { put("Accept-Charset", s) ; }
   
-
   public String getContentType() { return get("Content-Type") ; }
   public void   setContentType(String s) { put("Content-Type", s) ; }
+  
+  public String getContentLength() { return get("Content-Length") ; }
+  public void   setContentLength(String s) { put("Content-Length", s) ; }
+  public void   setContentLength(int length) { put("Content-Length", Integer.toString(length)) ; }
   
   public String getKeepAlive() { return get("Keep-Alive") ; }
   public void   setKeepAlive(String s) { put("Keep-Alive", s) ; }

@@ -28,7 +28,6 @@ public class WebUnitCaptor implements ConnectionListener {
   
   public void onEndConnection(Connection connection) throws Exception {
     String method = connection.getHttpRequest().getHeaders().getMethod() ;
-    System.out.println() ;
     if(method.startsWith("GET") || method.startsWith("POST")) {
       WebUnit unit = new WebUnit(connection.getHttpRequest(), connection.getHttpResponse()) ;
       if(filter_.match(unit.getPathInfo())){

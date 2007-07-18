@@ -43,7 +43,6 @@ public class URI {
   
   public URI(String uri) throws Exception {
     uri_ = uri ;
-    System.out.println(uri_);
     int schemeLimitIndex = uri.indexOf("//") + 1 ;
     if(schemeLimitIndex > 0) {
       scheme_ = uri.substring(0, schemeLimitIndex + 1) ;

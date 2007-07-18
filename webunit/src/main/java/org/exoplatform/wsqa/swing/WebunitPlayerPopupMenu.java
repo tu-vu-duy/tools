@@ -71,7 +71,7 @@ public class WebunitPlayerPopupMenu extends JPopupMenu {
       public void actionPerformed(ActionEvent evt) {
         try {
           WebUnitExecuteContext rundata = player_.getSelectedRunData() ;
-          String text = rundata.getResponse().getHeaders().toString() ;
+          String text = rundata.getResponse().getHttpResponseHeader().toString() ;
           JInternalFrame frame = 
             Application.getInstance().getWorkspaces().openFrame("Http Response") ;
           frame.add(new JExoTextEditor(text)) ;
@@ -87,7 +87,7 @@ public class WebunitPlayerPopupMenu extends JPopupMenu {
       public void actionPerformed(ActionEvent evt) {
         try {
           WebUnitExecuteContext rundata = player_.getSelectedRunData() ;
-          String responseText = new String(rundata.getResponse().getResponseBody().toByteArray()) ;
+          String responseText = new String(rundata.getResponse().getHttpResponseBody().getBodyDataAsByte()) ;
           JInternalFrame frame = 
             Application.getInstance().getWorkspaces().openFrame("Http Response") ;
           frame.add(new JExoTextEditor(responseText)) ;

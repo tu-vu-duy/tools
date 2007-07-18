@@ -6,8 +6,11 @@
 package org.exoplatform.wsqa.swing;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import org.exoplatform.swing.Application;
@@ -34,7 +38,7 @@ import org.exoplatform.wsqa.httpclient.WebUnitListener;
 public class HttpClientResultPanel extends JPanel implements ViewPlugin {
   final static public String WORKSPACE_NAME = "WSQAWorkspace" ;
   
-  private static String[]  TABLE_HEADERS = {"#","Name", "Description"} ;
+  private static String[]  TABLE_HEADERS = {"#","Name", "Description", "Error"} ;
   
   private List<WebUnitExecuteContext> datas_ = new ArrayList<WebUnitExecuteContext>() ;
   
@@ -46,9 +50,10 @@ public class HttpClientResultPanel extends JPanel implements ViewPlugin {
     popupMenu = new WebunitExecuteContextPopupMenu();
     setLayout(new BorderLayout()) ;
     jtable_ = new JTable();
+    jtable_.setDefaultRenderer(Object.class, new TableRowColorRenderer());    
     webunitTableModel_ =  new RunDataTableModel(null, TABLE_HEADERS) ;
     jtable_.setModel(webunitTableModel_);
-    jtable_.addMouseListener(new java.awt.event.MouseAdapter() {
+    jtable_.addMouseListener(new MouseAdapter() {
       public void mousePressed(MouseEvent evt) {
         if (evt.getButton() == MouseEvent.BUTTON3|| evt.isPopupTrigger()) {
           JTable source = (JTable)evt.getSource();
@@ -78,7 +83,8 @@ public class HttpClientResultPanel extends JPanel implements ViewPlugin {
     String[] rowData = {
       Integer.toString(webunitTableModel_.getRowCount()), 
       context.getRequest().getHeaders().getUri().getPathInfo(), 
-      "....."
+      ".....",
+      Boolean.toString(context.hasError())
     } ;
     webunitTableModel_.addRow(rowData);
     webunitTableModel_.fireTableDataChanged();
@@ -92,7 +98,8 @@ public class HttpClientResultPanel extends JPanel implements ViewPlugin {
       String[] rowData = {
         Integer.toString(counter), 
         context.getRequest().getHeaders().getUri().getPathInfo(), 
-        "....."
+        ".....",
+        Boolean.toString(context.hasError())
       } ;
       webunitTableModel_.addRow(rowData);
       counter++ ;
@@ -164,6 +171,18 @@ public class HttpClientResultPanel extends JPanel implements ViewPlugin {
           }
         }});
       add(menuItem);
+    }
+  }
+  
+  static class TableRowColorRenderer extends DefaultTableCellRenderer {
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, 
+                                                   boolean hasFocus, int row, int column) {
+      super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+      String cellValue = table.getValueAt(row, 3).toString() ;
+      if ("true".equals(cellValue)) setBackground(Color.red);
+      else setBackground(table.getBackground());
+      if (isSelected) setBackground(table.getSelectionBackground());
+      return this;
     }
   }
 }

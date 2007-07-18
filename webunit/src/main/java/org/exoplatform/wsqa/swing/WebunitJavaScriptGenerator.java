@@ -22,6 +22,7 @@ public class WebunitJavaScriptGenerator {
     b.append(
      "importPackage(Packages.org.exoplatform.wsqa.webunit); \n" +
      "importPackage(Packages.org.exoplatform.wsqa.httpclient); \n" +
+     "importPackage(Packages.org.exoplatform.wsqa.httpclient.validator); \n" +
      "importPackage(Packages.org.exoplatform.wsqa.swing); \n\n" +
      
      "if(console == null) console = java.lang.System.out ; \n" +
@@ -67,6 +68,7 @@ public class WebunitJavaScriptGenerator {
       if(bodyParams != null ) {
         int counter = 0 ;
         b.append(". \n") ;
+        b.append("  setMethod('POST').\n") ;
         for(Parameter param :  bodyParams.values()) {
           if(param instanceof FileParameter) {  
             FileParameter fparam = (FileParameter) param ;

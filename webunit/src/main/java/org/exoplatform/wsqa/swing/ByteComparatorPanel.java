@@ -4,12 +4,12 @@
  **************************************************************************/
 package org.exoplatform.wsqa.swing;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -18,9 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.*;
-import javax.swing.event.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * Created by The eXo Platform SARL
@@ -47,8 +46,6 @@ public class ByteComparatorPanel extends JPanel {
     buffer2 = origReq;    
     if (buffer1.length > buffer2.length) shorterBuffer_ = buffer2.length;
     else shorterBuffer_ = buffer1.length;
-    
-    buffer2[5] = (byte) 12;    
     
     JPanel pnlTable = new JPanel(new BorderLayout());
     for (int i = 0; i < cols.length; i ++) {

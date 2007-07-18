@@ -4,8 +4,12 @@
  **************************************************************************/
 package org.exoplatform.wsqa.httpclient;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+
+import org.exoplatform.wsqa.httpclient.validator.Validator;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -26,6 +30,8 @@ public class WebUnit {
   
   private HttpRequest request_ ;
   private HttpResponse response_ ;
+  
+  private List<Validator>  validators_ ;
   
   public WebUnit(String name) {
     name_ = name ;
@@ -117,6 +123,13 @@ public class WebUnit {
       bodyParameters_ = new LinkedHashMap<String, Parameter>() ;
     }
     bodyParameters_.put(name, new FileParameter(name, filename, filetype, value)) ;
+    return this ;
+  }
+  
+  public List<Validator> getValidators() { return validators_ ; }
+  public WebUnit addValidator(Validator validator) {
+    if(validators_ == null)  validators_ = new ArrayList<Validator>() ;
+    validators_.add(validator) ;
     return this ;
   }
   
