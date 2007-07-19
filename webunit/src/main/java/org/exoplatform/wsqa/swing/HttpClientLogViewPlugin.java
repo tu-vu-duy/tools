@@ -5,7 +5,6 @@
 package org.exoplatform.wsqa.swing;
 
 import java.awt.CardLayout;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -42,9 +41,8 @@ public class HttpClientLogViewPlugin extends JPanel implements ViewPlugin {
 
   private HttpClientResultModel httpClientResultModel_ ;
   private static JTree jtree_ ; 
-  private HttpClientNodeModel selectClientNode_ = null ;
+  private DefaultMutableTreeNode selectNode_ = null ;
   private HttpClientResultPanel resultPanel_ ;
-  private static DefaultMutableTreeNode selectNode;
   
   private HttpClientLogViewPlugin() {
     setName(NAME) ;
@@ -59,25 +57,15 @@ public class HttpClientLogViewPlugin extends JPanel implements ViewPlugin {
     jtree_ = new  JTree(httpClientResultModel_) ;
     jtree_.addTreeSelectionListener(new TreeSelectionListener() {
       public void valueChanged(TreeSelectionEvent evt) {
-        selectNode = (DefaultMutableTreeNode)evt.getPath().getLastPathComponent() ;
-        if(selectNode instanceof HttpClientNodeModel) {
-          HttpClientNodeModel selectClientNode = (HttpClientNodeModel) selectNode ;
-          if(selectClientNode != selectClientNode_) {
-            try {
-              selectClientNode_ = selectClientNode;
-              resultPanel_.update(selectClientNode_.datas_) ;
-            } catch(Exception ex) {
-              ex.printStackTrace() ;
-            }
-          }
-        }
+        selectNode_ = (DefaultMutableTreeNode)evt.getPath().getLastPathComponent() ;
+        setSelectNode(selectNode_) ;
       }
     }) ;
    
-    final LogPopupMenu popup = new LogPopupMenu(); 
+    final HttpClientNodePopupMenu popup = new HttpClientNodePopupMenu(); 
     jtree_.addMouseListener(new MouseAdapter() {
       public void mousePressed(MouseEvent evt) {
-        if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
+        if (evt.getButton() == MouseEvent.BUTTON3) {
           popup.show((JComponent)evt.getSource(), evt.getX(), evt.getY());
           jtree_.updateUI();
         }
@@ -90,42 +78,31 @@ public class HttpClientLogViewPlugin extends JPanel implements ViewPlugin {
     resultPanel_ = new HttpClientResultPanel() ;
     splitPane.setRightComponent(resultPanel_) ;
   }
-
-  static class LogPopupMenu extends JPopupMenu {
-    static JMenuItem menuItemOpen, menuItemDelete;
-
-    public LogPopupMenu() {
-      setPreferredSize(new Dimension(150, 150));
-      menuItemOpen = new JMenuItem("Open");
-      menuItemDelete = new JMenuItem("Delete");
-      menuItemDelete.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent ae) {
-          int result = JOptionPane.showConfirmDialog(null, "Are you sure want to delete?", "Confirm", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
-          if (result == 0) {
-            //jtree_.remove((Component)(Object)selectNode);
-          }
-        }
-      });
-      
-      add(menuItemOpen);
-      add(menuItemDelete);
-    }
-  }
   
   public String getTitle() { return "Http Client Log"; }
   
-  static public HttpClientLogViewPlugin getInstance() { 
-    return singleton_ ;
-  }
+  static public HttpClientLogViewPlugin getInstance() { return singleton_ ; }
   
+  public void setSelectNode(DefaultMutableTreeNode  selectNode) {
+    selectNode_ = selectNode ;
+    try {
+      if(selectNode != null && selectNode instanceof HttpClientNodeModel) {
+        HttpClientNodeModel selectClientNode = (HttpClientNodeModel) selectNode;
+        resultPanel_.updateData(selectClientNode.datas_) ;
+      } else {
+        resultPanel_.updateData(null) ;
+      }
+    } catch(Exception ex) {
+      ex.printStackTrace() ;
+    }
+  }
+
   public void addData(WebUnitExecuteContext context) throws Exception {
     String clientId = context.getHttpClient().getId() ;
     String suiteName = context.getHttpClient().getSuiteName() ;
     DefaultMutableTreeNode suiteNode = httpClientResultModel_.suites_.get(suiteName) ;
     if(suiteNode == null) {
-      suiteNode = new DefaultMutableTreeNode(suiteName);
-      httpClientResultModel_.add(suiteNode) ;
-      httpClientResultModel_.suites_.put(suiteName, suiteNode) ;
+      suiteNode = httpClientResultModel_.addSuite(suiteName) ;
       DefaultTreeModel model = (DefaultTreeModel) jtree_.getModel();
       model.nodeStructureChanged(httpClientResultModel_) ;
     }
@@ -138,10 +115,30 @@ public class HttpClientLogViewPlugin extends JPanel implements ViewPlugin {
       model.nodeStructureChanged(suiteNode) ;
     }
     
-    if(clientNode == selectClientNode_) {
+    if(clientNode == selectNode_) {
       resultPanel_.addData(context) ;
     } else {
       clientNode.datas_.add(context) ;
+    }
+  }
+  
+  class HttpClientNodePopupMenu extends JPopupMenu {
+    public HttpClientNodePopupMenu() {
+      JMenuItem menuItemDelete = new JMenuItem("Delete");
+      menuItemDelete.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent event) {
+          final String MESSAGE = "Are you sure want to delete?" ;
+          int result = JOptionPane.showConfirmDialog(null, MESSAGE, "Confirm", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+          if (result == 0) {
+            httpClientResultModel_.removeNode(selectNode_) ;
+            setSelectNode(null) ;
+            jtree_.setSelectionRow(0);
+            DefaultTreeModel model = (DefaultTreeModel) jtree_.getModel();
+            model.nodeStructureChanged(httpClientResultModel_) ;
+          }
+        }
+      });
+      add(menuItemDelete);
     }
   }
   
@@ -151,6 +148,31 @@ public class HttpClientLogViewPlugin extends JPanel implements ViewPlugin {
     
     public HttpClientResultModel(String label) {
       super(label) ;
+    }
+    
+    public DefaultMutableTreeNode addSuite(String suiteName) {
+      DefaultMutableTreeNode suiteNode = new DefaultMutableTreeNode(suiteName) ;
+      add(suiteNode) ;
+      suites_.put(suiteName, suiteNode) ;
+      return suiteNode ;
+    }
+    
+    public void removeNode(DefaultMutableTreeNode node) {
+      if(node == null)  return ;
+      if(node instanceof HttpClientNodeModel) {
+        DefaultMutableTreeNode suiteNode = (DefaultMutableTreeNode)node.getParent() ;
+        suiteNode.remove(node) ;
+      } else {
+        String suiteName = (String)node.getUserObject() ;
+        DefaultMutableTreeNode suiteNode = suites_.remove(suiteName) ;
+        int childrenSize = suiteNode.getChildCount() ;
+        for(int i = 0; i < childrenSize; i++) {
+          HttpClientNodeModel child = (HttpClientNodeModel)suiteNode.getChildAt(i) ;
+          String id =  (String)child.getUserObject() ;
+          clients_.remove(id) ;
+        }
+        this.remove(suiteNode) ;
+      }
     }
   }
   

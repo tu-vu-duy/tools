@@ -90,21 +90,23 @@ public class HttpClientResultPanel extends JPanel implements ViewPlugin {
     webunitTableModel_.fireTableDataChanged();
   }
   
-  public void update(List<WebUnitExecuteContext> contexts) throws Exception {
+  public void updateData(List<WebUnitExecuteContext> contexts) throws Exception {
     webunitTableModel_.setDataVector(null, TABLE_HEADERS) ;
     datas_ = contexts ;
-    int counter = 0 ;
-    for(WebUnitExecuteContext context :  contexts) {
-      String[] rowData = {
-        Integer.toString(counter), 
-        context.getRequest().getHeaders().getUri().getPathInfo(), 
-        ".....",
-        Boolean.toString(context.hasError())
-      } ;
-      webunitTableModel_.addRow(rowData);
-      counter++ ;
+    if(contexts != null) {
+      int counter = 0 ;
+      for(WebUnitExecuteContext context :  contexts) {
+        String[] rowData = {
+            Integer.toString(counter), 
+            context.getRequest().getHeaders().getUri().getPathInfo(), 
+            ".....",
+            Boolean.toString(context.hasError())
+        } ;
+        webunitTableModel_.addRow(rowData);
+        counter++ ;
+      }
     }
-    jtable_.getColumnModel().getColumn(0).setMaxWidth(3);
+    jtable_.getColumnModel().getColumn(0).setMaxWidth(5);
     webunitTableModel_.fireTableDataChanged();
   }
   

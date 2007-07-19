@@ -31,7 +31,7 @@ public class HttpResponseBody {
       totalRead = parseBody(is, uri, header) ;
     }
     
-    if(totalRead != contentLength) {
+    if(contentLength > 0 && totalRead != contentLength) {
       System.out.println("\nWARNING: " + "total read = " + totalRead + " but content length = " + contentLength +
                          "  \n URI: " +  uri.getURI()) ;
     }     
