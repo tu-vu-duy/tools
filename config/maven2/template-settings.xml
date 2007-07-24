@@ -1,32 +1,32 @@
 <!--
 | This is the configuration file for Maven. It can be specified at two levels:
- |
- |  1. User Level. This settings.xml file provides configuration for a single user, 
- |                 and is normally provided in $HOME/.m2/settings.xml.
- |
- |                 NOTE: This location can be overridden with the system property:
- |
- |                 -Dorg.apache.maven.user-settings=/path/to/user/settings.xml
- |
- |  2. Global Level. This settings.xml file provides configuration for all maven
- |                 users on a machine (assuming they're all using the same maven
- |                 installation). It's normally provided in 
- |                 ${maven.home}/conf/settings.xml.
- |
- |                 NOTE: This location can be overridden with the system property:
- |
- |                 -Dorg.apache.maven.global-settings=/path/to/global/settings.xml
- |
- | The sections in this sample file are intended to give you a running start at
- | getting the most out of your Maven installation. Where appropriate, the default
- | values (values used when the setting is not specified) are provided.
- |
- |-->
+|
+|  1. User Level. This settings.xml file provides configuration for a single user, 
+|                 and is normally provided in $HOME/.m2/settings.xml.
+|
+|                 NOTE: This location can be overridden with the system property:
+|
+|                 -Dorg.apache.maven.user-settings=/path/to/user/settings.xml
+|
+|  2. Global Level. This settings.xml file provides configuration for all maven
+|                 users on a machine (assuming they're all using the same maven
+|                 installation). It's normally provided in 
+|                 ${maven.home}/conf/settings.xml.
+|
+|                 NOTE: This location can be overridden with the system property:
+|
+|                 -Dorg.apache.maven.global-settings=/path/to/global/settings.xml
+|
+| The sections in this sample file are intended to give you a running start at
+| getting the most out of your Maven installation. Where appropriate, the default
+| values (values used when the setting is not specified) are provided.
+|
+|-->
 <settings>
- <!--  localRepository
-   | The path to the local repository maven will use to store artifacts.
-   |
-   | Default: ~/.m2/repository
+  <!--  localRepository
+  | The path to the local repository maven will use to store artifacts.
+  |
+  | Default: ~/.m2/repository
   <localRepository>d:/java/maven2/repository</localRepository>
   -->
   <localRepository>@java.dir@/exo-dependencies/repository</localRepository>
@@ -58,7 +58,7 @@
   <offline>false</offline>
   <profiles>
     <profile>
-      <id>vnserver.maven2.repo</id>  
+      <id>eXoServers</id>  
       <activation><activeByDefault>false</activeByDefault></activation> 
       <repositories>
         <repository>
@@ -67,22 +67,28 @@
           <url>http://vnserver.exoplatform.org/maven2</url>
           <layout>default</layout>
         </repository>
+        <repository>
+          <id>eXoPlatform</id>
+          <name>eXoPlatform Maven Repository</name>
+          <url>http://svn.exoplatform.org/maven</url>
+          <layout>default</layout>
+        </repository>
       </repositories>
-      
+
       <pluginRepositories>
-		<pluginRepository>
-		  <id>vietnam</id>
-		  <name>Viet Nam LAN Offical Repository</name>
-		  <url>http://vnserver.exoplatform.org/maven2</url>
-		  <releases>
-		    <updatePolicy>never</updatePolicy>
-		  </releases>
-		  <snapshots>
-		    <enabled>false</enabled>
-		  </snapshots>
-		</pluginRepository>
+        <pluginRepository>
+          <id>vietnam</id>
+          <name>Viet Nam LAN Offical Repository</name>
+          <url>http://vnserver.exoplatform.org/maven2</url>
+          <releases>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository>
       </pluginRepositories>       
-      
+
     </profile>
 
     <profile>
@@ -159,13 +165,13 @@
     <activeProfile>v2.x</activeProfile>
     <activeProfile>eXoProjects</activeProfile>
     <activeProfile>tomcat-server</activeProfile>
-    <activeProfile>vnserver.maven2.repo</activeProfile>
+    <activeProfile>eXoServers</activeProfile>
     <!--
     <activeProfile>eXoProjects</activeProfile>
     <activeProfile>tomcat-server</activeProfile>
     <activeProfile>jboss-server</activeProfile>
     <activeProfile>jonas-server</activeProfile>
-    <activeProfile>vnserver.maven2.repo</activeProfile>
+    <activeProfile>eXoServers</activeProfile>
     <activeProfile>jmeter-perftest</activeProfile>
     -->
   </activeProfiles>
