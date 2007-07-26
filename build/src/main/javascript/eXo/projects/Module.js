@@ -264,11 +264,17 @@ eXo.projects.Module = {
     portal.web = {}
     portal.web.eXoResources = 
       new Project("org.exoplatform.portal", "exo.portal.web.eXoResources", "war", version);
+    portal.web.eXoMacSkin = 
+      new Project("org.exoplatform.portal", "exo.portal.web.eXoMacSkin", "war", version);
+    portal.web.eXoVistaSkin = 
+      new Project("org.exoplatform.portal", "exo.portal.web.eXoVistaSkin", "war", version);
       
     portal.web.portal = 
       new Project("org.exoplatform.portal", "exo.portal.web.portal", "exo-portal", version).
       addDependency(portal.webui.portal) .
       addDependency(portal.web.eXoResources).
+      addDependency(portal.web.eXoMacSkin).
+      addDependency(portal.web.eXoVistaSkin).
       addDependency(jcr.frameworks.web).
       addDependency(jcr.frameworks.command) ;
     
@@ -316,6 +322,8 @@ eXo.projects.Module = {
     ecm.web.ecmportal = 
       new Project("org.exoplatform.ecm", "exo.ecm.web.portal", "exo-portal", version).
       addDependency(portal.web.eXoResources) .
+      addDependency(portal.web.eXoMacSkin) .
+      addDependency(portal.web.eXoVistaSkin) .
       addDependency(portal.webui.portal) .
       addDependency(jcr.frameworks.command) .
       addDependency(jcr.frameworks.web) ;

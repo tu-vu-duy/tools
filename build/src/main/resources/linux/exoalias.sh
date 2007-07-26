@@ -23,3 +23,4 @@ alias tomcatCleanRun="cd $EXO_WORKING_DIR/exo-tomcat/bin &&
 alias exoproject="js.sh exoproject"
 alias exobuild="js.sh exobuild"
 alias exosvn="exobsh.sh exosvn"
+alias rmdb="rm -rf d:/java/exo-working/exo-tomcat/temp/data"
