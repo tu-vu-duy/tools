@@ -1,20 +1,19 @@
-//eXo.require("eXo.server") ;
 eXo.require("eXo.server.Tomcat") ;
 eXo.require("eXo.server.Jboss") ;
 eXo.require("eXo.server.Jonas") ;
-eXo.require("eXo.projects") ;
 eXo.require("eXo.server.Database") ;
-eXo.require("eXo.projects.eXoProduct") ;
 eXo.require("eXo.core.TaskDescriptor") ;
 eXo.require("eXo.command.maven") ;
 eXo.require("eXo.command.exosvn") ;
 eXo.require("eXo.core.IOUtil") ;
+//eXo.require("eXo.projects.eXoProduct") ;
+//eXo.require("eXo.projects") ;
 
 function exobuildInstructions() {
   print(
    "\n\n" +
    "Usage the exobuild command: \n\n" +
-   "  exobuild --product=[portal,ecm,groupware,all] [--update]  [--exclude=all,pc,jcr,..] [--deploy=tomcat,jboss,jonas] \n\n" +
+   "  exobuild --product=[portal,ecm,cs,all] [--update]  [--exclude=all,pc,jcr,..] [--deploy=tomcat,jboss,jonas] \n\n" +
    "Options: \n" +
    "  * --product          is mandatory. The possible names are portal, ecm, groupware, all \n" +
    "  * --update           is optional. If you add this option, exobuild  will make a \n" +
@@ -111,11 +110,14 @@ for(var i = 0; i <args.length; i++) {
   } else if(arg == "--database=sqlserver") {
     database = eXo.server.Database.SqlServerDB() ;
   } else if ("--product=portal" == arg) {
-    product = eXo.projects.eXoProduct.portal();
+    eXo.load('pom.js', eXo.env.eXoProjectsDir + "/portal/trunk" ) ;
+    product = eXo.product.eXoProduct ;
   } else if ("--product=ecm" == arg) {
-    product = eXo.projects.eXoProduct.eXoECMProduct();
-  } else if ("--product=groupware" == arg) {
-    product = eXo.projects.eXoProduct.eXoGroupwareProduct();
+    eXo.load('pom.js', eXo.env.eXoProjectsDir + "/ecm/trunk" ) ;
+    product = eXo.product.eXoProduct ;
+  } else if ("--product=cs" == arg) {
+    eXo.load('pom.js', eXo.env.eXoProjectsDir + "/cs/trunk" ) ;
+    product = eXo.product.eXoProduct ;
   } else if ("--product=all" == arg) {
     product = eXo.projects.eXoProduct.eXoAllProduct();
   } else if ("--product=m6" == arg) {

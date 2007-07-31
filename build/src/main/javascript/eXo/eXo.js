@@ -1,5 +1,3 @@
-//importClass(Packages.java.lang.System) ;
-
 function Env() {
   this.baseDir    =  java.lang.System.getProperty("exo.base.dir");
   this.workingDir =   this.baseDir + "/exo-working" ;
@@ -18,6 +16,7 @@ function Env() {
 var eXo  = {
   core    : { } ,
   projects: { } ,
+  module:   { } ,
   server  : { } ,
   command : { } ,
 
@@ -42,15 +41,27 @@ var eXo  = {
       java.lang.System.exit(1) ;
     }
   },
+
+  load : function(relativePath, jsLocation) {
+    if(jsLocation == null) {
+      jsLocation = eXo.env.eXoProjectsDir +  '/tools/trunk/build/src/main/javascript/' ;
+    }
+    var path = jsLocation  + '/' + relativePath;
+    try {
+      load(path) ;
+    } catch(err){
+      print("Cannot load the javascript module " + module + " from " + jsLocation);
+      print(err);
+      java.lang.System.exit(1) ;
+    }
+  },
 } ;
 
 eXo.require("eXo.System")  ;
 eXo.require("eXo.core.Util")  ;
-//eXo.require("eXo.projects.Module")  ;
 
 if(arguments.length > 0) {
   var  command =  arguments[0] ;
   arguments = eXo.core.Util.shift(arguments) ;
   eXo.require("eXo.command." + command) ; 
 }
-//print("===============> END \n"  );

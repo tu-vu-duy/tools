@@ -1,5 +1,4 @@
 eXo.require("eXo.core.TaskDescriptor");
-eXo.require("eXo.projects.eXoProduct")  ;
 
 function maven() {
 
@@ -37,16 +36,3 @@ maven.prototype.MavenTask = function(projectDir, args) {
 }
 
 eXo.command.maven = maven.prototype.constructor ;
-
-/*
-var maven = new maven() ;
-product = new eXo.projects.eXoProduct.portal();
-eXo.require("eXo.server.Tomcat");
-server = new eXo.server.Tomcat(eXo.env.workingDir + "/exo-tomcat") ;
-var args = ['clean', 'install'] ; 
-var task = maven.MavenTask("d:/java/eXoProjects/tools/trunk", args) ;
-task.execute();
-
-
-print("[TEST] ===============>");
-*/

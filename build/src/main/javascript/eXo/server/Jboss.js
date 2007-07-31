@@ -1,4 +1,3 @@
-eXo.require("eXo.projects.Project");
 eXo.require("eXo.core.TaskDescriptor") ;
 eXo.require("eXo.core.IOUtil") ;
 eXo.require("eXo.server.ServerUtil") ;

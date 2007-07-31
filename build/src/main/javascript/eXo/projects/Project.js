@@ -31,14 +31,6 @@ Project.prototype.addDependency =  function(project) {
   return this ;
 }
 
-//Project.prototype.addDependencies() =  function(project) {
-//  if(this.dependencies == null) this.dependencies = new java.util.ArrayList() ;
-//  for(var i = 0; i < project.length; i++) {
-//    this.dependencies.add(project[i]) ;
-//  }
-//  return this ;
-//}
-
 Project.prototype.hasDependency = function() {return this.dependencies != null ;}
 
 Project.prototype.extractTo = function(repository, dir, ignore) {
@@ -135,6 +127,4 @@ Project.prototype.deployTo = function(repository, server) {
   }
   throw("Error while deploying the project : " + this.relativePath) ;
 }
-//  return this ;
-
 eXo.projects.Project = Project.prototype.constructor ;

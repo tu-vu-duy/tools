@@ -1,7 +1,5 @@
 eXo.require("eXo.core.TaskDescriptor")  ;
 eXo.require("eXo.projects.Project")  ;
-eXo.require("eXo.projects.eXoProduct")  ;
-eXo.require("eXo.server")  ;
 
 function DBInstance() {
   this.name = null ;
@@ -194,25 +192,3 @@ Database.prototype.SqlServerDB = function() {
 //==========================================================================================
 
 eXo.server.Database = new Database() ;
-
-//var dbinstance = eXo.server.Database.HsqlDB() ;
-
-//product = new eXo.projects.eXoProduct.portal();
-//server = new Tomcat(eXo.env.workingDir + "/exo-tomcat") ;
-
-//var task = dbinstance.DeployTask (product, server, eXo.env.m2Repos);
-//task.execute();
-
-//var descriptor = dbinstance.GetConfigTask();
-//descriptor.execute() ;
-//print ("parameter ====>  User: " + this.username);
-
-//var task = dbinstance.ConfigureTask(product, server);
-//task.modifyDbConfig("target/exo.tool.build-2.0.jar", "linux/exobuild.sh");
-
-//var task = dbinstance.ConfigureTask(product, server);
-//task.execute();
-//print ("parameter ====>  TEST PASS " );
-
-
-
