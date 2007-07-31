@@ -20,7 +20,7 @@ abstract public class HttpClient {
   private String id_ ;
   private String suiteName_ = "Default";
   private String scheme_ = "http://" ;
-  private String host_ = "localhost";
+  private String host_ = "192.168.1.29";
   private int    port_ = 8080;
   private String protocol_ = "HTTP/1.1" ;
   private String cookie_ = "JSESSIONID=AAF6D8E0FE36B9874D1225BFFE4D2E6D" ;

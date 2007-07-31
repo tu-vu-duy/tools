@@ -111,7 +111,7 @@ Database.prototype.MysqlDB = function() {
    
   instance.driverClass = "com.mysql.jdbc.Driver";
   instance.dialect = "org.hibernate.dialect.MySQLDialect" ;
-  instance.conectionURL = "jdbc:mysql://192.168.1.15:3306/exodb?relaxAutoCommit=true&amp;autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8";
+  instance.conectionURL = "jdbc:mysql://192.168.1.29:3306/exodb?relaxAutoCommit=true&amp;autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8";
   instance.username = "exo" ;
   instance.password = "exo";
     

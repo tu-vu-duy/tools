@@ -8,6 +8,7 @@
 
   <modules>
     <module>build</module>
+    <module>webunit</module>
     <module>framework/junit</module>
     <module>plugin/pc</module>
   </modules>
