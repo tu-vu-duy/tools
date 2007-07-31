@@ -120,7 +120,7 @@ for(var i = 0; i <args.length; i++) {
   } else if ("--product=cs" == arg) {
     //eXo.load('pom.js', eXo.env.eXoProjectsDir + "/cs/trunk" ) ;
     //product = eXo.product.eXoProduct ;
-    product = eXo.projects.eXoProduct.eXoPortalProduct();
+    product = eXo.projects.eXoProduct.eXoCSProduct();
   } else if ("--product=all" == arg) {
     product = eXo.projects.eXoProduct.eXoAllProduct();
   } else if ("--product=m6" == arg) {

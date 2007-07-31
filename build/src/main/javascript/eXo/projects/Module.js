@@ -331,29 +331,24 @@ eXo.projects.Module = {
      return ecm ;
   },
   
-  groupware : function(kernel, core, eXoPortletContainer, jcr, portal, version) {
-    var groupware = {}
-    groupware.version =  version ;
-    groupware.relativeMavenRepo =  "org/exoplatform/groupware" ;
-    groupware.relativeSRCRepo =  "groupware/trunk" ;
-    groupware.name =  "groupware" ;
-    
-    groupware.portlet = {}
-    groupware.portlet.forum = 
-      new Project("org.exoplatform.groupware", "exo.groupware.portlet.forum.webapp", "exo-portlet", version).
-      addDependency(new Project("org.exoplatform.groupware", "exo.groupware.portlet.forum.component", "jar",  version)) ;
-
-    groupware.portlet.mail = 
-      new Project("org.exoplatform.groupware", "exo.groupware.portlet.mail.webapp", "exo-portlet", version).
-      addDependency(new Project("org.exoplatform.groupware", "exo.groupware.portlet.mail.component", "jar",  version)) ;
-
-    groupware.portlet.calendar = 
-      new Project("org.exoplatform.groupware", "exo.groupware.portlet.calendar.webapp", "exo-portlet", version).
-      addDependency(new Project("org.exoplatform.groupware", "exo.groupware.portlet.calendar.component", "jar",  version)) ;
-
-  return  groupware ;
-  },
   
+  cs :function(kernel, core, pc, jcr, portal, version) {
+    var cs = {} ;
+    cs.version =  version ;
+    cs.relativeMavenRepo =  "org/exoplatform/cs" ;
+    cs.relativeSRCRepo =  "cs/trunk" ;
+    cs.name =  "cs" ;
+    
+    cs.eXoApplication = {};
+    cs.eXoApplication.mail = 
+      new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.webapp", "war", version);
+    cs.eXoApplication.mail.deployName = "mail";
+
+    cs.eXoApplication.forum = 
+      new Project("org.exoplatform.cs", "exo.cs.eXoApplication.forum.webapp", "war", version);
+    cs.eXoApplication.forum.deployName = "forum";
+    return cs ;
+  },
 
   m6: function (kernel, core, eXoPortletContainer, jcr, portal, version) {
     var m6 ={}
@@ -380,32 +375,3 @@ eXo.projects.Module = {
     return m6 ;
   },
 }
-/*
-var kernel = eXo.projects.Module.kernel("2.0.3") ;
-var core   = eXo.projects.Module.core("2.0.3") ;
-var eXoPortletContainer = eXo.projects.Module.eXoPortletContainer("2.0") ;
-var jcr    = eXo.projects.Module.eXoJcr("1.6") ;
-var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, jcr, "2.0") ;
-var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, jcr, portal, "2.0") ;
-var  groupware = eXo.projects.Module.groupware(kernel, core, eXoPortletContainer, jcr, portal, "2.0") ;
-var m6 = eXo.projects.Module.m6(kernel, core, eXoPortletContainer, jcr, "1.0") ;
-
-var project = portal.server.tomcat.patch ;
-
-
-
-
-print("\n[" + m6.name + "]\n") ;
-print("Project relative path: " + project.relativePath) ;
-if (project.dependencies != null) {
-print("\nNumber of the dependeny : " +  project.dependencies.size()) ;
-  for (var i = 0; i < project.dependencies.size(); i++) {
-    print("Dependeny project " + i + ": " +  project.dependencies.get(i).relativePath) ;
-
-  };
-} else print ("No dependency !");
-
-
-print("\n============[TEST PASS]==============");
-
-*/
