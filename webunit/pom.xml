@@ -6,7 +6,7 @@
   </parent> 
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>exo.tool.webjunit</artifactId>
+  <artifactId>exo.tool.webunit</artifactId>
   <packaging>jar</packaging>
   <version>${org.exoplatform.tool.version}</version>
   <name>eXo Webunit Tool</name>
@@ -32,4 +32,21 @@
       <version>3.8.1</version>
     </dependency>
   </dependencies>   
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>org.exoplatform.swing.Application</mainClass>
+              <packageName>org.exoplatform.swing</packageName>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
