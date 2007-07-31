@@ -6,7 +6,7 @@ eXo.require("eXo.core.TaskDescriptor") ;
 eXo.require("eXo.command.maven") ;
 eXo.require("eXo.command.exosvn") ;
 eXo.require("eXo.core.IOUtil") ;
-//eXo.require("eXo.projects.eXoProduct") ;
+eXo.require("eXo.projects.eXoProduct") ;
 //eXo.require("eXo.projects") ;
 
 function exobuildInstructions() {
@@ -110,14 +110,17 @@ for(var i = 0; i <args.length; i++) {
   } else if(arg == "--database=sqlserver") {
     database = eXo.server.Database.SqlServerDB() ;
   } else if ("--product=portal" == arg) {
-    eXo.load('pom.js', eXo.env.eXoProjectsDir + "/portal/trunk" ) ;
-    product = eXo.product.eXoProduct ;
+    //eXo.load('pom.js', eXo.env.eXoProjectsDir + "/portal/trunk" ) ;
+    //product = eXo.product.eXoProduct ;
+    product = eXo.projects.eXoProduct.eXoPortalProduct();
   } else if ("--product=ecm" == arg) {
-    eXo.load('pom.js', eXo.env.eXoProjectsDir + "/ecm/trunk" ) ;
-    product = eXo.product.eXoProduct ;
+    //eXo.load('pom.js', eXo.env.eXoProjectsDir + "/ecm/trunk" ) ;
+    //product = eXo.product.eXoProduct ;
+    product = eXo.projects.eXoProduct.eXoECMProduct();
   } else if ("--product=cs" == arg) {
-    eXo.load('pom.js', eXo.env.eXoProjectsDir + "/cs/trunk" ) ;
-    product = eXo.product.eXoProduct ;
+    //eXo.load('pom.js', eXo.env.eXoProjectsDir + "/cs/trunk" ) ;
+    //product = eXo.product.eXoProduct ;
+    product = eXo.projects.eXoProduct.eXoPortalProduct();
   } else if ("--product=all" == arg) {
     product = eXo.projects.eXoProduct.eXoAllProduct();
   } else if ("--product=m6" == arg) {
