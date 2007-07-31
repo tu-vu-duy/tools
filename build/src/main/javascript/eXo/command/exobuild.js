@@ -112,7 +112,7 @@ for(var i = 0; i <args.length; i++) {
   } else if ("--product=portal" == arg) {
     //eXo.load('pom.js', eXo.env.eXoProjectsDir + "/portal/trunk" ) ;
     //product = eXo.product.eXoProduct ;
-    product = eXo.projects.eXoProduct.eXoPortalProduct();
+    product = eXo.projects.eXoProduct.portal();
   } else if ("--product=ecm" == arg) {
     //eXo.load('pom.js', eXo.env.eXoProjectsDir + "/ecm/trunk" ) ;
     //product = eXo.product.eXoProduct ;
