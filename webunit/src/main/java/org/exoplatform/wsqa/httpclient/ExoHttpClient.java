@@ -42,6 +42,8 @@ public class ExoHttpClient extends HttpClient {
         if(!test) context.setError(true) ;
       }
     }
+    toServer.close() ;
+    fromServer.close() ;
     serverSocket.close() ;
   }
   
