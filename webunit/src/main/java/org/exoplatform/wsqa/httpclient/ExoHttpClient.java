@@ -42,6 +42,7 @@ public class ExoHttpClient extends HttpClient {
         if(!test) context.setError(true) ;
       }
     }
+    serverSocket.close() ;
   }
   
   private HttpRequest createHttpRequest(WebUnit unit) throws Exception {
