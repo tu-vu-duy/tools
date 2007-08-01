@@ -15,19 +15,18 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.mozilla.javascript.Context;
-import org.mozilla.javascript.Script;
-import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ImporterTopLevel;
+import org.mozilla.javascript.Script;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
  *          tuan.nguyen@exoplatform.com
  * May 24, 2007  
  */
-public class JavaScriptEngine {
+public class JSEngine {
   private Map<String, Script> scripts_ = new HashMap<String, Script>();
   
-  public JavaScriptEngine() {
+  public JSEngine() {
     
   }
   

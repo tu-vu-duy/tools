@@ -11,7 +11,7 @@ import java.util.Map;
 
 import javax.swing.JButton;
 
-import org.exoplatform.javascript.JavaScriptEngine;
+import org.exoplatform.javascript.JSEngine;
 import org.exoplatform.swing.event.EventManager;
 import org.exoplatform.swing.log.LogPlugin;
 import org.mozilla.javascript.Script;
@@ -68,7 +68,7 @@ public class JExoJavascriptEditor extends JExoTextEditor {
 
     public void run() {
       try {
-        JavaScriptEngine engine = new JavaScriptEngine() ;
+        JSEngine engine = new JSEngine() ;
         Script sobject = engine.compileScript(id_, script_) ;
         engine.execute(sobject, variables_) ;
       } catch(Exception ex) {
