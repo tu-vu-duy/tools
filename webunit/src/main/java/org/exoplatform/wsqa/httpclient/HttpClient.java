@@ -61,6 +61,7 @@ abstract public class HttpClient {
     for(WebUnit unit :  units) execute(unit) ;
     context.setEndTime(System.currentTimeMillis()) ;
     for(SuiteListener listener : suiteListeners_) listener.onPostExecute(suite, context) ;
+    System.gc() ;
   }
   
   public WebUnitExecuteContext execute(WebUnit unit) throws Exception {
