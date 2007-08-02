@@ -192,8 +192,8 @@ eXo.projects.Module = {
       addDependency(new Project("commons-codec", "commons-codec", "jar", "1.3"));
       
     portal.component.scripting =
-    	new Project("org.exoplatform.portal", "exo.portal.component.scripting", "jar", version).
-    	addDependency(new Project("rhino", "js", "jar", "1.6R5")) ;
+      new Project("org.exoplatform.portal", "exo.portal.component.scripting", "jar", version).
+      addDependency(new Project("rhino", "js", "jar", "1.6R5")) ;
 
     portal.webui = {};
     portal.webui.core = 
@@ -210,8 +210,8 @@ eXo.projects.Module = {
       addDependency(portal.component.resources) .
       addDependency(portal.component.applicationRegistry) .
       addDependency(portal.component.portal). 
-			addDependency(portal.component.scripting). 
-			
+      addDependency(portal.component.scripting). 
+      
       addDependency(kernel.container) .
       addDependency(kernel.component.common) .
       addDependency(kernel.component.remote) .
@@ -253,12 +253,12 @@ eXo.projects.Module = {
       
     portal.sample = {};
     portal.sample.framework = 
-    	new Project("org.exoplatform.portal", "exo.portal.sample.framework", "war", version);
+      new Project("org.exoplatform.portal", "exo.portal.sample.framework", "war", version);
     portal.sample.framework.deployName = "eXoSampleFramework" ;
     
     portal.eXoWidget = {};
     portal.eXoWidget.web = 
-    	new Project("org.exoplatform.portal", "exo.portal.eXoWidget.web", "war", version);
+      new Project("org.exoplatform.portal", "exo.portal.eXoWidget.web", "war", version);
     portal.eXoWidget.web.deployName = "eXoWidgetWeb" ;
     
     portal.web = {}
@@ -312,7 +312,7 @@ eXo.projects.Module = {
       addDependency(new Project("com.totsp.feedpod", "itunes-com-podcast", "jar", "0.2")) .
       addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")) .
       addDependency(new Project("jdom", "jdom", "jar", "1.0")).
-    	addDependency(new Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")) ;
+      addDependency(new Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")) ;
       //addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.bonita", "jar", version)) ;
 
     ecm.portlet.workflow = 
@@ -327,7 +327,7 @@ eXo.projects.Module = {
       addDependency(portal.webui.portal) .
       addDependency(jcr.frameworks.command) .
       addDependency(jcr.frameworks.web) ;
-    
+      
      return ecm ;
   },
   
@@ -341,11 +341,15 @@ eXo.projects.Module = {
     
     cs.eXoApplication = {};
     cs.eXoApplication.mail = 
-      new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.webapp", "war", version);
+      new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.webapp", "war", version).
+      addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar",  version));
     cs.eXoApplication.mail.deployName = "mail";
+    
+    
 
     cs.eXoApplication.forum = 
-      new Project("org.exoplatform.cs", "exo.cs.eXoApplication.forum.webapp", "war", version);
+      new Project("org.exoplatform.cs", "exo.cs.eXoApplication.forum.webapp", "war", version).
+        addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.forum.service", "jar",  version));
     cs.eXoApplication.forum.deployName = "forum";
     return cs ;
   },
