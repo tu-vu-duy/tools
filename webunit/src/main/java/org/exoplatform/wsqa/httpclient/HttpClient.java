@@ -38,6 +38,7 @@ abstract public class HttpClient {
   public String getSuiteName() { return suiteName_ ; } 
   public String getScheme()  { return scheme_ ; }
   public String getHost() { return host_ ; }
+  public void   setHost(String host) { host_ =  host ;}
   public int getPort() { return port_ ; }
   public String getProtocol() { return protocol_ ; }
   
