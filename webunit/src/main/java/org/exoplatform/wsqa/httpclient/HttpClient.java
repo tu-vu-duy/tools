@@ -40,6 +40,7 @@ abstract public class HttpClient {
   public String getHost() { return host_ ; }
   public void   setHost(String host) { host_ =  host ;}
   public int getPort() { return port_ ; }
+  public void setPort(int port) { port_ = port ; }
   public String getProtocol() { return protocol_ ; }
   
   private List<WebUnitListener> webUnitListeners_ = new ArrayList<WebUnitListener>();
