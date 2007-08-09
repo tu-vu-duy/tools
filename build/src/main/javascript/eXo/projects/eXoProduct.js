@@ -111,6 +111,8 @@ eXo.projects.eXoProduct = {
     
     product.addDependencies(cs.eXoApplication.mail) ;
     product.addDependencies(cs.eXoApplication.forum) ;
+    product.addDependencies(cs.eXoApplication.calendar) ;
+    product.addDependencies(cs.eXoApplication.contact) ;
     
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;

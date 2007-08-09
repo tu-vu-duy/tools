@@ -345,12 +345,21 @@ eXo.projects.Module = {
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar",  version));
     cs.eXoApplication.mail.deployName = "mail";
     
-    
-
     cs.eXoApplication.forum = 
       new Project("org.exoplatform.cs", "exo.cs.eXoApplication.forum.webapp", "war", version).
         addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.forum.service", "jar",  version));
     cs.eXoApplication.forum.deployName = "forum";
+    
+    cs.eXoApplication.calendar = 
+          new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.webapp", "war", version).
+            addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  version));
+    cs.eXoApplication.calendar.deployName = "calendar";
+    
+    cs.eXoApplication.contact = 
+              new Project("org.exoplatform.cs", "exo.cs.eXoApplication.contact.webapp", "war", version).
+                addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.contact.service", "jar",  version));
+    cs.eXoApplication.contact.deployName = "contact";
+    
     return cs ;
   },
 
