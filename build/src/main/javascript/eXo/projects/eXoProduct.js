@@ -55,8 +55,9 @@ eXo.projects.eXoProduct = {
     var eXoPortletContainer = eXo.projects.Module.eXoPortletContainer("2.0") ;
     var eXoJcr = eXo.projects.Module.eXoJcr("1.6") ;
     var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
-
+                                    
     var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
+    var cs = eXo.projects.Module.cs(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
     
     product.addDependencies(ecm.web.ecmportal) ;
     product.addDependencies(portal.portlet.content) ;
@@ -65,6 +66,11 @@ eXo.projects.eXoProduct = {
     product.addDependencies(portal.portlet.site) ;
     product.addDependencies(ecm.portlet.ecm) ;
     product.addDependencies(ecm.portlet.workflow) ;
+    
+    product.addDependencies(cs.eXoApplication.mail) ;
+    product.addDependencies(cs.eXoApplication.forum) ;
+    product.addDependencies(cs.eXoApplication.calendar) ;
+    product.addDependencies(cs.eXoApplication.contact) ;
 
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
@@ -140,9 +146,8 @@ eXo.projects.eXoProduct = {
     var eXoPortletContainer = eXo.projects.Module.eXoPortletContainer("2.0") ;
     var eXoJcr = eXo.projects.Module.eXoJcr("1.6") ;
     var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
-    var cs = eXo.projects.Module.cs(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
-    
-    var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
+    var cs = eXo.projects.Module.cs(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");    
+    var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");    
     
     product.addDependencies(ecm.web.ecmportal) ;
     product.addDependencies(portal.portlet.content) ;
@@ -156,7 +161,9 @@ eXo.projects.eXoProduct = {
 
     product.addDependencies(cs.eXoApplication.mail) ;
     product.addDependencies(cs.eXoApplication.forum) ;
-
+    product.addDependencies(cs.eXoApplication.calendar) ;
+    product.addDependencies(cs.eXoApplication.contact) ;
+    
     product.addDependencies(ecm.portlet.ecm) ;
     product.addDependencies(ecm.portlet.workflow) ;
 
