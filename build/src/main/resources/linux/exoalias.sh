@@ -1,4 +1,4 @@
-alias ls="ls --color"
+#alias ls="ls --color"
 alias cdhome="cd ~"
 alias cdwinhome="cd $USER_HOME"
 alias cdback='cd  $OLDPWD'
