@@ -388,4 +388,29 @@ eXo.projects.Module = {
 
     return m6 ;
   },
+  	
+  geneve: function (kernel, core, eXoPortletContainer, jcr, portal, version) {
+    var geneve ={}
+    geneve.version =  version ;
+    geneve.relativeMavenRepo =  "org/exoplatform/geneve" ;
+    geneve.relativeSRCRepo =  "geneve/website_poc/trunk" ;
+    geneve.name =  "geneve" ;
+    
+    geneve.portlet = {}
+    geneve.portlet.web = new Project("org.exoplatform.geneve", "geneve.portlet.web", "exo-portlet", version);
+    geneve.portlet.web.deployName = "genevePortletWeb" ;
+    
+    geneve.web = {}
+    geneve.web.geneveResources = new Project("org.exoplatform.geneve", "geneve.web.geneveResources", "war", version);
+    geneve.web.geneveResources.deployName = "geneveResources" ;
+
+    geneve.web.geneveportal = 
+      new Project("org.exoplatform.geneve", "geneve.web.portal", "exo-portal", version).
+      addDependency(portal.web.eXoResources) .
+      addDependency(portal.webui.portal). 
+      addDependency(jcr.frameworks.command) .
+      addDependency(jcr.frameworks.web) ;
+
+    return geneve ;
+  },
 }
