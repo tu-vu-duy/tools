@@ -352,7 +352,8 @@ eXo.projects.Module = {
     
     cs.eXoApplication.calendar = 
           new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.webapp", "war", version).
-            addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  version));
+            addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  version)).
+            addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")) ;
     cs.eXoApplication.calendar.deployName = "calendar";
     
     cs.eXoApplication.contact = 
