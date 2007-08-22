@@ -127,6 +127,8 @@ for(var i = 0; i <args.length; i++) {
     product = eXo.projects.eXoProduct.m6Product();
   } else if ("--product=geneve" == arg) {
   	product = eXo.projects.eXoProduct.geneveProduct();
+  }else if ("--product=company" == arg) {
+  	product = eXo.projects.eXoProduct.companyProduct();
   } else {
     print("UNKNOWN ARGUMENT: " + arg); 
     exobuildInstructions() ;

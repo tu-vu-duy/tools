@@ -413,4 +413,22 @@ eXo.projects.Module = {
 
     return geneve ;
   },
+  
+  company: function (kernel, core, eXoPortletContainer, jcr, portal, version) {
+    var company ={}
+    company.version =  version ;
+    company.relativeMavenRepo =  "org/exoplatform/company" ;
+    company.relativeSRCRepo =  "company/trunk" ;
+    company.name =  "company" ;
+            
+    company.web = {}    
+    company.web.portal = 
+      new Project("org.exoplatform.company", "company.web.portal", "exo-portal", version).
+      addDependency(portal.web.eXoResources) .
+      addDependency(portal.webui.portal). 
+      addDependency(jcr.frameworks.command) .
+      addDependency(jcr.frameworks.web) ;
+
+    return company ;
+  },
 }
