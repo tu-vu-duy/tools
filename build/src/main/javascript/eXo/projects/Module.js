@@ -137,6 +137,35 @@ eXo.projects.Module = {
     return eXoPortletContainer ;
   },
 
+	eXoWebService : function(version) {
+    var eXoWebService = {} ;
+    eXoWebService.versin = version ;
+    eXoWebService.relativeMavenRepo = "org/exoplatform/ws" ;
+    eXoWebService.relativeSRCRepo = "ws/trunk/" ;
+    eXoWebService.name = "ws" ;
+
+    eXoWebService.services = {} ;
+    eXoWebService.services.commons = 
+      new Project("org.exoplatform.ws.commons", "exo.ws.commons", "jar", version);
+    eXoWebService.services.commons = 
+      new Project("org.exoplatform.ws.rest", "exo.restcore", "jar", version);
+    eXoWebService.services.commons = 
+      new Project("org.exoplatform.ws.soap", "exo.soap.xfire.jsr181", "jar", version).
+      addDependency(new Project("org.codehaus.xfire","xfire-jsr181-api","1.0")).
+      addDependency(new Project("org.codehaus.xfire","xfire-all","1.2.6")).
+      addDependency(new Project("stax","stax-api","1.0.1")).
+      addDependency(new Project("wsdl4j","wsdl4j","1.6.1")).
+      addDependency(new Project("jdom","jdom","1.0"))
+      ;
+    eXoWebService.services.commons = 
+      new Project("org.exoplatform.ws.soap", "exo.soap.xfire.jsr181-examples", "jar", version)
+      addDependency(new Project("commons-httpclient","commons-httpclient","3.0.1")).
+      addDependency(new Project("javax.xml.bind","jaxb-api","2.0")).
+      addDependency(new Project("org.exoplatform.ws.soap","exo.soap.xfire.jsr181","0.1"))      
+      ;  
+    return eXoWebService ;
+  },
+  
   eXoJcr : function(version) {
     var eXoJcr = {} ;
     eXoJcr.version =  version ;
@@ -421,7 +450,9 @@ eXo.projects.Module = {
     company.relativeSRCRepo =  "company/trunk" ;
     company.name =  "company" ;
             
-    company.web = {}    
+    company.web = {}
+    company.web.resources = 
+      new Project("org.exoplatform.company", "company.web.resources", "exo-portal", version) ;    
     company.web.portal = 
       new Project("org.exoplatform.company", "company.web.portal", "exo-portal", version).
       addDependency(portal.web.eXoResources) .
