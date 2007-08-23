@@ -22,11 +22,9 @@ eXo.projects.eXoProduct = {
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
     product.addDependencies(portal.portlet.site) ;
-    product.addDependencies(portal.portlet.test) ;
 
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
-    product.addDependencies(portal.sample.framework) ;
 
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;
@@ -74,7 +72,6 @@ eXo.projects.eXoProduct = {
 
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
-    product.addDependencies(portal.sample.framework) ;
     
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;
@@ -113,7 +110,6 @@ eXo.projects.eXoProduct = {
 
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
-    product.addDependencies(portal.sample.framework) ;
     
     product.addDependencies(cs.eXoApplication.mail) ;
     product.addDependencies(cs.eXoApplication.forum) ;
@@ -157,7 +153,6 @@ eXo.projects.eXoProduct = {
 
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
-    product.addDependencies(portal.sample.framework) ;
 
     product.addDependencies(cs.eXoApplication.mail) ;
     product.addDependencies(cs.eXoApplication.forum) ;
