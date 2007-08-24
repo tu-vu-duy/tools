@@ -451,8 +451,8 @@ eXo.projects.Module = {
     company.name =  "company" ;
             
     company.web = {}
-    company.web.resources = 
-      new Project("org.exoplatform.company", "company.web.resources", "exo-portal", version) ;    
+    company.web.companyResources = 
+      new Project("org.exoplatform.company", "company.web.companyResources", "exo-portal", version) ;    
     company.web.portal = 
       new Project("org.exoplatform.company", "company.web.portal", "exo-portal", version).
       addDependency(portal.web.eXoResources) .

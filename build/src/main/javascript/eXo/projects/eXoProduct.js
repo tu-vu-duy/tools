@@ -279,7 +279,7 @@ eXo.projects.eXoProduct = {
     var company = eXo.projects.Module.company(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
     
     product.addDependencies(company.web.portal) ;
-    product.addDependencies(company.web.resources) ;    
+    product.addDependencies(company.web.companyResources) ;    
     
     product.addDependencies(portal.portlet.content) ;
     product.addDependencies(portal.portlet.exoadmin) ;
