@@ -338,7 +338,9 @@ eXo.projects.Module = {
       addDependency(new Project("com.totsp.feedpod", "itunes-com-podcast", "jar", "0.2")) .
       addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")) .
       addDependency(new Project("jdom", "jdom", "jar", "1.0")).
-      addDependency(new Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")) ;
+      addDependency(new Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")).
+    	addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")).
+    	addDependency(new Project("javax.xml.stream", "stax-api", "jar", "1.0")) ;
       //addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.bonita", "jar", version)) ;
 
     ecm.portlet.workflow = 
