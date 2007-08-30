@@ -18,7 +18,7 @@ eXo.projects.eXoProduct = {
 
     
     product.addDependencies(portal.web.portal) ;
-    product.addDependencies(portal.portlet.content) ;
+    /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
     product.addDependencies(portal.portlet.site) ;
@@ -58,7 +58,7 @@ eXo.projects.eXoProduct = {
     var cs = eXo.projects.Module.cs(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
     
     product.addDependencies(ecm.web.ecmportal) ;
-    product.addDependencies(portal.portlet.content) ;
+    /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
     product.addDependencies(portal.portlet.site) ;
@@ -69,6 +69,7 @@ eXo.projects.eXoProduct = {
     product.addDependencies(cs.eXoApplication.forum) ;
     product.addDependencies(cs.eXoApplication.calendar) ;
     product.addDependencies(cs.eXoApplication.contact) ;
+    product.addDependencies(cs.eXoApplication.content) ;
 
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
@@ -103,7 +104,7 @@ eXo.projects.eXoProduct = {
     var cs = eXo.projects.Module.cs(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
     
     product.addDependencies(portal.web.portal) ;
-    product.addDependencies(portal.portlet.content) ;
+    /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
     product.addDependencies(portal.portlet.site) ;
@@ -115,6 +116,7 @@ eXo.projects.eXoProduct = {
     product.addDependencies(cs.eXoApplication.forum) ;
     product.addDependencies(cs.eXoApplication.calendar) ;
     product.addDependencies(cs.eXoApplication.contact) ;
+    product.addDependencies(cs.eXoApplication.content) ;
     
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;
@@ -146,7 +148,7 @@ eXo.projects.eXoProduct = {
     var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");    
     
     product.addDependencies(ecm.web.ecmportal) ;
-    product.addDependencies(portal.portlet.content) ;
+    /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
     product.addDependencies(portal.portlet.site) ;
@@ -158,6 +160,7 @@ eXo.projects.eXoProduct = {
     product.addDependencies(cs.eXoApplication.forum) ;
     product.addDependencies(cs.eXoApplication.calendar) ;
     product.addDependencies(cs.eXoApplication.contact) ;
+    product.addDependencies(cs.eXoApplication.content) ;
     
     product.addDependencies(ecm.portlet.ecm) ;
     product.addDependencies(ecm.portlet.workflow) ;
@@ -218,7 +221,7 @@ eXo.projects.eXoProduct = {
     
     return product ;
   },
-  	/**************************/
+    /**************************/
   geneveProduct: function() {
     var product = new Product();
     product.name = "geneve" ;

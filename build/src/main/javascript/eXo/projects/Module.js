@@ -137,7 +137,7 @@ eXo.projects.Module = {
     return eXoPortletContainer ;
   },
 
-	eXoWebService : function(version) {
+  eXoWebService : function(version) {
     var eXoWebService = {} ;
     eXoWebService.versin = version ;
     eXoWebService.relativeMavenRepo = "org/exoplatform/ws" ;
@@ -258,10 +258,7 @@ eXo.projects.Module = {
       addDependency(eXoPortletContainer.services.jsr168) ;
 
     portal.portlet = {};
-    portal.portlet.content =  
-      new Project("org.exoplatform.portal", "exo.portal.portlet.content", "exo-portlet", version).
-      addDependency(portal.component.xmlParser) ;
-
+    
     portal.portlet.exoadmin = 
       new Project("org.exoplatform.portal", "exo.portal.portlet.exoadmin", "exo-portlet", version);
       
@@ -390,6 +387,12 @@ eXo.projects.Module = {
                 addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.contact.service", "jar",  version));
     cs.eXoApplication.contact.deployName = "contact";
     
+    cs.eXoApplication.content = 
+                  new Project("org.exoplatform.cs", "exo.cs.eXoApplication.content.webapp", "war", version).
+                    addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.content.service", "jar",  version)).
+                    addDependency(portal.component.xmlParser) ;
+    cs.eXoApplication.content.deployName = "content";
+    
     return cs ;
   },
 
@@ -417,7 +420,7 @@ eXo.projects.Module = {
 
     return m6 ;
   },
-  	
+    
   geneve: function (kernel, core, eXoPortletContainer, jcr, portal, version) {
     var geneve ={}
     geneve.version =  version ;
