@@ -197,7 +197,7 @@ eXo.projects.eXoProduct = {
     product.addDependencies(m6.web.m6Resources) ;
     product.addDependencies(m6.portlet.web) ;
     
-    product.addDependencies(portal.portlet.content) ;
+    /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
     product.addDependencies(portal.portlet.site) ;
@@ -241,7 +241,7 @@ eXo.projects.eXoProduct = {
     product.addDependencies(geneve.web.geneveResources) ;
     product.addDependencies(geneve.portlet.web) ;
     
-    product.addDependencies(portal.portlet.content) ;
+    /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
     product.addDependencies(portal.portlet.site) ;
@@ -284,7 +284,7 @@ eXo.projects.eXoProduct = {
     product.addDependencies(company.web.portal) ;
     product.addDependencies(company.web.companyResources) ;    
     
-    product.addDependencies(portal.portlet.content) ;
+    /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
     product.addDependencies(portal.portlet.site) ;
