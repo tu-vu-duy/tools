@@ -186,8 +186,8 @@ eXo.projects.Module = {
 
     eXoJcr.frameworks = {}
     eXoJcr.frameworks.web = 
-      new Project("org.exoplatform.jcr", "exo.jcr.framework.web", "jar", version).
-      addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.rest", "jar", version)).
+      new Project("org.exoplatform.jcr", "exo.jcr.framework.web", "jar", version).  
+      addDependency(new Project("org.exoplatform.ws.rest", "exo.rest.core", "jar", 0.1)).
       addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0")).
       addDependency(new Project("log4j", "log4j", "jar", "1.2.8"));
 
