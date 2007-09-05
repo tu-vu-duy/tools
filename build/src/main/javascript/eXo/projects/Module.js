@@ -178,18 +178,22 @@ eXo.projects.Module = {
       new Project("org.exoplatform.jcr", "exo.jcr.component.core", "jar", version).
       addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.ext", "jar", version)).
       addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.webdav", "jar", version)).
-      addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.ftp", "jar", version)).
+      addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.ftp", "jar", version)) .
       addDependency(new Project("jcr", "jcr", "jar", "1.0")).
       addDependency(new Project("concurrent", "concurrent", "jar", "1.3.2")).
       addDependency(new Project("javagroups", "jgroups-all", "jar", "2.4")).
-      addDependency(new Project("lucene", "lucene", "jar", "1.4.3"));
+      addDependency(new Project("lucene", "lucene", "jar", "1.4.3")) ;
+
+//      	addDependency(ws.commons) .
+//        addDependency(ws.soap.jsr181) .
+//        addDependency(ws.rest)   
 
     eXoJcr.frameworks = {}
     eXoJcr.frameworks.web = 
       new Project("org.exoplatform.jcr", "exo.jcr.framework.web", "jar", version).  
       addDependency(new Project("org.exoplatform.ws.rest", "exo.rest.core", "jar", 0.1)).
       addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0")).
-      addDependency(new Project("log4j", "log4j", "jar", "1.2.8"));
+      addDependency(new Project("log4j", "log4j", "jar", "1.2.8")) ;
 
     eXoJcr.frameworks.command = new Project("org.exoplatform.jcr", "exo.jcr.framework.command", "jar", version) ; 
     
@@ -422,6 +426,49 @@ eXo.projects.Module = {
 
     return m6 ;
   },
+  
+  ws : function(version) {
+  	var ws = {};
+    ws.version =  version ;
+    ws.relativeMavenRepo =  "org/exoplatform/ws" ;
+    ws.relativeSRCRepo =  "ws/trunk" ;
+    ws.name =  "ws" ;
+
+    ws.commons = 
+      new Project("org.exoplatform.ws.commons", "exo.ws.commons", "jar", version);
+
+		ws.rest = 
+      new Project("org.exoplatform.ws.rest", "exo.rest.core", "jar", version).      
+      addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0")) .
+      addDependency(new Project("javax.xml.parsers", "jaxp-api", "jar", "1.4")) .
+      addDependency(new Project("javax.xml.bind", "jaxp-api", "jar", "2.0")) .
+      addDependency(new Project("com.sun.xml.bind", "jaxb-impl", "jar", "2.0.2")) .
+      addDependency(new Project("com.sun.xml.parsers", "jaxp-ri", "jar", "1.4")) .
+      addDependency(new Project("org.jvnet.jaxb2.maven2", "maven-jaxb2-plugin", "jar", "0.1"));
+      
+    ws.soap = {};
+    ws.soap.jsr181 =
+      new Project("org.exoplatform.ws.soap", "exo.soap.xfire.jsr181", "jar", version).
+      addDependency(new Project("picocontainer", "picocontainer", "jar", "1.1")) .
+      addDependency(new Project("org.codehaus.xfire", "xfire-jsr181-api", "jar", "1.0")) .
+      addDependency(new Project("org.codehaus.xfire", "xfire-all", "jar", "1.2.6")) .
+      addDependency(new Project("stax", "stax-api", "jar", "1.0.1")) .
+      addDependency(new Project("wsdl4j", "wsdl4j", "jar", "1.6.1")) .
+      addDependency(new Project("jdom", "jdom", "jar", "1.0"));  
+      
+//    ws.soap.jsr181examples =
+//      new Project("org.exoplatform.ws.soap", "exo.soap.xfire.jsr181-examples", "jar", version).
+//      addDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0.1")) .
+//      addDependency(new Project("org.codehaus.xfire", "xfire-all", "jar", "1.2.6")) .
+//      addDependency(new Project("wsdl4j", "wsdl4j", "jar", "1.6.1")) .
+//      addDependency(new Project("org.codehaus.xfire", "xfire-jsr181-api", "jar", "1.0")) .
+//      addDependency(new Project("javax.xml.bind", "jaxp-api", "jar", "2.0")) .
+//      addDependency(new Project("jdom", "jdom", "jar", "1.0")) .
+//      addDependency(new Project("stax", "stax-api", "jar", "1.1.2-dev")) .
+//      addDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0.1"));  
+      
+    return ws ;
+  },
     
   geneve: function (kernel, core, eXoPortletContainer, jcr, portal, version) {
     var geneve ={}
@@ -467,4 +514,5 @@ eXo.projects.Module = {
 
     return company ;
   },
+  
 }
