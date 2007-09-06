@@ -21,7 +21,6 @@ eXo.projects.eXoProduct = {
     /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
-    product.addDependencies(portal.portlet.site) ;
 
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
@@ -62,7 +61,6 @@ eXo.projects.eXoProduct = {
     /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
-    product.addDependencies(portal.portlet.site) ;
     product.addDependencies(ecm.portlet.ecm) ;
     product.addDependencies(ecm.portlet.workflow) ;
     
@@ -110,7 +108,6 @@ eXo.projects.eXoProduct = {
     /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
-    product.addDependencies(portal.portlet.site) ;
 
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
@@ -158,7 +155,6 @@ eXo.projects.eXoProduct = {
     /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
-    product.addDependencies(portal.portlet.site) ;
 
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
@@ -207,7 +203,6 @@ eXo.projects.eXoProduct = {
     /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
-    product.addDependencies(portal.portlet.site) ;
 
 
     product.addDependencies(portal.eXoApplication.web) ;
@@ -251,7 +246,6 @@ eXo.projects.eXoProduct = {
     /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
-    product.addDependencies(portal.portlet.site) ;
 
 
     product.addDependencies(portal.eXoApplication.web) ;
@@ -294,7 +288,6 @@ eXo.projects.eXoProduct = {
     /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
-    product.addDependencies(portal.portlet.site) ;
 
 
     product.addDependencies(portal.eXoApplication.web) ;
