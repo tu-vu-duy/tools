@@ -174,7 +174,7 @@ if(update_) {
 if(build_) {
   var mvnArgs = ["clean", "install"] ;
   for(var i = 0; i < product.dependencyModule.length; i++) {
-  var module = product.dependencyModule[i] ;
+  	var module = product.dependencyModule[i] ;
     if(cleanMVNRepo_) {
       eXo.core.IOUtil.remove(eXo.env.dependenciesDir + "/repository/" + module.relativeMavenRepo) ;
     }
@@ -193,9 +193,9 @@ if(build_) {
 //print (server + "\n" + deployServers + "\n" + product) ; 
 
 if(deployServers != null) { 
-  print (deployServers);
+  //print (deployServers);
   for(var i = 0; i < deployServers.length; i++) {
-  print ("test here");
+  //print ("test here");
     server =  deployServers[i] ;
     tasks.add(product.DeployTask(product, server, eXo.env.m2Repos)) ;
     tasks.add(database.DeployTask(product, server, eXo.env.m2Repos)) ;
