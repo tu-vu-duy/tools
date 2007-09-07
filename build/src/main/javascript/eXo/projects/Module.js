@@ -396,8 +396,7 @@ eXo.projects.Module = {
     
     cs.eXoApplication.content = 
                   new Project("org.exoplatform.cs", "exo.cs.eXoApplication.content.webapp", "war", version).
-                    addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.content.service", "jar",  version)).
-                    addDependency(portal.component.xmlParser) ;
+                    addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.content.service", "jar",  version));
     cs.eXoApplication.content.deployName = "content";
     
     return cs ;
