@@ -242,7 +242,8 @@ eXo.projects.Module = {
       addDependency(portal.component.jcrext) .
       addDependency(portal.component.resources) .
       addDependency(portal.component.applicationRegistry) .
-      addDependency(portal.component.portal). 
+      addDependency(portal.component.portal).
+      addDependency(portal.component.xmlParser).
       addDependency(portal.component.scripting). 
       
       addDependency(kernel.container) .
