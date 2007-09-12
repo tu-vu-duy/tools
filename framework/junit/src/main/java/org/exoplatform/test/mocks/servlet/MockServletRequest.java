@@ -99,7 +99,8 @@ public class MockServletRequest implements HttpServletRequest {
   }
 
   public String getMethod() {
-    return null;
+    //return null;
+    return "GET";
   }
 
   public String getPathInfo()  { return pathInfo_ ; }
