@@ -50,7 +50,7 @@ eXo.projects.Module = {
       new Project("org.exoplatform.kernel", "exo.kernel.component.common", "jar", version).
       addDependency(new Project("quartz", "quartz", "jar", "1.5.0-RC2")).
       addDependency(new Project("mail", "activation", "jar", "1.0")).
-      addDependency(new Project("mail", "mail", "jar", "1.3.3"));
+      addDependency(new Project("mail", "mail", "jar", "1.4"));
 
     kernel.component.command = 
       new Project("org.exoplatform.kernel", "exo.kernel.component.command", "jar", version).
@@ -184,7 +184,7 @@ eXo.projects.Module = {
       addDependency(new Project("javagroups", "jgroups-all", "jar", "2.4")).
       addDependency(new Project("lucene", "lucene", "jar", "1.4.3")) ;
 
-//      	addDependency(ws.commons) .
+//        addDependency(ws.commons) .
 //        addDependency(ws.soap.jsr181) .
 //        addDependency(ws.rest)   
 
@@ -344,8 +344,8 @@ eXo.projects.Module = {
       addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")) .
       addDependency(new Project("jdom", "jdom", "jar", "1.0")).
       addDependency(new Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")).
-    	addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")).
-    	addDependency(new Project("javax.xml.stream", "stax-api", "jar", "1.0")) ;
+      addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")).
+      addDependency(new Project("javax.xml.stream", "stax-api", "jar", "1.0")) ;
       //addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.bonita", "jar", version)) ;
 
     ecm.portlet.workflow = 
@@ -399,6 +399,17 @@ eXo.projects.Module = {
                     addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.content.service", "jar",  version));
     cs.eXoApplication.content.deployName = "content";
     
+    
+    cs.eXoApplication.web = {}
+    cs.eXoApplication.web.csportal = 
+      new Project("org.exoplatform.cs", "exo.cs.eXoApplication.web.portal", "exo-portal", version).
+      addDependency(portal.web.eXoResources) .
+      addDependency(portal.web.eXoMacSkin) .
+      addDependency(portal.web.eXoVistaSkin) .
+      addDependency(portal.webui.portal) .
+      addDependency(jcr.frameworks.command) .
+      addDependency(jcr.frameworks.web) ;
+      
     return cs ;
   },
 
@@ -428,7 +439,7 @@ eXo.projects.Module = {
   },
   
   ws : function(version) {
-  	var ws = {};
+    var ws = {};
     ws.version =  version ;
     ws.relativeMavenRepo =  "org/exoplatform/ws" ;
     ws.relativeSRCRepo =  "ws/trunk" ;
@@ -437,7 +448,7 @@ eXo.projects.Module = {
     ws.commons = 
       new Project("org.exoplatform.ws.commons", "exo.ws.commons", "jar", version);
 
-		ws.rest = 
+    ws.rest = 
       new Project("org.exoplatform.ws.rest", "exo.rest.core", "jar", version).      
       addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0")) .
       addDependency(new Project("javax.xml.parsers", "jaxp-api", "jar", "1.4")) .

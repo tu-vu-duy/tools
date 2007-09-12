@@ -47,7 +47,7 @@ eXo.projects.eXoProduct = {
     var tool = eXo.projects.Module.tool("2.0") ;
     var kernel = eXo.projects.Module.kernel("2.0.3") ;
 
-		var ws = eXo.projects.Module.ws("0.1");
+    var ws = eXo.projects.Module.ws("0.1");
 
     var core = eXo.projects.Module.core("2.0.3") ;
     var eXoPortletContainer = eXo.projects.Module.eXoPortletContainer("2.0") ;
@@ -100,27 +100,26 @@ eXo.projects.eXoProduct = {
     var eXoJcr = eXo.projects.Module.eXoJcr("1.6") ;
     var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
    
-   	var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
+    var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
    
     var cs = eXo.projects.Module.cs(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
     
-    product.addDependencies(portal.web.portal) ;
-    /*product.addDependencies(portal.portlet.content) ;*/
+    
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
 
     product.addDependencies(portal.eXoApplication.web) ;
     product.addDependencies(portal.eXoWidget.web) ;
     
+    product.addDependencies(ecm.portlet.ecm);
+    product.addDependencies(ecm.portlet.workflow);
+    
     product.addDependencies(cs.eXoApplication.mail) ;
     product.addDependencies(cs.eXoApplication.forum) ;
     product.addDependencies(cs.eXoApplication.calendar) ;
     product.addDependencies(cs.eXoApplication.contact) ;
     product.addDependencies(cs.eXoApplication.content) ;
-    
-    product.addDependencies(ecm.portlet.ecm);
-    product.addDependencies(ecm.portlet.workflow);
-    product.addDependencies(ecm.web.ecmportal);
+    product.addDependencies(cs.eXoApplication.web.csportal) ;
     
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;
@@ -130,7 +129,7 @@ eXo.projects.eXoProduct = {
     product.dependencyCodeRepos = "tools/trunk,kernel/trunk,core/trunk,portal/trunk";
 
     product.module = cs ;
-    product.dependencyModule = [tool, kernel, core, eXoPortletContainer, eXoJcr, portal ];
+    product.dependencyModule = [tool, kernel, core, eXoPortletContainer, eXoJcr, portal, ecm ];
     
     return product ;
   },
