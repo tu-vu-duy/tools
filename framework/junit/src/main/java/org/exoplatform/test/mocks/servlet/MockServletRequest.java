@@ -36,6 +36,7 @@ public class MockServletRequest implements HttpServletRequest {
   private String enc = "ISO-8859-1";
   private String pathInfo_ ;
   private String requestURI_ ;
+  private String method = "GET";
 
   private String remoteUser = "REMOTE USER FROM MOCK";
 
@@ -99,8 +100,8 @@ public class MockServletRequest implements HttpServletRequest {
   }
 
   public String getMethod() {
-    //return null;
-    return "GET";
+  
+     return method;
   }
 
   public String getPathInfo()  { return pathInfo_ ; }
