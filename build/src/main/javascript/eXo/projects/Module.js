@@ -512,7 +512,12 @@ eXo.projects.Module = {
     company.relativeMavenRepo =  "org/exoplatform/company" ;
     company.relativeSRCRepo =  "company/trunk" ;
     company.name =  "company" ;
-            
+    
+    company.component={}
+    company.component.web=
+    	new Project("org.exoplatform.company", "company.component.web", "jar", version).
+    	addDependency(portal.component.web).        	
+    	addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar","2.0"));                        
     company.web = {}
     company.web.companyResources = 
       new Project("org.exoplatform.company", "company.web.companyResources", "exo-portal", version) ;    

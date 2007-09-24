@@ -278,9 +278,10 @@ eXo.projects.eXoProduct = {
     var eXoPortletContainer = eXo.projects.Module.eXoPortletContainer("2.0") ;
     var eXoJcr = eXo.projects.Module.eXoJcr("1.6") ;
     var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
-    var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
+    var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");    
     var company = eXo.projects.Module.company(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
     
+    product.addDependencies(company.component.web) ;
     product.addDependencies(company.web.portal) ;
     product.addDependencies(company.web.companyResources) ;    
     
@@ -293,7 +294,7 @@ eXo.projects.eXoProduct = {
     product.addDependencies(portal.eXoWidget.web) ;
 
     product.addDependencies(ecm.portlet.ecm) ;
-    product.addDependencies(ecm.portlet.workflow) ;
+    product.addDependencies(ecm.portlet.workflow) ;    
     
     product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
     product.addServerPatch("jboss",  portal.server.jboss.patch) ;
