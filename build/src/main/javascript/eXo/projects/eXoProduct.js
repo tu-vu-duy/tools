@@ -81,7 +81,7 @@ eXo.projects.eXoProduct = {
     product.dependencyCodeRepos = "tools/trunk,kernel/trunk,core/trunk,portal/trunk";
 
     product.module = ecm ;
-    product.dependencyModule = [tool, kernel, core, eXoPortletContainer, eXoJcr, portal];
+    product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal];
     
     return product ;
   },
@@ -129,7 +129,7 @@ eXo.projects.eXoProduct = {
     product.dependencyCodeRepos = "tools/trunk,kernel/trunk,core/trunk,portal/trunk";
 
     product.module = cs ;
-    product.dependencyModule = [tool, kernel, core, eXoPortletContainer, eXoJcr, portal, ecm ];
+    product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm ];
     
     return product ;
   },
@@ -175,7 +175,7 @@ eXo.projects.eXoProduct = {
     product.dependencyCodeRepos = "tools/trunk,kernel/trunk,core/trunk,portal/trunk,cs/trunk";
 
     product.module = ecm  ;
-    product.dependencyModule = [tool, kernel, core, eXoPortletContainer, eXoJcr, portal, cs];
+    product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, cs];
     
     return product ;
 
