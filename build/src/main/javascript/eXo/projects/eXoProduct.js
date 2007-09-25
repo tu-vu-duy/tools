@@ -94,16 +94,15 @@ eXo.projects.eXoProduct = {
     
     var tool = eXo.projects.Module.tool("2.0") ;
     var kernel = eXo.projects.Module.kernel("2.0.3") ;
-
+  
     var core = eXo.projects.Module.core("2.0.3") ;
     var eXoPortletContainer = eXo.projects.Module.eXoPortletContainer("2.0") ;
     var eXoJcr = eXo.projects.Module.eXoJcr("1.6") ;
     var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
    
     var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
-   
     var cs = eXo.projects.Module.cs(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
-    
+    var ws = eXo.projects.Module.ws("0.1");
     
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
@@ -149,7 +148,7 @@ eXo.projects.eXoProduct = {
     var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
     var cs = eXo.projects.Module.cs(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");    
     var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");    
-    
+    var ws = eXo.projects.Module.ws("0.1");
     product.addDependencies(ecm.web.ecmportal) ;
     /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
