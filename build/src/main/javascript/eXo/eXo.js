@@ -16,7 +16,7 @@ function Env() {
 var eXo  = {
   core    : { } ,
   projects: { } ,
-  module:   { } ,
+//  module:   { } ,
   server  : { } ,
   command : { } ,
 

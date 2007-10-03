@@ -4,7 +4,6 @@ function Product() {
   this.name      = null ;
   this.portalwar = null ;
   this.codeRepo  = null ;
-  this.dependencyCodeRepos = null ;
   this.dependenciesHolder = new java.util.HashMap() ; 
   this.serverPatches      = new java.util.HashMap() ;
 
