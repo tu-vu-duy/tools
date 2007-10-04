@@ -207,7 +207,19 @@ public class MockServletRequest implements HttpServletRequest {
     return new Vector(parameters.keySet()).elements();
   }
 
-  public String[] getParameterValues(String s) {  return new String[0]; }
+  public String[] getParameterValues(String s) {  
+  
+      ArrayList<String> arr = new ArrayList<String>();
+      Iterator it  = parameters.keySet().iterator();
+      while (it.hasNext()){
+        
+        String pname = (String) it.next(); 
+        if (pname.equals(s))
+        	arr.add((String)parameters.get(s));
+        }
+        return arr.toArray(new String[arr.size()]);
+        
+   }
 
   public Map getParameterMap() { return parameters; }
 
