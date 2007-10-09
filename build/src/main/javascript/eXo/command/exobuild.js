@@ -123,16 +123,14 @@ for(var i = 0; i <args.length; i++) {
     product = eXo.projects.eXoProduct.eXoCSProduct();
   } else if ("--product=all" == arg) {
     product = eXo.projects.eXoProduct.eXoAllProduct();
-  } else if ("--product=m6" == arg) {
-  	eXo.load('pom.js', eXo.env.eXoProjectsDir + "/M6/trunk/web/portal" ) ;
-    product = eXo.projects.eXoProduct.m6Product();
   } else if ("--product=geneve" == arg) {
   	product = eXo.projects.eXoProduct.geneveProduct();
-  }else if ("--product=company" == arg) {
+  } else if ("--product=company" == arg) {
   	product = eXo.projects.eXoProduct.companyProduct();
-  }else if ("--product=nova" == arg) {
-  	eXo.load('pom.js', eXo.env.eXoProjectsDir + "/novaForge/trunk/web/portal" ) ;
-    product = new eXo.projects.eXoProduct.novaForgeProduct() ;
+  } else if ("--product=this" == arg) {
+  	load('pom.js') ;
+  } else if (arg.indexOf("--product=") == 0) {
+		load(eXo.env.eXoProjectsDir + "/" + arg.substring(arg.indexOf("=") + 1) + "/trunk/pom.js") ;
   } else {
     print("UNKNOWN ARGUMENT: " + arg); 
     exobuildInstructions() ;
