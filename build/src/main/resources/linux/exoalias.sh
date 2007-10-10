@@ -3,7 +3,7 @@ alias cdhome="cd ~"
 alias cdwinhome="cd $USER_HOME"
 alias cdback='cd  $OLDPWD'
 
-alias mvnrepoclean="rm -rf $M2_REPO/org/exoplatform/* "
+alias mvnrepoclean="rm -rf $M2_REPO/org/exoplatform/* $M2_REPO/javax/portlet/*"
 
 alias cdtomcat="cd $EXO_WORKING_DIR/exo-tomcat"
 alias cdtomcatbin="cd $EXO_WORKING_DIR/exo-tomcat/bin"
