@@ -136,6 +136,9 @@ public class ExoPcDeploy extends AbstractMojo {
     if (deploy.equals("tomcat")) {
       File deployTomcatDirFile = new File(workingDir + "/exo-tomcat");
       deployTomcat(deployTomcatDirFile, getIgnoreProjects());
+    } if (deploy.equals("tomcat6")) {
+      File deployTomcatDirFile = new File(workingDir + "/exo-tomcat");
+      deployTomcat6(deployTomcatDirFile, getIgnoreProjects());
     } else if(deploy.equals("ear")) {
       deployEar(outputDir, getIgnoreProjects());
     } else {
@@ -150,8 +153,16 @@ public class ExoPcDeploy extends AbstractMojo {
     directoryJar.mkdirs();
     directoryWar.mkdirs();
     Utils.deployedDependency2(directoryJar, directoryWar, null, project, ignoreProjects) ;
-//    Utils.deployedDependency2(directoryJar, null, null, project, ignoreProjects) ;
-//    Utils.deployProject(directoryJar, directoryWar, project, false, ignoreProjects) ;
+    if (sharedDir != null && !sharedDir.equals(""))
+      Utils.patchConfig2(new File(sharedDir + "/tomcat"), deployTomcatDir);
+  }
+  
+  protected void deployTomcat6(File deployTomcatDir, HashSet<String> ignoreProjects) throws Exception  {
+    File directoryJar = new File(deployTomcatDir + "/lib");
+    File directoryWar = new File(deployTomcatDir + "/webapps");
+    directoryJar.mkdirs();
+    directoryWar.mkdirs();
+    Utils.deployedDependency2(directoryJar, directoryWar, null, project, ignoreProjects) ;
     if (sharedDir != null && !sharedDir.equals(""))
       Utils.patchConfig2(new File(sharedDir + "/tomcat"), deployTomcatDir);
   }
