@@ -136,7 +136,7 @@ public class ExoPcDeploy extends AbstractMojo {
     if (deploy.equals("tomcat")) {
       File deployTomcatDirFile = new File(workingDir + "/exo-tomcat");
       deployTomcat(deployTomcatDirFile, getIgnoreProjects());
-    } if (deploy.equals("tomcat6")) {
+    } else if (deploy.equals("tomcat6")) {
       File deployTomcatDirFile = new File(workingDir + "/exo-tomcat");
       deployTomcat6(deployTomcatDirFile, getIgnoreProjects());
     } else if(deploy.equals("ear")) {
