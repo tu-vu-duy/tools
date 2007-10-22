@@ -189,7 +189,9 @@ public class ExoPcDeploy extends AbstractMojo {
       "before running the command mvn exopc:deploy -Ddeploy=value\n\n" +
       "The valid syntax is:\n" +
       "  mvn exopc:deploy -Ddeploy=tomcat\n" +
-      "  This command will copy the pc module and the dependency modules to the tomcat server.\n" +
+      "  This command will copy the pc module and the dependency modules to the Tomcat 5.x server.\n" +
+      "  mvn exopc:deploy -Ddeploy=tomcat6\n" +
+      "  This command will copy the pc module and the dependency modules to the Tomcat 6.x server.\n" +
       "  mvn exopc:deploy -Ddeploy=ear\n" +
       "  This command compiles pc standalone module EAR in 'target' directory.\n";
     System.out.println(info) ;
