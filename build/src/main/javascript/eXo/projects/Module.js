@@ -391,7 +391,8 @@ eXo.projects.Module = {
     
     cs.eXoApplication.contact = 
               new Project("org.exoplatform.cs", "exo.cs.eXoApplication.contact.webapp", "war", version).
-                addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.contact.service", "jar",  version));
+                addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.contact.service", "jar",  version)).
+                addDependency(new Project("net.wimpi.pim", "jpim-0.1", "jar",  "1.0"));
     cs.eXoApplication.contact.deployName = "contact";
     
     cs.eXoApplication.content = 
@@ -490,9 +491,9 @@ eXo.projects.Module = {
     
     company.component={}
     company.component.web=
-    	new Project("org.exoplatform.company", "company.component.web", "jar", version).
-    	addDependency(portal.component.web).        	
-    	addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar","2.0"));                        
+      new Project("org.exoplatform.company", "company.component.web", "jar", version).
+      addDependency(portal.component.web).          
+      addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar","2.0"));                        
     company.web = {}
     company.web.companyResources = 
       new Project("org.exoplatform.company", "company.web.companyResources", "exo-portal", version) ;    
