@@ -289,7 +289,7 @@ eXo.projects.Module = {
     
     portal.eXoWidget = {};
     portal.eXoWidget.web = 
-      new Project("org.exoplatform.portal", "exo.portal.eXoWidget.web", "war", version);
+      new Project("org.exoplatform.portal", "exo.portal.eXoWidgetWeb", "war", version);
     portal.eXoWidget.web.deployName = "eXoWidgetWeb" ;
     
     portal.web = {}
