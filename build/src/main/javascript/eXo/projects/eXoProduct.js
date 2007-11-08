@@ -10,10 +10,11 @@ eXo.projects.eXoProduct = {
 
     var tool = eXo.projects.Module.tool("2.0") ;
     var kernel = eXo.projects.Module.kernel("2.0.3") ;
+    var ws = eXo.projects.Module.ws("0.1");
 
     var core = eXo.projects.Module.core("2.0.3") ;
     var eXoPortletContainer = eXo.projects.Module.eXoPortletContainer("2.0") ;    
-    var eXoJcr = eXo.projects.Module.eXoJcr("1.6") ;
+    var eXoJcr = eXo.projects.Module.eXoJcr("1.7") ;
     var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
 
     
@@ -31,7 +32,7 @@ eXo.projects.eXoProduct = {
     product.codeRepo = "portal/trunk" ;
 
     product.module = portal ;
-    product.dependencyModule = [ tool, kernel, core, eXoPortletContainer, eXoJcr];
+    product.dependencyModule = [ tool, kernel, core, eXoPortletContainer, ws, eXoJcr];
 
     return product ;
   },
@@ -48,7 +49,7 @@ eXo.projects.eXoProduct = {
 
     var core = eXo.projects.Module.core("2.0.3") ;
     var eXoPortletContainer = eXo.projects.Module.eXoPortletContainer("2.0") ;
-    var eXoJcr = eXo.projects.Module.eXoJcr("1.6") ;
+    var eXoJcr = eXo.projects.Module.eXoJcr("1.7") ;
     var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
                                     
     var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
@@ -90,9 +91,10 @@ eXo.projects.eXoProduct = {
     var tool = eXo.projects.Module.tool("2.0") ;
     var kernel = eXo.projects.Module.kernel("2.0.3") ;
   
+    var ws = eXo.projects.Module.ws("0.1");
     var core = eXo.projects.Module.core("2.0.3") ;
     var eXoPortletContainer = eXo.projects.Module.eXoPortletContainer("2.0") ;
-    var eXoJcr = eXo.projects.Module.eXoJcr("1.6") ;
+    var eXoJcr = eXo.projects.Module.eXoJcr("1.7") ;
     var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
    
     var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
@@ -135,9 +137,10 @@ eXo.projects.eXoProduct = {
     var tool = eXo.projects.Module.tool("2.0") ;
     var kernel = eXo.projects.Module.kernel("2.0.3") ;
 
+    var ws = eXo.projects.Module.ws("0.1");
     var core = eXo.projects.Module.core("2.0.3") ;
     var eXoPortletContainer = eXo.projects.Module.eXoPortletContainer("2.0") ;
-    var eXoJcr = eXo.projects.Module.eXoJcr("1.6") ;
+    var eXoJcr = eXo.projects.Module.eXoJcr("1.7") ;
     var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
     var cs = eXo.projects.Module.cs(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");    
     var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");    
@@ -180,8 +183,7 @@ eXo.projects.eXoProduct = {
     var kernel = eXo.projects.Module.kernel("2.0.3") ;
     var core = eXo.projects.Module.core("2.0.3") ;
     var eXoPortletContainer = eXo.projects.Module.eXoPortletContainer("2.0") ;
-    var eXoJcr = eXo.projects.Module.eXoJcr("1.6") ;
-    var eXoJcr = eXo.projects.Module.eXoJcr("1.6") ;
+    var eXoJcr = eXo.projects.Module.eXoJcr("1.7") ;
     var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
     var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
     var geneve = eXo.projects.Module.geneve(kernel, core, eXoPortletContainer, eXoJcr, portal, "1.0");
@@ -222,7 +224,7 @@ eXo.projects.eXoProduct = {
     var kernel = eXo.projects.Module.kernel("2.0.3") ;
     var core = eXo.projects.Module.core("2.0.3") ;
     var eXoPortletContainer = eXo.projects.Module.eXoPortletContainer("2.0") ;
-    var eXoJcr = eXo.projects.Module.eXoJcr("1.6") ;
+    var eXoJcr = eXo.projects.Module.eXoJcr("1.7") ;
     var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
     var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");    
     var company = eXo.projects.Module.company(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
