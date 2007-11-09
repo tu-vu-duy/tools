@@ -1,0 +1,113 @@
+<project>
+	<parent>
+		<groupId>org.exoplatform.config</groupId>
+		<artifactId>exo.product.config</artifactId>
+		<version>1.0</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>exo.product.ecm</artifactId>
+	<packaging>jar</packaging>
+	<version>${org.exoplatform.ecm.version}</version>
+	<name>eXo ECM Product</name>
+	<url>http://www.exoplatform.org</url>
+	<description>eXo ECM Product</description>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging-api</artifactId>
+			<version>1.1</version>
+			<scope>runtime</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.1</version>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>assembly</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<descriptors>
+						<descriptor>product-exo-webos-as-descriptor.xml</descriptor>
+					</descriptors>
+					<finalName>lib</finalName>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>0</id>
+						<phase>install</phase>
+						<configuration>
+							<tasks>
+								<delete
+									dir="${exo.projects.directory.working}/exo-tomcat"
+									includeEmptyDirs="true" quiet="yes" />
+								<copy
+									todir="${exo.projects.directory.working}/exo-tomcat"
+									verbose="false" overwrite="true">
+									<fileset
+										dir="${exo.projects.directory.dependencies}/${exo.projects.app.tomcat.version}" />
+								</copy>
+								<copy
+									todir="${exo.projects.directory.working}/exo-tomcat/lib/"
+									verbose="true" overwrite="true">
+									<fileset
+										dir="${basedir}/target/lib-${org.exoplatform.ecm.version}.dir/"
+										excludes="**/*.war" />
+								</copy>
+								<copy
+									todir="${exo.projects.directory.working}/exo-tomcat/"
+									verbose="true" overwrite="true">
+									<fileset
+										dir="${basedir}/product-patches/as/tomcat/" />
+								</copy>
+								<move
+									todir="${basedir}/target/lib-${org.exoplatform.ecm.version}.dir/">
+									<fileset
+										dir="${basedir}/target/lib-${org.exoplatform.ecm.version}.dir/">
+										<include name="**/*.war" />
+									</fileset>
+									<mapper type="regexp"
+										from="(.*)\.(.*)-(.*)" to="\2.war" />
+								</move>
+								<copy
+									todir="${exo.projects.directory.working}/exo-tomcat/webapps/"
+									verbose="true" flatten="true" overwrite="true">
+									<fileset
+										dir="${basedir}/target/lib-${org.exoplatform.ecm.version}.dir/"
+										casesensitive="yes">
+										<include name="**/*.war" />
+									</fileset>
+								</copy>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>ant</groupId>
+						<artifactId>ant-nodeps</artifactId>
+						<version>1.6.5</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
