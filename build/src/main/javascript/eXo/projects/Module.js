@@ -195,7 +195,8 @@ eXo.projects.Module = {
       addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0")).
       addDependency(new Project("log4j", "log4j", "jar", "1.2.8")) ;
 
-    eXoJcr.frameworks.command = new Project("org.exoplatform.jcr", "exo.jcr.framework.command", "jar", version) ; 
+    eXoJcr.frameworks.command = new Project("org.exoplatform.jcr", "exo.jcr.framework.command", "jar", version).
+			addDependency(new Project("commons-fileupload", "commons-fileupload", "jar", "1.0")); 
     
     return eXoJcr ;
   },
@@ -267,20 +268,20 @@ eXo.projects.Module = {
     portal.portlet.exoadmin = 
       new Project("org.exoplatform.portal", "exo.portal.portlet.exoadmin", "exo-portlet", version);
       
-    portal.portlet.site = 
-      new Project("org.exoplatform.portal", "exo.portal.portlet.site", "exo-portlet", version);
+//    portal.portlet.site = 
+//      new Project("org.exoplatform.portal", "exo.portal.portlet.site", "exo-portlet", version);
       
     portal.portlet.web = 
       new Project("org.exoplatform.portal", "exo.portal.portlet.web", "exo-portlet", version);
       
-    portal.portlet.test = 
-      new Project("org.exoplatform.portal", "exo.portal.portlet.test", "exo-portlet", version);
+//    portal.portlet.test = 
+//      new Project("org.exoplatform.portal", "exo.portal.portlet.test", "exo-portlet", version);
 
     
-    portal.eXoApplication = {};
-    portal.eXoApplication.web = 
-      new Project("org.exoplatform.portal", "exo.portal.eXoApplication.web", "war", version);
-    portal.eXoApplication.web.deployName = "eXoAppWeb";
+//    portal.eXoApplication = {};
+//    portal.eXoApplication.web = 
+//      new Project("org.exoplatform.portal", "exo.portal.eXoApplication.web", "war", version);
+//    portal.eXoApplication.web.deployName = "eXoAppWeb";
       
     portal.sample = {};
     portal.sample.framework = 

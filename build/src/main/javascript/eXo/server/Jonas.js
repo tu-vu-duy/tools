@@ -50,7 +50,7 @@ Jonas.prototype.onDeploy = function(project) { }
 
 Jonas.prototype.postDeploy = function(product) {
   ServerUtil = eXo.server.ServerUtil ;
-  ServerUtil.createEarApplicationXml(this.deployWebappDir) ;
+  ServerUtil.createEarApplicationXml(this.deployWebappDir, product) ;
   ServerUtil.addClasspathForWar(this.deployLibDir) ;
 }
 

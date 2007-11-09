@@ -78,7 +78,7 @@ Jboss.prototype.onDeploy = function(project) { }
   
 Jboss.prototype.postDeploy = function(product) {
   ServerUtil = eXo.server.ServerUtil ;
-  ServerUtil.createEarApplicationXml(this.deployLibDir) ;
+  ServerUtil.createEarApplicationXml(this.deployLibDir, product) ;
   ServerUtil.addClasspathForWar(this.deployLibDir) ;
   
   //Use jboss PrefixSorter deployer
