@@ -1,0 +1,22 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>exo</groupId>
+  <artifactId>exo.modules</artifactId>
+  <name>eXo Modules</name>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>tools/trunk</module>
+    <module>kernel/trunk</module>
+    <module>core/trunk</module>
+    <module>ws/trunk</module>
+    <module>portlet-container/branches/2.0</module>
+    <module>portal/trunk</module>
+    <module>jcr/trunk</module>
+    <module>ecm/trunk</module>
+    <module>cs/trunk</module>
+  </modules>
+
+</project>
+
