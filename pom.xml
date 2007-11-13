@@ -7,7 +7,7 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>config</module>
+    <!--<module>config</module>-->
     <module>build</module>
     <module>webunit</module>
     <module>framework/junit</module>
