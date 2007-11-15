@@ -52,6 +52,13 @@
 						<phase>install</phase>
 						<configuration>
 							<tasks>
+								<delete>
+									<fileset
+										dir="${basedir}/target/lib-${org.exoplatform.ecm.version}.dir/">
+										<include name="ejb*.jar" />
+										<include name="jetty*.jar" />
+									</fileset>
+								</delete>
 								<delete
 									dir="${exo.projects.directory.working}/exo-tomcat"
 									includeEmptyDirs="true" quiet="yes" />
