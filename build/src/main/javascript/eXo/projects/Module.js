@@ -154,7 +154,7 @@ eXo.projects.Module = {
       addDependency(new Project("org.codehaus.xfire","xfire-jsr181-api","1.0")).
       addDependency(new Project("org.codehaus.xfire","xfire-all","1.2.6")).
       addDependency(new Project("stax","stax-api","1.0.1")).
-      addDependency(new Project("wsdl4j","wsdl4j","1.6.1")).
+      addDependency(new Project("wsdl4j","wsdl4j","1.6.1")).			
       addDependency(new Project("jdom","jdom","1.0"))
       ;
     eXoWebService.services.commons = 
@@ -182,6 +182,9 @@ eXo.projects.Module = {
       addDependency(new Project("jcr", "jcr", "jar", "1.0")).
       addDependency(new Project("concurrent", "concurrent", "jar", "1.3.2")).
       addDependency(new Project("javagroups", "jgroups-all", "jar", "2.4")).
+			addDependency(new Project("stax", "stax-api", "jar", "1.0.1")).
+			addDependency(new Project("stax", "stax", "jar", "1.2.0")).
+			addDependency(new Project("org.apache.ws.commons","ws-commons-util","jar","1.0.1")).
       addDependency(new Project("lucene", "lucene", "jar", "1.4.3")) ;
 
 //        addDependency(ws.commons) .
