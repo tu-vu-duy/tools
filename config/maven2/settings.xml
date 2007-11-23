@@ -1,7 +1,7 @@
 <!--
 | This is the configuration file for Maven. It can be specified at two levels:
  |
- |  1. User Level. This settings.xml file provides configuration for a single user, 
+ |  1. User Level. This settings.xml file provides configuration for a single user,
  |                 and is normally provided in $HOME/.m2/settings.xml.
  |
  |                 NOTE: This location can be overridden with the system property:
@@ -10,7 +10,7 @@
  |
  |  2. Global Level. This settings.xml file provides configuration for all maven
  |                 users on a machine (assuming they're all using the same maven
- |                 installation). It's normally provided in 
+ |                 installation). It's normally provided in
  |                 ${maven.home}/conf/settings.xml.
  |
  |                 NOTE: This location can be overridden with the system property:
@@ -58,8 +58,8 @@
   <offline>false</offline>
   <profiles>
     <profile>
-      <id>vnserver.maven2.repo</id>  
-      <activation><activeByDefault>false</activeByDefault></activation> 
+      <id>vnserver.maven2.repo</id>
+      <activation><activeByDefault>false</activeByDefault></activation>
       <repositories>
         <repository>
           <id>vietnam</id>
@@ -68,7 +68,7 @@
           <layout>default</layout>
         </repository>
       </repositories>
-      
+
       <pluginRepositories>
 		<pluginRepository>
 		  <id>vietnam</id>
@@ -86,8 +86,8 @@
     </profile>
 
     <profile>
-      <id>v2.x</id>  
-      <activation><activeByDefault>false</activeByDefault></activation> 
+      <id>v2.x</id>
+      <activation><activeByDefault>false</activeByDefault></activation>
       <properties>
         <exo.directory.base>/Users/tuannguyen/java</exo.directory.base>
         <exo.directory.v2.x>${exo.directory.base}/projects/v2.x</exo.directory.v2.x>
@@ -104,14 +104,13 @@
         <exo.test.failure.ignore>true</exo.test.failure.ignore>
         <exo.test.use.file>false</exo.test.use.file>
         <exo.test.includes>Test*</exo.test.includes>
-
         <exo.compile.optimize>true</exo.compile.optimize>
       </properties>
     </profile>
 
     <profile>
-      <id>eXoProjects</id>  
-      <activation><activeByDefault>false</activeByDefault></activation> 
+      <id>eXoProjects</id>
+      <activation><activeByDefault>false</activeByDefault></activation>
       <properties>
         <exo.projects.directory.base>/Users/tuannguyen/java</exo.projects.directory.base>
         <exo.projects.directory.src>${exo.projects.directory.base}/eXoProjects</exo.projects.directory.src>
@@ -120,6 +119,13 @@
         <exo.projects.directory.working>${exo.projects.directory.base}/exo-working</exo.projects.directory.working>
         <exo.projects.app.mvn.repo>${exo.projects.directory.dependencies}/repository</exo.projects.app.mvn.repo>
         <exo.projects.app.tomcat.version>tomcat-5.0.28</exo.projects.app.tomcat.version>
+
+        <exo.test.skip>true</exo.test.skip>
+        <exo.test.failure.ignore>true</exo.test.failure.ignore>
+        <exo.test.error.ignore>true</exo.test.error.ignore>
+        <exo.test.use.file>true</exo.test.use.file>
+        <exo.test.includes>Test*</exo.test.includes>
+        <exo.compile.optimize>true</exo.compile.optimize>
       </properties>
     </profile>
 
