@@ -71,7 +71,7 @@ DBInstance.prototype.ConfigureTask = function(product, server) {
 		properties.put("${dialect}", this.dbinstance.name);
     
     configTmpl = 
-      IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/jcr/exo-jcr-config.tmpl.xml");
+      IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/jcr/repository-configuration.tmpl.xml");
     config = eXo.core.Util.modifyText(configTmpl, properties) ;
     mentries.put("WEB-INF/conf/jcr/exo-jcr-config.xml", config.getBytes()) ;
     
