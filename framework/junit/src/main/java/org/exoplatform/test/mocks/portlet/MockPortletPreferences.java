@@ -4,8 +4,11 @@
  **/
 package org.exoplatform.test.mocks.portlet;
 
-import java.util.Hashtable ;
-import javax.portlet.* ;
+import java.util.Hashtable;
+
+import javax.portlet.PortletPreferences;
+import javax.portlet.ReadOnlyException;
+import javax.portlet.ValidatorException;
 /**
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
@@ -19,7 +22,7 @@ public class MockPortletPreferences implements PortletPreferences {
   public MockPortletPreferences() {
     map_ = new Hashtable() ;
   }
-  
+
   public boolean isReadOnly(String key) {
     return true ;
   }
@@ -53,7 +56,7 @@ public class MockPortletPreferences implements PortletPreferences {
   }
 
   public void reset(String key) throws ReadOnlyException {
-    map_.remove(key) ; 
+    map_.remove(key) ;
   }
 
   public void store() throws java.io.IOException, ValidatorException {

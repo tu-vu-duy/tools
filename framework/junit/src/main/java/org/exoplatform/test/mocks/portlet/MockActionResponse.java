@@ -12,9 +12,16 @@
  */
 package org.exoplatform.test.mocks.portlet;
 
-import javax.portlet.*;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.Map;
+
+import javax.portlet.ActionResponse;
+import javax.portlet.PortletMode;
+import javax.portlet.PortletModeException;
+import javax.portlet.WindowState;
+import javax.portlet.WindowStateException;
+import javax.xml.namespace.QName;
 
 public class MockActionResponse extends MockPortletResponse implements ActionResponse {
 
@@ -27,6 +34,9 @@ public class MockActionResponse extends MockPortletResponse implements ActionRes
   public void sendRedirect(String s) throws IOException {
   }
 
+  public void sendRedirect(String location, String renderUrlParamName) throws IOException {
+  }
+
   public void setRenderParameters(Map map) {
   }
 
@@ -35,4 +45,26 @@ public class MockActionResponse extends MockPortletResponse implements ActionRes
 
   public void setRenderParameter(String s, String[] strings) {
   }
+
+  public PortletMode getPortletMode() {
+    return null;
+  }
+
+  public Map<String, String[]> getRenderParameterMap() {
+    return null;
+  }
+
+  public WindowState getWindowState() {
+    return null;
+  }
+
+  public void removePublicRenderParameter(String arg0) {
+  }
+
+  public void setEvent(QName arg0, Serializable arg1) {
+  }
+
+  public void setEvent(String arg0, Serializable arg1) {
+  }
+
 }

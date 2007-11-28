@@ -13,6 +13,10 @@ import javax.portlet.RenderRequest;
  * Date: 10 fev. 2004
  * Time: 19:57:18
  */
-public class MockRenderRequest extends MockPortletRequest
-    implements RenderRequest{
+public class MockRenderRequest extends MockPortletRequest implements RenderRequest {
+
+    public String getETag() {
+      return null;
+    }
+
 }

@@ -5,8 +5,12 @@
 
 package org.exoplatform.test.mocks.portlet;
 
+import javax.portlet.CacheControl;
 import javax.portlet.RenderResponse;
 import javax.portlet.PortletURL;
+import javax.portlet.PortletMode;
+import javax.portlet.ResourceURL;
+
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -18,8 +22,8 @@ import java.util.Locale;
  * Date: 10 feb. 2004
  * Time: 19:58:17
  */
-public class MockRenderResponse extends MockPortletResponse
-    implements RenderResponse{
+public class MockRenderResponse extends MockPortletResponse implements RenderResponse {
+
   public String getContentType() {
     return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
@@ -83,4 +87,18 @@ public class MockRenderResponse extends MockPortletResponse
   public OutputStream getPortletOutputStream() throws IOException {
     return null;  //To change body of implemented methods use File | Settings | File Templates.
   }
+
+  public void setNextPossiblePortletModes(java.util.Collection<PortletMode> portletModes) {
+  }
+
+  public ResourceURL createResourceURL() throws IllegalStateException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public CacheControl getCacheControl() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }

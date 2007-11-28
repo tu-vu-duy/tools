@@ -4,8 +4,12 @@
  **/
 package org.exoplatform.test.mocks.portlet;
 
-import java.util.* ;
-import javax.portlet.* ;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.portlet.PortletContext;
+import javax.portlet.PortletSession;
 
 /**
  * Created by The eXo Platform SARL
@@ -17,7 +21,7 @@ import javax.portlet.* ;
 public class MockPortletSession implements PortletSession {
   HashMap attributes_ ;
   HashMap appAttributes_ ;
-  
+
   public MockPortletSession() {
     super();
     attributes_ = new HashMap() ;
@@ -60,6 +64,18 @@ public class MockPortletSession implements PortletSession {
     }
   }
 
+  public Map getAttributeMap() {
+    return getAttributeMap(PortletSession.PORTLET_SCOPE);
+  }
+
+  public Map getAttributeMap(int scope) {
+    if (scope == PortletSession.APPLICATION_SCOPE) {
+      return Collections.unmodifiableMap(appAttributes_);
+    } else {
+      return Collections.unmodifiableMap(attributes_) ;
+    }
+  }
+
   public java.util.Enumeration getAttributeNames() {
     return null ;
   }
@@ -71,11 +87,11 @@ public class MockPortletSession implements PortletSession {
   public long getCreationTime() {
     return 0 ;
   }
-  
-  public java.lang.String getId() { 
+
+  public java.lang.String getId() {
     return new String(Integer.toString(this.hashCode())) ;
   }
-  
+
   public long getLastAccessedTime() {
     return 0 ;
   }
@@ -85,15 +101,15 @@ public class MockPortletSession implements PortletSession {
   }
 
 
-  public void invalidate() {} 
+  public void invalidate() {}
 
 
   public boolean isNew() {
     return false ;
   }
-  
+
   public void setMaxInactiveInterval(int interval) {
-    
+
   }
 
 

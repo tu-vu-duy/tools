@@ -20,27 +20,32 @@ public class MockActionRequest extends MockPortletRequest implements ActionReque
   }
 
   public java.io.InputStream getPortletInputStream () throws java.io.IOException {
-    return null ;
+    return null;
   }
 
 
   public void setCharacterEncoding(String enc) throws java.io.UnsupportedEncodingException {
-    
+
   }
 
   public java.io.BufferedReader getReader() throws java.io.UnsupportedEncodingException, java.io.IOException {
-    return null ;
+    return null;
   }
-    
+
   public java.lang.String getCharacterEncoding() {
-    return "default" ;
+    return "default";
   }
 
   public java.lang.String getContentType() {
-    return "txt/html" ;
+    return "text/html";
   }
 
   public int getContentLength() {
-    return 0 ;
+    return 0;
   }
+
+  public String getMethod() {
+    return "POST";
+  }
+
 }

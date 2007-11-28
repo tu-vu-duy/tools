@@ -4,8 +4,10 @@
  **/
 package org.exoplatform.test.mocks.portlet;
 
-import javax.portlet.* ;
-import org.exoplatform.test.mocks.servlet.*;
+import javax.portlet.PortletContext;
+import javax.portlet.PortletRequestDispatcher;
+
+import org.exoplatform.test.mocks.servlet.MockServletContext;
 
 /**
  * Created by The eXo Platform SARL
@@ -16,72 +18,72 @@ import org.exoplatform.test.mocks.servlet.*;
  */
 public class MockPortletContext implements  PortletContext {
 
-  private String realPath_ = "./" ;
-  private String contextName_ ;
+  private String realPath_ = "./";
+  private String contextName_;
 
   public String getServerInfo () {
-    return null ;
+    return null;
   }
 
   public PortletRequestDispatcher getRequestDispatcher(String path) {
-    return null ;
+    return null;
   }
 
   public PortletRequestDispatcher getNamedDispatcher(String name) {
-    return null ;
+    return null;
   }
 
   public java.io.InputStream getResourceAsStream (String path) {
-    return null ;
+    return null;
   }
 
   public int getMajorVersion () {
-    return 1 ;
+    return 1;
   }
 
   public int getMinorVersion () {
-    return 0 ;
+    return 0;
   }
 
   public String getMimeType(String file) {
-    return null ;
+    return null;
   }
 
   public String getRealPath(String path) {
-    return realPath_ ;
+    return realPath_;
   }
 
   public java.util.Set getResourcePaths(String path) {
-    return null ;
+    return null;
   }
 
   public java.net.URL getResource(String path) throws java.net.MalformedURLException {
-    return null ;
+    return null;
   }
 
   public java.lang.Object getAttribute(java.lang.String name) {
-    return null ;
+    return null;
   }
 
   public java.util.Enumeration getAttributeNames() {
-    return null ;
+    return null;
   }
 
   public java.lang.String getInitParameter(java.lang.String name) {
-    return null ;
+    return null;
   }
 
   public java.util.Enumeration getInitParameterNames() {
-    return null ;
+    return null;
   }
 
   public void log(java.lang.String msg) {
-    System.out.println(msg) ;
+    System.out.println(msg);
   }
 
   public void log(java.lang.String message, java.lang.Throwable throwable) {
-    System.out.println(message) ;
-    throwable.printStackTrace() ;
+    System.out.println(message);
+    throwable.printStackTrace();
   }
 
   public void removeAttribute(java.lang.String name) {
@@ -91,15 +93,20 @@ public class MockPortletContext implements  PortletContext {
   }
 
   public String getPortletContextName() {
-    return contextName_  ;
+    return contextName_;
   }
 
   public void setPortletContextName(String name) {
-    contextName_ = name ;
+    contextName_ = name;
   }
 
   public MockServletContext getWrappedServletContext()
   {
      return new MockServletContext(contextName_);
   }
+
+  public java.util.Map<String, String[]> getContainerRuntimeOptions() {
+    return java.util.Collections.emptyMap();
+  }
+
 }
