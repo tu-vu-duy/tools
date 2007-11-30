@@ -219,7 +219,8 @@ eXo.projects.Module = {
     portal.component.web = 
       new Project("org.exoplatform.portal", "exo.portal.component.web", "jar", version) ;
     portal.component.applicationRegistry  = 
-      new Project("org.exoplatform.portal", "exo.portal.component.application-registry", "jar", version) ;
+      new Project("org.exoplatform.portal", "exo.portal.component.application-registry", "jar", version).
+			addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")) ;
     portal.component.resources = 
       new Project("org.exoplatform.portal", "exo.portal.component.resources", "jar", version) ;
       
