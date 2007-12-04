@@ -340,21 +340,20 @@ eXo.projects.Module = {
     ecm.portlet = {}
     ecm.portlet.ecm = 
       new Project("org.exoplatform.ecm", "exo.ecm.portlet.ecm", "exo-portlet", version).
-      addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.cms", "jar",  version)) .      
-      addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.api", "jar", version)) .
-      addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", version)) .
-      addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.engine", "jar", "3.0")) .
+      addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.cms", "jar",  version)) .            
       addDependency(new Project("rome", "rome", "jar", "0.8")) .
       addDependency(new Project("com.totsp.feedpod", "itunes-com-podcast", "jar", "0.2")) .
       addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")) .
       addDependency(new Project("jdom", "jdom", "jar", "1.0")).
       addDependency(new Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")).
       addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")).
-      addDependency(new Project("javax.xml.stream", "stax-api", "jar", "1.0")) ;
-      //addDependency(Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.bonita", "jar", version)) ;
+      addDependency(new Project("javax.xml.stream", "stax-api", "jar", "1.0")) ;      
 
     ecm.portlet.workflow = 
-      new Project("org.exoplatform.ecm", "exo.ecm.portlet.workflow", "exo-portlet", version);
+      new Project("org.exoplatform.ecm", "exo.ecm.portlet.workflow", "exo-portlet", version).
+      addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.api", "jar", version)) .
+      addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", version)) .
+      addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.engine", "jar", "3.0"));
     
     ecm.web = {}
     ecm.web.ecmportal = 
@@ -367,6 +366,47 @@ eXo.projects.Module = {
       addDependency(jcr.frameworks.web) ;
       
      return ecm ;
+  },
+  
+  ecmBonita : function(kernel, core, eXoPortletContainer, jcr, portal, version) {
+    var ecmBonita = {}
+    ecmBonita.version =  version ;
+    ecmBonita.relativeMavenRepo =  "org/exoplatform/ecm" ;
+    ecmBonita.relativeSRCRepo =  "ecm/trunk" ;
+    ecmBonita.name =  "ecmBonita" ;
+    
+    ecmBonita.portlet = {}
+    ecmBonita.portlet.ecm = 
+      new Project("org.exoplatform.ecm", "exo.ecm.portlet.ecm", "exo-portlet", version).
+      addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.cms", "jar",  version)) .            
+      addDependency(new Project("rome", "rome", "jar", "0.8")) .
+      addDependency(new Project("com.totsp.feedpod", "itunes-com-podcast", "jar", "0.2")) .
+      addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")) .
+      addDependency(new Project("jdom", "jdom", "jar", "1.0")).
+      addDependency(new Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")).
+      addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")).
+      addDependency(new Project("javax.xml.stream", "stax-api", "jar", "1.0")) ;      
+
+    ecmBonita.portlet.workflow = 
+      new Project("org.exoplatform.ecm", "exo.ecm.portlet.workflow", "exo-portlet", version).
+      addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.api", "jar", version)) .      
+      addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.bonita", "jar", version)) ;
+    
+    ecmBonita.web = {}
+    ecmBonita.web.ecmportal = 
+      new Project("org.exoplatform.ecm", "exo.ecm.web.portal", "exo-portal", version).
+      addDependency(portal.web.eXoResources) .
+      addDependency(portal.web.eXoMacSkin) .
+      addDependency(portal.web.eXoVistaSkin) .
+      addDependency(portal.webui.portal) .
+      addDependency(jcr.frameworks.command) .
+      addDependency(jcr.frameworks.web) ;
+    ecmBonita.server = {}  
+    ecmBonita.server.jonas = {}
+    ecmBonita.server.jonas.patch = 
+    	new Project("org.exoplatform.ecm", "exo.ecm.server.jonas.patch", "jar", version);
+              
+     return ecmBonita ;
   },
   
   

@@ -9,6 +9,8 @@ function Project(gid, id, ptype, version) {
 
   this.extension = ptype ;
   if(ptype == "exo-portlet" || ptype == "exo-portal") this.extension = "war" ;
+  if(ptype == "exo-ear-jar") this.extension = "jar";
+  if(ptype == "exo-ear-rar") this.extension = "rar";
   this.relativePath = gid.replace(/\./g, '/') + "/" + id + "/" + version + "/" + 
                       id + "-" + version + "." + this.extension ;
   
@@ -93,6 +95,10 @@ Project.prototype.deployTo = function(repository, server) {
         }
         fileName = warName + ".war" ;
         fileName = server.deployWebappDir + "/"  + fileName  ;
+     	} else if(this.type == "exo-ear-jar") {
+        fileName = server.deployWebappDir + "/" + this.artifactId + ".jar" ;
+      } else if(this.type == "exo-ear-rar") {
+        fileName = server.deployWebappDir + "/" + this.artifactId + ".rar" ;
       } else {
         fileName = server.deployLibDir + "/" + this.artifactId + "-" +this.version + "." + this.type ;
       }

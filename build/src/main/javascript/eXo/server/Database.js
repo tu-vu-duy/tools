@@ -63,9 +63,9 @@ DBInstance.prototype.ConfigureTask = function(product, server) {
     var jarFile =  server.deployWebappDir + "/" + product.portalwar ;
     var mentries = new java.util.HashMap() ;
     var configTmpl = 
-      IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/database-configuration.tmpl.xml");
+      IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/database/database-configuration.tmpl.xml");
     var config = eXo.core.Util.modifyText(configTmpl, properties) ;
-    mentries.put("WEB-INF/conf/database-configuration.xml", config.getBytes()) ;
+    mentries.put("WEB-INF/conf/database/database-configuration.xml", config.getBytes()) ;
 
     var properties = new java.util.HashMap() ;
 		properties.put("${dialect}", this.dbinstance.name);

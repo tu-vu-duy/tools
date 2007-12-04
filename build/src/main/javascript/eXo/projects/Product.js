@@ -24,7 +24,7 @@ Product.prototype.getServerPatches = function(serverName) {
   return this.serverPatches.get(serverName) ; 
 }
 Product.prototype.addDependencies = function(project) {
-  this.dependenciesHolder.put(project.relativePath, project) ;
+  this.dependenciesHolder.put(project.relativePath, project) ;  
   if(project.hasDependency()) {
     var list = project.dependencies ;
     for(var i = 0; i < list.size(); i++) {
@@ -37,15 +37,21 @@ Product.prototype.getDependencies = function() {
   return this.dependenciesHolder.values() ; 
 }
 
-Product.prototype.DeployTask = function(product, server, repos) {
+Product.prototype.DeployTask = function(product, server, repos) {	  
+	patches = product.getServerPatches(server.name) ;
+  if(patches == null) {
+  	var msg = "The server " + server.name + " may not support this product: " + product.name 
+  	         +". Please try to use another server" ;
+  	eXo.System.info("INFO", msg);
+  	return ;    	             	
+  }
   var descriptor =  new TaskDescriptor("Deploy Product", server.serverHome) ;
   descriptor.execute = function() {
     eXo.System.info("DELETE", "Delete " + server.serverHome);
     eXo.core.IOUtil.remove(server.serverHome) ;
     eXo.System.info("COPY", "Copy a clean server " + server.cleanServer);
     eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/" + server.cleanServer, server.serverHome) ;
-    server.preDeploy(product) ;
-    patches = product.getServerPatches(server.name) ;
+    server.preDeploy(product) ;    
     for(var i = 0; i <  patches.size(); i++) {
       project = patches.get(i) ;
       var message = "Patch the server " + server.name + 

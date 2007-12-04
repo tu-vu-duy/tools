@@ -127,6 +127,8 @@ for(var i = 0; i <args.length; i++) {
   	product = eXo.projects.eXoProduct.geneveProduct();
   } else if ("--product=company" == arg) {
   	product = eXo.projects.eXoProduct.companyProduct();
+  }else if ("--product=ecmBonita" == arg) {
+  	product = eXo.projects.eXoProduct.eXoECMBonitaProduct();
   } else if ("--product=this" == arg) {
   	load('pom.js') ;
   } else if (arg.indexOf("--product=") == 0) {

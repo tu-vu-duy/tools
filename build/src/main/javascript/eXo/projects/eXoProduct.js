@@ -53,10 +53,8 @@ eXo.projects.eXoProduct = {
     var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
                                     
     var ecm = eXo.projects.Module.ecm(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
-//    var cs = eXo.projects.Module.cs(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
     
     product.addDependencies(ecm.web.ecmportal) ;
-    /*product.addDependencies(portal.portlet.content) ;*/
     product.addDependencies(portal.portlet.exoadmin) ;
     product.addDependencies(portal.portlet.web) ;
     product.addDependencies(ecm.portlet.ecm) ;
@@ -77,6 +75,41 @@ eXo.projects.eXoProduct = {
     product.codeRepo = "ecm/trunk" ;
 
     product.module = ecm ;
+    product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal];
+    
+    return product ;
+  },
+  
+  eXoECMBonitaProduct : function() {
+    var product = new Product();
+    product.name = "eXoECMBonita" ;
+    product.portalwar = "portal.war" ;
+    
+    var tool = eXo.projects.Module.tool("2.0") ;
+    var kernel = eXo.projects.Module.kernel("2.0.3") ;
+
+    var ws = eXo.projects.Module.ws("0.1");
+
+    var core = eXo.projects.Module.core("2.0.3") ;
+    var eXoPortletContainer = eXo.projects.Module.eXoPortletContainer("2.0") ;
+    var eXoJcr = eXo.projects.Module.eXoJcr("1.7") ;
+    var portal = eXo.projects.Module.portal(kernel, core, eXoPortletContainer, eXoJcr, "2.0");
+                                    
+    var ecmBonita = eXo.projects.Module.ecmBonita(kernel, core, eXoPortletContainer, eXoJcr, portal, "2.0");
+    
+    product.addDependencies(ecmBonita.web.ecmportal) ;
+    product.addDependencies(portal.portlet.exoadmin) ;
+    product.addDependencies(portal.portlet.web) ;
+    product.addDependencies(ecmBonita.portlet.ecm) ;
+    product.addDependencies(ecmBonita.portlet.workflow) ;
+    
+    product.addDependencies(portal.eXoWidget.web) ;
+                
+    product.addServerPatch("jonas",  ecmBonita.server.jonas.patch) ;
+    
+    product.codeRepo = "ecm/trunk" ;
+
+    product.module = ecmBonita ;
     product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal];
     
     return product ;
