@@ -3,7 +3,7 @@
   <groupId>org.exoplatform.tool</groupId>
   <artifactId>config</artifactId>
   <name>eXo Tool Config</name>
-  <version>2.0.3</version>
+  <version>trunk</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -63,7 +63,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <org.exoplatform.tool.version>2.0.3</org.exoplatform.tool.version>
+        <org.exoplatform.tool.version>trunk</org.exoplatform.tool.version>
 
         <test.classes>Test</test.classes>
         <test.skip>true</test.skip>

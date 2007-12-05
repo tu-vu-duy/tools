@@ -6,29 +6,40 @@ eXo.require("eXo.core.TaskDescriptor") ;
 eXo.require("eXo.command.maven") ;
 eXo.require("eXo.command.exosvn") ;
 eXo.require("eXo.core.IOUtil") ;
-eXo.require("eXo.projects.eXoProduct") ;
-//eXo.require("eXo.projects") ;
+eXo.require("eXo.projects.Product") ;
 
 function exobuildInstructions() {
   print(
    "\n\n" +
    "Usage the exobuild command: \n\n" +
-   "  exobuild --product=[portal,ecm,cs,all] [--update]  [--exclude=all,pc,jcr,..] [--deploy=tomcat,jboss,jonas] \n\n" +
+   "  exobuild --product=[portal,ecm,cs,all]\n" +
+   "           [--version]\n" + 
+   "           [--update]\n" +
+   "           [--build]\n" +
+   "           [--exclude=all,pc,jcr,..]\n" +
+   "           [--deploy=tomcat,jboss,jonas]\n" +
+   "           [--clean-mvn-repo]\n" +
+   "           [--database]\n" +
+   "           [--ask]\n" +
+   "\n\n" +
    "Options: \n" +
-   "  * --product          is mandatory. The possible names are portal, ecm, groupware, all \n" +
-   "  * --update           is optional. If you add this option, exobuild  will make a \n" +
-   "                       svn update before it builds \n" +
-   "  * --build            is optional. If you add this option, the exobuild command \n" +
-   "                       will compile and install the sub projects of the product, \n" +
+   "  * --product          is mandatory. The possible names are portal, ecm, groupware, all\n" +
+   "  * --version          is optional. This option allows to specify which version of the product\n" +
+   "                       to build. Default is \"trunk\"\n" +
+   "  * --update           is optional. If you add this option, exobuild  will make a\n" +
+   "                       svn update before it builds\n" +
+   "  * --build            is optional. If you add this option, the exobuild command\n" +
+   "                       will compile and install the sub projects of the product,\n" +
    "  * --exclude          is optional. You can specify any module name. Ideal when one dependency\n" +
-   "                       makes the compilation break. \n" +
-   "  * --deploy           is optional. The possible names are tomcat-server, jboss-server, and \n" +
-   "                       jonas-server. If you enter only --deploy, the tomcat-server will be used \n" +
-   "  * --clean-mvn-repo   is optional. This option is allowed you to delete the exo artifact in the maven repository \n" +
-   "  * --database         is optional. This option must use with the --deploy option. The possible \n" +
-   "                       values are hsql, mysql, oracle, postgres, derby and mssql \n" +
-   "  * --ask              is optional. This option is used with --database option. it allow you to \n" +
-   "                       enter the connection url , username and password of the database server \n" 
+   "                       makes the compilation break.\n" +
+   "  * --deploy           is optional. The possible names are tomcat-server, jboss-server, and\n" +
+   "                       jonas-server. If you enter only --deploy, the tomcat-server will be used\n" +
+   "  * --clean-mvn-repo   is optional. This option is allowed you to delete the exo artifact in the\n" +
+   "                       maven repository.\n" +
+   "  * --database         is optional. This option must use with the --deploy option. The possible\n" +
+   "                       values are hsql, mysql, oracle, postgres, derby and mssql\n" +
+   "  * --ask              is optional. This option is used with --database option. it allow you to\n" +
+   "                       enter the connection url , username and password of the database server\n" 
   );
 }
 
@@ -61,8 +72,10 @@ var maven = new eXo.command.maven() ;
 var exosvn = null ;
 var server = null ;
 var deployServers = null;
+var productName = null;
 var product = null ;
 var database = null;
+var version = "trunk";
 
 var args = arguments;
 
@@ -70,6 +83,8 @@ for(var i = 0; i <args.length; i++) {
   var arg = args[i] ;
   if ("--update" == arg) {
     update_ = true ;
+  } else if (arg.match ("--version")) {
+    version = arg.substring("--version=".length);
   } else if ("--build" == arg) {
     build_ = true ;
   } else if ("--ask" == arg) {
@@ -109,30 +124,8 @@ for(var i = 0; i <args.length; i++) {
     database = eXo.server.Database.DerbyDB() ;
   } else if(arg == "--database=sqlserver") {
     database = eXo.server.Database.SqlServerDB() ;
-  } else if ("--product=portal" == arg) {
-    //eXo.load('pom.js', eXo.env.eXoProjectsDir + "/portal/trunk" ) ;
-    //product = eXo.product.eXoProduct ;
-    product = eXo.projects.eXoProduct.portal();
-  } else if ("--product=ecm" == arg) {
-    //eXo.load('pom.js', eXo.env.eXoProjectsDir + "/ecm/trunk" ) ;
-    //product = eXo.product.eXoProduct ;
-    product = eXo.projects.eXoProduct.eXoECMProduct();
-  } else if ("--product=cs" == arg) {
-    //eXo.load('pom.js', eXo.env.eXoProjectsDir + "/cs/trunk" ) ;
-    //product = eXo.product.eXoProduct ;
-    product = eXo.projects.eXoProduct.eXoCSProduct();
-  } else if ("--product=all" == arg) {
-    product = eXo.projects.eXoProduct.eXoAllProduct();
-  } else if ("--product=geneve" == arg) {
-  	product = eXo.projects.eXoProduct.geneveProduct();
-  } else if ("--product=company" == arg) {
-  	product = eXo.projects.eXoProduct.companyProduct();
-  }else if ("--product=ecmBonita" == arg) {
-  	product = eXo.projects.eXoProduct.eXoECMBonitaProduct();
-  } else if ("--product=this" == arg) {
-  	load('pom.js') ;
-  } else if (arg.indexOf("--product=") == 0) {
-		load(eXo.env.eXoProjectsDir + "/" + arg.substring(arg.indexOf("=") + 1) + "/trunk/pom.js") ;
+  } else if (arg.match("--product")) {
+    productName = arg.substring("--product=".length);
   } else {
     print("UNKNOWN ARGUMENT: " + arg); 
     exobuildInstructions() ;
@@ -140,8 +133,10 @@ for(var i = 0; i <args.length; i++) {
   }
 }
 
-if(product == null) { 
+if(productName == null) { 
   exobuildInstructions() ;
+} else {
+  product = Product.GetProduct(productName, version);
 }
 
 tasks =  new java.util.ArrayList() ;
@@ -153,11 +148,11 @@ if(release_ && server == null) {
 }
 
 if(server != null  && deployServers == null) {
-  deployServers =  [server] ; 
+  deployServers = [server] ; 
 }
   
 if(deployServers != null  && ask) {
-    tasks.add(database.GetConfigTask()) ;
+  tasks.add(database.GetConfigTask()) ;
 }
 if(update_) {
 	exosvn = new eXo.command.exosvn();
