@@ -12,7 +12,7 @@ function getProduct(version) {
   var kernel = Module.GetModule("kernel/trunk") ;
   var ws = Module.GetModule("ws/trunk");
   var core = Module.GetModule("core/trunk") ;
-  var eXoPortletContainer = Module.GetModule("portlet-container/branches/2.0") ;    
+  var eXoPortletContainer = Module.GetModule("portlet-container/trunk") ;    
   var eXoJcr = Module.GetModule("jcr/trunk") ;
   var portal = Module.GetModule("portal/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
 

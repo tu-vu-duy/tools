@@ -11,7 +11,7 @@
     <module>kernel/trunk</module>
     <module>core/trunk</module>
     <module>ws/trunk</module>
-    <module>portlet-container/branches/2.0</module>
+    <module>portlet-container/trunk</module>
     <module>portal/trunk</module>
     <module>jcr/trunk</module>
     <module>ecm/trunk</module>

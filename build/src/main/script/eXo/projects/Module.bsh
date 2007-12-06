@@ -111,7 +111,7 @@ Module() {
   eXoPortletContainer(String version) {
     this.version =  version ;
     this.relativeMavenRepo =  "org/exoplatform/portletcontainer" ;
-    this.relativeSRCRepo =  "portlet-container/branches/2.0" ;
+    this.relativeSRCRepo =  "portlet-container/trunk" ;
     this.name =  "pc" ;
 
     services() {
