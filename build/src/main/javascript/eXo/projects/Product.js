@@ -15,10 +15,10 @@ Product.GetProduct = function(name, version) {
   // Try to load the product descriptor corresponding to the specified name and version
   eXo.load(version + ".js", eXo.env.eXoProjectsDir + "/tools/trunk/build/src/main/javascript/eXo/products/" + name);
   
-  //try {
+  try {
     // The function getProduct() is defined in the loaded product decriptor
     return getProduct(version);
-  /*} catch(error) {
+  } catch(error) {
     print(error);
     print("ERROR while loading product descriptor (name=\""
           + name
@@ -26,7 +26,7 @@ Product.GetProduct = function(name, version) {
           + version
           + "\"). Perhaps it is missing.");
     java.lang.System.exit(1);
-  }*/
+  }
 }
 
 Product.prototype.addServerPatch = function (serverName, project) {

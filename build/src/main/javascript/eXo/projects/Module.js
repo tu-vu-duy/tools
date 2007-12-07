@@ -11,10 +11,10 @@ Module.GetModule = function(path, params) {
   // Try to load the module descriptor corresponding to the specified name and version
   eXo.load("module.js", eXo.env.eXoProjectsDir + "/" + path);
   
-  //try {
+  try {
     // The function getModule() is defined in the loaded module descriptor
     return getModule(params);
-  /*} catch(error) {
+  } catch(error) {
 
     print("ERROR while loading module descriptor (name=\""
           + name
@@ -23,5 +23,4 @@ Module.GetModule = function(path, params) {
           + "\"). Perhaps it is missing.");
     java.lang.System.exit(1);
   }
-  */
 }
