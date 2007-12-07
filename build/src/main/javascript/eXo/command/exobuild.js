@@ -43,19 +43,23 @@ function exobuildInstructions() {
   );
 }
 
-function ReleaseTask(server, product) {
+function ReleaseTask(server, product, version) {
   var descriptor = new TaskDescriptor("Release Task", server.serverHome) ;
   descriptor.execute = function() {
-    var commands = ["svn", "info", eXo.env.eXoProjectsDir + "/" + product.codeRepo] ;
-    var result = eXo.System.run(commands) ; 
-    var line = result.split("\n") ;
-    var revision = "unknown" ;
-    for(var i = 0; i < line.length; i++) {
-      if(line[i].startsWith("Revision: ")) {
-        revision = line[i].substring("Revision: ".length, line[i].length()) ;
-      }
+    var versionInfo = "unknown";
+    if("trunk" == version) {
+      var commands = ["svn", "info", eXo.env.eXoProjectsDir + "/" + product.codeRepo] ;
+      var result = eXo.System.run(commands) ; 
+      var line = result.split("\n") ;
+      for(var i = 0; i < line.length; i++) {
+        if(line[i].startsWith("Revision: ")) {
+          versionInfo = "r" + line[i].substring("Revision: ".length, line[i].length()) ;
+       }
+      } 
+    } else {
+      versionInfo = version ;
     }
-    eXo.core.IOUtil.zip(server.serverHome, eXo.env.workingDir, "exo-enterprise-webos-r" + revision + "-" + server.name) ;
+    eXo.core.IOUtil.zip(server.serverHome, eXo.env.workingDir, "exo-" + product.name + "-" + versionInfo + "-" + server.name) ;
   }
   return descriptor ;
 }
@@ -189,17 +193,13 @@ if(build_) {
   tasks.add(maven.MavenTask(moduleDir, mvnArgs));
 }
 
-//print (server + "\n" + deployServers + "\n" + product) ; 
-
 if(deployServers != null) { 
-  //print (deployServers);
   for(var i = 0; i < deployServers.length; i++) {
-  //print ("test here");
     server =  deployServers[i] ;
     tasks.add(product.DeployTask(product, server, eXo.env.m2Repos)) ;
     tasks.add(database.DeployTask(product, server, eXo.env.m2Repos)) ;
     tasks.add(database.ConfigureTask(product, server)) ;
-    if(release_)tasks.add(ReleaseTask(server, product)) ;
+    if(release_)tasks.add(ReleaseTask(server, product, version)) ;
   }
 }
 
