@@ -27,13 +27,15 @@ function getProduct(version) {
   product.addDependencies(cs.eXoApplication.calendar) ;
   product.addDependencies(cs.eXoApplication.contact) ;
   product.addDependencies(cs.eXoApplication.content) ;
-  product.addDependencies(cs.portlet.web) ;
-  product.addDependencies(cs.web.spffResources) ;
-  product.addDependencies(cs.web.csportal) ;
+  
+  product.addDependencies(spff.portlet.web) ;
+  product.addDependencies(spff.web.spffResources) ;
+  product.addDependencies(spff.web.spffportal) ;
   
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
+  
   product.module = spff ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, eXoJcr, portal];
     
