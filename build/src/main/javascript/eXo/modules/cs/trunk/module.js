@@ -46,13 +46,14 @@ function getModule(params) {
   module.eXoApplication.content.deployName = "content";
     
   module.web = {}
+  module.web.csResources = 
+    new Project("org.exoplatform.cs", "exo.cs.web.csResources", "war", module.version) ;
   module.web.csportal = 
     new Project("org.exoplatform.cs", "exo.cs.web.portal", "exo-portal", module.version).
       addDependency(portal.web.eXoResources) .
       addDependency(portal.web.eXoMacSkin) .
       addDependency(portal.web.eXoVistaSkin) .
-			addDependency(new Project("org.exoplatform.portal", "exo.portal.component.jcrext", "jar", module.version)).
-      addDependency(portal.webui.portal) .
+	  addDependency(portal.webui.portal) .
       addDependency(jcr.frameworks.command) .
       addDependency(jcr.frameworks.web) ;
       
