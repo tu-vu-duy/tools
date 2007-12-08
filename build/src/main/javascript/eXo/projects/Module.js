@@ -9,13 +9,12 @@ function Module() {
 
 Module.GetModule = function(path, params) {
   // Try to load the module descriptor corresponding to the specified name and version
-  eXo.load("module.js", eXo.env.eXoProjectsDir + "/" + path);
+  eXo.load("module.js", eXo.env.eXoProjectsDir + "/tools/trunk/build/src/main/javascript/eXo/modules/" + path);
   
   try {
     // The function getModule() is defined in the loaded module descriptor
     return getModule(params);
   } catch(error) {
-
     print("ERROR while loading module descriptor (name=\""
           + name
           + "\", version=\""
