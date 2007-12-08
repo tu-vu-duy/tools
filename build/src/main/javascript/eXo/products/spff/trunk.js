@@ -27,6 +27,7 @@ function getProduct(version) {
   product.addDependencies(cs.eXoApplication.calendar) ;
   product.addDependencies(cs.eXoApplication.contact) ;
   product.addDependencies(cs.eXoApplication.content) ;
+  product.addDependencies(cs.web.csResources) ;
   
   product.addDependencies(spff.portlet.web) ;
   product.addDependencies(spff.web.spffResources) ;
