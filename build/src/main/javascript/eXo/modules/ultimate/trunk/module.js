@@ -23,6 +23,7 @@ function getModule(params) {
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .
     addDependency(portal.webui.portal) .
+    addDependency(cs.web.csResources) .
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web) ;
 
