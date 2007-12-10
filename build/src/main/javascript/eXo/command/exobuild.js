@@ -12,7 +12,7 @@ function exobuildInstructions() {
   print(
    "\n\n" +
    "Usage the exobuild command: \n\n" +
-   "  exobuild --product=[portal,ecm,cs,all]\n" +
+   "  exobuild --product=[portal,ecm,cs,ultimate]\n" +
    "           [--version]\n" + 
    "           [--update]\n" +
    "           [--build]\n" +
@@ -39,7 +39,10 @@ function exobuildInstructions() {
    "  * --database         is optional. This option must use with the --deploy option. The possible\n" +
    "                       values are hsql, mysql, oracle, postgres, derby and mssql\n" +
    "  * --ask              is optional. This option is used with --database option. it allow you to\n" +
-   "                       enter the connection url , username and password of the database server\n" 
+   "                       enter the connection url , username and password of the database server\n"  +
+   "  * --workflow         is optional. The possible names are bonita or jbpm. This option only use\n"+
+   "                       for products which use workflow like ecm,ultimate and ecm related products\n"+
+   "                       By default, jpbm will be used for the products"
   );
 }
 
