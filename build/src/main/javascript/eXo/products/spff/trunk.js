@@ -15,12 +15,16 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk") ;
   var eXoJcr = Module.GetModule("jcr/trunk") ;
   var portal = Module.GetModule("portal/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });  
+  var ecm = Module.GetModule("ecm/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var cs = Module.GetModule("cs/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var spff = Module.GetModule("spff/internet/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var spff = Module.GetModule("spff/internet/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
     
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.eXoWidget.web) ;
+  
+  product.addDependencies(ecm.portlet.ecm) ;
+  product.addDependencies(ecm.portlet.workflow) ;
             
   product.addDependencies(cs.eXoApplication.mail) ;
   product.addDependencies(cs.eXoApplication.forum) ;
@@ -38,7 +42,7 @@ function getProduct(version) {
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   
   product.module = spff ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, eXoJcr, portal];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, eXoJcr, portal, ecm];
     
   return product ;
 }
