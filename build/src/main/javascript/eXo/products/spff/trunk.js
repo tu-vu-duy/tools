@@ -7,6 +7,7 @@ function getProduct(version) {
   product.name = "spff" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "spff/internet/trunk" ;
+  product.useWorkflow = true;  
     
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/trunk") ;

@@ -6,6 +6,7 @@ eXo.require("eXo.core.TaskDescriptor") ;
 eXo.require("eXo.command.maven") ;
 eXo.require("eXo.command.exosvn") ;
 eXo.require("eXo.core.IOUtil") ;
+eXo.require("eXo.projects.Workflow") ;
 eXo.require("eXo.projects.Product") ;
 
 function exobuildInstructions() {
@@ -18,6 +19,7 @@ function exobuildInstructions() {
    "           [--build]\n" +
    "           [--exclude=all,pc,jcr,..]\n" +
    "           [--deploy=tomcat,jboss,jonas]\n" +
+   "					 [--workflow=jbpm,bonita]\n" +
    "           [--clean-mvn-repo]\n" +
    "           [--database]\n" +
    "           [--ask]\n" +
@@ -83,6 +85,7 @@ var productName = null;
 var product = null ;
 var database = null;
 var version = "trunk";
+var workflow = new Workflow("jbpm",version)
 
 var args = arguments;
 
@@ -133,6 +136,10 @@ for(var i = 0; i <args.length; i++) {
     database = eXo.server.Database.SqlServerDB() ;
   } else if (arg.match("--product")) {
     productName = arg.substring("--product=".length);
+  }else if (arg.match("--workflow")) {
+    var workflowName = arg.substring("--workflow=".length);
+    workflow = new Workflow(workflowName,version);
+    java.lang.System.setProperty("workflow",workflowName) ;
   } else {
     print("UNKNOWN ARGUMENT: " + arg); 
     exobuildInstructions() ;
@@ -196,7 +203,10 @@ if(build_) {
   tasks.add(maven.MavenTask(moduleDir, mvnArgs));
 }
 
-if(deployServers != null) { 
+if(deployServers != null) {	
+	if(product.useWorkflow) {			
+		workflow.configWorkflow(product);
+	}	 	
   for(var i = 0; i < deployServers.length; i++) {
     server =  deployServers[i] ;
     tasks.add(product.DeployTask(product, server, eXo.env.m2Repos)) ;

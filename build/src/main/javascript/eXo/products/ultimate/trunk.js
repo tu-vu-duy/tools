@@ -8,6 +8,7 @@ function getProduct(version) {
   product.name = "eXoUltimateProduct" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "ultimate/trunk" ;
+  product.useWorkflow = true;
     
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/trunk") ;

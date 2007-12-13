@@ -7,6 +7,7 @@ function getProduct(version) {
   product.name = "eurofer" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "eurofer/internet/trunk" ;
+  product.useWorkflow = true;
 
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/trunk") ;

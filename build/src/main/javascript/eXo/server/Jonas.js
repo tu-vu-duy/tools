@@ -43,15 +43,7 @@ Jonas.prototype.preDeploy = function(product) {
   eXo.core.IOUtil.createFolder(this.deployWebappDir + "/META-INF");
   product.addDependencies(new Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;
   product.addDependencies(new Project("commons-pool", "commons-pool", "jar", "1.2")) ;
-  product.addDependencies(new Project("org.exoplatform.portal", "exo.portal.server.jonas.plugin", "jar", "2.0")) ;
-  if(product.name == "eXoECMBonita") {
- 		product.addDependencies(new Project("org.objectweb.bonita", "bonita-client", "jar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "bonita", "exo-ear-jar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "config", "exo-ear-rar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "bonita_ws", "war", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "jabber", "exo-ear-rar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "loadclass", "exo-ear-rar", "3.0")) ;
-  }
+  product.addDependencies(new Project("org.exoplatform.portal", "exo.portal.server.jonas.plugin", "jar", "2.0")) ;  
 }
 
 Jonas.prototype.onDeploy = function(project) {
@@ -80,9 +72,10 @@ Jonas.prototype.postDeploy = function(product) {
   ServerUtil = eXo.server.ServerUtil ;
   ServerUtil.createEarApplicationXml(this.deployWebappDir, product) ;
   ServerUtil.addClasspathForWar(this.deployLibDir) ;
-  if(product.name == "eXoECMBonita") {	  
-	  var properties = new java.util.HashMap() ;
-	  var IOUtil =  eXo.core.IOUtil ;
+  var workflow = java.lang.System.getProperty("workflow");
+  if(product.useWorkflow && workflow == "bonita") {
+  	var IOUtil =  eXo.core.IOUtil ;
+  	var properties = new java.util.HashMap() ;
 	  properties.put("${workflow}", "bonita") ;  
 	  var jarFile =  server.deployWebappDir + "/" + product.portalwar ;
 	  var mentries = new java.util.HashMap() ;
@@ -90,8 +83,8 @@ Jonas.prototype.postDeploy = function(product) {
 	    IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/configuration.tmpl.xml");
 	  var config = eXo.core.Util.modifyText(configTmpl, properties) ;
 	  mentries.put("WEB-INF/conf/configuration.xml", config.getBytes()) ;	    		    	
-	  IOUtil.modifyJar(server.deployWebappDir + "/" + product.portalwar, mentries, null) ;	  
-  }
+	  IOUtil.modifyJar(server.deployWebappDir + "/" + product.portalwar, mentries, null) ;
+  }  
 }
 
 eXo.server.Jonas = Jonas.prototype.constructor ;

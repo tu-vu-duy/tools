@@ -14,7 +14,7 @@ maven.prototype.MavenTask = function(projectDir, args) {
     java.lang.System.setProperty("maven.home", m2Home) ;
     java.lang.System.setProperty("classworlds.conf", m2Home + "/bin/m2.conf") ;
 
-    java.lang.System.setProperty("user.dir", this.workingDir) ;
+    java.lang.System.setProperty("user.dir", this.workingDir) ;    
     print("path: " + m2Home) ;
     var mvnClasspath = [
       new java.net.URL("file:" + m2Home + "/core/boot/classworlds-1.1.jar"),

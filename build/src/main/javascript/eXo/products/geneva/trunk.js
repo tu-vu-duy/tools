@@ -7,6 +7,7 @@ function getProduct(version) {
   product.name = "geneva" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "geneve/website_poc/trunk" ;
+  product.useWorkflow = true;
 
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/trunk") ;
