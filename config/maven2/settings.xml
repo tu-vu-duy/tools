@@ -121,6 +121,8 @@
         <exo.projects.app.tomcat.version>tomcat-5.0.28</exo.projects.app.tomcat.version>
 
         <exo.test.skip>true</exo.test.skip>
+        <exo.test.forkmode>never</exo.test.forkmode>
+        <exo.test.classesdirectory>target/classes</exo.test.classesdirectory>
         <exo.test.failure.ignore>true</exo.test.failure.ignore>
         <exo.test.error.ignore>true</exo.test.error.ignore>
         <exo.test.use.file>true</exo.test.use.file>
