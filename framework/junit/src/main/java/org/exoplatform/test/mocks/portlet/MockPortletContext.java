@@ -4,6 +4,8 @@
  **/
 package org.exoplatform.test.mocks.portlet;
 
+import java.util.Enumeration;
+
 import javax.portlet.PortletContext;
 import javax.portlet.PortletRequestDispatcher;
 
@@ -105,8 +107,8 @@ public class MockPortletContext implements  PortletContext {
      return new MockServletContext(contextName_);
   }
 
-  public java.util.Map<String, String[]> getContainerRuntimeOptions() {
-    return java.util.Collections.emptyMap();
+  public Enumeration<String> getContainerRuntimeOptions() {
+    return null;
   }
 
 }
