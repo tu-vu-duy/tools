@@ -31,6 +31,7 @@ function getModule(params) {
     new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.webapp", "war", module.version).
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  module.version)).
 	  addDependency(new Project("rome", "rome", "jar", "0.8")).
+	  addDependency(new Project("jdom", "jdom", "jar", "1.0")).
       addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")) ;
   module.eXoApplication.calendar.deployName = "calendar";
     
