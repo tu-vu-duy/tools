@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Locale;
-import java.util.Map;
 import java.util.ResourceBundle;
 
 import javax.portlet.PortletConfig;
@@ -85,9 +84,8 @@ public class MockPortletConfig implements PortletConfig {
     return null;
   }
 
-  public Map<String, String[]> getContainerRuntimeOptions() {
-    // TODO Auto-generated method stub
-    return null;
+  public java.util.Map<String, String[]> getContainerRuntimeOptions() {
+    return java.util.Collections.emptyMap();
   }
 
 }
