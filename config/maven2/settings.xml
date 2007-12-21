@@ -1,5 +1,5 @@
 <!--
-| This is the configuration file for Maven. It can be specified at two levels:
+ | This is the configuration file for Maven. It can be specified at two levels:
  |
  |  1. User Level. This settings.xml file provides configuration for a single user,
  |                 and is normally provided in $HOME/.m2/settings.xml.
@@ -29,7 +29,7 @@
    | Default: ~/.m2/repository
   <localRepository>d:/java/maven2/repository</localRepository>
   -->
-  <localRepository>/Users/tuannguyen/java/exo-dependencies/repository</localRepository>
+  <localRepository>D:/java/exo-dependencies/repository</localRepository>
   <servers>
     <server>
       <id>objectweb</id>
@@ -57,39 +57,74 @@
   -->
   <offline>false</offline>
   <profiles>
+
     <profile>
-      <id>vnserver.maven2.repo</id>
-      <activation><activeByDefault>false</activeByDefault></activation>
+      <id>maven2.repo</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
       <repositories>
-        <repository>
+        <!--repository>
           <id>vietnam</id>
           <name>Viet Nam LAN Offical Repository</name>
           <url>http://vnserver.exoplatform.org/maven2</url>
           <layout>default</layout>
+        </repository-->
+        <repository>
+          <id>maven.org</id>
+          <name>maven.org repository</name>
+          <url>http://repo1.maven.org/maven2</url>
+          <layout>default</layout>
+        </repository>
+        <repository>
+          <id>exo-int</id>
+          <name>exoplatform.org internal repository</name>
+          <url>http://maven2.exoplatform.org/rest/maven2</url>
+          <layout>default</layout>
         </repository>
       </repositories>
-
       <pluginRepositories>
-		<pluginRepository>
-		  <id>vietnam</id>
-		  <name>Viet Nam LAN Offical Repository</name>
-		  <url>http://vnserver.exoplatform.org/maven2</url>
-		  <releases>
-		    <updatePolicy>never</updatePolicy>
-		  </releases>
-		  <snapshots>
-		    <enabled>false</enabled>
-		  </snapshots>
-		</pluginRepository>
+        <!--pluginRepository>
+          <id>vietnam</id>
+          <name>Viet Nam LAN Offical Repository</name>
+          <url>http://vnserver.exoplatform.org/maven2</url>
+          <releases>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+        </pluginRepository-->
+        <pluginRepository>
+          <id>maven.org</id>
+          <name>maven.org repository</name>
+          <url>http://repo1.maven.org/maven2</url>
+          <releases>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+          <id>exoplatform.org</id>
+          <name>exoplatform.org internal repository</name>
+          <url>http://maven2.exoplatform.org/rest/maven2</url>
+          <releases>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </pluginRepository>
       </pluginRepositories>
-
     </profile>
 
     <profile>
       <id>v2.x</id>
       <activation><activeByDefault>false</activeByDefault></activation>
       <properties>
-        <exo.directory.base>/Users/tuannguyen/java</exo.directory.base>
+        <exo.directory.base>D:/java</exo.directory.base>
         <exo.directory.v2.x>${exo.directory.base}/projects/v2.x</exo.directory.v2.x>
         <exo.directory.dependencies>${exo.directory.base}/exo-dependencies</exo.directory.dependencies>
         <exo.directory.release>${exo.directory.base}/exo-release</exo.directory.release>
@@ -100,30 +135,28 @@
         <exo.server.jonas>JONAS_4_7_4</exo.server.jonas>
         <exo.perftest.jmeter>jakarta-jmeter-2.2</exo.perftest.jmeter>
 
-        <exo.test.forkmode>never</exo.test.forkmode>
-        <exo.test.classesdirectory>target/classes</exo.test.classesdirectory> 
         <exo.test.skip>true</exo.test.skip>
         <exo.test.failure.ignore>true</exo.test.failure.ignore>
-        <exo.test.use.file>false</exo.test.use.file>
+        <exo.test.use.file>true</exo.test.use.file>
         <exo.test.includes>Test*</exo.test.includes>
         <exo.compile.optimize>true</exo.compile.optimize>
       </properties>
     </profile>
 
     <profile>
-      <id>eXoProjects</id>
+      <id>exo-projects</id>
       <activation><activeByDefault>false</activeByDefault></activation>
       <properties>
-        <exo.projects.directory.base>/Users/tuannguyen/java</exo.projects.directory.base>
-        <exo.projects.directory.src>${exo.projects.directory.base}/eXoProjects</exo.projects.directory.src>
+        <exo.projects.directory.base>D:/java</exo.projects.directory.base>
+        <exo.projects.directory.src>${exo.projects.directory.base}/projects/exo-projects</exo.projects.directory.src>
         <exo.projects.directory.dependencies>${exo.projects.directory.base}/exo-dependencies</exo.projects.directory.dependencies>
         <exo.projects.directory.release>${exo.projects.directory.base}/exo-release</exo.projects.directory.release>
         <exo.projects.directory.working>${exo.projects.directory.base}/exo-working</exo.projects.directory.working>
         <exo.projects.app.mvn.repo>${exo.projects.directory.dependencies}/repository</exo.projects.app.mvn.repo>
-        <exo.projects.app.tomcat.version>tomcat-5.0.28</exo.projects.app.tomcat.version>
+        <exo.projects.app.tomcat.version>tomcat-6.0.13</exo.projects.app.tomcat.version>
+        <exo.projects.app.jboss.version>jboss-4.2.0.GA</exo.projects.app.jboss.version>
+        <exo.projects.app.jonas.version>JONAS_4_8_5</exo.projects.app.jonas.version>
 
-        <exo.test.forkmode>never</exo.test.forkmode>
-        <exo.test.classesdirectory>target/classes</exo.test.classesdirectory> 
         <exo.test.skip>true</exo.test.skip>
         <exo.test.forkmode>never</exo.test.forkmode>
         <exo.test.classesdirectory>target/classes</exo.test.classesdirectory>
@@ -158,6 +191,7 @@
         <activeByDefault>false</activeByDefault>
       </activation>
     </profile>
+    
     <profile>
       <id>jmeter-perftest</id>
       <activation>
@@ -168,12 +202,11 @@
   </profiles>
 
   <activeProfiles>
-    <activeProfile>v2.x</activeProfile>
-    <activeProfile>eXoProjects</activeProfile>
+    <activeProfile>exo-projects</activeProfile>
     <activeProfile>tomcat-server</activeProfile>
-    <activeProfile>vnserver.maven2.repo</activeProfile>
+    <activeProfile>maven2.repo</activeProfile>
     <!--
-    <activeProfile>eXoProjects</activeProfile>
+    <activeProfile>v2.x</activeProfile>
     <activeProfile>tomcat-server</activeProfile>
     <activeProfile>jboss-server</activeProfile>
     <activeProfile>jonas-server</activeProfile>
