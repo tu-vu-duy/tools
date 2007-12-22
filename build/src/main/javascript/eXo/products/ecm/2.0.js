@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "eXoECM" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "ecm/2.0" ;
+  product.codeRepo = "ecm/branches/2.0" ;
   product.useWorkflow = true;
     
   var tool =  Module.GetModule("tools/trunk") ;
