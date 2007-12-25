@@ -1,1 +1,17 @@
-todo
+/**
+ * Created by The eXo Platform SAS
+ * Author : Alexey Zavizionov
+ *          alexey.zavizionov@exoplatform.com.ua
+ */
+
+Configure Eclipse at "Window" -> "Preferences..."
+
+1. Setting formatter:
+Java -> Code Style -> Formatter
+Choose: "Import..." Java-CodeStyle-Formater.xml
+
+Usage: Shift+Ctrl+F
+
+2. Setting templates:
+Java -> Editor -> Templates
+Choose: "Import..." Java-CodeStyle-CodeTemplates.xml
