@@ -149,6 +149,7 @@
       <properties>
         <exo.projects.directory.base>D:/java</exo.projects.directory.base>
         <exo.projects.directory.src>${exo.projects.directory.base}/projects/exo-projects</exo.projects.directory.src>
+        <exo.projects.directory.config>${exo.projects.directory.src}/tools/trunk/config</exo.projects.directory.config>
         <exo.projects.directory.dependencies>${exo.projects.directory.base}/exo-dependencies</exo.projects.directory.dependencies>
         <exo.projects.directory.release>${exo.projects.directory.base}/exo-release</exo.projects.directory.release>
         <exo.projects.directory.working>${exo.projects.directory.base}/exo-working</exo.projects.directory.working>
@@ -191,7 +192,7 @@
         <activeByDefault>false</activeByDefault>
       </activation>
     </profile>
-    
+
     <profile>
       <id>jmeter-perftest</id>
       <activation>
