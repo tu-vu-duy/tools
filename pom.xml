@@ -45,7 +45,7 @@
         <configuration>
           <skip>${test.skip}</skip>
           <useFile>false</useFile>
-          <forkMode>pertest</forkMode><!--once , pertest -->
+          <forkMode>pertest</forkMode><!-- once , pertest -->
           <testFailureIgnore>false</testFailureIgnore>
           <includes>
             <include implementation="java.lang.String">**/${test.classes}*.java</include>
