@@ -16,6 +16,7 @@ rem ############################################################################
 set EXO_PROJECTS_SRC=%EXO_BASE_DIRECTORY%\eXoProjects
 set EXO_BAT_SCRIPT=%EXO_PROJECTS_SRC%\tools\trunk\build\src\main\resources\window
 set EXO_WORKING_DIR=%EXO_BASE_DIRECTORY%\exo-working
+set EXO_DEPENDENCIES_DIR=%EXO_BASE_DIRECTORY%\exo-dependencies
 
 set M2_HOME=%EXO_BASE_DIRECTORY%\maven2
 set M2_REPO=%EXO_BASE_DIRECTORY%\exo-dependencies\repository

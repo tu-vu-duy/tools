@@ -1,8 +1,11 @@
 function Env() {
-  this.baseDir    =  java.lang.System.getProperty("exo.base.dir");
-  this.workingDir =   this.baseDir + "/exo-working" ;
-  this.dependenciesDir =  this.baseDir + "/exo-dependencies"  ;
-  this.eXoProjectsDir = this.baseDir + "/eXoProjects" ;
+  this.baseDir = java.lang.System.getProperty("exo.base.dir");
+  this.workingDir = java.lang.System.getProperty("exo.working.dir");
+  if(this.workingDir == null || this.workingDir.equals("")) this.workingDir = this.baseDir + "/exo-working" ;
+  this.dependenciesDir = java.lang.System.getProperty("exo.dep.dir") ;
+  if(this.dependenciesDir == null || this.dependenciesDir.equals("")) this.dependenciesDir =  this.baseDir + "/exo-dependencies" ;
+  this.eXoProjectsDir = java.lang.System.getProperty("exo.src.dir");
+  if (this.eXoProjectsDir == null || this.eXoProjectsDir.equals("")) this.eXoProjectsDir = this.baseDir + "/eXoProjects" ;
   this.javaHome    =  java.lang.System.getProperty("exo.java.home");
   this.currentDir  =  java.lang.System.getProperty("exo.current.dir");
   if(this.currentDir.startsWith("/cygdrive/")) {
