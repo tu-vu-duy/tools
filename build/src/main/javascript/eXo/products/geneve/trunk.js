@@ -4,7 +4,7 @@ eXo.require("eXo.projects.Product") ;
 function getProduct(version) {
   var product = new Product();
 
-  product.name = "geneva" ;
+  product.name = "geneve" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "geneve/website_poc/trunk" ;
   product.useWorkflow = true;
@@ -17,7 +17,7 @@ function getProduct(version) {
   var eXoJcr = Module.GetModule("jcr/trunk") ;
   var portal = Module.GetModule("portal/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var geneve = Module.GetModule("geneva/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
+  var geneve = Module.GetModule("geneve/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
     
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
