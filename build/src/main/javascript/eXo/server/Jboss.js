@@ -70,7 +70,7 @@ Jboss.prototype.CleanTask = function() {
 Jboss.prototype.preDeploy = function(product) {
 	product.addDependencies(new Project("commons-pool", "commons-pool", "jar", "1.2")) ;
   product.addDependencies(new Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;
-  product.addDependencies(new Project("org.exoplatform.portal", "exo.portal.server.jboss.plugin", "jar", product.module.version)) ;
+  product.addDependencies(new Project("org.exoplatform.portal", "exo.portal.server.jboss.plugin", "jar", "trunk")) ;
 
 }
 
