@@ -24,7 +24,7 @@ import org.mozilla.javascript.Script;
  * May 24, 2007
  */
 public class JSEngine {
-  //private Map<String, Script> scripts_ = new HashMap<String, Script>();
+  private Map<String, Script> scripts_ = new HashMap<String, Script>();
 
   public JSEngine() {
 
