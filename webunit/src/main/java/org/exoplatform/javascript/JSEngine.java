@@ -21,29 +21,29 @@ import org.mozilla.javascript.Script;
  * Created by The eXo Platform SARL
  * Author : Tuan Nguyen
  *          tuan.nguyen@exoplatform.com
- * May 24, 2007  
+ * May 24, 2007
  */
 public class JSEngine {
-  private Map<String, Script> scripts_ = new HashMap<String, Script>();
-  
+  //private Map<String, Script> scripts_ = new HashMap<String, Script>();
+
   public JSEngine() {
-    
+
   }
-  
+
   public Script createScript(String id, InputStream is) throws Exception {
     Reader reader = new InputStreamReader(is) ;
     Script  script = compileScript(id, reader) ;
     scripts_.put(id, script) ;
     return script ;
   }
-  
+
   public Script createScript(String id, String scriptText) throws Exception {
     Reader reader = new StringReader(scriptText) ;
     Script  script = compileScript(id, reader) ;
     scripts_.put(id, script) ;
     return script ;
   }
-  
+
   public Script createTemplate(String id, InputStream is) throws Exception {
     ByteArrayOutputStream os = new ByteArrayOutputStream() ;
     String template = new String(os.toByteArray()) ;
@@ -51,7 +51,7 @@ public class JSEngine {
     scripts_.put(id, script) ;
     return script ;
   }
-  
+
   public void  execute(Script script, Map<String, Object> context) throws Exception {
     Context cx = Context.enter();
     try {
@@ -68,12 +68,12 @@ public class JSEngine {
       Context.exit();
     }
   }
-  
+
   public void merge(Script template, Map<String, Object> context, Writer out) throws Exception {
     context.put("_w", out) ;
     execute(template, context) ;
   }
-  
+
   public Script compileScript(String name, String script) throws Exception {
     Context cx = Context.enter();
     try {
@@ -84,7 +84,7 @@ public class JSEngine {
       Context.exit();
     }
   }
-  
+
   public Script compileScript(String name, Reader reader) throws Exception {
     Context cx = Context.enter();
     try {
@@ -95,7 +95,7 @@ public class JSEngine {
       Context.exit();
     }
   }
-  
+
   public Script compileTemplate(String name, String template) throws Exception {
     char[]  buf = template.toCharArray() ;
     StringBuilder script = new StringBuilder(10000) ;
@@ -110,7 +110,7 @@ public class JSEngine {
         pos++ ;
         continue ;
       }
-      
+
       if(buf[pos] == '<' && buf[pos +1] == '%') {  //Start A block code
         pos++ ;
         codeBlockReturn = false ;
@@ -133,12 +133,12 @@ public class JSEngine {
           }
           text.setLength(0) ;
         }
-      } else if(buf[pos] == '%' && buf[pos +1] == '>') {  
-        //End a  block of code, push the block of code to the script buffer, 
+      } else if(buf[pos] == '%' && buf[pos +1] == '>') {
+        //End a  block of code, push the block of code to the script buffer,
         pos++ ;
         codeBlock = false ;
         if(codeBlockReturn) {
-          //If the block of code start with <%= ...%>,  write the return result of the block code to 
+          //If the block of code start with <%= ...%>,  write the return result of the block code to
           //the writer
           script.append("\n_w.append(").append(code).append("); \n") ;
         } else {
