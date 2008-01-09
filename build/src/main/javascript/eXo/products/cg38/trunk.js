@@ -20,7 +20,7 @@ function getProduct(version) {
   var cg38 = Module.GetModule("cg38/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
     
   product.addDependencies(cg38.web.cg38portal) ;
-//  product.addDependencies(cg38.web.cg38Resources) ;
+  product.addDependencies(cg38.web.cg38Resources) ;
   product.addDependencies(cg38.portlet.web) ;
   
   product.addDependencies(portal.portlet.exoadmin) ;
