@@ -9,8 +9,8 @@ function Jboss(jbossHome) {
   this.serverHome = jbossHome ;
   this.cleanServer = "jboss-4.2.2.GA" ;
   this.deployLibDir = this.serverHome + "/server/default/deploy/exoplatform.sar" ;
-  this.deployWebappDir = this.deployLibDir;
-  this.patchDir = this.deployLibDir ;
+  this.deployWebappDir = this.serverHome + "/server/default/deploy/exoplatform.sar";
+  this.patchDir = this.serverHome + "/server/default/deploy";
 }
 
 Jboss.prototype.RunTask = function() {
@@ -78,7 +78,7 @@ Jboss.prototype.onDeploy = function(project) { }
   
 Jboss.prototype.postDeploy = function(product) {
   ServerUtil = eXo.server.ServerUtil ;
-  ServerUtil.createEarApplicationXml(this.deployLibDir, product) ;
+  ServerUtil.createEarApplicationXml(this.deployWebappDir, product) ;
   ServerUtil.addClasspathForWar(this.deployLibDir) ;
   
   //Use jboss PrefixSorter deployer
