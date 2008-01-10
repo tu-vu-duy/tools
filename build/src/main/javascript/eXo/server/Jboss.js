@@ -10,7 +10,7 @@ function Jboss(jbossHome) {
   this.cleanServer = "jboss-4.2.2.GA" ;
   this.deployLibDir = this.serverHome + "/server/default/deploy/exoplatform.sar" ;
   this.deployWebappDir = this.serverHome + "/server/default/deploy/exoplatform.sar";
-  this.patchDir = this.serverHome + "/server/default/deploy";
+  this.patchDir = this.serverHome + "/server/default";
 }
 
 Jboss.prototype.RunTask = function() {
