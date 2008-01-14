@@ -73,7 +73,7 @@ DBInstance.prototype.ConfigureTask = function(product, server) {
     configTmpl = 
       IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/jcr/repository-configuration.tmpl.xml");
     config = eXo.core.Util.modifyText(configTmpl, properties) ;
-    mentries.put("WEB-INF/conf/jcr/exo-jcr-config.xml", config.getBytes()) ;
+    mentries.put("WEB-INF/conf/jcr/repository-configuration.xml", config.getBytes()) ;
     
     configTmpl = 
       IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/jcr/jcr-configuration.tmpl.xml");
