@@ -7,7 +7,7 @@ function getProduct(version) {
   product.name = "cg38" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "cg38/trunk" ;
-  product.useWorkflow = true;
+  //product.useWorkflow = true;
     
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/trunk") ;
