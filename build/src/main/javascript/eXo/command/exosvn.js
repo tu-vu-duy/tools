@@ -81,7 +81,7 @@ exosvn.prototype.AddTask = function() {
 
 var args = arguments;
 
-/*function printInstructions() {
+function printExosvnInstructions() {
 	print(
       "\n\n" +
       "Usage of exosvn command: \n\n" +
@@ -91,9 +91,9 @@ var args = arguments;
       "  * rm          	   removes files in the module\n"
     );
 }
-*/
+
 if(args.length == 0) {
-	printInstructions() ;
+	printExosvnInstructions() ;
 	java.lang.System.exit(1);
 }
 
