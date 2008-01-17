@@ -6,14 +6,15 @@ PORTABLE_DIR=`echo $PORTABLE_DIR | sed -e 's/\\\/\\//g'`
 PORTABLE_DIR=`echo $PORTABLE_DIR | sed -e 's/\\/$//g'`
 JAVA_DIR=$PORTABLE_DIR/java
 
-cd $JAVA_DIR
-EXO_BASE_DIRECTORY=$PWD
-cd $OLDPWD
+#cd $JAVA_DIR
+EXO_BASE_DIRECTORY=$JAVA_DIR
+#cd $OLDPWD
 JAVA_HOME=$EXO_BASE_DIRECTORY/jdk1.5
 
-BSH_EXO_BASE_DIRECTORY=$JAVA_DIR
-BSH_JAVA_HOME=$JAVA_HOME
-BSH_M2_REPOS="file:$BSH_EXO_BASE_DIRECTORY/exo-dependencies/repository, http://vnserver.exoplatform.org/maven2"
+#BSH_EXO_BASE_DIRECTORY=$JAVA_DIR
+#BSH_JAVA_HOME=$JAVA_HOME
+#BSH_M2_REPOS="file:$BSH_EXO_BASE_DIRECTORY/exo-dependencies/repository, http://vnserver.exoplatform.org/maven2"
+M2_REPOS="file:$EXO_BASE_DIRECTORY/exo-dependencies/repository, http://vnserver.exoplatform.org/maven2"
 
 ##################################################################################
 USER_HOME='/cygdrive/c/Documents\ and\ Settings/$USERNAME'
@@ -23,7 +24,8 @@ EXO_SH_SCRIPT=$EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux
 EXO_WORKING_DIR=$EXO_BASE_DIRECTORY/exo-working
 
 M2_HOME=$EXO_BASE_DIRECTORY/maven2
-M2_REPO=$EXO_BASE_DIRECTORY/exo-dependencies/repository
+M2_REPO="file:$EXO_BASE_DIRECTORY/exo-dependencies/repository, http://vnserver.exoplatform.org/maven2"
+#$EXO_BASE_DIRECTORY/exo-dependencies/repository
 MAVEN_OPTS="-Xshare:auto -Xms128m -Xmx512m" 
 
 #echo "This is a test"
