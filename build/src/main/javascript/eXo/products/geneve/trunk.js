@@ -10,11 +10,11 @@ function getProduct(version) {
   product.useWorkflow = true;
 
   var tool =  Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/branches/2.0") ;
+  var kernel = Module.GetModule("kernel/tags/2.0") ;
   var ws = Module.GetModule("ws/trunk");
-  var core = Module.GetModule("core/branches/2.0") ;
+  var core = Module.GetModule("core/tags/2.0") ;
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk") ;
-  var eXoJcr = Module.GetModule("jcr/trunk") ;
+  var eXoJcr = Module.GetModule("jcr/tags/1.7.1") ;
   var portal = Module.GetModule("portal/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var geneve = Module.GetModule("geneve/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
