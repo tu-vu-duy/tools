@@ -34,7 +34,8 @@ PATH=/usr/local/bin:$JAVA_HOME/bin:$PATH:$M2_HOME/bin:$EXO_SH_SCRIPT
 
 
 export JAVA_OPTS JAVA_HOME M2_HOME M2_REPO MAVEN_OPTS
-export EXO_BASE_DIRECTORY EXO_PROJECTS_SRC  BSH_EXO_BASE_DIRECTORY  BSH_M2_REPOS BSH_JAVA_HOME
+#export EXO_BASE_DIRECTORY EXO_PROJECTS_SRC  BSH_EXO_BASE_DIRECTORY  BSH_M2_REPOS BSH_JAVA_HOME
+export EXO_BASE_DIRECTORY EXO_PROJECTS_SRC
 ##################################################################################
 # allways put and do not edit these following lines at the end this file 
 ################################################################################## 
