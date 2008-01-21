@@ -15,7 +15,7 @@ function Product() {
 Product.GetProduct = function(name, version) {
   // Try to load the product descriptor corresponding to the specified name and version
   eXo.load(version + ".js", eXo.env.eXoProjectsDir + "/tools/trunk/build/src/main/javascript/eXo/products/" + name);
-  
+
   try {
     // The function getProduct() is defined in the loaded product decriptor
     return getProduct(version);
