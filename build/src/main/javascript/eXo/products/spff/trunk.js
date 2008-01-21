@@ -41,7 +41,7 @@ function getProduct(version) {
   product.addDependencies(spff.web.spffResources) ;
   product.addDependencies(spff.web.spffportal) ;
   
-  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", spff.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   

@@ -28,7 +28,7 @@ function getProduct(version) {
   product.addDependencies(geneve.web.geneveResources) ;
   product.addDependencies(geneve.portlet.web) ;
     
-  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", geneve.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
