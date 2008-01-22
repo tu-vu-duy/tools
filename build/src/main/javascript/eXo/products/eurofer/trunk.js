@@ -11,7 +11,7 @@ function getProduct(version) {
 
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0") ;
-  var ws = Module.GetModule("ws/trunk");
+  var ws = Module.GetModule("ws/tags/1.0");
   var core = Module.GetModule("core/tags/2.0") ;
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk") ;
   var eXoJcr = Module.GetModule("jcr/tags/1.7.1") ;
@@ -27,6 +27,8 @@ function getProduct(version) {
   product.addDependencies(eurofer.web.euroferportal) ;
   product.addDependencies(eurofer.web.euroferResources) ;
   product.addDependencies(eurofer.portlet.web) ;
+  product.addDependencies(core.component.ldap) ;
+  product.addDependencies(core.component.organization.ldap) ;
     
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;

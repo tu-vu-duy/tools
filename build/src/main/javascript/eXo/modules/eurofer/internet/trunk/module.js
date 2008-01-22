@@ -30,7 +30,9 @@ function getModule(params) {
     addDependency(portal.web.eXoResources) .
     addDependency(portal.webui.portal). 
     addDependency(jcr.frameworks.command) .
-    addDependency(jcr.frameworks.web) ;
+    addDependency(jcr.frameworks.web)  .
+	addDependency(core.component.ldap) .
+	addDependency(core.component.organization.ldap) ;
 
   return module;
 }

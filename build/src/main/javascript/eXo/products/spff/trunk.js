@@ -11,7 +11,7 @@ function getProduct(version) {
     
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0") ;
-  var ws = Module.GetModule("ws/trunk");
+  var ws = Module.GetModule("ws/tags/1.0");
   var core = Module.GetModule("core/tags/2.0") ;
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk") ;
   var eXoJcr = Module.GetModule("jcr/tags/1.7.1") ;
@@ -23,9 +23,9 @@ function getProduct(version) {
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.eXoWidget.web) ;
+  product.addDependencies(portal.web.eXoResources);
   product.addDependencies(portal.web.eXoVistaSkin);
   product.addDependencies(portal.web.eXoMacSkin);
-  product.addDependencies(portal.web.eXoResources);
   
   product.addDependencies(ecm.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;
