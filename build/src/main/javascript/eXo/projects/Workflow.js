@@ -9,8 +9,9 @@ function Workflow(workflowName, workflowVersion) {
 
 Workflow.prototype.configWorkflow = function(product) {  
 	if(this.name == "jbpm") {
-		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", this.version)) ;
-    product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.engine", "jar", "3.0")) ;					
+		//product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", this.version)) ;
+		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.engine", "jar", "3.0")) ;	
+		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", "2.0")) ;		
 	} else if(this.name = "bonita") {
 		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.bonita", "jar", this.version)) ;
 		product.addDependencies(new Project("org.objectweb.bonita", "bonita-client", "jar", "3.0")) ;
