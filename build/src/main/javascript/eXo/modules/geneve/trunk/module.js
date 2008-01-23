@@ -28,8 +28,6 @@ function getModule(params) {
   module.web.geneveportal = 
     new Project("org.exoplatform.geneve", "geneve.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
-    //addDependency(module.web.eXoSkinMac).
-    //addDependency(module.web.eXoSkinVista).
     addDependency(portal.webui.portal). 
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web) ;
