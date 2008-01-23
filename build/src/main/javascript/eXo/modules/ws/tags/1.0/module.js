@@ -4,16 +4,16 @@ eXo.require("eXo.projects.Product") ;
 function getModule(params) {
   var module = new Module();
 
-  module.version = "trunk" ;
+  module.version = "1.0" ;
   module.relativeMavenRepo =  "org/exoplatform/ws" ;
-  module.relativeSRCRepo =  "ws/trunk" ;
+  module.relativeSRCRepo =  "ws/tags/1.0" ;
   module.name =  "ws" ;
 
   module.commons = 
     new Project("org.exoplatform.ws.commons", "exo.ws.commons", "jar", module.version);
 
   module.rest = 
-    new Project("org.exoplatform.ws.rest", "exo.ws.rest.core", "jar", module.version).      
+    new Project("org.exoplatform.ws.rest", "exo.rest.core", "jar", module.version).      
     addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0")) .
     addDependency(new Project("javax.xml.parsers", "jaxp-api", "jar", "1.4")) .
     addDependency(new Project("javax.xml.bind", "jaxp-api", "jar", "2.0")) .
