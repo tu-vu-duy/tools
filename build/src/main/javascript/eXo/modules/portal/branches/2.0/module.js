@@ -91,9 +91,9 @@ function getModule(params) {
   module.web.eXoResources = 
     new Project("org.exoplatform.portal", "exo.portal.web.eXoResources", "war", module.version);
   module.web.eXoMacSkin = 
-    new Project("org.exoplatform.portal", "exo.portal.web.eXoSkinMac", "war", module.version);
+    new Project("org.exoplatform.portal", "exo.portal.web.eXoMacSkin", "war", module.version);
   module.web.eXoVistaSkin = 
-    new Project("org.exoplatform.portal", "exo.portal.web.eXoSkinVista", "war", module.version);
+    new Project("org.exoplatform.portal", "exo.portal.web.eXoVistaSkin", "war", module.version);
       
   module.web.portal = 
     new Project("org.exoplatform.portal", "exo.portal.web.portal", "exo-portal", module.version).
