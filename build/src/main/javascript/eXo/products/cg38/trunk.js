@@ -17,7 +17,8 @@ function getProduct(version) {
   var eXoJcr = Module.GetModule("jcr/tags/1.7.1") ;
   var portal = Module.GetModule("portal/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var cg38 = Module.GetModule("cg38/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
+  var cs = Module.GetModule("cs/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var cg38 = Module.GetModule("cg38/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm, cs : cs});
     
   product.addDependencies(cg38.web.cg38portal) ;
   product.addDependencies(cg38.web.cg38Resources) ;
@@ -30,12 +31,14 @@ function getProduct(version) {
   product.addDependencies(ecm.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;  
   
+  product.addDependencies(cs.eXoApplication.content) ; 
+  
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
   product.module = cg38 ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, cs];
     
   return product ;
 }

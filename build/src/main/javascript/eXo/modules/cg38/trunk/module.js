@@ -9,6 +9,7 @@ function getModule(params) {
   var jcr = params.eXoJcr;
   var portal = params.portal;
   var ecm = params.ecm;
+  var cs = params.cs;
 
   var module = new Module();
 
@@ -29,7 +30,7 @@ function getModule(params) {
     new Project("org.exoplatform.cg38", "cg38.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
-    addDependency(portal.web.eXoVistaSkin) .    
+    addDependency(portal.web.eXoVistaSkin) .
     addDependency(portal.webui.portal) .
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web) ;
