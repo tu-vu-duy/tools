@@ -9,7 +9,7 @@ rem ##################### VARIABLE TO CUSTOMIZE ################################
 set EXO_BASE_DIRECTORY=%PORTABLE_DIR%\java
 set JAVA_HOME=%EXO_BASE_DIRECTORY%\jdk1.5
 
-set BSH_M2_REPOS="file:%EXO_BASE_DIRECTORY%/exo-dependencies/repository, http://vnserver.exoplatform.org/maven2"
+set BSH_M2_REPOS="file:%EXO_BASE_DIRECTORY%/exo-dependencies/repository, http://maven2.exoplatform.org/maven"
 
 rem ##################################################################################
 
