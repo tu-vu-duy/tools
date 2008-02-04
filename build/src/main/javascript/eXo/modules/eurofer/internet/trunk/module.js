@@ -23,7 +23,7 @@ function getModule(params) {
     
   module.web = {}
   module.web.euroferResources = new Project("org.exoplatform.eurofer", "eurofer.web.euroferResources", "war", module.version);
-  module.web.euroferResources.deployName = "euroferResources" ;
+  module.web.euroferResources.deployName = "eXoResourcesEurofer" ;
 
   module.web.euroferportal = 
     new Project("org.exoplatform.eurofer", "eurofer.web.portal", "exo-portal", module.version).
@@ -33,6 +33,14 @@ function getModule(params) {
     addDependency(jcr.frameworks.web)  .
 	addDependency(core.component.ldap) .
 	addDependency(core.component.organization.ldap) ;
+
+  module.server = {}
+
+  module.server.tomcat = {}
+  module.server.tomcat.patch = 
+    new Project("org.exoplatform.eurofer", "eurofer.server.tomcat.patch", "jar", module.version);
+
+
 
   return module;
 }
