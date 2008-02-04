@@ -33,7 +33,7 @@ function getProduct(version) {
   
   product.addDependencies(cs.eXoApplication.content) ; 
   
-  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", cg38.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 

@@ -30,7 +30,7 @@ function getProduct(version) {
   product.addDependencies(core.component.ldap) ;
   product.addDependencies(core.component.organization.ldap) ;
     
-  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", eurofer.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
