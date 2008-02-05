@@ -1,3 +1,3 @@
 @echo off
 
-exobsh exobuild %*
+js exobuild %*
