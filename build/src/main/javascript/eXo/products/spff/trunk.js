@@ -46,7 +46,7 @@ function getProduct(version) {
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   
   product.module = spff ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, eXoJcr, portal, ecm, cs];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, cs];
     
   return product ;
 }

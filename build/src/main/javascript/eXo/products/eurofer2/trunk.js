@@ -33,7 +33,7 @@ function getProduct(version) {
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
   product.module = eurofer ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, eXoJcr, portal, ecm];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm];
     
   return product ;
 }

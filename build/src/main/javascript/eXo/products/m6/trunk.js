@@ -39,7 +39,7 @@ function getProduct(version) {
   product.codeRepo = "m6/trunk" ;
 
   product.module = m6 ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, eXoJcr, portal, ecm];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm];
   
   return product ;
 }
