@@ -22,15 +22,22 @@ function getModule(params) {
     new Project("org.exoplatform.company", "company.component.web", "jar", module.version).
     addDependency(portal.component.web).          
     addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar","trunk"));                        
+  
   module.web = {}
   module.web.companyResources = 
-    new Project("org.exoplatform.company", "company.web.companyResources", "exo-portal", module.version) ;    
+    new Project("org.exoplatform.company", "company.web.eXoResourcesCompany", "exo-portal", module.version) ;    
   module.web.portal = 
     new Project("org.exoplatform.company", "company.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
     addDependency(portal.webui.portal). 
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web) ;
+
+  module.server = {}
+  
+  module.server.tomcat = {}
+  module.server.tomcat.patch = 
+    new Project("org.exoplatform.company", "company.server.tomcat.patch", "jar", module.version);
 
   return module;
 }

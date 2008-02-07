@@ -74,7 +74,7 @@ Product.prototype.DeployTask = function(product, server, repos) {
     for(var i = 0; i <  patches.size(); i++) {
       project = patches.get(i) ;
       var message = "Patch the server " + server.name + 
-                       " with project " +  project.artifactId + " " + project.version ;
+                       " with project " +  project.artifactId + " " + project.version;
       eXo.System.info("INFO", message);
       new java.io.File(server.patchDir).mkdirs();
       project.extractTo(repos, server.patchDir, "META-INF/maven.*") ;
