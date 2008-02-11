@@ -161,6 +161,21 @@ Database.prototype.DB2ExpressDB = function() {
   return instance ;
 }
 
+Database.prototype.DB2V8DB = function() {
+  var instance = new DBInstance() ;
+  instance.name = "db2v8" ;
+  instance.drivers = [ new Project("com.ibm.db2", "db2jcc", "jar", "8.0"),
+  										 new Project("com.ibm.db2", "db2jcc_license_cu", "jar", "8.0")] ;
+   
+  instance.driverClass = "com.ibm.db2.jcc.DB2Driver";
+  instance.dialect = "org.hibernate.dialect.DB2Dialect" ;
+  instance.conectionURL = "jdbc:db2://10.21.10.11:50520/EXO";
+  instance.username = "bdpdo11" ;
+  instance.password = "edvgpn8ll40k";
+    
+  return instance ;
+}
+
 Database.prototype.DerbyDB = function() {
   var instance = new DBInstance() ;
   instance.name = "derby" ;

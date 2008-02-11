@@ -130,6 +130,8 @@ for(var i = 0; i <args.length; i++) {
     database = eXo.server.Database.PostgresDB() ;
   } else if(arg == "--database=db2") {
     database = eXo.server.Database.DB2ExpressDB() ;
+  } else if(arg == "--database=db2v8") {
+	 database = eXo.server.Database.DB2V8DB() ;  
   } else if(arg == "--database=derby") {
     database = eXo.server.Database.DerbyDB() ;
   } else if(arg == "--database=sqlserver") {

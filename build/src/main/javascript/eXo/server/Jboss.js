@@ -82,10 +82,14 @@ Jboss.prototype.postDeploy = function(product) {
   ServerUtil.addClasspathForWar(this.deployLibDir) ;
   
   //Use jboss PrefixSorter deployer
+  var eXoResourcesFile = new java.io.File(this.deployWebappDir + "/eXoResources.war");
+  var neweXoResourcesFile = new java.io.File(this.deployWebappDir + "/01eXoResources.war");
+  eXoResourcesFile.renameTo(neweXoResourcesFile) ;
+  
   var portalFile = new java.io.File(this.deployWebappDir + "/" + product.portalwar);
-  var newPortalFile = new java.io.File(this.deployWebappDir + "/01portal.war");
+  var newPortalFile = new java.io.File(this.deployWebappDir + "/02portal.war");
   portalFile.renameTo(newPortalFile) ;
-  product.portalwar = "01portal.war" ;
+  product.portalwar = "02portal.war" ;
 }
 
 eXo.server.Jboss = Jboss.prototype.constructor ;
