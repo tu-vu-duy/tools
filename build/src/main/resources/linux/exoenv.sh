@@ -24,6 +24,7 @@ EXO_WORKING_DIR=$EXO_BASE_DIRECTORY/exo-working
 
 M2_HOME=$EXO_BASE_DIRECTORY/maven2
 M2_REPO=$EXO_BASE_DIRECTORY/exo-dependencies/repository
+M2_REPOS="file:$EXO_BASE_DIRECTORY/exo-dependencies/repository"
 MAVEN_OPTS="-Xshare:auto -Xms128m -Xmx512m" 
 
 #echo "This is a test"
@@ -31,7 +32,7 @@ JAVA_OPTS="-Xshare:auto -Xms128m -Xmx256m -Dexo.directory.base=$EXO_BASE_DIRECTO
 PATH=/usr/local/bin:$JAVA_HOME/bin:$PATH:$M2_HOME/bin:$EXO_SH_SCRIPT
 
 
-export JAVA_OPTS JAVA_HOME M2_HOME M2_REPO MAVEN_OPTS
+export JAVA_OPTS JAVA_HOME M2_HOME M2_REPO MAVEN_OPTS M2_REPOS
 export EXO_BASE_DIRECTORY EXO_PROJECTS_SRC  BSH_EXO_BASE_DIRECTORY  BSH_M2_REPOS BSH_JAVA_HOME
 ##################################################################################
 # allways put and do not edit these following lines at the end this file 
