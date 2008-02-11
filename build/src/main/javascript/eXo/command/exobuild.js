@@ -13,16 +13,16 @@ function exobuildInstructions() {
   print(
    "\n\n" +
    "Usage the exobuild command: \n\n" +
-   "  exobuild --product=[portal,ecm,cs,ultimate]\n" +
+   "  exobuild --product=[portal|ecm|cs|ultimate]\n" +
    "           [--version]\n" + 
    "           [--update]\n" +
    "           [--build]\n" +
-   "           [--exclude=all,pc,jcr,..]\n" +
-   "           [--deploy=tomcat,jboss,jonas]\n" +
-   "					 [--workflow=jbpm,bonita]\n" +
+   "           [--exclude=all|pc|jcr|ws|tools|ecm|cs|portal]\n" +
+   "           [--deploy[=tomcat|jboss|jonas]]\n" +
+   "           [--workflow[=jbpm|bonita]]\n" +
    "           [--clean-mvn-repo]\n" +
    "           [--database]\n" +
-   "           [--ask]\n" +
+   "           [--dbsetup[=skip|ask|defaults]]\n" +
    "\n\n" +
    "Options: \n" +
    "  * --product          is mandatory. The possible names are portal, ecm, groupware, all\n" +
@@ -40,8 +40,10 @@ function exobuildInstructions() {
    "                       maven repository.\n" +
    "  * --database         is optional. This option must use with the --deploy option. The possible\n" +
    "                       values are hsql, mysql, oracle, postgres, derby and mssql\n" +
-   "  * --ask              is optional. This option is used with --database option. it allow you to\n" +
-   "                       enter the connection url , username and password of the database server\n"  +
+   "  * --dbsetup          is optional. This option is used with --database option.\n" +
+   "                       dbsetup=skip will leave you database configuration setup untouched.\n" +
+   "                       dbsetup=defaults will configure default connection settings\n" +
+   "                       dbsetup=ask allow you to enterthe connection url , username and password of the database server\n" + 
    "  * --workflow         is optional. The possible names are bonita or jbpm. This option only use\n"+
    "                       for products which use workflow like ecm,ultimate and ecm related products\n"+
    "                       By default, jpbm will be used for the products"
@@ -76,7 +78,7 @@ var ask = false ;
 var exclude_ = null ;
 var release_ = false;
 var cleanMVNRepo_ = false;
-
+var dbsetup = "skip";
 var maven = new eXo.command.maven() ;
 var exosvn = null ;
 var server = null ;
@@ -97,8 +99,8 @@ for(var i = 0; i <args.length; i++) {
     version = arg.substring("--version=".length);
   } else if ("--build" == arg) {
     build_ = true ;
-  } else if ("--ask" == arg) {
-    ask = true ;
+  } else if (arg.match("--dbsetup")) {
+   if (arg.match("--dbsetup=")) dbsetup = arg.substring("--dbsetup=".length);
   } else if ("--clean-mvn-repo" == arg) {
     cleanMVNRepo_ = true ;
   } else if ("--release" == arg) {
@@ -167,7 +169,7 @@ if(server != null  && deployServers == null) {
   deployServers = [server] ; 
 }
   
-if(deployServers != null  && ask) {
+if(deployServers != null  && dbsetup == "ask") {
   tasks.add(database.GetConfigTask()) ;
 }
 if(update_) {
@@ -213,7 +215,7 @@ if(deployServers != null) {
     server =  deployServers[i] ;
     tasks.add(product.DeployTask(product, server, eXo.env.m2Repos)) ;
     tasks.add(database.DeployTask(product, server, eXo.env.m2Repos)) ;
-    tasks.add(database.ConfigureTask(product, server)) ;
+    if (dbsetup != "skip") tasks.add(database.ConfigureTask(product, server)) ;
     if(release_)tasks.add(ReleaseTask(server, product, version)) ;
   }
 }
