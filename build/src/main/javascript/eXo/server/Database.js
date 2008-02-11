@@ -60,27 +60,30 @@ DBInstance.prototype.ConfigureTask = function(product, server) {
     properties.put("${connectionUrl}", this.dbinstance.conectionURL) ;
     properties.put("${username}", this.dbinstance.username) ;
     properties.put("${password}", this.dbinstance.password) ;
+    
+    var propmsg = "Connection Settings: \n" + properties.entrySet();
+    eXo.System.info("CONF", propmsg);
+    
     var jarFile =  server.deployWebappDir + "/" + product.portalwar ;
     var mentries = new java.util.HashMap() ;
-    var configTmpl = 
-      IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/database/database-configuration.tmpl.xml");
+    var configTmpl = IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/database/database-configuration.tmpl.xml");
     var config = eXo.core.Util.modifyText(configTmpl, properties) ;
     mentries.put("WEB-INF/conf/database/database-configuration.xml", config.getBytes()) ;
 
     var properties = new java.util.HashMap() ;
-		properties.put("${dialect}", this.dbinstance.name);
+	properties.put("${dialect}", this.dbinstance.name);
     
-    configTmpl = 
-      IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/jcr/repository-configuration.tmpl.xml");
+    configTmpl = IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/jcr/repository-configuration.tmpl.xml");
     config = eXo.core.Util.modifyText(configTmpl, properties) ;
     mentries.put("WEB-INF/conf/jcr/repository-configuration.xml", config.getBytes()) ;
     
-    configTmpl = 
-      IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/jcr/jcr-configuration.tmpl.xml");
+    configTmpl = IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/jcr/jcr-configuration.tmpl.xml");
     config = eXo.core.Util.modifyText(configTmpl, properties) ;
     mentries.put("WEB-INF/conf/jcr/jcr-configuration.xml", config.getBytes()) ;
 
-    IOUtil.modifyJar(server.deployWebappDir + "/" + product.portalwar, mentries, null) ;
+    var portalwar = server.deployWebappDir + "/" + product.portalwar;
+    eXo.System.info("CONF", "Modified entries in " + portalwar + ": \n" + mentries.keySet());
+    IOUtil.modifyJar(portalwar, mentries, null) ;
   }
   return descriptor;
 }
@@ -107,7 +110,7 @@ Database.prototype.HsqlDB = function() {
 Database.prototype.MysqlDB = function() {
   var instance = new DBInstance() ;
   instance.name = "mysql" ;
-  instance.drivers = [ new Project("mysql", "mysql-connector-java", "jar", "5.0.3-bin")] ;
+  instance.drivers = [ new Project("mysql", "mysql-connector-java", "jar", "5.0.5")] ;
    
   instance.driverClass = "com.mysql.jdbc.Driver";
   instance.dialect = "org.hibernate.dialect.MySQLDialect" ;

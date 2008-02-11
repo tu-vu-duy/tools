@@ -61,7 +61,7 @@ Product.prototype.DeployTask = function(product, server, repos) {
   if(patches == null) {
   	var msg = "The server " + server.name + " may not support this product: " + product.name 
   	         +". Please try to use another server" ;
-  	eXo.System.info("INFO", msg);
+  	eXo.System.print("INFO", msg);
   	return ;    	             	
   }
   var descriptor =  new TaskDescriptor("Deploy Product", server.serverHome) ;
@@ -79,15 +79,17 @@ Product.prototype.DeployTask = function(product, server, repos) {
       new java.io.File(server.patchDir).mkdirs();
       project.extractTo(repos, server.patchDir, "META-INF/maven.*") ;
     }
+    
+    eXo.System.info("INFO", "Deploying dependencies");
     var i = product.getDependencies().iterator();
     counter = 0 ;
     while(i.hasNext()) {
-      project = i.next();
-      project.deployTo(repos, server) ;
-      server.onDeploy(project) ;
+      dep = i.next();
+      dep.deployTo(repos, server) ;
+      server.onDeploy(dep) ;
       counter++ ;
     }
-    eXo.System.info("INFO", "Deploy total " +  counter + " files");
+    eXo.System.info("INFO", "Deployed total " +  counter + " files");
     server.postDeploy(product) ;
   }
   return descriptor ;

@@ -56,7 +56,7 @@ Tomcat.prototype.StopTask = function() {
 Tomcat.prototype.CleanTask = function() {
 	var descriptor = new TaskDescriptor("Clean Tomcat", this.serverHome + "/bin") ;
 	descriptor.execute = function() {
-		eXo.core.IOUtil.emptyFolder(serverHome + "/logs");
+	eXo.core.IOUtil.emptyFolder(serverHome + "/logs");
     eXo.core.IOUtil.emptyFolder(serverHome + "/temp");
 	}
 	return descriptor;
@@ -73,6 +73,8 @@ Tomcat.prototype.preDeploy = function(product) {
 Tomcat.prototype.onDeploy = function(project) {
   if("exo-portal" == project.type) {
     var context = project.artifactId.substring(project.artifactId.lastIndexOf(".") + 1) ;
+    var filename = this.serverHome + "/conf/Catalina/localhost/" + context + ".xml";
+    eXo.System.info("TOMCAT", "Generating tomcat context" + filename);    
     var config = 
       "<Context path='/" + context+ "' docBase='" + context + "' debug='0' reloadable='true' crossContext='true'> \n" +
       //className can be org.apache.catalina.logger.FileLogger
@@ -85,7 +87,8 @@ Tomcat.prototype.onDeploy = function(project) {
       "         roleClassNames='org.exoplatform.services.organization.auth.RolePrincipal' \n" +
       "         debug='0' cache='false'/> \n" +
       "</Context> \n";
-    eXo.core.IOUtil.createFile(this.serverHome + "/conf/Catalina/localhost/" + context + ".xml", config) ;
+      
+    eXo.core.IOUtil.createFile(filename, config) ;
   }
 }
 

@@ -35,15 +35,15 @@ Project.prototype.addDependency =  function(project) {
 
 Project.prototype.hasDependency = function() {return this.dependencies != null ;}
 
-Project.prototype.extractTo = function(repository, dir, ignore) {
-  eXo.System.vinfo("EXTRACT" , "To " + dir) ;
-  print ("          " + repository[0]);
-  print ("          " + repository[1]);
+Project.prototype.extractTo = function(repository, dir, ignore) {  
   for( var i = 0; i < repository.length; i++) {
     try {
-      var url = new java.net.URL(repository[i] + "/" + this.relativePath);
+    var surl = repository[i] + "/" + this.relativePath;
+      var url = new java.net.URL(surl);      
+      eXo.System.info("PATCH", "Fetching patch at " + repository[i] + "/" + this.relativePath);
       var is = new java.util.jar.JarInputStream(url.openStream()) ;
       var entry = is.getNextEntry() ;
+      eXo.System.info("PATCH", "Patching at" + dir);
       while(entry != null) {
         if(!entry.isDirectory()) {
           var name = entry.getName() ;
@@ -59,13 +59,12 @@ Project.prototype.extractTo = function(repository, dir, ignore) {
               read =  is.read(buf);
             }
             out.close();
-            eXo.System.vinfo(entry.getName()) ;
+            eXo.System.info("PATCH", dir + "/" + entry.getName()) ;
           }
         }
         entry = is.getNextEntry() ;
       }
       is.close() ;
-      eXo.System.vinfo("EXTRACT", "Done.................................... ") ;
       return ;
     } catch(err) { 
       eXo.System.error(err.message) ;
@@ -78,9 +77,10 @@ Project.prototype.extractTo = function(repository, dir, ignore) {
 Project.prototype.deployTo = function(repository, server) {
   for(var i = 0; i < repository.length; i++) {
     try {
-      eXo.System.info("GET", this.relativePath + "\n From " + repository[i]) ;
+      var surl = repository[i] + "/" + this.relativePath;
+      
       var url = new java.net.URL(repository[i] + "/" + this.relativePath);
-      eXo.System.vinfo("TEST", "Use the repository " + repository[i]) ;
+      
       var warName = null, fileName = null ;
       if(this.extension == "war") {
         if(this.deployName != null) {
@@ -128,6 +128,7 @@ Project.prototype.deployTo = function(repository, server) {
       eXo.System.vprint("] " + totalRead/1024 + "kb\n");
       out.close();
       is.close() ;
+	  eXo.System.info("DEPLOY", fileName);      
       return ;
     } catch(err) {  print(err.message); }
   }
