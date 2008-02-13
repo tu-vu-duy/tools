@@ -44,6 +44,10 @@ function getModule(params) {
   module.component.organization = 
     new Project("org.exoplatform.core", "exo.core.component.organization.api", "jar", module.version).
     addDependency(new Project("org.exoplatform.core", "exo.core.component.organization.jdbc", "jar", module.version));
+	
+  module.component.organization.ldap =
+	new Project("org.exoplatform.core", "exo.core.component.organization.ldap", "jar", module.version);
+	
   module.component.security = 
     new Project("org.exoplatform.core", "exo.core.component.security", "jar", module.version) ;
 
