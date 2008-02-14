@@ -41,6 +41,11 @@ function getModule(params) {
     addDependency(portal.webui.portal) .
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web) ;
-
+    
+  module.server = {}
+  
+  module.server.tomcat = {}
+  module.server.tomcat.patch = 
+    new Project("org.exoplatform.ecm", "exo.ecm.server.tomcat.patch", "jar", module.version);
   return module;
 }

@@ -7,5 +7,5 @@ $JAVA_CMD -Xshare:auto -Xms128m -Xmx512m -classpath $SCRIPT_DIR/src/main/resourc
           -Dexo.java.home=$JAVA_HOME \
           -Dexo.current.dir=$CURRENT_DIR \
           -Dexo.base.dir=$BSH_EXO_BASE_DIRECTORY  \
-          -Dexo.m2.repos="$M2_REPOS"  \
+          -Dexo.m2.repos="$BSH_M2_REPOS"  \
           org.mozilla.javascript.tools.shell.Main $SCRIPT_DIR/src/main/javascript/eXo/eXo.js $@
