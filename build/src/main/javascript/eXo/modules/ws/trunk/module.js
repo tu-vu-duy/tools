@@ -20,7 +20,7 @@ function getModule(params) {
     addDependency(new Project("com.sun.xml.bind", "jaxb-impl", "jar", "2.0.2")) .
     addDependency(new Project("com.sun.xml.parsers", "jaxp-ri", "jar", "1.4")) .
     addDependency(new Project("org.jvnet.jaxb2.maven2", "maven-jaxb2-plugin", "jar", "0.1"));
-      
+          
   module.soap = {};
   module.soap.jsr181 =
     new Project("org.exoplatform.ws.soap", "exo.ws.soap.xfire.jsr181", "jar", module.version).
@@ -31,5 +31,10 @@ function getModule(params) {
     addDependency(new Project("wsdl4j", "wsdl4j", "jar", "1.6.1")) .
     addDependency(new Project("jdom", "jdom", "jar", "1.0"));  
   
+  module.frameworks = {};
+  module.frameworks.servlet = 
+    new Project("org.exoplatform.ws.frameworks", "exo.ws.frameworks.servlet", "jar", module.version).      
+    addDependency(new Project("javax.servlet", "servlet-api", "jar", "2.4"));    
+          
   return module;
 }

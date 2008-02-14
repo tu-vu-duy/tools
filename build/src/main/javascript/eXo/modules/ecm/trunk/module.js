@@ -6,11 +6,11 @@ function getModule(params) {
   var kernel = params.kernel;
   var core = params.core;
   var eXoPortletContainer = params.eXoPortletContainer;
+  var ws = params.ws;
   var jcr = params.eXoJcr;
-  var portal = params.portal;
-
+  var portal = params.portal;  
   var module = new Module();
-
+  
   module.version = "trunk" ;
   module.relativeMavenRepo =  "org/exoplatform/ecm" ;
   module.relativeSRCRepo =  "ecm/trunk" ;
@@ -33,6 +33,10 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.api", "jar", module.version));     
         
   module.web = {}
+  module.web.rest = 
+    new Project("org.exoplatform.ecm", "exo.ecm.web.rest", "war", module.version).
+    addDependency(ws.frameworks.servlet);
+    
   module.web.ecmportal = 
     new Project("org.exoplatform.ecm", "exo.ecm.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
@@ -40,8 +44,7 @@ function getModule(params) {
     addDependency(portal.web.eXoVistaSkin) .
     addDependency(portal.webui.portal) .
     addDependency(jcr.frameworks.command) .
-    addDependency(jcr.frameworks.web) ;
-    
+    addDependency(jcr.frameworks.web) ;   
   module.server = {}
   
   module.server.tomcat = {}
