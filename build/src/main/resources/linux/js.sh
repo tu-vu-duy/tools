@@ -3,7 +3,8 @@ SCRIPT_DIR=$BSH_EXO_BASE_DIRECTORY/eXoProjects/tools/trunk/build
 CURRENT_DIR=`pwd`
 JAVA_CMD=$JAVA_HOME/bin/java
 echo $@
-$JAVA_CMD -Xshare:auto -Xms128m -Xmx512m -classpath $SCRIPT_DIR/src/main/resources/java/js.jar \
+echo "MAVEN_OPTS: $MAVEN_OPTS"
+$JAVA_CMD $MAVEN_OPTS -classpath $SCRIPT_DIR/src/main/resources/java/js.jar \
           -Dexo.java.home=$JAVA_HOME \
           -Dexo.current.dir=$CURRENT_DIR \
           -Dexo.base.dir=$BSH_EXO_BASE_DIRECTORY  \
