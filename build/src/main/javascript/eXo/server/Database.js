@@ -47,42 +47,58 @@ DBInstance.prototype.GetConfigTask = function() {
   return descriptor;
 }
 
-DBInstance.prototype.ConfigureTask = function(product, server) {
+
+DBInstance.prototype.ConfigureTask = function(product, server, dbsetup) {
   var descriptor =  new TaskDescriptor("Configure Database", null) ;
   descriptor.description = "Configure the database environment for " + this.name;
   descriptor.dbinstance = this ;
  
   descriptor.execute =function () {
-    var properties = new java.util.HashMap() ;
+    
     var IOUtil =  eXo.core.IOUtil ;
-    properties.put("${dialect}", this.dbinstance.dialect) ;
-    properties.put("${driverClass}", this.dbinstance.driverClass) ;
-    properties.put("${connectionUrl}", this.dbinstance.conectionURL) ;
-    properties.put("${username}", this.dbinstance.username) ;
-    properties.put("${password}", this.dbinstance.password) ;
-    
-    var propmsg = "Connection Settings: \n" + properties.entrySet();
-    eXo.System.info("CONF", propmsg);
-    
     var jarFile =  server.deployWebappDir + "/" + product.portalwar ;
     var mentries = new java.util.HashMap() ;
-    var configTmpl = IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/database/database-configuration.tmpl.xml");
-    var config = eXo.core.Util.modifyText(configTmpl, properties) ;
-    mentries.put("WEB-INF/conf/database/database-configuration.xml", config.getBytes()) ;
+	
+    if (dbsetup=="skip") {
+	  var dbconfigSource = "WEB-INF/conf/database/database-configuration."+this.dbinstance.name+".xml";  
+      var dbconfigDest = "WEB-INF/conf/database/database-configuration.xml";	    
+      if (IOUtil.getJarEntryContent(jarFile, dbconfigSource) != null) {
+        var configTmpl = IOUtil.getJarEntryAsText(jarFile, dbconfigSource);
+        mentries.put(dbconfigDest, configTmpl.getBytes()) ;    
+        eXo.System.info("CONF", "Replaced " + dbconfigDest + " by " + dbconfigSource);
+      } else {
+        eXo.System.info("CONF", dbconfigSource + " entry not found, using " + dbconfigDest );        
+      }
+    } else {
+	  var properties = new java.util.HashMap() ;
+      properties.put("${dialect}", this.dbinstance.dialect) ;
+      properties.put("${driverClass}", this.dbinstance.driverClass) ;
+      properties.put("${connectionUrl}", this.dbinstance.conectionURL) ;
+      properties.put("${username}", this.dbinstance.username) ;
+      properties.put("${password}", this.dbinstance.password) ;
+    
+      var propmsg = "Database settings: " + properties.entrySet();
+      eXo.System.info("CONF", propmsg);
+    
+      var templateEntry = "WEB-INF/conf/database/database-configuration.tmpl.xml";      
+      var dbconfigEntry = "WEB-INF/conf/database/database-configuration.xml";
+      mentries = IOUtil.patchWar(jarFile, properties, templateEntry, dbconfigEntry, mentries)
 
+    }
+    
     var properties = new java.util.HashMap() ;
 	properties.put("${dialect}", this.dbinstance.name);
+    eXo.System.info("CONF", "JCR settings: " + properties.entrySet());	
+  
+  	mentries = IOUtil.patchWar(jarFile, properties, "WEB-INF/conf/jcr/repository-configuration.tmpl.xml", 
+  	"WEB-INF/conf/jcr/repository-configuration.xml", mentries)
     
-    configTmpl = IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/jcr/repository-configuration.tmpl.xml");
-    config = eXo.core.Util.modifyText(configTmpl, properties) ;
-    mentries.put("WEB-INF/conf/jcr/repository-configuration.xml", config.getBytes()) ;
+    mentries = IOUtil.patchWar(jarFile, properties, "WEB-INF/conf/jcr/jcr-configuration.tmpl.xml", 
+  	"WEB-INF/conf/jcr/jcr-configuration.xml", mentries)
     
-    configTmpl = IOUtil.getJarEntryAsText(jarFile, "WEB-INF/conf/jcr/jcr-configuration.tmpl.xml");
-    config = eXo.core.Util.modifyText(configTmpl, properties) ;
-    mentries.put("WEB-INF/conf/jcr/jcr-configuration.xml", config.getBytes()) ;
 
     var portalwar = server.deployWebappDir + "/" + product.portalwar;
-    eXo.System.info("CONF", "Modified entries in " + portalwar + ": \n" + mentries.keySet());
+    eXo.System.info("CONF", "Patching database config in " + portalwar + ": \n\t" + mentries.keySet());
     IOUtil.modifyJar(portalwar, mentries, null) ;
   }
   return descriptor;
@@ -94,9 +110,9 @@ function Database() {
   
 }
 
-Database.prototype.HsqlDB = function() {
+Database.prototype.HsqlDB = function(name) {
   var instance = new DBInstance() ;
-  instance.name = "hsqldb" ;
+  instance.name = name ;
   instance.drivers = [ new Project("hsqldb", "hsqldb", "jar", "1.8.0.7") ] ;
 
   instance.driverClass = "org.hsqldb.jdbcDriver";
@@ -107,9 +123,9 @@ Database.prototype.HsqlDB = function() {
   return instance ;
 }
 
-Database.prototype.MysqlDB = function() {
+Database.prototype.MysqlDB = function(name) {
   var instance = new DBInstance() ;
-  instance.name = "mysql" ;
+  instance.name = name ;
   instance.drivers = [ new Project("mysql", "mysql-connector-java", "jar", "5.0.5")] ;
    
   instance.driverClass = "com.mysql.jdbc.Driver";
@@ -121,9 +137,9 @@ Database.prototype.MysqlDB = function() {
   return instance ;
 }
 
-Database.prototype.PostgresDB = function() {
+Database.prototype.PostgresDB = function(name) {
   var instance = new DBInstance() ;
-  instance.name = "pgsql" ;
+  instance.name = name ;
   instance.drivers = [ new Project("org.postgresql", "postgresql-jdbc3", "jar", "8.2-505")] ;
    
   instance.driverClass = "org.postgresql.Driver";
@@ -135,9 +151,9 @@ Database.prototype.PostgresDB = function() {
   return instance ;
 }
   
-Database.prototype.OracleDB = function() {
+Database.prototype.OracleDB = function(name) {
   var instance = new DBInstance() ;
-  instance.name = "oracle" ;
+  instance.name = name ;
   instance.drivers = [ new Project("oracle", "ojdbc", "jar", "1.4")] ;
    
   instance.driverClass = "oracle.jdbc.OracleDriver";
@@ -149,9 +165,9 @@ Database.prototype.OracleDB = function() {
   return instance ;
 }
 
-Database.prototype.DB2ExpressDB = function() {
+Database.prototype.DB2ExpressDB = function(name) {
   var instance = new DBInstance() ;
-  instance.name = "db2" ;
+  instance.name = name ;
   instance.drivers = [ new Project("com.ibm.db2", "db2jcc", "jar", "9.1"),
   										 new Project("com.ibm.db2", "db2jcc_license_cu", "jar", "9.1")] ;
    
@@ -164,9 +180,9 @@ Database.prototype.DB2ExpressDB = function() {
   return instance ;
 }
 
-Database.prototype.DB2V8DB = function() {
+Database.prototype.DB2V8DB = function(name) {
   var instance = new DBInstance() ;
-  instance.name = "db2v8" ;
+  instance.name = name ;
   instance.drivers = [ new Project("com.ibm.db2", "db2jcc", "jar", "8.0"),
   										 new Project("com.ibm.db2", "db2jcc_license_cu", "jar", "8.0")] ;
    
@@ -179,9 +195,9 @@ Database.prototype.DB2V8DB = function() {
   return instance ;
 }
 
-Database.prototype.DerbyDB = function() {
+Database.prototype.DerbyDB = function(name) {
   var instance = new DBInstance() ;
-  instance.name = "derby" ;
+  instance.name = name ;
   instance.drivers = [ new Project("org.apache", "derby", "jar", "10.2")] ;
    
   instance.driverClass = "org.apache.derby.jdbc.ClientDriver";
@@ -193,9 +209,9 @@ Database.prototype.DerbyDB = function() {
   return instance ;
 }
 
-Database.prototype.SqlServerDB = function() {
+Database.prototype.SqlServerDB = function(name) {
   var instance = new DBInstance() ;
-  instance.name = "mssql" ;
+  instance.name = name ;
   instance.drivers = [ new Project("com.microsoft", "sqljdbc", "jar", "1.1.1501")] ;
    
   instance.driverClass = "com.microsoft.sqlserver.jdbc.SQLServerDriver";

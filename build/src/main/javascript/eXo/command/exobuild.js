@@ -9,44 +9,62 @@ eXo.require("eXo.core.IOUtil") ;
 eXo.require("eXo.projects.Workflow") ;
 eXo.require("eXo.projects.Product") ;
 
+// initialize possible database setups   
+var databaseMap = new java.util.HashMap();
+databaseMap.put("hsql", eXo.server.Database.HsqlDB("hsql"));
+databaseMap.put("mysql", eXo.server.Database.MysqlDB("mysql"));
+databaseMap.put("oracle", eXo.server.Database.OracleDB("oracle"));
+databaseMap.put("postgresql", eXo.server.Database.PostgresDB("postgresql"));
+databaseMap.put("db2", eXo.server.Database.DB2ExpressDB("db2"));
+databaseMap.put("db2v8", eXo.server.Database.DB2V8DB("db2v8"));   
+databaseMap.put("derby", eXo.server.Database.DerbyDB("derby"));
+databaseMap.put("sqlserver", eXo.server.Database.SqlServerDB("sqlserver"));
+
+var modules = ["all","pc","jcr", "ws", "tools", "ecm", "cs", "portal"];
+var products = ["cs","ecm","portal", "ultimate", "wcm", "webos"];
+var servers = ["all", "jonas", "jboss", "tomcat"];
+
 function exobuildInstructions() {
   print(
    "\n\n" +
    "Usage the exobuild command: \n\n" +
-   "  exobuild --product=[portal|ecm|cs|ultimate]\n" +
-   "           [--version]\n" + 
+   "  exobuild --product=name\n" +
+   "           [--version=version]\n" + 
    "           [--update]\n" +
    "           [--build]\n" +
-   "           [--exclude=all|pc|jcr|ws|tools|ecm|cs|portal]\n" +
-   "           [--deploy[=tomcat|jboss|jonas]]\n" +
+   "           [--exclude=modules]\n" +
+   "           [--deploy[=server]]\n" +
+   "           [--release[=server]]\n" +   
    "           [--workflow[=jbpm|bonita]]\n" +
    "           [--clean-mvn-repo]\n" +
-   "           [--database]\n" +
-   "           [--dbsetup[=skip|ask|defaults]]\n" +
+   "           [--database[=dialect]]\n" +
+   "           [--dbsetup=option]\n" +   
    "\n\n" +
    "Options: \n" +
-   "  * --product          is mandatory. The possible names are portal, ecm, groupware, all\n" +
-   "  * --version          is optional. This option allows to specify which version of the product\n" +
-   "                       to build. Default is \"trunk\"\n" +
-   "  * --update           is optional. If you add this option, exobuild  will make a\n" +
-   "                       svn update before it builds\n" +
-   "  * --build            is optional. If you add this option, the exobuild command\n" +
-   "                       will compile and install the sub projects of the product,\n" +
-   "  * --exclude          is optional. You can specify any module name. Ideal when one dependency\n" +
-   "                       makes the compilation break.\n" +
-   "  * --deploy           is optional. The possible names are tomcat-server, jboss-server, and\n" +
-   "                       jonas-server. If you enter only --deploy, the tomcat-server will be used\n" +
-   "  * --clean-mvn-repo   is optional. This option is allowed you to delete the exo artifact in the\n" +
-   "                       maven repository.\n" +
-   "  * --database         is optional. This option must use with the --deploy option. The possible\n" +
-   "                       values are hsql, mysql, oracle, postgres, derby and mssql\n" +
-   "  * --dbsetup          is optional. This option is used with --database option.\n" +
+   "  * --product=name     Mandatory. Name of the product you want to build.\n" +
+   "                       The possible names are " + products +".\n" +
+   "  * --version=version  Allows to specify which version of the product\n" +
+   "                       to build such as trunk, tags/2.0, branches/2.0,.... Default is trunk.\n" +
+   "  * --update           Run a svn update before it builds.\n" +
+   "  * --build            Compile and install the sub projects of the product,\n" +
+   "  * --exclude          Exclude the given modules (comma separated) from compilation and fetch jars from repository\n" +   
+   "                       You can specify any module name in " + modules + ".\n" +
+   "                       Use this to avoid full build or when a module breaks the build\n" +
+   "  * --deploy=server    Deploy to a given application server. Possible values are: " + servers +".\n" +
+   "                       Default is tomcat.\n" +   
+   "  * --release=server   Release for the target application server. Produce a zip named after the current SVN revision.\n" + 
+   "                       Possible values are: " + servers +". Default is tomcat\n" +   
+   "  * --clean-mvn-repo   Clean your local repository of eXo artifacts before building.\n" +
+   "  * --database=dialect Speficy target database dialect. The possible values are " + databaseMap.keySet() + ".\n" +
+   "                       This will configure the appropriate JCR dialects and deploy the JDBC driver.\n" +
+   "                       Used with --dbsetup=skip option, exobuild tries to get database settings in a file named\n" + 
+   "                       database-configuration.{dialect}.xml\n" +   
+   "  * --dbsetup=option   Use this option with --database option to specify the database setup behaviour.\n" +
    "                       dbsetup=skip will leave you database configuration setup untouched.\n" +
-   "                       dbsetup=defaults will configure default connection settings\n" +
-   "                       dbsetup=ask allow you to enterthe connection url , username and password of the database server\n" + 
-   "  * --workflow         is optional. The possible names are bonita or jbpm. This option only use\n"+
-   "                       for products which use workflow like ecm,ultimate and ecm related products\n"+
-   "                       By default, jpbm will be used for the products"
+   "                       dbsetup=defaults will configure presets connection settings.\n" +
+   "                       dbsetup=ask allow you to enter the connection url , username and password of the database server.\n" + 
+   "  * --workflow=engine  Specify the workflow engine to bundle with the product. The possible values are bonita or jbpm.\n"+
+   "                       This option is only used for products that use workflow. Default engine is jbpm\n"
   );
 }
 
@@ -86,8 +104,11 @@ var deployServers = null;
 var productName = null;
 var product = null ;
 var database = null;
+var dialect = null;
 var version = "trunk";
 var workflow = new Workflow("jbpm",version)
+
+
 
 var args = arguments;
 
@@ -124,20 +145,15 @@ for(var i = 0; i <args.length; i++) {
     if(arg == "--deploy=jboss") server = new Jboss(eXo.env.workingDir + "/exo-jboss") ;
     else if(arg == "--deploy=jonas") server = new Jonas(eXo.env.workingDir + "/exo-jonas") ;
     else server = new Tomcat(eXo.env.workingDir + "/exo-tomcat") ;
-  } else if(arg == "--database=mysql") {
-    database = eXo.server.Database.MysqlDB() ;
-  } else if(arg == "--database=oracle") {
-    database = eXo.server.Database.OracleDB() ;
-  } else if(arg == "--database=postgresql") {
-    database = eXo.server.Database.PostgresDB() ;
-  } else if(arg == "--database=db2") {
-    database = eXo.server.Database.DB2ExpressDB() ;
-  } else if(arg == "--database=db2v8") {
-	 database = eXo.server.Database.DB2V8DB() ;  
-  } else if(arg == "--database=derby") {
-    database = eXo.server.Database.DerbyDB() ;
-  } else if(arg == "--database=sqlserver") {
-    database = eXo.server.Database.SqlServerDB() ;
+  } else if (arg.match("--database=")) {
+   		dialect = arg.substring("--database=".length);
+   
+   var database = databaseMap.get(dialect); 
+   if (database == null) {
+     print("Unknown dialect " + dialect + ". Please provide one of: " + databaseMap.keySet());
+    java.lang.System.exit(1);
+   }
+       
   } else if (arg.match("--product")) {
     productName = arg.substring("--product=".length);
   }else if (arg.match("--workflow")) {
@@ -215,7 +231,7 @@ if(deployServers != null) {
     server =  deployServers[i] ;
     tasks.add(product.DeployTask(product, server, eXo.env.m2Repos)) ;
     tasks.add(database.DeployTask(product, server, eXo.env.m2Repos)) ;
-    if (dbsetup != "skip") tasks.add(database.ConfigureTask(product, server)) ;
+    tasks.add(database.ConfigureTask(product, server, dbsetup)) ;
     if(release_)tasks.add(ReleaseTask(server, product, version)) ;
   }
 }

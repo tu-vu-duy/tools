@@ -122,8 +122,26 @@ IOUtil.prototype.createFolder = function( path) {
   }
 }
 
+IOUtil.prototype.patchWar = function(warFile, properties, templateEntry, destEntry, mentries) {
+  if (this.getJarEntryContent(warFile, templateEntry) != null) {
+    var configTmpl = this.getJarEntryAsText(warFile, templateEntry);      
+	eXo.System.info("CONF", "Filtering war entry " + templateEntry + " > " + destEntry);      
+    var config = eXo.core.Util.modifyText(configTmpl, properties) ;    
+    mentries.put(destEntry, config.getBytes()) ;    
+  } else {
+	eXo.System.info("CONF", "Failed to filer war entry " + templateEntry);
+	java.lang.System.exit(1);
+  }
+  return mentries;
+}
+
 IOUtil.prototype.getJarEntryContent = function(fileName, entryName) {
-  var jar = new java.util.jar.JarFile(fileName) ;
+  var file = new java.io.File(fileName);
+  if (!file.exists()) {
+    eXo.System.info("IO", "" + fileName + " file not found" ) ;
+    return null;
+  }
+  var jar = new java.util.jar.JarFile(file) ;
   var entries = jar.entries() ;
   while(entries.hasMoreElements()) {
     var entry = entries.nextElement() ;
