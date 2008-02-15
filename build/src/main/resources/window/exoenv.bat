@@ -20,7 +20,11 @@ set EXO_DEPENDENCIES_DIR=%EXO_BASE_DIRECTORY%\exo-dependencies
 
 set M2_HOME=%EXO_BASE_DIRECTORY%\maven2
 set M2_REPO=%EXO_BASE_DIRECTORY%\exo-dependencies\repository
+set M2_REPOS=%file:$EXO_BASE_DIRECTORY%/exo-dependencies/repository, http://maven2.exoplatform.org/rest/maven2"
+
+rem MAVEN_OPTS will be used as JVM options for the build by 'exobuild' command
 set MAVEN_OPTS="-Xshare:auto -Xms128m -Xmx512m" 
 
+rem JAVA_OPTS will be used by tomcat
 set JAVA_OPTS="-Xshare:auto -Xms128m -Xmx256m -Dexo.directory.base=%EXO_BASE_DIRECTORY%" 
 set PATH=%JAVA_HOME%\bin;%M2_HOME%\bin;%EXO_BAT_SCRIPT%;%PATH%
