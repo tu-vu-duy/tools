@@ -11,7 +11,7 @@ eXo.require("eXo.projects.Product") ;
 
 // initialize possible database setups   
 var databaseMap = new java.util.HashMap();
-databaseMap.put("hsql", eXo.server.Database.HsqlDB("hsql"));
+databaseMap.put("hsqldb", eXo.server.Database.HsqlDB("hsqldb"));
 databaseMap.put("mysql", eXo.server.Database.MysqlDB("mysql"));
 databaseMap.put("oracle", eXo.server.Database.OracleDB("oracle"));
 databaseMap.put("postgresql", eXo.server.Database.PostgresDB("postgresql"));
@@ -111,8 +111,8 @@ var server = null ;
 var deployServers = null;
 var productName = null;
 var product = null ;
-var database = null;
-var dialect = null;
+var dialect = "hsqldb";
+var database = databaseMap.get(dialect);
 var version = "trunk";
 var workflow = new Workflow("jbpm",version)
 
