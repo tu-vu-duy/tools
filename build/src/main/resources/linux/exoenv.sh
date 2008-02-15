@@ -27,7 +27,7 @@ M2_REPO=$EXO_BASE_DIRECTORY/exo-dependencies/repository
 M2_REPOS="file:$EXO_BASE_DIRECTORY/exo-dependencies/repository, http://maven2.exoplatform.org/rest/maven2"
 
 # MAVEN_OPTS will be used as JVM options for the build by 'exobuild' command
-MAVEN_OPTS="-Xshare:auto -Xms128m -Xmx512m -XX:MaxPermSize=128M" 
+MAVEN_OPTS="-Xshare:auto -Xms128m -Xmx512m -XX:MaxPermSize=256M" 
 
 # JAVA_OPTS will be used by tomcat
 JAVA_OPTS="-Xshare:auto -Xms256m -Xmx1536m -XX:MaxPermSize=256M -Dexo.directory.base=$EXO_BASE_DIRECTORY" 
@@ -42,7 +42,7 @@ export EXO_BASE_DIRECTORY EXO_PROJECTS_SRC  BSH_EXO_BASE_DIRECTORY  BSH_M2_REPOS
 if [ -e "$EXO_PROJECTS_SRC/tools/trunk/config/maven2/template-settings.xml" ] ; then
   JAVA_DIR_SUB=`echo $JAVA_DIR | sed -e 's/\\//\\\\\//g'`
   # echo $JAVA_DIR_SUB
-  eval "sed -e 's/@java.dir@/$JAVA_DIR_SUB/g' $EXO_PROJECTS_SRC/tools/trunk/config/maven2/template-settings.xml > maven2/conf/settings.xml"
+  eval "sed -e 's/@java.dir@/$JAVA_DIR_SUB/g' $EXO_PROJECTS_SRC/tools/trunk/config/maven2/template-settings.xml > $M2_HOME/conf/settings.xml"
 fi
 
 if [ -e "${PORTABLE_DIR}/tools/env.sh" ] ; then
