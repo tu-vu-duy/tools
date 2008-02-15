@@ -73,18 +73,26 @@ function ReleaseTask(server, product, version) {
   descriptor.execute = function() {
     var versionInfo = "unknown";
     if("trunk" == version) {
+    
       var commands = ["svn", "info", eXo.env.eXoProjectsDir + "/" + product.codeRepo] ;
-      var result = eXo.System.run(commands) ; 
+      
+      eXo.System.info("RELEASE", "Getting product revision from SVN.");
+      var result = eXo.System.run(commands) ;
+       
       var line = result.split("\n") ;
       for(var i = 0; i < line.length; i++) {
-        if(line[i].startsWith("Revision: ")) {
-          versionInfo = "r" + line[i].substring("Revision: ".length, line[i].length()) ;
+        if(line[i].match("vision")) {
+         eXo.System.info("RELEASE", line[i]);
+         versionInfo = "r" + line[i].substring(line[i].lastIndexOf(":")+1, line[i].length()).trim() ;
        }
       } 
     } else {
       versionInfo = version ;
     }
-    eXo.core.IOUtil.zip(server.serverHome, eXo.env.workingDir, "exo-" + product.name + "-" + versionInfo + "-" + server.name) ;
+    
+    var zipName = "exo-" + product.name + "-" + versionInfo + "-" + server.name;
+    eXo.System.info("RELEASE", "Building zip: " + zipName + ".zip"+ " in " + eXo.env.workingDir);    
+    eXo.core.IOUtil.zip(server.serverHome, eXo.env.workingDir, zipName) ;
   }
   return descriptor ;
 }
@@ -150,7 +158,7 @@ for(var i = 0; i <args.length; i++) {
    
    var database = databaseMap.get(dialect); 
    if (database == null) {
-     print("Unknown dialect " + dialect + ". Please provide one of: " + databaseMap.keySet());
+     eXo.System.info("ERR", "Unknown dialect " + dialect + ". Please provide one of: " + databaseMap.keySet());
     java.lang.System.exit(1);
    }
        
@@ -161,7 +169,7 @@ for(var i = 0; i <args.length; i++) {
     workflow = new Workflow(workflowName,version);
     java.lang.System.setProperty("workflow",workflowName) ;
   } else {
-    print("UNKNOWN ARGUMENT: " + arg); 
+    eXo.System.info("ERR", "UNKNOWN ARGUMENT: " + arg); 
     exobuildInstructions() ;
     java.lang.System.exit(1);
   }
