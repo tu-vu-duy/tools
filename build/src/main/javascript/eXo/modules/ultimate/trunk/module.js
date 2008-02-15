@@ -10,6 +10,7 @@ function getModule(params) {
   var portal = params.portal;
   var ecm = params.ecm ;
   var cs = params.cs ;
+  var ws = params.ws;
   var module = new Module();
 
   module.version = "trunk" ;
@@ -19,13 +20,16 @@ function getModule(params) {
        
   module.web = {}
   module.web.ultimateportal = 
-    new Project("org.exoplatform.ultimate", "exo.ultimate.web.portal", "exo-portal", module.version)   .addDependency(portal.web.eXoResources) .
+    new Project("org.exoplatform.ultimate", "exo.ultimate.web.portal", "exo-portal", module.version).   
+    addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .
     addDependency(portal.webui.portal) .
     addDependency(cs.web.csResources) .
     addDependency(jcr.frameworks.command) .
-    addDependency(jcr.frameworks.web) ;
+    addDependency(jcr.frameworks.web).
+    addDependency(ecm.web.rest);
+    
 
   return module;
 }
