@@ -1,1 +1,4 @@
-todo
+template-settings.xml is used when you run exoenv.sh. 
+These settings will be adapted to your environment (@java.dir@) and copied into maven2/conf/settings.xml.
+
+So if you need to make some change to your eXo maven settings, do it in template-settings.xml.
