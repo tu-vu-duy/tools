@@ -5,7 +5,7 @@ function maven() {
 }
 maven.prototype.MavenTask = function(projectDir, args) {
   var descriptor = new TaskDescriptor("Maven Task", projectDir) ;
-  descriptor.description = "Run mvn " + args + " again module " + projectDir ;
+  descriptor.description = "Run mvn " + args + " against module " + projectDir ;
   descriptor.projectDir = projectDir;
   descriptor.mavenArgs = args;
 
@@ -28,7 +28,7 @@ maven.prototype.MavenTask = function(projectDir, args) {
     var exitCode = type.newInstance().mainWithExitCode(this.mavenArgs);
     java.lang.System.gc() ;
     if(exitCode != 0) {
-      throw new java.lang.Exception("BUILD MODULE :" + this.workingDir + " IS FAIL");
+      throw new java.lang.Exception("BUILD MODULE :" + this.workingDir + " FAILED");
     }
     java.lang.Thread.currentThread().setContextClassLoader(contextLoader); 
   }
