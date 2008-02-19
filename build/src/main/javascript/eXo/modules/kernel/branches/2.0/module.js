@@ -13,7 +13,7 @@ function getModule(params) {
     new Project("org.exoplatform.kernel", "exo.kernel.commons", "jar", module.version).
     addDependency(new Project("commons-lang", "commons-lang", "jar", "2.1")).
     addDependency(new Project("xpp3", "xpp3", "jar", "1.1.3.4.O")).
-    addDependency(new Project("xstream", "xstream", "jar", "1.1")).
+//    addDependency(new Project("xstream", "xstream", "jar", "1.1")).
     addDependency(new Project("dom4j", "dom4j", "jar", "1.6.1"));
     
   module.container = 
@@ -44,8 +44,8 @@ function getModule(params) {
 
   module.component.command = 
     new Project("org.exoplatform.kernel", "exo.kernel.component.command", "jar", module.version).
-    addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0")).
-    addDependency(new Project("commons-digester", "commons-digester", "jar", "1.7"));
+    addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0"));
+//    addDependency(new Project("commons-digester", "commons-digester", "jar", "1.7"));
     
   module.component.cache = 
     new Project("org.exoplatform.kernel", "exo.kernel.component.cache", "jar", module.version) ;

@@ -8,6 +8,8 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "ecm/trunk" ;
   product.useWorkflow = true;
+  product.workflowVersion = "trunk" ;
+  product.serverPluginVersion = "trunk" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/trunk") ;

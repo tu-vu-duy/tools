@@ -232,7 +232,8 @@ if(build_) {
 }
 
 if(deployServers != null) {	
-	if(product.useWorkflow) {			
+	if(product.useWorkflow) {	
+    workflow.version = product.workflowVersion ;		
 		workflow.configWorkflow(product);
 	}	 	
   for(var i = 0; i < deployServers.length; i++) {

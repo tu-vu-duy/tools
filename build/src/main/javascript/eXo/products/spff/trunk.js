@@ -8,6 +8,7 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "spff/internet/trunk" ;
   product.useWorkflow = true;  
+  product.workflowVersion = "2.0" ;
   product.serverPluginVersion = "2.0" ;
     
   var tool =  Module.GetModule("tools/trunk") ;

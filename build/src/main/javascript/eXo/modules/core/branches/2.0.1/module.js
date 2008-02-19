@@ -26,7 +26,7 @@ function getModule(params) {
     addDependency(new Project("org.hibernate", "hibernate", "jar", "3.1.2")).
     addDependency(new Project("commons-collections", "commons-collections", "jar", "3.1")).
     addDependency(new Project("c3p0", "c3p0", "jar", "0.8.4.5")).
-    addDependency(new Project("antlr", "antlr", "jar", "2.7.5")).
+//    addDependency(new Project("antlr", "antlr", "jar", "2.7.5")).
     addDependency(new Project("javax.transaction", "jta", "jar", "1.0.1B")).
     addDependency(new Project("jotm", "jotm_jrmp_stubs", "jar", "2.0.10")).
     addDependency(new Project("jotm", "jotm", "jar", "2.0.10")).
@@ -38,7 +38,7 @@ function getModule(params) {
     new Project("org.exoplatform.core", "exo.core.component.document", "jar", module.version).
     addDependency(new Project("pdfbox", "pdfbox", "jar", "0.7.2")).
     addDependency(new Project("html-parser", "html-parser", "jar", "1.6")).
-    addDependency(new Project("poi", "poi", "jar", "3.0-alpha1")).
+    addDependency(new Project("org.apache.poi", "poi", "jar", "3.0-FINAL")).
     addDependency(new Project("poi", "poi-scratchpad", "jar", "3.0-alpha1"));
     
   module.component.organization = 

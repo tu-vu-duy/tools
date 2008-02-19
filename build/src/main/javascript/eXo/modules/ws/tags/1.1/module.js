@@ -27,7 +27,7 @@ function getModule(params) {
     addDependency(new Project("picocontainer", "picocontainer", "jar", "1.1")) .
     addDependency(new Project("org.codehaus.xfire", "xfire-jsr181-api", "jar", "1.0")) .
     addDependency(new Project("org.codehaus.xfire", "xfire-all", "jar", "1.2.6")) .
-    addDependency(new Project("stax", "stax-api", "jar", "1.0.1")) .
+    addDependency(new Project("stax", "stax-api", "jar", "1.0")) .
     addDependency(new Project("wsdl4j", "wsdl4j", "jar", "1.6.1")) .
     addDependency(new Project("jdom", "jdom", "jar", "1.0"));  
   
