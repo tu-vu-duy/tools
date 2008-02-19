@@ -12,6 +12,7 @@ function Env() {
     this.currentDir = this.currentDir.substring("/cygdrive/".length) ;
     this.currentDir = this.currentDir.replaceFirst("/", ":/");
   }
+
   this.m2Repos = java.lang.System.getProperty("exo.m2.repos").split(",") ;
   for(var i = 0 ; i< this.m2Repos.length; i++) this.m2Repos[i] = this.m2Repos[i].trim();
 }

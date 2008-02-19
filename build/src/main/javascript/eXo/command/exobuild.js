@@ -237,6 +237,7 @@ if(deployServers != null) {
 	}	 	
   for(var i = 0; i < deployServers.length; i++) {
     server =  deployServers[i] ;
+    server.pluginVersion = product.serverPluginVersion ;
     tasks.add(product.DeployTask(product, server, eXo.env.m2Repos)) ;
     tasks.add(database.DeployTask(product, server, eXo.env.m2Repos)) ;
     tasks.add(database.ConfigureTask(product, server, dbsetup)) ;

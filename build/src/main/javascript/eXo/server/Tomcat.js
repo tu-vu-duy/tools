@@ -5,10 +5,12 @@ function Tomcat(tomcatHome) {
   this.runningInstance_ = null ;
   this.name = "tomcat" ;
   this.serverHome = tomcatHome ;
-  this.cleanServer = "tomcat-6.0.10" ;
+  this.cleanServer = java.lang.System.getProperty("clean.server") ;
+  if(this.cleanServer == null || this.cleanServer.equals("")) this.cleanServer = "tomcat-6.0.10" ;
   this.deployLibDir = this.serverHome + "/lib" ;
   this.deployWebappDir = this.serverHome + "/webapps";
   this.patchDir = this.serverHome ;
+  this.pluginVersion = "trunk"
 }
 
 Tomcat.prototype.RunTask = function() {
@@ -66,7 +68,7 @@ Tomcat.prototype.preDeploy = function(product) {
 	product.addDependencies(new Project("commons-logging", "commons-logging-api", "jar", "1.0.4")) ;
   product.addDependencies(new Project("commons-pool", "commons-pool", "jar", "1.2")) ;
   product.addDependencies(new Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;
-  product.addDependencies(new Project("org.exoplatform.portal", "exo.portal.server.tomcat.plugin", "jar", "trunk")) ;
+  product.addDependencies(new Project("org.exoplatform.portal", "exo.portal.server.tomcat.plugin", "jar", this.pluginVersion)) ;
   product.addDependencies(new Project("org.exoplatform.tool", "exo.tool.webunit", "jar", "trunk")) ;
 }
 

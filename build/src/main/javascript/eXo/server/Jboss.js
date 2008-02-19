@@ -7,7 +7,8 @@ function Jboss(jbossHome) {
   this.runningInstance_ = null ;
   this.name = "jboss" ;
   this.serverHome = jbossHome ;
-  this.cleanServer = "jboss-4.2.2.GA" ;
+  this.cleanServer = java.lang.System.getProperty("clean.server") ;
+  if(this.cleanServer == null || this.cleanServer.equals("")) this.cleanServer = "jboss-4.2.2.GA" ;
   this.deployLibDir = this.serverHome + "/server/default/deploy/exoplatform.sar" ;
   this.deployWebappDir = this.serverHome + "/server/default/deploy/exoplatform.sar";
   this.patchDir = this.serverHome + "/server/default";

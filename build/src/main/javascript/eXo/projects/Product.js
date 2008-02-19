@@ -10,6 +10,7 @@ function Product() {
   this.module = null ;
   this.useWorkflow = false;
   this.dependencyModule = null ;
+  this.serverPluginVersion = "trunk" ;
 }
 
 Product.GetProduct = function(name, version) {

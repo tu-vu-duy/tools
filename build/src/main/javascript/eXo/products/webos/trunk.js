@@ -8,6 +8,7 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "webos/trunk" ;
   product.useWorkflow = false;
+  product.serverPluginVersion = "2.0" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/branches/2.0") ;

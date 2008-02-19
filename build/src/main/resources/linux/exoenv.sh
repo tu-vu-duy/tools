@@ -21,6 +21,9 @@ USER_HOME='/cygdrive/c/Documents\ and\ Settings/$USERNAME'
 EXO_PROJECTS_SRC=$EXO_BASE_DIRECTORY/eXoProjects
 EXO_SH_SCRIPT=$EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux
 EXO_WORKING_DIR=$EXO_BASE_DIRECTORY/exo-working
+EXO_DEPENDENCIES_DIR=$EXO_BASE_DIRECTORY/exo-dependencies
+
+CLEAN_SERVER=tomcat-6.0.10
 
 M2_HOME=$EXO_BASE_DIRECTORY/maven2
 M2_REPO=$EXO_BASE_DIRECTORY/exo-dependencies/repository
