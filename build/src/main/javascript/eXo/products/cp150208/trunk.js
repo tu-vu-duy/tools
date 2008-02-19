@@ -19,6 +19,7 @@ function getProduct(version) {
   var cp150208 = Module.GetModule("cp150208/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
     
 	product.addDependencies(cp150208.web.portal) ;
+	product.addDependencies(cp150208.portlet.web) ;
   
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;

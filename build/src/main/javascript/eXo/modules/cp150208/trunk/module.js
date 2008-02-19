@@ -16,8 +16,11 @@ function getModule(params) {
   module.relativeSRCRepo =  "cp150208/trunk" ;
   module.name =  "cp150208" ;  
 
-	module.web = {} ;
+	module.portlet = {}
+  module.portlet.web = new Project("org.exoplatform.cp150208", "cp150208.portlet.web", "exo-portlet", module.version);
+  module.portlet.web.deployName = "cp150208PortletWeb" ;
 	
+	module.web = {} ;
   module.web.portal = 
     new Project("org.exoplatform.cp150208", "cp150208.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
