@@ -21,7 +21,7 @@ function getModule(params) {
   module.portlet.web.deployName = "cp150208PortletWeb" ;
 	
 		module.web = {} ;
-		module.web.eXoResources = new Project("org.exoplatform.cp150208", "cp150208.web.eXoResources", "war", module.version);
+		module.web.eXoResources = new Project("org.exoplatform.cp150208", "cp150208.web.cp150208Resources", "war", module.version);
   module.web.eXoResources.deployName = "eXoResourcesCp150208" ;
   
   module.web.portal = 
