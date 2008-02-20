@@ -26,11 +26,13 @@ function getProduct(version) {
   product.addDependencies(portal.eXoWidget.web) ;
   product.addDependencies(ecm.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;
+  product.addDependencies(ecm.web.rest) ;
   product.addDependencies(geneve.web.geneveportal) ;
   product.addDependencies(geneve.web.geneveResources) ;
   product.addDependencies(geneve.portlet.web) ;
     
   product.addServerPatch("tomcat", geneve.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", ecm.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
