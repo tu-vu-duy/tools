@@ -65,7 +65,7 @@ Tomcat.prototype.CleanTask = function() {
 }
 
 Tomcat.prototype.preDeploy = function(product) {
-	product.addDependencies(new Project("commons-logging", "commons-logging-api", "jar", "1.0.4")) ;
+	product.addDependencies(new Project("commons-logging", "commons-logging", "jar", "1.0.4")) ;
   product.addDependencies(new Project("commons-pool", "commons-pool", "jar", "1.2")) ;
   product.addDependencies(new Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;
   product.addDependencies(new Project("org.exoplatform.portal", "exo.portal.server.tomcat.plugin", "jar", this.pluginVersion)) ;
