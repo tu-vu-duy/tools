@@ -44,7 +44,7 @@ function getModule(params) {
 
   module.component.command = 
     new Project("org.exoplatform.kernel", "exo.kernel.component.command", "jar", module.version).
-    addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0"));
+    addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0")).
     addDependency(new Project("commons-digester", "commons-digester", "jar", "1.6"));
     
   module.component.cache = 
