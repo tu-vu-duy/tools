@@ -24,6 +24,11 @@ function getModule(params) {
 		module.web.eXoResources = new Project("org.exoplatform.cp150208", "cp150208.web.cp150208Resources", "war", module.version);
   module.web.eXoResources.deployName = "eXoResourcesCp150208" ;
   
+  module.server = {}
+  module.server.tomcat = {}
+  module.server.tomcat.patch = 
+    new Project("org.exoplatform.cp150208", "cp150208.server.tomcat.patch", "jar", module.version);
+  
   module.web.portal = 
     new Project("org.exoplatform.cp150208", "cp150208.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
