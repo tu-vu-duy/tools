@@ -8,17 +8,31 @@ function getModule(params) {
   var eXoPortletContainer = params.eXoPortletContainer;
   var jcr = params.eXoJcr;
   var portal = params.portal;
-
+  var ecm = params.ecm;
+  
   var module = new Module();
 
   module.version = "trunk" ;
   module.relativeMavenRepo =  "org/exoplatform/wcm" ;
   module.relativeSRCRepo =  "wcm/trunk" ;
   module.name =  "wcm" ;
-                   
-  module.web = {}
+  
+  module.portlet = {};
+  
+  module.portlet.webpresentation = 
+    new Project("org.exoplatform.wcm", "exo.wcm.portlet.web-presentation", "exo-portlet", module.version).    
+    addDependency(new Project("org.exoplatform.wcm", "exo.wcm.webui.wcm", "jar",  module.version)).
+    addDependency(new Project("org.exoplatform.wcm", "exo.wcm.component.wcm", "jar",  module.version));
+    
+ module.portlet.websearches = 
+    new Project("org.exoplatform.wcm", "exo.wcm.portlet.web-searches", "exo-portlet", module.version).
+    addDependency(new Project("org.exoplatform.wcm", "exo.wcm.webui.wcm", "jar",  module.version)).
+    addDependency(new Project("org.exoplatform.wcm", "exo.wcm.component.wcm", "jar",  module.version));
+    
+      
+  module.web = {};
   module.web.wcmportal = 
-    new Project("org.exoplatform.ecm", "exo.ecm.web.portal", "exo-portal", module.version).
+    new Project("org.exoplatform.wcm", "exo.wcm.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .

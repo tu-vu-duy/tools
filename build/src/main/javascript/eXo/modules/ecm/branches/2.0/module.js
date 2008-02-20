@@ -7,6 +7,7 @@ function getModule(params) {
   var core = params.core;
   var eXoPortletContainer = params.eXoPortletContainer;
   var jcr = params.eXoJcr;
+  var ws = params.ws;
   var portal = params.portal;
 
   var module = new Module();
@@ -32,7 +33,12 @@ function getModule(params) {
     new Project("org.exoplatform.ecm", "exo.ecm.portlet.workflow", "exo-portlet", module.version).
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.api", "jar", module.version));     
         
-  module.web = {}
+  module.web = {};
+  
+  module.web.rest = 
+    new Project("org.exoplatform.ecm", "exo.ecm.web.rest", "war", module.version).
+    addDependency(ws.frameworks.servlet);
+    
   module.web.ecmportal = 
     new Project("org.exoplatform.ecm", "exo.ecm.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
