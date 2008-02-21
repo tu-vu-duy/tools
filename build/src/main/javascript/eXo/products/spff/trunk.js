@@ -29,6 +29,7 @@ function getProduct(version) {
   product.addDependencies(portal.web.eXoVistaSkin);
   product.addDependencies(portal.web.eXoMacSkin);
   
+  product.addDependencies(ecm.web.rest) ;
   product.addDependencies(ecm.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;
             

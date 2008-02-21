@@ -30,6 +30,7 @@ function getProduct(version) {
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.eXoWidget.web) ;
   
+  product.addDependencies(ecm.web.rest) ;
   product.addDependencies(ecm.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;  
   
