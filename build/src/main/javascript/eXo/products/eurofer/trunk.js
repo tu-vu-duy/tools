@@ -16,7 +16,7 @@ function getProduct(version) {
   var ws = Module.GetModule("ws/tags/1.1");
   var core = Module.GetModule("core/branches/2.0.1") ;
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk") ;
-  var eXoJcr = Module.GetModule("jcr/tags/1.7.1") ;
+  var eXoJcr = Module.GetModule("jcr/tags/1.8") ;
   var portal = Module.GetModule("portal/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var eurofer = Module.GetModule("eurofer/internet/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
@@ -27,6 +27,7 @@ function getProduct(version) {
   product.addDependencies(ecm.web.rest) ;
   product.addDependencies(ecm.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;
+  product.addDependencies(ecm.web.rest) ;
   product.addDependencies(eurofer.web.euroferportal) ;
   product.addDependencies(eurofer.web.euroferResources) ;
   product.addDependencies(eurofer.portlet.web) ;
