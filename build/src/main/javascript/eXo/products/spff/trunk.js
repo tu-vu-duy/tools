@@ -16,7 +16,7 @@ function getProduct(version) {
   var ws = Module.GetModule("ws/tags/1.1");
   var core = Module.GetModule("core/tags/2.0") ;
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk") ;
-  var eXoJcr = Module.GetModule("jcr/tags/1.7.1") ;
+  var eXoJcr = Module.GetModule("jcr/tags/1.8") ;
   var portal = Module.GetModule("portal/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });  
   var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var cs = Module.GetModule("cs/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
@@ -26,8 +26,8 @@ function getProduct(version) {
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.eXoWidget.web) ;
   product.addDependencies(portal.web.eXoResources);
-  product.addDependencies(portal.web.eXoVistaSkin);
-  product.addDependencies(portal.web.eXoMacSkin);
+//  product.addDependencies(portal.web.eXoVistaSkin);
+//  product.addDependencies(portal.web.eXoMacSkin);
   
   product.addDependencies(ecm.web.rest) ;
   product.addDependencies(ecm.portlet.ecm) ;
