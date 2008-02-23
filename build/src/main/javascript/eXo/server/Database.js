@@ -59,7 +59,7 @@ DBInstance.prototype.ConfigureTask = function(product, server, dbsetup) {
     var jarFile =  server.deployWebappDir + "/" + product.portalwar ;
     var mentries = new java.util.HashMap() ;
 	
-    if (dbsetup=="skip") {
+    if (dbsetup=="file") {
 	  var dbconfigSource = "WEB-INF/conf/database/database-configuration."+this.dbinstance.name+".xml";  
       var dbconfigDest = "WEB-INF/conf/database/database-configuration.xml";	    
       if (IOUtil.getJarEntryContent(jarFile, dbconfigSource) != null) {
@@ -130,9 +130,9 @@ Database.prototype.MysqlDB = function(name) {
    
   instance.driverClass = "com.mysql.jdbc.Driver";
   instance.dialect = "org.hibernate.dialect.MySQLDialect" ;
-  instance.conectionURL = "jdbc:mysql://192.168.1.29:3306/exodb?relaxAutoCommit=true&amp;autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8";
-  instance.username = "exo" ;
-  instance.password = "exo";
+  instance.conectionURL = "jdbc:mysql://localhost/webos";
+  instance.username = "exoadmin" ;
+  instance.password = "exo12321";
     
   return instance ;
 }

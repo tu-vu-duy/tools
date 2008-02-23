@@ -57,12 +57,12 @@ function exobuildInstructions() {
    "  * --clean-mvn-repo   Clean your local repository of eXo artifacts before building.\n" +
    "  * --database=dialect Speficy target database dialect. The possible values are " + databaseMap.keySet() + ".\n" +
    "                       This will configure the appropriate JCR dialects and deploy the JDBC driver.\n" +
-   "                       Used with --dbsetup=skip option, exobuild tries to get database settings in a file named\n" + 
+   "                       Used with --dbsetup=file option, exobuild tries to get database settings in a file named\n" + 
    "                       database-configuration.{dialect}.xml\n" +   
    "  * --dbsetup=option   Use this option with --database option to specify the database setup behaviour.\n" +
-   "                       dbsetup=skip will leave you database configuration setup untouched.\n" +
-   "                       dbsetup=defaults will configure presets connection settings.\n" +
-   "                       dbsetup=ask allow you to enter the connection url , username and password of the database server.\n" + 
+   "                       dbsetup=file will use the database and jcr files you provided.\n" +
+   "                       dbsetup=ask allow you to enter the connection url , username and password of the database server.\n" +
+   "                       dbsetup=defaults is the default option if dbsetup is not specified and will override settings by those defined in Database.js\n" +    
    "  * --workflow=engine  Specify the workflow engine to bundle with the product. The possible values are bonita or jbpm.\n"+
    "                       This option is only used for products that use workflow. Default engine is jbpm\n"
   );
@@ -104,7 +104,7 @@ var ask = false ;
 var exclude_ = null ;
 var release_ = false;
 var cleanMVNRepo_ = false;
-var dbsetup = "skip";
+var dbsetup = "defaults";
 var maven = new eXo.command.maven() ;
 var exosvn = null ;
 var server = null ;
