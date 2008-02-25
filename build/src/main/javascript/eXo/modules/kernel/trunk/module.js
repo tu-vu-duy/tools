@@ -20,7 +20,7 @@ function getModule(params) {
     new Project("org.exoplatform.kernel", "exo.kernel.container", "jar", module.version).
     addDependency(module.commons).
     addDependency(new Project("picocontainer", "picocontainer", "jar", "1.1")).
-    addDependency(new Project("groovy", "groovy-all", "jar", "1.0")).
+    addDependency(new Project("org.codehaus.groovy", "groovy-all-minimal", "jar", "1.5.4")).
     addDependency(new Project("commons-beanutils", "commons-beanutils", "jar", "1.6")).
     addDependency(new Project("jibx", "jibx-run", "jar", "1.1.3")).
     addDependency(new Project("asm", "asm", "jar", "1.5.3")).
