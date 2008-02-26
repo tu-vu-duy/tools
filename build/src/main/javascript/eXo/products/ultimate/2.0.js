@@ -2,15 +2,16 @@ eXo.require("eXo.projects.Module") ;
 eXo.require("eXo.projects.Product") ;
 
 function getProduct(version) {
+
   var product = new Product();
 
-  product.name = "geneve" ;
+  product.name = "eXoUltimateProduct" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "geneve/website_poc/trunk" ;
+  product.codeRepo = "ultimate/trunk" ;
   product.useWorkflow = true;
   product.workflowVersion = "2.0" ;
   product.serverPluginVersion = "2.0" ;
-
+    
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0") ;
   var ws = Module.GetModule("ws/tags/1.1");
@@ -18,25 +19,28 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk") ;
   var eXoJcr = Module.GetModule("jcr/tags/1.8") ;
   var portal = Module.GetModule("portal/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
-  var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
-  var geneve = Module.GetModule("geneve/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
+  var cs = Module.GetModule("cs/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});  
+  var ultimate = Module.GetModule("ultimate/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws :ws, eXoJcr : eXoJcr, portal : portal, cs: cs, ecm : ecm});
     
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.eXoWidget.web) ;
+  product.addDependencies(ultimate.web.ultimateportal) ;
   product.addDependencies(ecm.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;
-  product.addDependencies(ecm.web.rest) ;
-  product.addDependencies(geneve.web.geneveportal) ;
-  product.addDependencies(geneve.web.geneveResources) ;
-  product.addDependencies(geneve.portlet.web) ;
-    
-  product.addServerPatch("tomcat", geneve.server.tomcat.patch) ;
+  product.addDependencies(cs.eXoApplication.mail) ;
+  product.addDependencies(cs.eXoApplication.forum) ;
+  product.addDependencies(cs.eXoApplication.calendar) ;
+  product.addDependencies(cs.eXoApplication.contact) ;
+  product.addDependencies(cs.eXoApplication.content) ;
+
+  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
-  product.module = geneve ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm];
-    
-  return product ;
+  product.module = ultimate ;
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, cs, ecm];
+  
+  return product;
 }

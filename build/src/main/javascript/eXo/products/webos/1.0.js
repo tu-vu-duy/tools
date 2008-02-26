@@ -3,14 +3,13 @@ eXo.require("eXo.projects.Product") ;
 
 function getProduct(version) {
   var product = new Product();
-
-  product.name = "geneve" ;
+  
+  product.name = "eXoWebOS" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "geneve/website_poc/trunk" ;
-  product.useWorkflow = true;
-  product.workflowVersion = "2.0" ;
+  product.codeRepo = "webos/trunk" ;
+  product.useWorkflow = false;
   product.serverPluginVersion = "2.0" ;
-
+    
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0") ;
   var ws = Module.GetModule("ws/tags/1.1");
@@ -18,25 +17,20 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk") ;
   var eXoJcr = Module.GetModule("jcr/tags/1.8") ;
   var portal = Module.GetModule("portal/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
-  var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
-  var geneve = Module.GetModule("geneve/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
-    
+  var webos = Module.GetModule("webos/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal });
+  
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.eXoWidget.web) ;
-  product.addDependencies(ecm.portlet.ecm) ;
-  product.addDependencies(ecm.portlet.workflow) ;
-  product.addDependencies(ecm.web.rest) ;
-  product.addDependencies(geneve.web.geneveportal) ;
-  product.addDependencies(geneve.web.geneveResources) ;
-  product.addDependencies(geneve.portlet.web) ;
-    
-  product.addServerPatch("tomcat", geneve.server.tomcat.patch) ;
+
+  product.addDependencies(webos.web.webosportal) ;
+  
+  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
-  product.module = geneve ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm];
+  product.module = webos ;
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal];
     
   return product ;
 }

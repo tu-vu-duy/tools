@@ -8,15 +8,15 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "webos/trunk" ;
   product.useWorkflow = false;
-  product.serverPluginVersion = "2.0" ;
+  product.serverPluginVersion = "trunk" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/branches/2.0") ;
-  var ws = Module.GetModule("ws/tags/1.1");
-  var core = Module.GetModule("core/branches/2.0") ;
+  var kernel = Module.GetModule("kernel/trunk") ;
+  var ws = Module.GetModule("ws/trunk");
+  var core = Module.GetModule("core/trunk") ;
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk") ;
-  var eXoJcr = Module.GetModule("jcr/tags/1.8") ;
-  var portal = Module.GetModule("portal/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
+  var eXoJcr = Module.GetModule("jcr/trunk") ;
+  var portal = Module.GetModule("portal/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var webos = Module.GetModule("webos/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal });
   
   product.addDependencies(portal.portlet.exoadmin) ;
