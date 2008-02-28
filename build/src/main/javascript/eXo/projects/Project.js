@@ -43,7 +43,6 @@ Project.prototype.extractTo = function(repository, dir, ignore) {
       eXo.System.info("PATCH", "Fetching patch at " + repository[i] + "/" + this.relativePath);
       var is = new java.util.jar.JarInputStream(url.openStream()) ;
       var entry = is.getNextEntry() ;
-      eXo.System.info("PATCH", "Patching at" + dir);
       while(entry != null) {
         if(!entry.isDirectory()) {
           var name = entry.getName() ;
