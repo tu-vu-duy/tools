@@ -88,6 +88,7 @@ Tomcat.prototype.onDeploy = function(project) {
       "         userClassNames='org.exoplatform.services.organization.auth.UserPrincipal' \n" +
       "         roleClassNames='org.exoplatform.services.organization.auth.RolePrincipal' \n" +
       "         debug='0' cache='false'/> \n" +
+      "	 <Valve className='org.apache.catalina.authenticator.FormAuthenticator' characterEncoding='UTF-8'/>" +
       "</Context> \n";
       
     eXo.core.IOUtil.createFile(filename, config) ;
