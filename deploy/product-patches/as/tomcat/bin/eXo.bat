@@ -8,7 +8,7 @@ cd %BIN_DIR%
 rem Sets some variables
 set LOG_OPTS="-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog"
 set SECURITY_OPTS="-Djava.security.auth.login.config=..\conf\jaas.conf"
-set EXO_CONFIG_OPTS="-Xshare:auto -Xms128m -Xmx512m"
+set EXO_CONFIG_OPTS="-Xshare:auto -Xms128m -Xmx512m -Dorg.exoplatform.container.configuration.debug -Duser.language=en -Duser.timezone=GMT+00:00"
 set EXO_DEBUG_OPTS="-Dorg.exoplatform.container.configuration.debug"
 set EXO_DEVELOPER_OPTS="-Dexo.product.developing=true"
 
