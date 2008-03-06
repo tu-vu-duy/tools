@@ -28,8 +28,8 @@ function getModule(params) {
   module.web.spffportal = 
     new Project("org.exoplatform.spff", "spff.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
-	addDependency(portal.web.eXoVistaSkin) .
-	addDependency(portal.web.eXoMacSkin) .
+//	addDependency(portal.web.eXoVistaSkin) .
+//	addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.webui.portal). 
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web) ;
