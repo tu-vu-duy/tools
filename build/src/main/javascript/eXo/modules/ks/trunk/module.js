@@ -46,8 +46,9 @@ function getModule(params) {
   module.eXoApplication.content.deployName = "content";
     
   module.web = {}
-  module.web.ksResources = 
+  /*module.web.ksResources = 
     new Project("org.exoplatform.ks", "exo.ks.web.ksResources", "war", module.version) ;
+    */
   module.web.ksportal = 
     new Project("org.exoplatform.ks", "exo.ks.web.portal", "exo-portal", module.version).
       addDependency(portal.web.eXoResources) .
