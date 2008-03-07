@@ -21,7 +21,7 @@ function getProduct(version) {
   product.addDependencies(portal.eXoWidget.web) ;
             
   product.addDependencies(ks.eXoApplication.forum) ;
-  product.addDependencies(ks.eXoApplication.content) ;
+  //product.addDependencies(ks.eXoApplication.content) ;
   product.addDependencies(ks.eXoApplication.blog) ;
   product.addDependencies(ks.eXoApplication.wiki) ;
   product.addDependencies(ks.eXoApplication.faq) ;
