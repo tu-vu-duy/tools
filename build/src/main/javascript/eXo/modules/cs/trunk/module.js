@@ -41,12 +41,12 @@ function getModule(params) {
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.contact.service", "jar",  module.version)).
       addDependency(new Project("net.wimpi.pim", "jpim-0.1", "jar",  "1.0"));
   module.eXoApplication.contact.deployName = "contact";
-   /* 
+  
   module.eXoApplication.content = 
     new Project("org.exoplatform.cs", "exo.cs.eXoApplication.content.webapp", "war", module.version).
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.content.service", "jar",  module.version));
   module.eXoApplication.content.deployName = "content";
-    //*/
+  
   module.web = {}
   module.web.csResources = 
     new Project("org.exoplatform.cs", "exo.cs.web.csResources", "war", module.version) ;
