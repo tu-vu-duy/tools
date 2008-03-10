@@ -33,8 +33,8 @@ function getProduct(version) {
   product.addDependencies(cs.eXoApplication.mail) ;
   product.addDependencies(cs.eXoApplication.calendar) ;
   product.addDependencies(cs.eXoApplication.contact) ;
+  product.addDependencies(cs.eXoApplication.content) ;
   
-  product.addDependencies(ks.eXoApplication.content) ;
   product.addDependencies(ks.eXoApplication.forum) ;
   product.addDependencies(ks.eXoApplication.wiki) ;
   product.addDependencies(ks.eXoApplication.blog) ;

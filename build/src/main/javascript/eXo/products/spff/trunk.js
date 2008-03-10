@@ -8,8 +8,8 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "spff/internet/trunk" ;
   product.useWorkflow = true;  
-  product.workflowVersion = "2.0" ;
-  product.serverPluginVersion = "2.0" ;
+  product.workflowVersion = "rc1" ;
+  product.serverPluginVersion = "rc1" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0") ;
@@ -35,10 +35,10 @@ function getProduct(version) {
   product.addDependencies(cs.eXoApplication.mail) ;
   product.addDependencies(cs.eXoApplication.calendar) ;
   product.addDependencies(cs.eXoApplication.contact) ;
+  product.addDependencies(cs.eXoApplication.content) ;
   product.addDependencies(cs.web.csResources) ;
 
   product.addDependencies(ks.eXoApplication.forum) ;
-  product.addDependencies(ks.eXoApplication.content) ;
   
   product.addDependencies(spff.portlet.web) ;
   product.addDependencies(spff.web.spffResources) ;
