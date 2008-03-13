@@ -20,6 +20,7 @@ function getProduct(version) {
   var portal = Module.GetModule("portal/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var cs = Module.GetModule("cs/branches/1.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var wcm = Module.GetModule("wcm/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
   var cg38 = Module.GetModule("cg38/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm, cs : cs});
     
   product.addDependencies(cg38.web.cg38portal) ;
@@ -28,20 +29,22 @@ function getProduct(version) {
   
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
-  product.addDependencies(portal.eXoWidget.web) ;
+  product.addDependencies(portal.eXoWidget.web) ;      
+    
+  product.addDependencies(cs.eXoApplication.content) ;
   
   product.addDependencies(ecm.web.rest) ;
   product.addDependencies(ecm.portlet.ecm) ;
-  product.addDependencies(ecm.portlet.workflow) ;  
-  
-  product.addDependencies(cs.eXoApplication.content) ; 
+  product.addDependencies(ecm.portlet.workflow) ;
+  product.addDependencies(wcm.portlet.webpresentation) ;
+   
   
   product.addServerPatch("tomcat", cg38.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
   product.module = cg38 ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, cs];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, cs,wcm];
     
   return product ;
 }

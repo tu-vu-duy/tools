@@ -10,6 +10,7 @@ function getModule(params) {
   var portal = params.portal;
   var ecm = params.ecm;
   var cs = params.cs;
+  var wcm = params.wcm;
 
   var module = new Module();
 
@@ -40,7 +41,7 @@ function getModule(params) {
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .
     addDependency(portal.webui.portal) .
-    addDependency(jcr.frameworks.command) .
+    addDependency(jcr.frameworks.command) .    
     addDependency(jcr.frameworks.web) ;
 
   return module;
