@@ -17,6 +17,10 @@ function getModule(params) {
   module.relativeSRCRepo =  "company/trunk" ;
   module.name =  "company" ;
     
+  module.portlet = {}
+  module.portlet.web = new Project("org.exoplatform.company", "company.portlet.web", "exo-portlet", module.version);
+  module.portlet.web.deployName = "companyPortletWeb" ;
+
   module.component={}
   module.component.web=
     new Project("org.exoplatform.company", "company.component.web", "jar", module.version).

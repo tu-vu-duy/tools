@@ -23,6 +23,7 @@ function getProduct(version) {
   var company = Module.GetModule("company/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
 
   product.addDependencies(company.component.web) ;
+  product.addDependencies(company.portlet.web) ;
   product.addDependencies(company.web.portal) ;
   product.addDependencies(company.web.companyResources) ;    
   product.addDependencies(portal.portlet.exoadmin) ;
