@@ -26,7 +26,7 @@ function getModule(params) {
   module.frameworks = {}
   module.frameworks.web = 
     new Project("org.exoplatform.jcr", "exo.jcr.framework.web", "jar", module.version).  
-    addDependency(new Project("org.exoplatform.ws.rest", "exo.ws.rest.core", "jar", "trunk")).
+    addDependency(new Project("org.exoplatform.ws", "exo.ws.rest.core", "jar", "trunk")).
     addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0")).
     addDependency(new Project("log4j", "log4j", "jar", "1.2.8")) ;
 
