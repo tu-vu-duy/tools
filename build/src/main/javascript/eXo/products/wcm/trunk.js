@@ -16,16 +16,22 @@ function getProduct(version) {
   var ws = Module.GetModule("ws/trunk");
   var core = Module.GetModule("core/trunk") ;
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk") ;
-  var eXoJcr = Module.GetModule("jcr/trunk") ;
-  var portal = Module.GetModule("portal/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
-  var ecm = Module.GetModule("ecm/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr ,ws : ws, portal : portal});
+  var eXoJcr = Module.GetModule("jcr/tags/1.8") ;
+  var portal = Module.GetModule("portal/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
+  var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr ,ws : ws, portal : portal});
   var wcm = Module.GetModule("wcm/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal,ecm : ecm});
     
+  product.addDependencies(portal.eXoWidget.web) ;
+  product.addDependencies(portal.portlet.exoadmin) ;
+  product.addDependencies(portal.portlet.web) ;
+  product.addDependencies(portal.eXoWidget.web) ;
+  
   product.addDependencies(wcm.portlet.webpresentation);
   product.addDependencies(wcm.portlet.websearches);
   product.addDependencies(ecm.portlet.ecm);
-  product.addDependencies(wcm.web.wcmportal) ;      
-  product.addDependencies(portal.eXoWidget.web) ;
+  product.addDependencies(ecm.portlet.workflow);
+  product.addDependencies(ecm.web.rest);
+  product.addDependencies(wcm.web.wcmportal) ;        
   
   product.addServerPatch("tomcat", ecm.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
