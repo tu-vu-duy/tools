@@ -7,7 +7,7 @@ function getModule(params) {
   var core = params.core;
   var eXoPortletContainer = params.eXoPortletContainer;
   var jcr = params.eXoJcr;
-
+  var ws = params.ws;
   var module = new Module();
 
   module.version =  "trunk" ;
@@ -64,9 +64,11 @@ function getModule(params) {
     addDependency(core.component.xmlProcessing) .
     addDependency(core.component.documents).
     addDependency(core.component.resources).
-    
-    addDependency(jcr.services.jcr) .
-    
+
+  	addDependency(ws.frameworks.cometd).
+
+    addDependency(jcr.services.jcr).
+
     addDependency(eXoPortletContainer.services.jsr168) ;
 
   module.portlet = {};
