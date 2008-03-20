@@ -33,7 +33,7 @@ function getModule(params) {
   
   module.frameworks = {};
   module.frameworks.servlet = 
-    new Project("org.exoplatform.ws", "exo.ws.frameworks.servlet", "jar", module.version).      
+    new Project("org.exoplatform.ws.frameworks", "exo.ws.frameworks.servlet", "jar", module.version).      
     addDependency(new Project("javax.servlet", "servlet-api", "jar", "2.4"));    
           
   return module;
