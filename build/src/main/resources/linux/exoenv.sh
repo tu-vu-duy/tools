@@ -13,7 +13,7 @@ JAVA_HOME=$EXO_BASE_DIRECTORY/jdk1.5
 
 BSH_EXO_BASE_DIRECTORY=$JAVA_DIR
 BSH_JAVA_HOME=$JAVA_HOME
-BSH_M2_REPOS="file:$BSH_EXO_BASE_DIRECTORY/exo-dependencies/repository, http://maven2.exoplatform.org/rest/maven2"
+BSH_M2_REPOS="file:$BSH_EXO_BASE_DIRECTORY/exo-dependencies/repository, http://vnserver.exoplatform.org/maven2"
 
 ##################################################################################
 USER_HOME='/cygdrive/c/Documents\ and\ Settings/$USERNAME'
@@ -23,11 +23,11 @@ EXO_SH_SCRIPT=$EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux
 EXO_WORKING_DIR=$EXO_BASE_DIRECTORY/exo-working
 EXO_DEPENDENCIES_DIR=$EXO_BASE_DIRECTORY/exo-dependencies
 
-CLEAN_SERVER=tomcat-6.0.10
+CLEAN_SERVER=tomcat-6.0.16
 
 M2_HOME=$EXO_BASE_DIRECTORY/maven2
 M2_REPO=$EXO_BASE_DIRECTORY/exo-dependencies/repository
-M2_REPOS="file:$EXO_BASE_DIRECTORY/exo-dependencies/repository, http://maven2.exoplatform.org/rest/maven2"
+MAVEN_OPTS="-Xshare:auto -Xms128m -Xmx512m" 
 
 # MAVEN_OPTS will be used as JVM options for the build by 'exobuild' command
 MAVEN_OPTS="-Xshare:auto -Xms128m -Xmx512m -XX:MaxPermSize=256M" 
@@ -37,7 +37,7 @@ JAVA_OPTS="-Xshare:auto -Xms256m -Xmx1536m -XX:MaxPermSize=256M -Dexo.directory.
 PATH=/usr/local/bin:$JAVA_HOME/bin:$PATH:$M2_HOME/bin:$EXO_SH_SCRIPT
 
 
-export JAVA_OPTS JAVA_HOME M2_HOME M2_REPO MAVEN_OPTS M2_REPOS
+export JAVA_OPTS JAVA_HOME M2_HOME M2_REPO MAVEN_OPTS CLEAN_SERVER
 export EXO_BASE_DIRECTORY EXO_PROJECTS_SRC  BSH_EXO_BASE_DIRECTORY  BSH_M2_REPOS BSH_JAVA_HOME
 ##################################################################################
 # allways put and do not edit these following lines at the end this file 

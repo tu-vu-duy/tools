@@ -64,41 +64,38 @@
         <activeByDefault>false</activeByDefault>
       </activation>
       <repositories>
-        <!--repository>
+        <repository>
           <id>vietnam</id>
           <name>Viet Nam LAN Offical Repository</name>
           <url>http://vnserver.exoplatform.org/maven2</url>
           <layout>default</layout>
-        </repository-->
-        <repository>
-          <id>maven.org</id>
-          <name>maven.org repository</name>
-          <url>http://repo1.maven.org/maven2</url>
-          <layout>default</layout>
         </repository>
-        <repository>
-          <id>exo-int</id>
-          <name>exoplatform.org internal repository</name>
-          <url>http://maven2.exoplatform.org/rest/maven2</url>
-          <layout>default</layout>
-        </repository>
+	<repository>
+            <id>exo-int</id>
+            <name>exoplatform.org internal repository</name>
+            <url>http://maven2.exoplatform.org/rest/maven2</url>
+            <layout>default</layout>
+          </repository>
+        <!--
+          <repository>
+            <id>maven.org</id>
+            <name>maven.org repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+            <layout>default</layout>
+          </repository>
+          <repository>
+            <id>exo-int</id>
+            <name>exoplatform.org internal repository</name>
+            <url>http://maven2.exoplatform.org/rest/maven2</url>
+            <layout>default</layout>
+          </repository>
+        -->
       </repositories>
       <pluginRepositories>
-        <!--pluginRepository>
-          <id>eXoPlatform</id>
-          <name>eXo Repo</name>
-          <url>http://maven2.exoplatform.org/rest/maven2</url>
-          <releases>
-            <updatePolicy>never</updatePolicy>
-          </releases>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-        </pluginRepository-->
         <pluginRepository>
-          <id>maven.org</id>
-          <name>maven.org repository</name>
-          <url>http://repo1.maven.org/maven2</url>
+          <id>vietnam</id>
+          <name>Viet Nam LAN Offical Repository</name>
+          <url>http://vnserver.exoplatform.org/maven2</url>
           <releases>
             <updatePolicy>never</updatePolicy>
           </releases>
@@ -106,17 +103,41 @@
             <enabled>true</enabled>
           </snapshots>
         </pluginRepository>
-        <pluginRepository>
-          <id>exoplatform.org</id>
-          <name>exoplatform.org internal repository</name>
-          <url>http://maven2.exoplatform.org/rest/maven2</url>
-          <releases>
-            <updatePolicy>never</updatePolicy>
-          </releases>
-          <snapshots>
-            <enabled>true</enabled>
-          </snapshots>
-        </pluginRepository>
+	<pluginRepository>
+            <id>exoplatform.org</id>
+            <name>exoplatform.org internal repository</name>
+            <url>http://maven2.exoplatform.org/rest/maven2</url>
+            <releases>
+              <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+              <enabled>true</enabled>
+            </snapshots>
+          </pluginRepository>
+        <!--
+          <pluginRepository>
+            <id>maven.org</id>
+            <name>maven.org repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+            <releases>
+              <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+              <enabled>false</enabled>
+            </snapshots>
+          </pluginRepository>
+          <pluginRepository>
+            <id>exoplatform.org</id>
+            <name>exoplatform.org internal repository</name>
+            <url>http://maven2.exoplatform.org/rest/maven2</url>
+            <releases>
+              <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+              <enabled>false</enabled>
+            </snapshots>
+          </pluginRepository>
+        -->
       </pluginRepositories>
     </profile>
 
@@ -130,8 +151,8 @@
         <exo.directory.release>${exo.directory.base}/exo-release</exo.directory.release>
         <exo.directory.working>${exo.directory.base}/exo-working</exo.directory.working>
         <exo.shared.dir>${exo.directory.base}</exo.shared.dir>
-        <exo.server.tomcat>tomcat-5.0.28</exo.server.tomcat>
-        <exo.server.jboss>jboss-4.0.3SP1</exo.server.jboss>
+        <exo.server.tomcat>tomcat-6.0.16</exo.server.tomcat>
+        <exo.server.jboss>jboss-4.0.5.GA</exo.server.jboss>
         <exo.server.jonas>JONAS_4_7_4</exo.server.jonas>
         <exo.perftest.jmeter>jakarta-jmeter-2.2</exo.perftest.jmeter>
 
@@ -154,8 +175,8 @@
         <exo.projects.directory.release>${exo.projects.directory.base}/exo-release</exo.projects.directory.release>
         <exo.projects.directory.working>${exo.projects.directory.base}/exo-working</exo.projects.directory.working>
         <exo.projects.app.mvn.repo>${exo.projects.directory.dependencies}/repository</exo.projects.app.mvn.repo>
-        <exo.projects.app.tomcat.version>tomcat-6.0.13</exo.projects.app.tomcat.version>
-        <exo.projects.app.jboss.version>jboss-4.2.0.GA</exo.projects.app.jboss.version>
+        <exo.projects.app.tomcat.version>tomcat-6.0.16</exo.projects.app.tomcat.version>
+        <exo.projects.app.jboss.version>jboss-4.0.5.GA</exo.projects.app.jboss.version>
         <exo.projects.app.jonas.version>JONAS_4_8_5</exo.projects.app.jonas.version>
 
         <exo.test.skip>true</exo.test.skip>

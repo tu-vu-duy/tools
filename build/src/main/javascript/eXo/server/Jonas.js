@@ -7,7 +7,7 @@ function Jonas(jonasHome) {
   this.name = "jonas" ;
   this.serverHome = jonasHome ;
   this.cleanServer = java.lang.System.getProperty("clean.server") ;
-  if(this.cleanServer == null || this.cleanServer.equals("")) this.cleanServer = "JONAS_4_8_5" ;
+  if(this.cleanServer == null || this.cleanServer.equals("") || !this.cleanServer.startsWith("JONAS")) this.cleanServer = "JONAS_4_8_6" ;
   this.deployLibDir = this.serverHome + "/lib/apps" ;
   this.deployWebappDir = this.serverHome + "/apps/autoload/exoplatform.ear";
   this.patchDir = this.serverHome ;

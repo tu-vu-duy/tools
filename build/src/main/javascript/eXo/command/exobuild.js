@@ -4,7 +4,8 @@ eXo.require("eXo.server.Jonas") ;
 eXo.require("eXo.server.Database") ;
 eXo.require("eXo.core.TaskDescriptor") ;
 eXo.require("eXo.command.maven") ;
-eXo.require("eXo.command.exosvn") ;
+eXo.require("eXo.command.svn") ;
+// eXo.require("eXo.command.exosvn") ;
 eXo.require("eXo.core.IOUtil") ;
 eXo.require("eXo.projects.Workflow") ;
 eXo.require("eXo.projects.Product") ;
@@ -20,14 +21,14 @@ databaseMap.put("db2v8", eXo.server.Database.DB2V8DB("db2v8"));
 databaseMap.put("derby", eXo.server.Database.DerbyDB("derby"));
 databaseMap.put("sqlserver", eXo.server.Database.SqlServerDB("sqlserver"));
 
-var modules = ["all","pc","jcr", "ws", "tools", "ecm", "cs", "portal"];
-var products = ["cs","ecm","portal", "ultimate", "wcm", "webos"];
+var modules = ["all","pc","jcr", "ws", "tools", "ecm", "cs", "ks", "portal"];
+var products = ["cs", "ks" ,"ecm","portal", "ultimate", "wcm", "webos"];
 var servers = ["all", "jonas", "jboss", "tomcat"];
 
 function exobuildInstructions() {
   print(
-   "\n\n" +
-   "Usage the exobuild command: \n\n" +
+   "\n" +
+   "Use of the exobuild command: \n\n" +
    "  exobuild --product=name\n" +
    "           [--version=version]\n" + 
    "           [--update]\n" +
@@ -38,7 +39,7 @@ function exobuildInstructions() {
    "           [--workflow[=jbpm|bonita]]\n" +
    "           [--clean-mvn-repo]\n" +
    "           [--database[=dialect]]\n" +
-   "           [--dbsetup=option]\n" +   
+   "           [--dbsetup=option]\n" +
    "\n\n" +
    "Options: \n" +
    "  * --product=name     Mandatory. Name of the product you want to build.\n" +
@@ -55,7 +56,7 @@ function exobuildInstructions() {
    "  * --release=server   Release for the target application server. Produce a zip named after the current SVN revision.\n" + 
    "                       Possible values are: " + servers +". Default is tomcat\n" +   
    "  * --clean-mvn-repo   Clean your local repository of eXo artifacts before building.\n" +
-   "  * --database=dialect Speficy target database dialect. The possible values are " + databaseMap.keySet() + ".\n" +
+   "  * --database=dialect Specify target database dialect. The possible values are " + databaseMap.keySet() + ".\n" +
    "                       This will configure the appropriate JCR dialects and deploy the JDBC driver.\n" +
    "                       Used with --dbsetup=file option, exobuild tries to get database settings in a file named\n" + 
    "                       database-configuration.{dialect}.xml\n" +   
@@ -197,7 +198,8 @@ if(deployServers != null  && dbsetup == "ask") {
   tasks.add(database.GetConfigTask()) ;
 }
 if(update_) {
-	exosvn = new eXo.command.exosvn();
+//	exosvn = new eXo.command.exosvn();
+	exosvn = new eXo.command.svn();
   if("all" != exclude_) {
     for(var i = 0; i < product.dependencyModule.length; i++) {
       var module = product.dependencyModule[i] ;
@@ -233,7 +235,7 @@ if(build_) {
 
 if(deployServers != null) {	
 	if(product.useWorkflow) {	
-    workflow.version = product.workflowVersion ;		
+    workflow.version = product.workflowVersion ;
 		workflow.configWorkflow(product);
 	}	 	
   for(var i = 0; i < deployServers.length; i++) {
