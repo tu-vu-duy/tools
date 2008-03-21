@@ -33,6 +33,7 @@ function getModule(params) {
   module.web = {};
   module.web.wcmportal = 
     new Project("org.exoplatform.wcm", "exo.wcm.web.portal", "exo-portal", module.version).
+    addDependency(new Project("org.exoplatform.wcm", "exo.wcm.connector.fckeditor", "jar",  module.version)).    
     addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .
