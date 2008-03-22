@@ -44,12 +44,17 @@ Product.prototype.getServerPatches = function(serverName) {
   return this.serverPatches.get(serverName) ; 
 }
 Product.prototype.addDependencies = function(project) {
-  this.dependenciesHolder.put(project.relativePath, project) ;  
-  if(project.hasDependency()) {
-    var list = project.dependencies ;
-    for(var i = 0; i < list.size(); i++) {
-      this.addDependencies(list.get(i)) ;
+  try {
+    this.dependenciesHolder.put(project.relativePath, project) ;  
+    if(project.hasDependency()) {
+      var list = project.dependencies ;
+      for(var i = 0; i < list.size(); i++) {
+        this.addDependencies(list.get(i)) ;
+      }
     }
+  } catch(error) {
+    print("Error while adding dependencies for project " + project);
+    throw error;
   }
 }
 
