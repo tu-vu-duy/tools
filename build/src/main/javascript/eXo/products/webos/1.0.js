@@ -14,7 +14,7 @@ function getProduct(version) {
   var kernel = Module.GetModule("kernel/tags/2.0") ;
   var ws = Module.GetModule("ws/tags/1.1");
   var core = Module.GetModule("core/tags/2.0.1") ;
-  var eXoPortletContainer = Module.GetModule("portlet-container/trunk") ;
+  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0rc4") ;
   var eXoJcr = Module.GetModule("jcr/tags/1.8.1") ;
   var portal = Module.GetModule("portal/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var webos = Module.GetModule("webos/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal });
