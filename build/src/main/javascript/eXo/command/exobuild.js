@@ -22,7 +22,7 @@ databaseMap.put("derby", eXo.server.Database.DerbyDB("derby"));
 databaseMap.put("sqlserver", eXo.server.Database.SqlServerDB("sqlserver"));
 
 var modules = ["all","pc","jcr", "ws", "tools", "ecm", "cs", "ks", "portal"];
-var products = ["cs", "ks" ,"ecm","portal", "ultimate", "wcm", "webos"];
+var products = ["cs", "ks" ,"ecm","portal", "ultimate", "wcm", "webos", "ultimate2"];
 var servers = ["all", "jonas", "jboss", "tomcat"];
 
 function exobuildInstructions() {

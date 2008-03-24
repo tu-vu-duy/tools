@@ -13,7 +13,7 @@ function getProduct(version) {
   var core = Module.GetModule("core/trunk") ;
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk") ;
   var eXoJcr = Module.GetModule("jcr/trunk") ;
-  var portal = Module.GetModule("portal/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });  
+  var portal = Module.GetModule("portal/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });  
   var cs = Module.GetModule("cs/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
 
   product.addDependencies(portal.portlet.exoadmin) ;
