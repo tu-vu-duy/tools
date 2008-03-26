@@ -22,18 +22,19 @@ function getModule(params) {
   module.portlet.webpresentation = 
     new Project("org.exoplatform.wcm", "exo.wcm.portlet.web-presentation", "exo-portlet", module.version).    
     addDependency(new Project("org.exoplatform.wcm", "exo.wcm.webui.wcm", "jar",  module.version)).
+    addDependency(new Project("org.exoplatform.wcm", "exo.wcm.connector.fckeditor", "jar",  module.version)).
     addDependency(new Project("org.exoplatform.wcm", "exo.wcm.component.wcm", "jar",  module.version));
     
  module.portlet.websearches = 
     new Project("org.exoplatform.wcm", "exo.wcm.portlet.web-searches", "exo-portlet", module.version).
     addDependency(new Project("org.exoplatform.wcm", "exo.wcm.webui.wcm", "jar",  module.version)).
-    addDependency(new Project("org.exoplatform.wcm", "exo.wcm.component.wcm", "jar",  module.version));
+    addDependency(new Project("org.exoplatform.wcm", "exo.wcm.component.wcm", "jar",  module.version)).
+    addDependency(new Project("org.exoplatform.wcm", "exo.wcm.component.search", "jar",  module.version));
     
       
   module.web = {};
   module.web.wcmportal = 
-    new Project("org.exoplatform.wcm", "exo.wcm.web.portal", "exo-portal", module.version).
-    addDependency(new Project("org.exoplatform.wcm", "exo.wcm.connector.fckeditor", "jar",  module.version)).    
+    new Project("org.exoplatform.wcm", "exo.wcm.web.portal", "exo-portal", module.version).        
     addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .
