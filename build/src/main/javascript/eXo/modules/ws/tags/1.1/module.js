@@ -14,6 +14,7 @@ function getModule(params) {
 
   module.rest = 
     new Project("org.exoplatform.ws.rest", "exo.ws.rest.core", "jar", module.version).      
+    addDependency(new Project("org.exoplatform.ws.commons", "exo.ws.commons", "jar", module.version)).
     addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0")) .
     addDependency(new Project("javax.xml.parsers", "jaxp-api", "jar", "1.4")) .
     addDependency(new Project("javax.xml.bind", "jaxp-api", "jar", "2.0")) .
