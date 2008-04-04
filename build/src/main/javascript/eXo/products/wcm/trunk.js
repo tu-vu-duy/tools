@@ -31,6 +31,7 @@ function getProduct(version) {
   product.addDependencies(ecm.portlet.ecm);
   product.addDependencies(ecm.portlet.workflow);
   product.addDependencies(ecm.web.rest);
+  product.addDependencies(wcm.web.wcmResources) ;
   product.addDependencies(wcm.web.wcmportal) ;        
   
   product.addServerPatch("tomcat", ecm.server.tomcat.patch) ;
