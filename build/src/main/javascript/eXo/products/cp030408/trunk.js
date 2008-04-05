@@ -22,6 +22,7 @@ function getProduct(version) {
   product.addDependencies(cp030408.web.portal) ;
   product.addDependencies(cp030408.web.eXoResources) ;
   product.addDependencies(cp030408.portlet.web) ;
+  product.addDependencies(cp030408.component.web) ;
   
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
