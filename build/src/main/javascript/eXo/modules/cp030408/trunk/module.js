@@ -40,6 +40,10 @@ function getModule(params) {
     addDependency(portal.webui.portal) .
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web) ;
-
+	
+	module.service = {}
+	module.service.rest=
+		new Project("org.exoplatform.cp030408", "cp030408.service.rest", "jar", module.version) ;
+	
   return module;
 }
