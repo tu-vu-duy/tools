@@ -8,7 +8,7 @@ case "`uname`" in
         ;;
 esac
 
-SCRIPT_DIR=$EXO_BASE_DIRECTORY/eXoProjects/tools/trunk/build
+SCRIPT_DIR=$EXO_BASE_DIRECTORY/devel/eXoProjects/tools/trunk/build
 
 if $cygwin ; then
 	EXO_BASE_DIRECTORY=`cygpath -w $EXO_BASE_DIRECTORY`
@@ -22,6 +22,6 @@ $JAVA_CMD $MAVEN_OPTS -classpath $SCRIPT_DIR/src/main/resources/java/js.jar \
           -Dexo.java.home=$JAVA_HOME \
           -Dexo.current.dir=$CURRENT_DIR \
           -Dexo.base.dir=$EXO_BASE_DIRECTORY  \
-          -Dexo.m2.repos="file:$EXO_BASE_DIRECTORY/exo-dependencies/repository, http://vnserver.exoplatform.org/maven2"  \
+          -Dexo.m2.repos="file:$EXO_BASE_DIRECTORY/devel/exo-dependencies/repository, http://vnserver.exoplatform.org/maven2"  \
           -Dclean.server=$CLEAN_SERVER  \
           org.mozilla.javascript.tools.shell.Main $SCRIPT_DIR/src/main/javascript/eXo/eXo.js $@
