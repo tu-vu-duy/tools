@@ -133,8 +133,9 @@ for(var i = 0; i <args.length; i++) {
    if (arg.match("--dbsetup=")) dbsetup = arg.substring("--dbsetup=".length);
   } else if ("--clean-mvn-repo" == arg) {
     cleanMVNRepo_ = true ;
-  } else if ("--release" == arg) {
+  } else if ("--release=tomcat" == arg) {
     release_ = true ;
+    deployServers = [new Jboss(eXo.env.workingDir + "/exo-tomcat")];
   } else if ("--release=jboss" == arg) {
     release_ = true ;
     deployServers = [new Jboss(eXo.env.workingDir + "/exo-jboss")];
@@ -148,6 +149,9 @@ for(var i = 0; i <args.length; i++) {
       new Jonas(eXo.env.workingDir + "/exo-jonas") ,
       new Tomcat(eXo.env.workingDir + "/exo-tomcat")
     ]  ;
+  } else if ("--release" == arg) {
+    release_ = true ;
+    deployServers = [new Jboss(eXo.env.workingDir + "/exo-tomcat")];
   } else if (arg.match("--exclude="))  {
     exclude_ = arg.substring("--exclude=".length) ;
   } else if (arg.match("--deploy")) {
