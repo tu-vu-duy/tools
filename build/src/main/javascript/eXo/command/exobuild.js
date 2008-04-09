@@ -135,7 +135,7 @@ for(var i = 0; i <args.length; i++) {
     cleanMVNRepo_ = true ;
   } else if ("--release=tomcat" == arg) {
     release_ = true ;
-    deployServers = [new Jboss(eXo.env.workingDir + "/exo-tomcat")];
+    deployServers = [new Tomcat(eXo.env.workingDir + "/exo-tomcat")];
   } else if ("--release=jboss" == arg) {
     release_ = true ;
     deployServers = [new Jboss(eXo.env.workingDir + "/exo-jboss")];
@@ -151,7 +151,7 @@ for(var i = 0; i <args.length; i++) {
     ]  ;
   } else if ("--release" == arg) {
     release_ = true ;
-    deployServers = [new Jboss(eXo.env.workingDir + "/exo-tomcat")];
+    deployServers = [new Tomcat(eXo.env.workingDir + "/exo-tomcat")];
   } else if (arg.match("--exclude="))  {
     exclude_ = arg.substring("--exclude=".length) ;
   } else if (arg.match("--deploy")) {
