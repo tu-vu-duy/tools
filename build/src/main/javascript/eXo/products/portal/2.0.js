@@ -7,12 +7,13 @@ function getProduct(version) {
   product.name = "eXoPortal" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "portal/branches/2.0" ;
+  product.serverPluginVersion = "2.0" ;
 
   var tool = Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0") ;
   var ws = Module.GetModule("ws/tags/1.1");
   var core = Module.GetModule("core/tags/2.0.2") ;
-  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0rc4") ;    
+  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0rc5") ;
   var eXoJcr = Module.GetModule("jcr/tags/1.8.2") ;
   var portal = Module.GetModule("portal/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
 
