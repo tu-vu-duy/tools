@@ -18,7 +18,7 @@ function getModule(params) {
                    
   module.web = {}
   module.web.webosportal = 
-    new Project("org.exoplatform.webos", "webos.web.portal", "exo-portal", module.version).
+    new Project("org.exoplatform.webos", "exo.webos.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .
