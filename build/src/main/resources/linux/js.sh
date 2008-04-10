@@ -13,6 +13,7 @@ SCRIPT_DIR=$EXO_BASE_DIRECTORY/eXoProjects/tools/trunk/build
 if $cygwin ; then
 	EXO_BASE_DIRECTORY=`cygpath -w $EXO_BASE_DIRECTORY`
 	SCRIPT_DIR=`cygpath -w $EXO_BASE_DIRECTORY/eXoProjects/tools/trunk/build`
+	M2_REPO=`cygpath -w $M2_REPO`
 fi
 
 CURRENT_DIR=`pwd`

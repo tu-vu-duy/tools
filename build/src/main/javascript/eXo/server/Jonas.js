@@ -44,7 +44,7 @@ Jonas.prototype.preDeploy = function(product) {
   eXo.core.IOUtil.createFolder(this.deployWebappDir + "/META-INF");
   product.addDependencies(new Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;
   product.addDependencies(new Project("commons-pool", "commons-pool", "jar", "1.2")) ;
-  product.addDependencies(new Project("org.exoplatform.portal", "exo.portal.server.jonas.plugin", "jar", "trunk")) ;  
+  product.addDependencies(new Project("org.exoplatform.portal", "exo.portal.server.jonas.plugin", "jar", product.serverPluginVersion)) ;  
 }
 
 Jonas.prototype.onDeploy = function(project) {

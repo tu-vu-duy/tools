@@ -22,7 +22,7 @@ databaseMap.put("derby", eXo.server.Database.DerbyDB("derby"));
 databaseMap.put("sqlserver", eXo.server.Database.SqlServerDB("sqlserver"));
 
 var modules = ["all","pc","jcr", "ws", "tools", "ecm", "cs", "ks", "portal"];
-var products = ["cs", "ks" ,"ecm","portal", "ultimate", "wcm", "webos", "ultimate2"];
+var products = ["cs", "ks" ,"ecm","portal", "ultimate", "wcm", "webos"];
 var servers = ["all", "jonas", "jboss", "tomcat"];
 
 function exobuildInstructions() {
@@ -133,7 +133,7 @@ for(var i = 0; i <args.length; i++) {
    if (arg.match("--dbsetup=")) dbsetup = arg.substring("--dbsetup=".length);
   } else if ("--clean-mvn-repo" == arg) {
     cleanMVNRepo_ = true ;
-  } else if ("--release=tomcat" == arg) {
+  } else if ("--release" == arg || "--release=tomcat" == arg) {
     release_ = true ;
     deployServers = [new Tomcat(eXo.env.workingDir + "/exo-tomcat")];
   } else if ("--release=jboss" == arg) {
@@ -182,6 +182,7 @@ for(var i = 0; i <args.length; i++) {
 
 if(productName == null) { 
   exobuildInstructions() ;
+  java.lang.System.exit(1);
 } else {
   product = Product.GetProduct(productName, version);
 }
@@ -217,6 +218,19 @@ if(update_) {
   tasks.add(exosvn.UpdateTask(eXo.env.eXoProjectsDir + "/" + product.codeRepo));
 }
 
+/**
+ * Liveroom / Red5
+ * Configures the Red5 server with :
+ *  - serverName red5-tomcat
+ *  - port 5080
+ *  - no database
+ */
+ if (productName == "red5") {
+ 	deployServers = null;
+ 	server = new Tomcat(eXo.env.workingDir + "/red5-tomcat") ;
+ 	deployServers = [server] ;
+ 	database = null;
+ }
 
 if(build_) {
   var mvnArgs = ["clean", "install"] ;
@@ -246,8 +260,10 @@ if(deployServers != null) {
     server =  deployServers[i] ;
     server.pluginVersion = product.serverPluginVersion ;
     tasks.add(product.DeployTask(product, server, eXo.env.m2Repos)) ;
-    tasks.add(database.DeployTask(product, server, eXo.env.m2Repos)) ;
-    tasks.add(database.ConfigureTask(product, server, dbsetup)) ;
+    if (database != null) {
+      tasks.add(database.DeployTask(product, server, eXo.env.m2Repos)) ;
+      tasks.add(database.ConfigureTask(product, server, dbsetup)) ;
+    }
     if(release_)tasks.add(ReleaseTask(server, product, version)) ;
   }
 }
@@ -260,4 +276,14 @@ for(var i = 0; i < tasks.size(); i++) {
   task.execute() ;
   task.executionTime = java.lang.System.currentTimeMillis() - start ;
   task.report() ;
+}
+/**
+ * Liveroom / Red5
+ * Deploys a Red5 server automatically after deploying Liveroom
+ */
+if (productName == "liveroom" && deployServers != null) {
+   var commands = ["js.sh exobuild --product=red5 --deploy" ] ; //,
+   				//   "cd $EXO_WORKING_DIR/red5-tomcat/bin && chmod +x *.sh" ] ;
+   for (var i = 0; i < commands.length; i++)
+     eXo.System.run(commands[i], true, true) ;
 }
