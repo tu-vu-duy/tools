@@ -31,6 +31,7 @@ function getProduct(version) {
   
   product.addServerPatch("tomcat", ecm.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
+  product.addServerPatch("ear",  portal.server.websphere.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
   product.module = ecm ;

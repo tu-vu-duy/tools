@@ -101,8 +101,7 @@ IOUtil.prototype.cp = function(src, dest) {
   }
 }
 
-
-IOUtil.prototype.createFile = function( path, content) {
+IOUtil.prototype.createFile = function(path, content) {
   var tmp = new java.lang.String(content) ;
   var bytes = tmp.getBytes() ;
   var out = new java.io.FileOutputStream(path);
@@ -110,9 +109,8 @@ IOUtil.prototype.createFile = function( path, content) {
   out.close();
   eXo.System.vinfo("NEW", "Create file " +  path) ;
 }
-  
 
-IOUtil.prototype.createFolder = function( path) {
+IOUtil.prototype.createFolder = function(path) {
   var folder = new java.io.File(path);
   if(!folder.exists()) {
     folder.mkdirs();
@@ -189,7 +187,7 @@ IOUtil.prototype.modifyJarEntry = function(moduleFile, configEntry, properties) 
  * entries:  A java.util.Map  object. The key should be the entry name  that you want to
  *           modify, and the value should be a java  byte array (byte[])  
  */
-IOUtil.prototype.modifyJar = function(fileName,mentries, mattrs) {
+IOUtil.prototype.modifyJar = function(fileName, mentries, mattrs) {
   var file = new java.io.File(fileName); 
   var jar = new java.util.jar.JarFile(fileName) ;
   var mf = jar.getManifest() ;
@@ -228,13 +226,18 @@ IOUtil.prototype.modifyJar = function(fileName,mentries, mattrs) {
 }
 
 IOUtil.prototype.addToArchive = function(zosStream, entryPath, file) {
+  if (entryPath != null && entryPath != "") 
+    entryPath += "/";
+  
   if(file.isDirectory()) {
     var children = file.listFiles() ; 
     for(var i = 0; i < children.length; i++) {
-      this.addToArchive(zosStream, entryPath + "/" + file.getName(), children[i]) ;
+      this.addToArchive(zosStream, entryPath + file.getName(), children[i]) ;
     }
   } else {
-    zosStream.putNextEntry(new java.util.zip.ZipEntry(entryPath + "/" + file.getName()));
+    zosStream.putNextEntry(new java.util.zip.ZipEntry(entryPath + file.getName()));
+    if (this.log)
+      eXo.System.info("DEPLOY", entryPath + file.getName()) ;
     var fis =  new java.io.FileInputStream(file);
     var buf = this.createByteArray(12) ;
     var len = -1;
@@ -264,6 +267,29 @@ IOUtil.prototype.zip = function(src, dest, zipName) {
     this.addToArchive(zos, zipName, srcFile) ;
   }
   zos.close() ;
+}
+
+IOUtil.prototype.ear = function(src, dest, earName) {
+  this.log = true;
+  var srcFile = new java.io.File(src) ;  
+  if(!srcFile.exists()) {
+    eXo.System.vinfo("INFO", "File Not Exist " +  srcFile.getAbsolutePath()) ;
+    java.lang.System.exit(1) ;
+  }
+  var destDir = new java.io.File(dest);
+  if(!destDir.exists()) destDir.mkdirs() ;
+  var destFile = new java.io.File(dest + "/" + earName + ".ear");
+  var zos = new java.util.zip.ZipOutputStream(new java.io.FileOutputStream(destFile));
+  if(srcFile.isDirectory()) {
+    var children = srcFile.listFiles() ; 
+    for(var i = 0; i < children.length; i++) {
+      this.addToArchive(zos, "", children[i]) ;
+    }
+  } else {
+    this.addToArchive(zos, "", srcFile) ;
+  }
+  zos.close() ;
+  this.log = false;
 }
 
 eXo.core.IOUtil = new IOUtil() ;

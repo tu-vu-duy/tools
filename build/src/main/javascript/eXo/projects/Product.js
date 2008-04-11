@@ -74,8 +74,10 @@ Product.prototype.DeployTask = function(product, server, repos) {
   descriptor.execute = function() {
     eXo.System.info("DELETE", "Delete " + server.serverHome);
     eXo.core.IOUtil.remove(server.serverHome) ;
-    eXo.System.info("COPY", "Copy a clean server " + server.cleanServer);
-    eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/" + server.cleanServer, server.serverHome) ;
+    if (!server.name.match("ear")) {
+      eXo.System.info("COPY", "Copy a clean server " + server.cleanServer);
+      eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/" + server.cleanServer, server.serverHome) ;
+    }
     server.preDeploy(product) ;    
     for(var i = 0; i <  patches.size(); i++) {
       project = patches.get(i) ;

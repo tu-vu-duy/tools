@@ -16,6 +16,7 @@ function Project(gid, id, ptype, version) {
   
   this.tomcatDependency =  true ;
   this.jbossDependency =  true ;
+  this.earDependency =  true ;
   this.jonasDependency =  true ;
   
   this.dependencies = null ;
@@ -24,6 +25,7 @@ function Project(gid, id, ptype, version) {
 Project.prototype.setServerDependency = function (name, b) {
   if("tomcat" == name) this.tomcatDependency = b ;
   else if("jboss" == name) this.jbossDependency = b ;
+  else if("ear" == name) this.earDependency = b ;
   else if("jonas" == name) this.jonasDependency = b ;
 }
 

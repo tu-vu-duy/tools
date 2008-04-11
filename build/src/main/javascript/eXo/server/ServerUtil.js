@@ -44,6 +44,47 @@ ServerUtil.prototype.createEarApplicationXml = function(deployEarDir, product) {
   out.close();
 }
 
+ServerUtil.prototype.createWebsphereEarApplicationXml = function(deployEarDir, product) {
+  var earDir = new java.io.File(deployEarDir) ;
+  var b = new java.lang.StringBuilder();
+  b.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+  b.append("<!DOCTYPE application PUBLIC \"-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN\" \"http://java.sun.com/dtd/application_1_3.dtd\">");
+  b.append("\n<application>\n");
+  b.append("  <display-name>exoplatform</display-name>\n");
+  var eXoResources = "eXoResources.war";
+  b.append("  <module>\n");
+  b.append("    <web>\n");
+  b.append("      <web-uri>").append(eXoResources).append("</web-uri>\n");
+  b.append("      <context-root>").append(eXoResources.substring(0, eXoResources.indexOf('.'))).append("</context-root>\n");
+  b.append("    </web>\n");
+  b.append("  </module>\n");
+  b.append("  <module>\n");
+  b.append("    <web>\n");
+  b.append("      <web-uri>").append(product.portalwar).append("</web-uri>\n");
+  b.append("      <context-root>").append(product.portalwar.substring(0, product.portalwar.indexOf('.'))).append("</context-root>\n");
+  b.append("    </web>\n");
+  b.append("  </module>\n");
+  var file = earDir.list();
+  for (var i = 0; i < file.length; i++) {
+    if(file[i].endsWith("war") && file[i] != product.portalwar) {
+      var idx = file[i].indexOf('.');
+      var context = file[i].substring(0, idx);
+      if (context == "eXoResources") continue;
+      b.append("  <module>\n");
+      b.append("    <web>\n");
+      b.append("      <web-uri>").append(file[i]).append("</web-uri>\n");
+      b.append("      <context-root>").append(context).append("</context-root>\n");
+      b.append("    </web>\n");
+      b.append("  </module>\n");
+    }
+  }
+  b.append("</application>\n");
+  eXo.core.IOUtil.createFolder(deployEarDir + "/META-INF");
+  var out = new java.io.FileOutputStream(deployEarDir + "/META-INF/application.xml");
+  out.write(b.toString().getBytes(), 0, b.length());
+  out.close();
+}
+
 ServerUtil.prototype.addClasspathForWar = function(earPath) {
   var earDir = new java.io.File(earPath) ;
   var files = earDir.listFiles() ;

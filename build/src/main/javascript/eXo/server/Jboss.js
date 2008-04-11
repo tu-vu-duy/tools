@@ -8,7 +8,7 @@ function Jboss(jbossHome) {
   this.name = "jboss" ;
   this.serverHome = jbossHome ;
   this.cleanServer = java.lang.System.getProperty("clean.server") ;
-  if(this.cleanServer == null || this.cleanServer.equals("") || !this.cleanServer.startsWith("jboss")) this.cleanServer = "jboss-4.0.5.GA" ;
+  if(this.cleanServer == null || this.cleanServer.equals("") || !this.cleanServer.startsWith("jboss")) this.cleanServer = "jboss-4.2.2.GA" ;
   this.deployLibDir = this.serverHome + "/server/default/deploy/exoplatform.sar" ;
   this.deployWebappDir = this.serverHome + "/server/default/deploy/exoplatform.sar";
   this.patchDir = this.serverHome + "/server/default";

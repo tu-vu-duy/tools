@@ -75,7 +75,8 @@ Tomcat.prototype.preDeploy = function(product) {
 Tomcat.prototype.onDeploy = function(project) {
   if("exo-portal" == project.type) {
     var context = project.artifactId.substring(project.artifactId.lastIndexOf(".") + 1) ;
-    var filename = this.serverHome + "/conf/Catalina/localhost/" + context + ".xml";
+    var dirname = this.serverHome + "/conf/Catalina/localhost/";
+    var filename = dirname + context + ".xml";
     eXo.System.info("TOMCAT", "Generating tomcat context" + filename);    
     var config = 
       "<Context path='/" + context+ "' docBase='" + context + "' debug='0' reloadable='true' crossContext='true'> \n" +
@@ -90,8 +91,12 @@ Tomcat.prototype.onDeploy = function(project) {
       "         debug='0' cache='false'/> \n" +
       "	 <Valve className='org.apache.catalina.authenticator.FormAuthenticator' characterEncoding='UTF-8'/>" +
       "</Context> \n";
-      
-    eXo.core.IOUtil.createFile(filename, config) ;
+    try {
+      eXo.core.IOUtil.createFile(filename, config) ;
+    } catch(error) {
+      IOUtil.prototype.createFolder(dirname);
+      eXo.core.IOUtil.createFile(filename, config) ;
+    }
   }
 }
 
