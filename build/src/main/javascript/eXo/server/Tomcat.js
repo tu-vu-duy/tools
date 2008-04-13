@@ -6,7 +6,7 @@ function Tomcat(tomcatHome) {
   this.name = "tomcat" ;
   this.serverHome = tomcatHome ;
   this.cleanServer = java.lang.System.getProperty("clean.server") ;
-  if(this.cleanServer == null || this.cleanServer.equals("") || !this.cleanServer.startsWith("tomcat")) this.cleanServer = "tomcat-6.0.10" ; // 6.0.16
+  if(this.cleanServer == null || this.cleanServer.equals("") || !this.cleanServer.startsWith("tomcat")) this.cleanServer = "tomcat-6.0.16" ;
   this.deployLibDir = this.serverHome + "/lib" ;
   this.deployWebappDir = this.serverHome + "/webapps";
   this.patchDir = this.serverHome ;
