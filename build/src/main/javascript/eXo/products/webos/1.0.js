@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "eXoWebOS" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "webos/branches/1.0" ;
+  product.codeRepo = "webos/tags/1.0" ;
   product.useWorkflow = false;
   product.serverPluginVersion = "2.0" ;
     
