@@ -144,8 +144,9 @@ function EarTask(server, product, version) {
       versionInfo = version ;
     }
     var earName = product.name + "-" + versionInfo;
-    eXo.System.info("EAR", "Building ear: " + earName + "."+ " in " + eXo.env.workingDir);    
-    eXo.core.IOUtil.ear(server.serverHome, eXo.env.workingDir, earName) ;
+    var dest = eXo.env.workingDir + "/" + earName + ".ear"; // = server.earFile;
+    eXo.System.info("EAR", "Building ear: " + dest);
+    eXo.core.IOUtil.ear(server.serverHome, dest) ;
     eXo.core.IOUtil.remove(server.serverHome) ;
   }
   return descriptor ;

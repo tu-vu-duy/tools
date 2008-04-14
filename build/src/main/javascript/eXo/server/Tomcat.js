@@ -76,6 +76,8 @@ Tomcat.prototype.onDeploy = function(project) {
   if("exo-portal" == project.type) {
     var context = project.artifactId.substring(project.artifactId.lastIndexOf(".") + 1) ;
     var dirname = this.serverHome + "/conf/Catalina/localhost/";
+    var destDir = new java.io.File(dirname);
+    if(!destDir.exists()) destDir.mkdirs() ;
     var filename = dirname + context + ".xml";
     eXo.System.info("TOMCAT", "Generating tomcat context" + filename);    
     var config = 
@@ -91,12 +93,7 @@ Tomcat.prototype.onDeploy = function(project) {
       "         debug='0' cache='false'/> \n" +
       "	 <Valve className='org.apache.catalina.authenticator.FormAuthenticator' characterEncoding='UTF-8'/>" +
       "</Context> \n";
-    try {
-      eXo.core.IOUtil.createFile(filename, config) ;
-    } catch(error) {
-      IOUtil.prototype.createFolder(dirname);
-      eXo.core.IOUtil.createFile(filename, config) ;
-    }
+    eXo.core.IOUtil.createFile(filename, config) ;
   }
 }
 

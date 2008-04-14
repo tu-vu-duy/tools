@@ -257,6 +257,7 @@ IOUtil.prototype.zip = function(src, dest, zipName) {
   var destDir = new java.io.File(dest);
   if(!destDir.exists()) destDir.mkdirs() ;
   var destFile = new java.io.File(dest + "/" + zipName + ".zip");
+  this.remove(destFile) ;
   var zos = new java.util.zip.ZipOutputStream(new java.io.FileOutputStream(destFile));
   if(srcFile.isDirectory()) {
     var children = srcFile.listFiles() ; 
@@ -269,16 +270,17 @@ IOUtil.prototype.zip = function(src, dest, zipName) {
   zos.close() ;
 }
 
-IOUtil.prototype.ear = function(src, dest, earName) {
+IOUtil.prototype.ear = function(src, dest) {
   this.log = true;
   var srcFile = new java.io.File(src) ;  
   if(!srcFile.exists()) {
     eXo.System.vinfo("INFO", "File Not Exist " +  srcFile.getAbsolutePath()) ;
     java.lang.System.exit(1) ;
   }
-  var destDir = new java.io.File(dest);
+  var destDir = new java.io.File(dest.substring(0, dest.lastIndexOf("/")));
   if(!destDir.exists()) destDir.mkdirs() ;
-  var destFile = new java.io.File(dest + "/" + earName + ".ear");
+  var destFile = new java.io.File(dest);
+  this.remove(destFile) ;
   var zos = new java.util.zip.ZipOutputStream(new java.io.FileOutputStream(destFile));
   if(srcFile.isDirectory()) {
     var children = srcFile.listFiles() ; 

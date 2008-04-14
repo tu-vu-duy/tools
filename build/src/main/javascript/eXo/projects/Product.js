@@ -43,6 +43,7 @@ Product.prototype.addServerPatch = function (serverName, project) {
 Product.prototype.getServerPatches = function(serverName) { 
   return this.serverPatches.get(serverName) ; 
 }
+
 Product.prototype.addDependencies = function(project) {
   try {
     this.dependenciesHolder.put(project.relativePath, project) ;  

@@ -7,11 +7,13 @@ function Ear(earHome) {
   this.runningInstance_ = null ;
   this.name = "ear" ;
   this.serverHome = earHome ;
+  // using "[product.name]-[version].ear" in the EarTask of exobuild now;
+  this.earFile = eXo.env.workingDir + "/exoplatform.ear" ;
   this.cleanServer = java.lang.System.getProperty("clean.server") ;
   if(this.cleanServer == null || this.cleanServer.equals("") || !this.cleanServer.startsWith("ear")) this.cleanServer = "ear" ;
-  this.deployLibDir = this.serverHome + "" ;
-  this.deployWebappDir = this.serverHome + "";
-  this.patchDir = this.serverHome + "";
+  this.deployLibDir = this.serverHome ;
+  this.deployWebappDir = this.serverHome ;
+  this.patchDir = this.serverHome ;
 }
 
 Ear.prototype.RunTask = function() {

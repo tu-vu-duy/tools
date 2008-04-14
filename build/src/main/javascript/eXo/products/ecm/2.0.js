@@ -13,12 +13,12 @@ function getProduct(version) {
     
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0") ;
-  var ws = Module.GetModule("ws/tags/1.1");
   var core = Module.GetModule("core/tags/2.0.2") ;
+  var ws = Module.GetModule("ws/tags/1.1");
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0rc5") ;
   var eXoJcr = Module.GetModule("jcr/tags/1.8.2") ;
-  var portal = Module.GetModule("portal/tags/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
-  var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
+  var portal = Module.GetModule("portal/tags/2.0", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
+  var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
     
   product.addDependencies(ecm.web.ecmportal) ;
   product.addDependencies(portal.portlet.exoadmin) ;
@@ -31,11 +31,11 @@ function getProduct(version) {
   
   product.addServerPatch("tomcat", ecm.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
-  product.addServerPatch("ear",  portal.server.websphere.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
+  product.addServerPatch("ear",  portal.server.websphere.patch) ;
 
   product.module = ecm ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal];
+  product.dependencyModule = [tool, kernel, core, ws, eXoPortletContainer, eXoJcr, portal];
     
   return product ;
 }
