@@ -19,7 +19,12 @@ function getModule(params) {
   module.eXoApplication = {}
   module.eXoApplication.chat = {}
   module.eXoApplication.chat.webapp = new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.chat.webapp", "war", "0.1").
-  	addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.chat.service", "jar", "0.1"));
+  	addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.chat.service", "jar", "0.1").
+  		addDependency(new Project("jabber.smack", "smack", "jar", "3.0.4")).
+  		addDependency(new Project("jabber.smack", "smackx", "jar", "3.0.4")).
+  		addDependency(new Project("org.jcrom", "jcrom", "jar", "1.1"))
+  	
+  	);
   module.eXoApplication.chat.webapp.deployName = "exomessenger";
   
 
