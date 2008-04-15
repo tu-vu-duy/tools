@@ -31,11 +31,12 @@ function getModule(params) {
     addDependency(new Project("stax", "stax-api", "jar", "1.0")) .
     addDependency(new Project("wsdl4j", "wsdl4j", "jar", "1.6.1")) .
     addDependency(new Project("jdom", "jdom", "jar", "1.0"));  
-  
+    
   module.frameworks = {};
   module.frameworks.servlet = 
-    new Project("org.exoplatform.ws.frameworks", "exo.ws.frameworks.servlet", "jar", module.version).      
-    addDependency(new Project("javax.servlet", "servlet-api", "jar", "2.4"));
-      
+    new Project("org.exoplatform.ws.frameworks", "exo.ws.frameworks.servlet", "jar", module.version);
+    //.addDependency(new Project("javax.servlet", "servlet-api", "jar", "2.4"));
+  
+  
   return module;
 }
