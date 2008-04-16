@@ -46,12 +46,10 @@ function getModule(params) {
     new Project("org.exoplatform.cs", "exo.cs.eXoApplication.content.webapp", "war", module.version).
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.content.service", "jar",  module.version));
   module.eXoApplication.content.deployName = "content";
-
-  module.eXoApplication.webservice = 
-  new Project("org.exoplatform.cs", "exo.cs.eXoApplication.webservice.service", "jar",  module.version);
-  module.eXoApplication.content.deployName = "webservice";
   
   module.web = {}
+  module.web.webservice = 
+  new Project("org.exoplatform.cs", "exo.cs.web.webservice", "jar",  module.version);
   module.web.csResources = 
     new Project("org.exoplatform.cs", "exo.cs.web.csResources", "war", module.version) ;
   module.web.csportal = 
