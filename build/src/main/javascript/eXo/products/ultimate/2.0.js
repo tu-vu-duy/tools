@@ -22,6 +22,7 @@ function getProduct(version) {
   var cs = Module.GetModule("cs/branches/1.0", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var ks = Module.GetModule("ks/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});  
+  var liveroom = Module.GetModule("liveroom/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal}) ;
   var ultimate = Module.GetModule("ultimate/branches/2.0", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, ws :ws, eXoJcr : eXoJcr, portal : portal, cs: cs, ecm : ecm, ks : ks});
     
   product.addDependencies(portal.portlet.exoadmin) ;
@@ -40,12 +41,14 @@ function getProduct(version) {
   product.addDependencies(ks.eXoApplication.blog) ;
   product.addDependencies(ks.eXoApplication.faq) ;
 
+  product.addDependencies(liveroom.eXoApplication.chat.webapp) ;
+
   product.addServerPatch("tomcat", ecm.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
   product.module = ultimate ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, cs, ks, ecm];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, cs, ks, ecm, liveroom];
   
   return product;
 }
