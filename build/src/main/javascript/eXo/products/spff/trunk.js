@@ -10,7 +10,7 @@ function getProduct(version) {
   product.useWorkflow = true;  
   product.workflowVersion = "2.0" ;
   product.serverPluginVersion = "2.0" ;
-    
+  
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0") ;
   var ws = Module.GetModule("ws/tags/1.1");
