@@ -56,6 +56,7 @@ Ear.prototype.postDeploy = function(product) {
   ServerUtil = eXo.server.ServerUtil ;
   ServerUtil.createWebsphereEarApplicationXml(this.deployWebappDir, product) ;
   ServerUtil.addClasspathForWar(this.deployLibDir) ;
+  ServerUtil.patchWebspherePortalWebXml(this.deployWebappDir, product) ;
 }
 
 eXo.server.Ear = Ear.prototype.constructor ;

@@ -66,10 +66,9 @@ ServerUtil.prototype.createWebsphereEarApplicationXml = function(deployEarDir, p
   b.append("  </module>\n");
   var file = earDir.list();
   for (var i = 0; i < file.length; i++) {
-    if(file[i].endsWith("war") && file[i] != product.portalwar) {
+    if(file[i].endsWith("war") && file[i] != product.portalwar && file[i] != eXoResources) {
       var idx = file[i].indexOf('.');
       var context = file[i].substring(0, idx);
-      if (context == "eXoResources") continue;
       b.append("  <module>\n");
       b.append("    <web>\n");
       b.append("      <web-uri>").append(file[i]).append("</web-uri>\n");
@@ -83,6 +82,59 @@ ServerUtil.prototype.createWebsphereEarApplicationXml = function(deployEarDir, p
   var out = new java.io.FileOutputStream(deployEarDir + "/META-INF/application.xml");
   out.write(b.toString().getBytes(), 0, b.length());
   out.close();
+}
+
+
+ServerUtil.prototype.patchWebspherePortalWebXml = function(deployEarDir, product) {
+  var warFile = deployEarDir + "/" + product.portalwar;
+  var file = new java.io.File(warFile);
+  if (!file.exists()) {
+    eXo.System.info("IO", warFile + " file not found" ) ;
+    return null;
+  }
+  var jar = new java.util.jar.JarFile(file) ;
+  var webXmlEntry = "WEB-INF/web.xml";
+  eXo.System.info("INFO", "---------------------------------------------------------------");
+  eXo.System.info("INFO", "To be patched web.xml within " + product.portalwar + " file " + warFile + "/" + webXmlEntry);
+  var webXML = eXo.core.IOUtil.getJarEntryAsText(warFile, webXmlEntry);
+
+  var toReplace = "<listener>";
+  var b = new java.lang.StringBuilder();
+  b.append("<!-- Websphere Listener -->\n");
+  b.append("  <listener>\n");                                                                                                                                                                                                       
+  b.append("    <listener-class>org.exoplatform.services.organization.ext.websphere.WebsphereSessionListener</listener-class>\n");                                                                                                                      
+  b.append("  </listener>\n");
+  b.append("\n");
+  b.append("  <listener>");
+  webXML = webXML.replaceFirst(toReplace, b.toString());
+  
+  toReplace = "<filter>";
+  b = new java.lang.StringBuilder();
+  b.append("<!-- Websphere filter -->\n");
+  b.append("  <filter>\n");                                                                                                                                                                                                       
+  b.append("    <filter-name>WebsphereFilter</filter-name>\n");                                                                                                                      
+  b.append("    <filter-class>org.exoplatform.services.organization.ext.websphere.WebsphereFilter</filter-class>\n");
+  b.append("  </filter>\n");
+  b.append("\n");
+  b.append("  <filter>");
+  webXML = webXML.replaceFirst(toReplace, b.toString());
+  
+  toReplace = "<filter-mapping>";
+  b = new java.lang.StringBuilder();
+  b.append("<!-- Websphere filter-mapping -->\n");
+  b.append("  <filter-mapping>\n");                                                                                                                                                                                                       
+  b.append("    <filter-name>WebsphereFilter</filter-name>\n");                                                                                                                      
+  b.append("    <url-pattern>/public/*</url-pattern>\n");
+  b.append("  </filter-mapping>\n");
+  b.append("\n");
+  b.append("  <filter-mapping>");
+  webXML = webXML.replaceFirst(toReplace, b.toString());
+ 
+  var replaceMap = new java.util.HashMap() ;
+
+  replaceMap.put(webXmlEntry, webXML.getBytes()) ;               
+  eXo.core.IOUtil.modifyJar(warFile, replaceMap, null) ;
+    
 }
 
 ServerUtil.prototype.addClasspathForWar = function(earPath) {

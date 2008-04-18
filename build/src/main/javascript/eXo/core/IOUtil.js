@@ -167,7 +167,7 @@ IOUtil.prototype.getJarEntryAsText = function(fileName, entryName) {
 IOUtil.prototype.modifyJarEntry = function(moduleFile, configEntry, properties) {
   var  file = new java.io.File(moduleFile) ;
   if(!file.exists())  return ;
-  var content = new java.lang.String(eXo.core.IOUtil.getJarEntryContent(moduleFile, configEntry)) ;
+  var content = this.getJarEntryAsText(moduleFile, configEntry) ;
   var i = properties.entrySet().iterator();
   while(i.hasNext()) {
     var entry = i.next() ;
