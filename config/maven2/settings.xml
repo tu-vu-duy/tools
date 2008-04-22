@@ -148,13 +148,13 @@
       <activation><activeByDefault>false</activeByDefault></activation>
       <properties>
         <exo.projects.directory.base>D:/java</exo.projects.directory.base>
-        <exo.projects.directory.src>${exo.projects.directory.base}/projects/exo-projects</exo.projects.directory.src>
+        <exo.projects.directory.src>${exo.projects.directory.base}/eXoProjects</exo.projects.directory.src>
         <exo.projects.directory.config>${exo.projects.directory.src}/tools/trunk/config</exo.projects.directory.config>
         <exo.projects.directory.dependencies>${exo.projects.directory.base}/exo-dependencies</exo.projects.directory.dependencies>
         <exo.projects.directory.release>${exo.projects.directory.base}/exo-release</exo.projects.directory.release>
         <exo.projects.directory.working>${exo.projects.directory.base}/exo-working</exo.projects.directory.working>
         <exo.projects.app.mvn.repo>${exo.projects.directory.dependencies}/repository</exo.projects.app.mvn.repo>
-        <exo.projects.app.tomcat.version>tomcat-6.0.13</exo.projects.app.tomcat.version>
+        <exo.projects.app.tomcat.version>tomcat-6.0.16</exo.projects.app.tomcat.version>
         <exo.projects.app.jboss.version>jboss-4.2.0.GA</exo.projects.app.jboss.version>
         <exo.projects.app.jonas.version>JONAS_4_8_5</exo.projects.app.jonas.version>
 
