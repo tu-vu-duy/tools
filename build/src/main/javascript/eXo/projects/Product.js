@@ -63,6 +63,24 @@ Product.prototype.getDependencies = function() {
   return this.dependenciesHolder.values() ; 
 }
 
+Product.prototype.hasDependencyModule = function(depName) {
+	var hasDep = false;
+	if (this.dependencyModule !== null) {
+	  for (var i=0; i<this.dependencyModule.length && !hasDep; i++) hasDep = (this.dependencyModule[i].name == depName) ;
+	}
+	return hasDep;
+}
+
+Product.prototype.getDependencyModule = function(depName) {
+	var mod = null ;
+	if (this.hasDependencyModule(depName)) {
+		for (var i=0; i<this.dependencyModule.length && mod===null; i++) {
+			if (this.dependencyModule[i].name == depName) mod = this.dependencyModule[i] ;
+		}
+	}
+	return mod ;
+}
+
 Product.prototype.DeployTask = function(product, server, repos) {	  
 	patches = product.getServerPatches(server.name) ;
   if(patches == null) {

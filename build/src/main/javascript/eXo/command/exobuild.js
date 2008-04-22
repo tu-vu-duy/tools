@@ -213,7 +213,7 @@ for(var i = 0; i <args.length; i++) {
   }
 }
 
-if(productName == null || productName == "") { 
+if(productName == null || productName == "") {
   errExobuild("NULL product", "");
 } else {
   product = Product.GetProduct(productName, version);
@@ -239,19 +239,6 @@ if(update_) {
   tasks.add(exosvn.UpdateTask(eXo.env.eXoProjectsDir + "/" + product.codeRepo));
 }
 
-/**
- * Liveroom / Red5
- * Configures the Red5 server with :
- *  - serverName red5-tomcat
- *  - port 5080
- *  - no database
- */
- if (product.name == "red5") {
- 	deployServers = null;
- 	server = new Tomcat(eXo.env.workingDir + "/red5-tomcat") ;
- 	deployServers.add(server);
- 	database = null;
- }
 
 if(build_) {
   var mvnArgs = ["clean", "install"] ;
@@ -299,9 +286,29 @@ if(deployServers != null && !deployServers.isEmpty()) {
  * Deploys and configures Openfire
  * Deploys a Red5 server automatically after deploying Liveroom
  */
-if (product.name == "liveroom") {
-	product.configure(tasks) ;
+if (product.hasDependencyModule("liveroom") && deployServers != null) {
+	product.getDependencyModule("liveroom").configure(tasks, deployServers) ;
+//  TODO : configure and deploy red5 tomcat
+//	if(deployServers != null) {
+//	   var commands = ["js.sh exobuild --product=red5 --deploy" ] ; //,
+//	   				//   "cd $EXO_WORKING_DIR/red5-tomcat/bin && chmod +x *.sh" ] ;
+//	   for (var i = 0; i < commands.length; i++)
+//	     eXo.System.run(commands[i], true, true) ;
+//	}
 }
+/**
+ * Liveroom / Red5
+ * Configures the Red5 server with :
+ *  - serverName red5-tomcat
+ *  - port 5080
+ *  - no database
+ */
+// if (product.name == "red5") {
+// 	deployServers = null;
+// 	server = new Tomcat(eXo.env.workingDir + "/red5-tomcat") ;
+// 	deployServers.add(server);
+// 	database = null;
+// }
 
 for(var i = 0; i < tasks.size(); i++) {
   task = tasks.get(i) ;
@@ -311,13 +318,3 @@ for(var i = 0; i < tasks.size(); i++) {
   task.executionTime = java.lang.System.currentTimeMillis() - start ;
   task.report() ;
 }
-
-
-//if (product.name == "liveroom") {
-//	if(deployServers != null) {
-//	   var commands = ["js.sh exobuild --product=red5 --deploy" ] ; //,
-//	   				//   "cd $EXO_WORKING_DIR/red5-tomcat/bin && chmod +x *.sh" ] ;
-//	   for (var i = 0; i < commands.length; i++)
-//	     eXo.System.run(commands[i], true, true) ;
-//	}
-//}

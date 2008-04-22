@@ -15,6 +15,7 @@ function getModule(params) {
   module.relativeMavenRepo = "org/exoplatform/liveroom" ;
   module.relativeSRCRepo = "liveroom/trunk" ;
   module.name = "liveroom" ;
+  module.openfireJar = "exo.liveroom.eXoApplication.organization.client.openfire-trunk.jar" ;
   
   module.eXoApplication = {}
   module.eXoApplication.chat = {}
@@ -41,38 +42,44 @@ function getModule(params) {
   /**
    * Copies and configures openfire
    */
-  module.configure = function(tasks) {
+  module.configure = function(tasks, deployServers) {
   	// TODO : use less hardcoded values; create variables
-    tasks.add(deployServer());
-    tasks.add(configServer());
+  	if (deployServer!==null) {
+	  	var servers = deployServers.iterator();
+	    while (servers.hasNext()) {
+	    	server = servers.next();
+	    	tasks.add(deployServer(server));
+	    	tasks.add(configServer(server));
+	    }
+  	}
   };
 
   return module ;
 }
 
-function deployServer() {
+function deployServer(server) {
 	var descriptor = new TaskDescriptor("Release Dependency Task", eXo.env.dependenciesDir) ;
 	descriptor.description = "Copies Openfire from "+eXo.env.dependenciesDir+" to "+eXo.env.workingDir;
 	descriptor.execute = function() {
 		eXo.System.info("INFO", "Copying Openfire...");
-		eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/openfire", eXo.env.workingDir+"/exo-tomcat/jabber");
+		eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/openfire", eXo.env.workingDir+"/"+server.serverHome+"/jabber");
 	}
 	return descriptor ;
 }
 
-function configServer() {
+function configServer(server) {
 	var desc = new TaskDescriptor("Copy Openfire configuration", eXo.env.workingDir) ;
 	desc.execute = function() {
 		// gets the configuration file -in a buffer - of openfire (openfire.xml) from the library jar file
-		var configBuffer = eXo.core.IOUtil.getJarEntryContent(eXo.env.workingDir+"/exo-tomcat/lib/exo.liveroom.eXoApplication.organization.client.openfire-trunk.jar", "openfire/openfire.xml") ;
+		var configBuffer = eXo.core.IOUtil.getJarEntryContent(eXo.env.workingDir+"/"+server.deployLibDir+"/"+this.openfireJar, "openfire/openfire.xml") ;
 		if (configBuffer===null) { eXo.System.info("ERROR", "Error retrieving config file from jar !"); return; }
 		// writes the buffer into the configuration file (openfire/conf/openfire.xml)
 		eXo.System.info("INFO", "Creating config file from buffer...");
-		eXo.core.IOUtil.createFile(eXo.env.workingDir+"/exo-tomcat/jabber/conf/openfire.xml", configBuffer);
+		eXo.core.IOUtil.createFile(eXo.env.workingDir+"/"+server.serverHome+"/jabber/conf/openfire.xml", configBuffer);
 		// copies the exo openfire library to openfire server
-		eXo.System.info("INFO", "Copying exo library file...");
-		eXo.core.IOUtil.cp(eXo.env.workingDir+"/exo-tomcat/lib/exo.liveroom.eXoApplication.organization.client.openfire-trunk.jar", 
-						eXo.env.workingDir+"/exo-tomcat/jabber/lib/exo.liveroom.eXoApplication.organization.client.openfire-trunk.jar");
+		eXo.System.info("INFO", "Copying exo openfire library file...");
+		eXo.core.IOUtil.cp(eXo.env.workingDir+"/"+server.deployLibDir+"/"+this.openfireJar, 
+						eXo.env.workingDir+"/"+server.serverHome+"/jabber/lib/"+this.openfireJar);
 	}
 	return desc ;
 }
