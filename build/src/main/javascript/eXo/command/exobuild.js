@@ -286,8 +286,10 @@ if(deployServers != null && !deployServers.isEmpty()) {
  * Deploys and configures Openfire
  * Deploys a Red5 server automatically after deploying Liveroom
  */
-if (product.hasDependencyModule("liveroom") && deployServers != null) {
-	product.getDependencyModule("liveroom").configure(tasks, deployServers) ;
+if ((product.hasDependencyModule("liveroom") || productName=="liveroom") && deployServers != null) {
+  var liveroomModule = 
+    (product.module.name=="liveroom") ? product.module : product.getDependencyModule("liveroom") ;
+	liveroomModule.configure(tasks, deployServers) ;
 //  TODO : configure and deploy red5 tomcat
 //	if(deployServers != null) {
 //	   var commands = ["js.sh exobuild --product=red5 --deploy" ] ; //,
