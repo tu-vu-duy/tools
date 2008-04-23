@@ -41,7 +41,7 @@ function getProduct(version) {
   product.addDependencies(cs.web.csResources) ;
 
   product.addDependencies(ks.eXoApplication.forum) ;
- // product.addDependencies(ks.eXoApplication.faq) ;
+  product.addDependencies(ks.eXoApplication.faq) ;
   
   product.addDependencies(liveroom.eXoApplication.chat.webapp) ;
   
