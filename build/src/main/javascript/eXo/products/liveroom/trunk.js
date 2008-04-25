@@ -19,12 +19,13 @@ function getProduct(version) {
  // var ecm = Module.GetModule("ecm/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var liveroom = Module.GetModule("liveroom/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal}) ;
 
-  product.addDependencies(portal.web.portal) ;
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.eXoWidget.web) ;
   
   product.addDependencies(liveroom.eXoApplication.chat.webapp) ;
+  product.addDependencies(liveroom.web.liveroomportal) ;
+  
 
   product.addServerPatch("tomcat",liveroom.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;

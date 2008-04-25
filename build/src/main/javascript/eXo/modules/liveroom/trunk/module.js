@@ -18,24 +18,33 @@ function getModule(params) {
   
   module.eXoApplication = {}
   module.eXoApplication.chat = {}
-  module.eXoApplication.chat.webapp = new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.chat.webapp", "war", "trunk").
-  	addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.chat.service", "jar", "trunk").
-  		addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.service", "jar", "trunk")).
-  		addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.webapp", "war", "trunk")).
-      addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.client.openfire", "jar", "trunk")).
-  		addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "trunk")).
-  		addDependency(new Project("org.exoplatform.ecm", "exo.ecm.web.rest", "war", "trunk")).
+  module.eXoApplication.chat.webapp = new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.chat.webapp", "war", module.version).
+  	  addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.chat.service", "jar", module.version).
+  		addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.service", "jar", module.version)).
+  		addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.webapp", "war", module.version)).
+      addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.client.openfire", "jar", module.version)).
+  		addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", module.version)).
+  		addDependency(new Project("org.exoplatform.ecm", "exo.ecm.web.rest", "war", module.version)).
   		addDependency(new Project("jabber.smack", "smack", "jar", "3.0.4")).
   		addDependency(new Project("jabber.smack", "smackx", "jar", "3.0.4")).
-  		addDependency(new Project("org.jcrom", "jcrom", "jar", "1.1"))
-  	
+  		addDependency(new Project("org.jcrom", "jcrom", "jar", "1.1"))  	
   	);
   module.eXoApplication.chat.webapp.deployName = "exomessenger";
+  
+  module.web = {};
+  module.web.liveroomportal = 
+    new Project("org.exoplatform.liveroom", "exo.liveroom.web.portal", "exo-portal", module.version).
+    addDependency(portal.web.eXoResources) .
+      addDependency(portal.web.eXoMacSkin) .
+      addDependency(portal.web.eXoVistaSkin) .
+	  addDependency(portal.webui.portal) .
+      addDependency(jcr.frameworks.command) .
+      addDependency(jcr.frameworks.web) ;
   
   module.server = {}
   module.server.tomcat = {}
   module.server.tomcat.patch = 
-    new Project("org.exoplatform.liveroom", "exo.liveroom.server.tomcat.patch", "jar", "trunk");
+    new Project("org.exoplatform.liveroom", "exo.liveroom.server.tomcat.patch", "jar", module.version);
 
 
   /**
