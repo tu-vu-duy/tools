@@ -49,8 +49,11 @@ function getModule(params) {
   module.portlet.bonita = new Project("org.ow2.novabpm.admin", "bonita.portlet", "war", "1.0-SNAPSHOT").
   		addDependency(new Project("org.ow2.novabpm.admin", "org.ow2.novabpm.admin.service.bonita", "jar", "1.0-SNAPSHOT")).
   		addDependency(new Project("org.ow2.novabpm.admin", "org.ow2.novabpm.admin.commons.webui", "jar", "1.0-SNAPSHOT")) ;
+  		module.portlet.bonita.deployName = "bonita.portlet-1.0-SNAPSHOT" ;
+  		
   module.portlet.orchestra = new Project("org.ow2.novabpm.admin", "orchestra.portlet", "war", "1.0-SNAPSHOT").
   	addDependency(new Project("org.ow2.novabpm.admin", "org.ow2.novabpm.admin.commons.webui", "jar", "1.0-SNAPSHOT")) ;
+  	module.portlet.orchestra.deployName = "orchestra.portlet-1.0-SNAPSHOT" ;
 
   module.server = {} ;
   module.server.tomcat = {} ;

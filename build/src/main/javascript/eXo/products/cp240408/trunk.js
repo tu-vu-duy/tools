@@ -24,6 +24,7 @@ function getProduct(version) {
   product.addDependencies(cp240408.component.service.bonita) ;
   product.addDependencies(cp240408.web.bpmportal) ;
   product.addDependencies(cp240408.web.eXoResources) ;
+  
   product.addDependencies(cp240408.portlet.bonita) ;
   product.addDependencies(cp240408.portlet.orchestra) ;
   
