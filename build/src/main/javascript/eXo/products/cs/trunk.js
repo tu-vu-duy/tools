@@ -24,7 +24,7 @@ function getProduct(version) {
   product.addDependencies(cs.eXoApplication.calendar) ;
   product.addDependencies(cs.eXoApplication.contact) ;
   product.addDependencies(cs.eXoApplication.content) ;
-  //product.addDependencies(cs.eXoApplication.exomessenger) ;
+  //product.addDependencies(cs.eXoApplication.chat) ;
   product.addDependencies(cs.web.webservice) ;
   product.addDependencies(cs.web.csResources) ;
   product.addDependencies(cs.web.csportal) ;

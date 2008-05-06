@@ -11,9 +11,9 @@ function getModule(params) {
 	
   var module = new Module();
   
-  module.version = "trunk" ;
+  module.version = "1.0" ;
   module.relativeMavenRepo = "org/exoplatform/liveroom" ;
-  module.relativeSRCRepo = "liveroom/trunk" ;
+  module.relativeSRCRepo = "liveroom/branches/1.0" ;
   module.name = "liveroom" ;
   
   module.eXoApplication = {}
@@ -23,8 +23,8 @@ function getModule(params) {
   		addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.service", "jar", module.version)).
   		addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.webapp", "war", module.version)).
       addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.client.openfire", "jar", module.version)).
-  		addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", module.version)).
-  		addDependency(new Project("org.exoplatform.ecm", "exo.ecm.web.rest", "war", module.version)).
+  		addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "trunk")).
+  		addDependency(new Project("org.exoplatform.ecm", "exo.ecm.web.rest", "war", "2.0")).
   		addDependency(new Project("jabber.smack", "smack", "jar", "3.0.4")).
   		addDependency(new Project("jabber.smack", "smackx", "jar", "3.0.4")).
   		addDependency(new Project("org.jcrom", "jcrom", "jar", "1.1"))  	
@@ -77,7 +77,7 @@ function deployServer(server) {
 
 function configServer(server) {
 	var desc = new TaskDescriptor("Copy Openfire configuration", eXo.env.workingDir) ;
-  desc.openfireJar = "exo.liveroom.eXoApplication.organization.client.openfire-trunk.jar" ;
+  desc.openfireJar = "exo.liveroom.eXoApplication.organization.client.openfire-1.0.jar" ;
 	desc.execute = function() {
 		// gets the configuration file -in a buffer - of openfire (openfire.xml) from the library jar file
 		var configBuffer = eXo.core.IOUtil.getJarEntryContent(server.deployLibDir+"/"+this.openfireJar, "openfire/openfire.xml") ;
