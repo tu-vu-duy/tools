@@ -25,7 +25,8 @@ function getModule(params) {
 
   module.eXoApplication.faq = 
     new Project("org.exoplatform.ks", "exo.ks.eXoApplication.faq.webapp", "war", module.version).
-      addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.faq.service", "jar",  module.version));
+      addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.faq.service", "jar",  module.version)).
+      addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar",  module.version));
   module.eXoApplication.faq.deployName = "faq";
 
   module.eXoApplication.wiki = 
