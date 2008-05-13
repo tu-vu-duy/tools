@@ -20,8 +20,9 @@ function getProduct(version) {
   var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var cp060508 = Module.GetModule("cp060508/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
     
-    
+  product.addDependencies(cp060508.web.portal) ; 
   product.addDependencies(cp060508.web.eXoResources) ;
+  product.addDependencies(cp060508.portlet.web) ;
   
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
