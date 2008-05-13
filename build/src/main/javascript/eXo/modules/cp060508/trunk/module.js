@@ -15,13 +15,14 @@ function getModule(params) {
   module.relativeMavenRepo =  "org/exoplatform/cp060508" ;
   module.relativeSRCRepo =  "cp060508/trunk" ;
   module.name =  "cp060508" ;  
-//
-//		module.portlet = {}
-//  module.portlet.web = new Project("org.exoplatform.cp060508", "cp060508.portlet.web", "exo-portlet", module.version);
-//  module.portlet.web.deployName = "cp060508PortletWeb" ;
+
+	module.portlet = {}
+  module.portlet.web = new Project("org.exoplatform.cp060508", "cp060508.portlet.web", "exo-portlet", module.version).
+  	addDependency(new Project("org.exoplatform.cp060508", "cp060508.component.navigation", "jar",  module.version));
+  module.portlet.web.deployName = "cp060508PortletWeb" ;
 	
-		module.web = {} ;
-		module.web.eXoResources = new Project("org.exoplatform.cp060508", "cp060508.web.cp060508Resources", "war", module.version);
+	module.web = {} ;
+	module.web.eXoResources = new Project("org.exoplatform.cp060508", "cp060508.web.cp060508Resources", "war", module.version);
   module.web.eXoResources.deployName = "eXoResourcesCp060508" ;
   
 //  module.server = {}
