@@ -13,7 +13,7 @@ function getProduct(version) {
     
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.1") ;
-  var ws = Module.GetModule("ws/tags/1.1");
+  var ws = Module.GetModule("ws/tags/1.1.2");
   var core = Module.GetModule("core/tags/2.0.2") ;
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0rc5") ;
   var eXoJcr = Module.GetModule("jcr/tags/1.8.3") ;
