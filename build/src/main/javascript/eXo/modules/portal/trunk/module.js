@@ -88,6 +88,15 @@ function getModule(params) {
   module.eXoWidget.web = 
     new Project("org.exoplatform.portal", "exo.portal.eXoWidgetWeb", "war", module.version);
   module.eXoWidget.web.deployName = "eXoWidgetWeb" ;
+  
+  module.eXoGadget = {};
+  module.eXoGadget.web = 
+    new Project("org.exoplatform.portal", "exo.portal.eXoGadgetWeb", "war", module.version);
+  module.eXoGadget.web.deployName = "eXoGadgetWeb" ;
+  
+  module.eXoGadget.server = 
+    new Project("org.apache.shindig", "exo.portal.eXoGadgetServer", "war", "1-SNAPSHOT");
+  module.eXoGadget.server.deployName = "eXoGadgetServer" ;
     
   module.web = {}
   module.web.eXoResources = 
