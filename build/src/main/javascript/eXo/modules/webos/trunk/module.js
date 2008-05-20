@@ -17,14 +17,14 @@ function getModule(params) {
   module.name =  "webos" ;
                    
   module.web = {}
+  module.web.webosResources = 
+  	new Project("org.exoplatform.webos", "exo.webos.web.webosResources", "war", module.version) ;
   module.web.webosportal = 
     new Project("org.exoplatform.webos", "exo.webos.web.portal", "exo-portal", module.version).
-    addDependency(portal.web.eXoResources) .
-    addDependency(portal.web.eXoMacSkin) .
-    addDependency(portal.web.eXoVistaSkin) .
     addDependency(portal.webui.portal) .
-    addDependency(jcr.frameworks.command) .
-    addDependency(jcr.frameworks.web) ;
+  	addDependency(portal.web.eXoResources).
+    addDependency(portal.web.eXoMacSkin) .
+    addDependency(portal.web.eXoVistaSkin) ;
 
   return module;
 }
