@@ -24,9 +24,7 @@ function getProduct(version) {
   product.addDependencies(portal.eXoWidget.web) ;
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
-  product.addDependencies(portal.eXoWidget.web) ;
-  
-  product.addDependencies(wcm.portlet.iweb);
+  product.addDependencies(portal.eXoWidget.web) ;  
   product.addDependencies(wcm.portlet.webpresentation);
   product.addDependencies(wcm.portlet.websearches);
   product.addDependencies(ecm.portlet.ecm);
