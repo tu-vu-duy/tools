@@ -32,6 +32,7 @@ function getProduct(version) {
   product.addServerPatch("tomcat", ecm.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
+  product.addServerPatch("ear",  portal.server.websphere.patch) ;
 
   product.module = ecm ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal];

@@ -103,7 +103,7 @@ function ReleaseTask(server, product, version) {
   var descriptor = new TaskDescriptor("Release Task", server.serverHome) ;
   descriptor.execute = function() {
     var versionInfo = "unknown";
-    if("trunk" == version) {
+    if(!noInternet && "trunk" == version) {
       var commands = ["svn", "info", eXo.env.eXoProjectsDir + "/" + product.codeRepo] ;
       eXo.System.info("RELEASE", "Getting product revision from SVN.");
       var result = eXo.System.run(commands) ;
@@ -128,7 +128,7 @@ function EarTask(server, product, version) {
   var descriptor = new TaskDescriptor("Ear Task", server.serverHome) ;
   descriptor.execute = function() {
     var versionInfo = "unknown";
-    if("trunk" == version) {
+    if(!noInternet && "trunk" == version) {
       var commands = ["svn", "info", eXo.env.eXoProjectsDir + "/" + product.codeRepo] ;
       eXo.System.info("EAR", "Getting product revision from SVN.");
       var result = eXo.System.run(commands) ;
@@ -170,6 +170,7 @@ var database = databaseMap.get(dialect);
 var version = "trunk";
 var workflow = new Workflow("jbpm",version)
 var tasks =  new java.util.ArrayList() ;
+var noInternet = false;
 
 var args = arguments;
 
@@ -208,6 +209,8 @@ for(var i = 0; i <args.length; i++) {
     var workflowName = arg.substring("--workflow=".length);
     workflow = new Workflow(workflowName,version);
     java.lang.System.setProperty("workflow",workflowName) ;
+  } else if (arg == "--nointernet") {
+    var noInternet = true;
   } else {
     errExobuild("UNKNOWN ARGUMENT", arg);
   }
