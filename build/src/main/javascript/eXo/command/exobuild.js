@@ -210,7 +210,7 @@ for(var i = 0; i <args.length; i++) {
     workflow = new Workflow(workflowName,version);
     java.lang.System.setProperty("workflow",workflowName) ;
   } else if (arg == "--nointernet") {
-    var noInternet = true;
+    noInternet = true;
   } else {
     errExobuild("UNKNOWN ARGUMENT", arg);
   }
