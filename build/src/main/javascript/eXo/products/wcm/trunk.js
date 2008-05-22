@@ -14,11 +14,11 @@ function getProduct(version) {
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/trunk") ;
   var ws = Module.GetModule("ws/trunk");
-  var core = Module.GetModule("core/tags/2.0.2") ;
-  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0rc4") ;
-  var eXoJcr = Module.GetModule("jcr/tags/1.8.3") ;
-  var portal = Module.GetModule("portal/branches/2.0.1", {kernel : kernel, core : core, ws:ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
-  var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr ,ws : ws, portal : portal});
+  var core = Module.GetModule("core/trunk") ;
+  var eXoPortletContainer = Module.GetModule("portlet-container/trunk") ;
+  var eXoJcr = Module.GetModule("jcr/trunk") ;
+  var portal = Module.GetModule("portal/trunk", {kernel : kernel, core : core, ws:ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
+  var ecm = Module.GetModule("ecm/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr ,ws : ws, portal : portal});
   var wcm = Module.GetModule("wcm/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal,ecm : ecm});
     
   product.addDependencies(portal.eXoWidget.web) ;
