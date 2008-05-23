@@ -13,7 +13,7 @@ function getModule(params) {
 
   module.version = "1.0.1" ;
   module.relativeMavenRepo =  "org/exoplatform/webos" ;
-  module.relativeSRCRepo =  "webos/branches/1.0.1" ;
+  module.relativeSRCRepo =  "webos/tags/1.0.1" ;
   module.name =  "webos" ;
                    
   module.web = {}
