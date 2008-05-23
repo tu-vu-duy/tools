@@ -31,7 +31,7 @@ function getProduct(version) {
   product.addDependencies(portal.web.eXoVistaSkin) ;
 
   
-  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", cp060508.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
