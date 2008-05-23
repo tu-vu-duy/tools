@@ -21,6 +21,7 @@ function getProduct(version) {
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.eXoWidget.web) ;
 	product.addDependencies(portal.eXoGadgetServer) ;
+	product.addDependencies(portal.eXoGadgets) ;
 
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
