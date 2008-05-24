@@ -39,7 +39,7 @@ function getModule(params) {
   module.component.common = 
     new Project("org.exoplatform.kernel", "exo.kernel.component.common", "jar", module.version).
     addDependency(new Project("quartz", "quartz", "jar", "1.5.0-RC2")).
-    addDependency(new Project("mail", "activation", "jar", "1.0")).
+    addDependency(new Project("javax.activation", "activation", "jar", "1.1")).
     addDependency(new Project("javax.mail", "mail", "jar", "1.4"));
 
   module.component.command = 
