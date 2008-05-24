@@ -27,7 +27,7 @@ function getModule(params) {
   		addDependency(new Project("org.exoplatform.ecm", "exo.ecm.web.rest", "war", "2.0")).
   		addDependency(new Project("jabber.smack", "smack", "jar", "3.0.4")).
   		addDependency(new Project("jabber.smack", "smackx", "jar", "3.0.4")).
-  		addDependency(new Project("org.jcrom", "jcrom", "jar", "1.1"))  	
+  		addDependency(new Project("org.jcrom", "jcrom", "jar", "1.2"))  	
   	);
   module.eXoApplication.chat.webapp.deployName = "chat";
   
