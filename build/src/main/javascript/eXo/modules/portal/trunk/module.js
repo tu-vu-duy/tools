@@ -75,10 +75,13 @@ function getModule(params) {
     
   module.portlet.exoadmin = 
     new Project("org.exoplatform.portal", "exo.portal.portlet.exoadmin", "exo-portlet", module.version);
-      
+        
   module.portlet.web = 
     new Project("org.exoplatform.portal", "exo.portal.portlet.web", "exo-portlet", module.version);
 
+	module.portlet.dashboard = 
+    new Project("org.exoplatform.portal", "exo.portal.portlet.dashboard", "exo-portlet", module.version);
+	
   module.sample = {};
   module.sample.framework = 
     new Project("org.exoplatform.portal", "exo.portal.sample.framework", "war", module.version);
