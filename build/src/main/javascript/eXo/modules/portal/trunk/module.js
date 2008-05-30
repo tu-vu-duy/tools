@@ -92,7 +92,28 @@ function getModule(params) {
     new Project("org.exoplatform.portal", "exo.portal.eXoWidgetWeb", "war", module.version);
   module.eXoWidget.web.deployName = "eXoWidgetWeb" ;
   
-  module.eXoGadgetServer = new Project("org.exoplatform.portal", "exo.portal.eXoGadgetServer", "war", module.version);
+  module.eXoGadgetServer = new Project("org.exoplatform.portal", "exo.portal.gadget-server", "war", module.version).
+	addDependency(new Project("commons-digester", "commons-digester", "jar", "1.7")).
+	addDependency(new Project("commons-io", "commons-io", "jar", "1.4")).
+	addDependency(new Project("net.oauth", "core", "jar", "20080328")).
+	addDependency(new Project("com.google.code.google-collections", "google-collect", "jar", "snapshot-20080321")).
+	addDependency(new Project("com.google.code.guice", "guice", "jar", "1.0")).
+	addDependency(new Project("org.hamcrest", "hamcrest-all", "jar", "1.1")).
+	addDependency(new Project("nu.validator.htmlparser", "htmlparser", "jar", "1.0.5")).
+	addDependency(new Project("jaxen", "jaxen", "jar", "1.1.1")).
+	addDependency(new Project("joda-time", "joda-time", "jar", "1.5.2")).
+	addDependency(new Project("org.json", "json", "jar", "20070829")).
+	addDependency(new Project("org.apache.shindig", "shindig-common", "jar", "1-SNAPSHOT")).
+	addDependency(new Project("org.apache.shindig", "shindig-gadgets", "jar", "1-SNAPSHOT")).
+	addDependency(new Project("org.apache.shindig", "shindig-social-api", "jar", "1-SNAPSHOT")).
+	addDependency(new Project("org.exoplatform.portal", "exo.portal.gadget-features", "jar", "trunk")).
+	addDependency(new Project("org.codehaus.woodstox", "wstx-asl", "jar", "3.2.1")).
+	addDependency(new Project("xerces", "xercesImpl", "jar", "2.6.2")).
+	addDependency(new Project("caja", "caja", "jar", "r820")).
+	addDependency(new Project("xml-apis", "xml-apis", "jar", "1.0.b2"));
+	
+	
+	
   module.eXoGadgetServer.deployName = "eXoGadgetServer" ;
   
   module.eXoGadgets = new Project("org.exoplatform.portal", "exo.portal.eXoGadgets", "war", module.version);
