@@ -69,7 +69,9 @@ function getModule(params) {
 
     addDependency(jcr.services.jcr).
 
-    addDependency(eXoPortletContainer.services.jsr168) ;
+    addDependency(eXoPortletContainer.services.jsr168jsr286); //.
+//    addDependency(eXoPortletContainer.web.wsrp) ;
+    
 
   module.portlet = {};
     
@@ -141,11 +143,15 @@ function getModule(params) {
   module.server.tomcat = {}
   module.server.tomcat.patch = 
     new Project("org.exoplatform.portal", "exo.portal.server.tomcat.patch", "jar", module.version);
-             
+
   module.server.jboss = {}
   module.server.jboss.patch = 
     new Project("org.exoplatform.portal", "exo.portal.server.jboss.patch", "jar", module.version);
 
+  module.server.jbossear = {}
+  module.server.jbossear.patch = 
+    new Project("org.exoplatform.portal", "exo.portal.server.jboss.patch-ear", "jar", module.version);
+    
   module.server.jonas = {}
   module.server.jonas.patch = 
     new Project("org.exoplatform.portal", "exo.portal.server.jonas.patch", "jar", module.version);

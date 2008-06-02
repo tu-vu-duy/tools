@@ -3,19 +3,19 @@ eXo.require("eXo.core.IOUtil") ;
 eXo.require("eXo.server.ServerUtil") ;
 eXo.require("eXo.projects.Project");
 
-function Jboss(jbossHome) {
+function JbossEar(jbossHome) {
   this.runningInstance_ = null ;
-  this.name = "jboss" ;
+  this.name = "jbossear" ;
   this.serverHome = jbossHome ;
   this.cleanServer = java.lang.System.getProperty("clean.server") ;
   if(this.cleanServer == null || this.cleanServer.equals("") || !this.cleanServer.startsWith("jboss")) this.cleanServer = "jboss-4.2.2.GA" ;
-  this.deployLibDir = this.serverHome + "/server/default/deploy/exoplatform.sar" ;
-  this.deployWebappDir = this.serverHome + "/server/default/deploy/exoplatform.sar";
+  this.deployLibDir = this.serverHome + "/server/default/deploy/exoplatform.ear" ;
+  this.deployWebappDir = this.serverHome + "/server/default/deploy/exoplatform.ear";
   this.patchDir = this.serverHome;// + "/server/default"; //because we have to patch bin/ directory
 }
 
-Jboss.prototype.RunTask = function() {
-  var descriptor =  new TaskDescriptor("Run Jboss", this.serverHome + "/bin") ;
+JbossEar.prototype.RunTask = function() {
+  var descriptor =  new TaskDescriptor("Run JbossEar", this.serverHome + "/bin") ;
   descriptor.server = this;
   descriptor.execute = function() {
     var javaHome = eXo.env.javaHome ;
@@ -40,8 +40,8 @@ Jboss.prototype.RunTask = function() {
   return descriptor ;
 };
   
-Jboss.prototype.StopTask = function() {
-  var descriptor =  new TaskDescriptor("Stop Jboss", this.serverHome + "/bin") ;
+JbossEar.prototype.StopTask = function() {
+  var descriptor =  new TaskDescriptor("Stop JbossEar", this.serverHome + "/bin") ;
   descriptor.server = this;
   descriptor.execute = function() {
     var sysClasspath = [
@@ -59,8 +59,8 @@ Jboss.prototype.StopTask = function() {
   return descriptor ;
 };
 
-Jboss.prototype.CleanTask = function() {
-  var descriptor = new TaskDescriptor("Clean Jboss", this.serverHome + "/bin") ;
+JbossEar.prototype.CleanTask = function() {
+  var descriptor = new TaskDescriptor("Clean JbossEar", this.serverHome + "/bin") ;
   descriptor.server = this;
   descriptor.execute = function() {
     eXo.core.IOUtil.emptyFolder(this.server.serverHome + "/temp");
@@ -68,16 +68,16 @@ Jboss.prototype.CleanTask = function() {
   return descriptor ;
 }
 
-Jboss.prototype.preDeploy = function(product) {
+JbossEar.prototype.preDeploy = function(product) {
 	product.addDependencies(new Project("commons-pool", "commons-pool", "jar", "1.2")) ;
   product.addDependencies(new Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;
   product.addDependencies(new Project("org.exoplatform.portal", "exo.portal.server.jboss.plugin", "jar", product.serverPluginVersion)) ;
 
 }
 
-Jboss.prototype.onDeploy = function(project) { }
+JbossEar.prototype.onDeploy = function(project) { }
   
-Jboss.prototype.postDeploy = function(product) {
+JbossEar.prototype.postDeploy = function(product) {
   ServerUtil = eXo.server.ServerUtil ;
   ServerUtil.createEarApplicationXmlForJboss(this.deployWebappDir, product) ;
   ServerUtil.addClasspathForWar(this.deployLibDir) ;
@@ -93,4 +93,4 @@ Jboss.prototype.postDeploy = function(product) {
   product.portalwar = "02portal.war" ;
 }
 
-eXo.server.Jboss = Jboss.prototype.constructor ;
+eXo.server.JbossEar = JbossEar.prototype.constructor ;

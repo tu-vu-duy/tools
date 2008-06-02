@@ -28,8 +28,7 @@ function getModule(params) {
     new Project("org.exoplatform.jcr", "exo.jcr.framework.web", "jar", module.version).  
     addDependency(new Project("org.exoplatform.ws", "exo.ws.rest.core", "jar", module.version)).
     addDependency(new Project("org.exoplatform.ws", "exo.ws.commons", "jar", module.version)).
-    addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0")).
-    addDependency(new Project("log4j", "log4j", "jar", "1.2.8")) ;
+    addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0"));
 
   module.frameworks.command = new Project("org.exoplatform.jcr", "exo.jcr.framework.command", "jar", module.version).
     addDependency(new Project("commons-fileupload", "commons-fileupload", "jar", "1.0")); 

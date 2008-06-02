@@ -10,12 +10,14 @@ function Project(gid, id, ptype, version) {
   this.extension = ptype ;
   if(ptype == "exo-portlet" || ptype == "exo-portal") this.extension = "war" ;
   if(ptype == "exo-ear-jar") this.extension = "jar";
+  if(ptype == "exopc-war") this.extension = "exopc-war";
   if(ptype == "exo-ear-rar") this.extension = "rar";
   this.relativePath = gid.replace(/\./g, '/') + "/" + id + "/" + version + "/" + 
                       id + "-" + version + "." + this.extension ;
   
   this.tomcatDependency =  true ;
   this.jbossDependency =  true ;
+  this.jbossearDependency =  true ;
   this.earDependency =  true ;
   this.jonasDependency =  true ;
   
@@ -25,6 +27,7 @@ function Project(gid, id, ptype, version) {
 Project.prototype.setServerDependency = function (name, b) {
   if("tomcat" == name) this.tomcatDependency = b ;
   else if("jboss" == name) this.jbossDependency = b ;
+  else if("jbossear" == name) this.jbossearDependency = b ;
   else if("ear" == name) this.earDependency = b ;
   else if("jonas" == name) this.jonasDependency = b ;
 }
@@ -37,7 +40,7 @@ Project.prototype.addDependency =  function(project) {
 
 Project.prototype.hasDependency = function() {return this.dependencies != null ;}
 
-Project.prototype.extractTo = function(repository, dir, ignore) {  
+Project.prototype.extractTo = function(repository, dir, ignore) {
   for( var i = 0; i < repository.length; i++) {
     try {
     var surl = repository[i] + "/" + this.relativePath;
@@ -80,7 +83,7 @@ Project.prototype.deployTo = function(repository, server) {
     try {
       var surl = repository[i] + "/" + this.relativePath;
       
-      var url = new java.net.URL(repository[i] + "/" + this.relativePath);
+      var url = new java.net.URL(surl);
       
       var warName = null, fileName = null ;
       if(this.extension == "war") {
@@ -100,9 +103,12 @@ Project.prototype.deployTo = function(repository, server) {
         fileName = server.deployWebappDir + "/" + this.artifactId + ".jar" ;
       } else if(this.type == "exo-ear-rar") {
         fileName = server.deployWebappDir + "/" + this.artifactId + ".rar" ;
+      } else if(this.type == "exopc-war") {
+        fileName = server.deployWebappDir + "/" + this.artifactId + ".war" ;
       } else {
         fileName = server.deployLibDir + "/" + this.artifactId + "-" +this.version + "." + this.type ;
       }
+      
       var out = new java.io.FileOutputStream(fileName) ;
 
       var is = url.openStream() ;

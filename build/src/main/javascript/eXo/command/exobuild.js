@@ -1,5 +1,6 @@
 eXo.require("eXo.server.Tomcat") ;
 eXo.require("eXo.server.Jboss") ;
+eXo.require("eXo.server.JbossEar") ;
 eXo.require("eXo.server.Ear") ;
 eXo.require("eXo.server.Jonas") ;
 eXo.require("eXo.server.Database") ;
@@ -25,6 +26,7 @@ databaseMap.put("sqlserver", eXo.server.Database.SqlServerDB("sqlserver"));
 var serverMap = new java.util.HashMap();
 serverMap.put("tomcat", new Tomcat(eXo.env.workingDir + "/exo-tomcat"));
 serverMap.put("jboss", new Jboss(eXo.env.workingDir + "/exo-jboss"));
+serverMap.put("jbossear", new JbossEar(eXo.env.workingDir + "/exo-jboss"));
 serverMap.put("jonas", new Jonas(eXo.env.workingDir + "/exo-jonas"));
 serverMap.put("ear", new Ear(eXo.env.workingDir + "/exo-ear"));
 
@@ -85,15 +87,21 @@ function errExobuild(cause, value) {
   java.lang.System.exit(1);
 }
 
+// name is "=NAME_SERVER" or "=all" or "" as default for tomcat
+// cycle is "deploy" or "release"
 function storeServers(name, cycle) {
   if (name == "") {
+    eXo.System.info("INFO", " add server = " + "tomcat");
     deployServers.add(serverMap.get("tomcat"));
   } else if (name.match("=")) {
     var serverName = name.substring("=".length);
     if (serverName == "all") {
+      eXo.System.info("INFO", " add servers = " + serverMap.keySet());
       deployServers = serverMap.values();
     } else {
-      if (serverMap.get(serverName) == null) errExobuild("UNKNOWN server in " + cycle + " for deploy", serverName);
+      if (serverMap.get(serverName) == null) 
+        errExobuild("UNKNOWN server in " + cycle + " for deploy", serverName);
+      eXo.System.info("INFO", " add server = " + serverName);
       deployServers.add(serverMap.get(serverName)); 
     }
   } else errExobuild("UNKNOWN server in " + cycle , serverName);
@@ -277,7 +285,7 @@ if(deployServers != null && !deployServers.isEmpty()) {
       tasks.add(database.DeployTask(product, server, eXo.env.m2Repos)) ;
       tasks.add(database.ConfigureTask(product, server, dbsetup)) ;
     }
-    if (server.name.match("ear")) {
+    if (server.name == "ear") {
       tasks.add(EarTask(server, product, version)) ;
     }
     if (release_)

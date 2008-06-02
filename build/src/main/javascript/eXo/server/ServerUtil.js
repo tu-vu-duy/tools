@@ -2,6 +2,56 @@ eXo.require("eXo.core.IOUtil");
 
 function ServerUtil() { }
 
+ServerUtil.prototype.createEarApplicationXmlForJboss = function(deployEarDir, product) {
+  var earDir = new java.io.File(deployEarDir) ;
+  var b = new java.lang.StringBuilder();
+  b.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+  b.append("<!DOCTYPE application PUBLIC \"-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN\" \"http://java.sun.com/dtd/application_1_3.dtd\">");
+  b.append("\n<application>\n");
+  b.append("  <display-name>exoplatform</display-name>\n");
+  var eXoResources = "eXoResources.war";
+  b.append("  <module>\n");
+  b.append("    <web>\n");
+  b.append("      <web-uri>01").append(eXoResources).append("</web-uri>\n");
+  b.append("      <context-root>").append(eXoResources.substring(0, eXoResources.indexOf('.'))).append("</context-root>\n");
+  b.append("    </web>\n");
+  b.append("  </module>\n");
+  b.append("  <module>\n");
+  b.append("    <web>\n");
+  b.append("      <web-uri>02").append(product.portalwar).append("</web-uri>\n");
+  b.append("      <context-root>").append(product.portalwar.substring(0, product.portalwar.indexOf('.'))).append("</context-root>\n");
+  b.append("    </web>\n");
+  b.append("  </module>\n");
+  var file = earDir.list();
+  for (var i = 0; i < file.length; i++) {
+    if(file[i].endsWith("war") && file[i] != product.portalwar && file[i] != eXoResources) {
+      var idx = file[i].indexOf('.');
+      var context = file[i].substring(0, idx);
+      b.append("  <module>\n");
+      b.append("    <web>\n");
+      b.append("      <web-uri>").append(file[i]).append("</web-uri>\n");
+      b.append("      <context-root>").append(context).append("</context-root>\n");
+      b.append("    </web>\n");
+      b.append("  </module>\n");
+    } else if(file[i].endsWith("jar")) {
+      b.append("  <module>\n").
+        append("    <ejb>").append(file[i]).append("</ejb>\n").
+        append("  </module>\n");
+    } else if(file[i].endsWith("rar")) {
+      b.append("  <module>\n");
+      b.append("    <connector>").append(file[i]).append("</connector>\n");
+      b.append("  </module>\n");
+    }
+  }
+  b.append("</application>\n");
+  eXo.core.IOUtil.createFolder(deployEarDir + "/META-INF");
+  var out = 
+    new java.io.FileOutputStream(deployEarDir + "/META-INF/application.xml");
+  out.write(b.toString().getBytes(), 0, b.length());
+  out.close();
+}
+
+
 ServerUtil.prototype.createEarApplicationXml = function(deployEarDir, product) {
   var earDir = new java.io.File(deployEarDir) ;
   var b = new java.lang.StringBuilder();

@@ -60,7 +60,7 @@ function printInstructions() {
     print(
       "\n\n" +
       "Usage of exoproject command: \n\n" +
-      "  exoproject --deploy=[context,module,quickwar] [--server=tomcat,jboss,jonas,ear] \n\n" +
+      "  exoproject --deploy=[context,module,quickwar] [--server=tomcat,jboss,jonas,ear,jbossear] \n\n" +
       "Options: \n" +
       "  * --deploy             is mandatory. Enables to deploy either a context, a module (jar) or a war.\n" +
       "  * --server             is optional. Enables to specify the target application server.\n"
@@ -81,6 +81,8 @@ for(var i = 0; i < args.length; i++) {
     exoproject.server = Jonas(eXo.env.workingDir + "/exo-jonas") ; 
   } else if("--server=jboss".equals(arg)) {
     exoproject.server = Jboss(eXo.env.workingDir + "/exo-jboss") ; 
+  } else if("--server=jbossear".equals(arg)) {
+    exoproject.server = JbossEar(eXo.env.workingDir + "/exo-jboss") ; 
   } else if("--server=ear".equals(arg)) {
     exoproject.server = Ear(eXo.env.workingDir + "/exo-ear") ; 
   } else if("--server=tomcat".equals(arg)) {

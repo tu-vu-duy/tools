@@ -50,5 +50,6 @@ function getModule(params) {
   module.server.tomcat = {}
   module.server.tomcat.patch = 
     new Project("org.exoplatform.ecm", "exo.ecm.server.tomcat.patch", "jar", module.version);
+
   return module;
 }

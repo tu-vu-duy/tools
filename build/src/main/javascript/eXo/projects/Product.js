@@ -81,7 +81,7 @@ Product.prototype.getDependencyModule = function(depName) {
 	return mod ;
 }
 
-Product.prototype.DeployTask = function(product, server, repos) {	  
+Product.prototype.DeployTask = function(product, server, repos) {
 	patches = product.getServerPatches(server.name) ;
   if(patches == null) {
   	var msg = "The server " + server.name + " may not support this product: " + product.name 
@@ -93,7 +93,7 @@ Product.prototype.DeployTask = function(product, server, repos) {
   descriptor.execute = function() {
     eXo.System.info("DELETE", "Delete " + server.serverHome);
     eXo.core.IOUtil.remove(server.serverHome) ;
-    if (!server.name.match("ear")) {
+    if (server.name != "ear") {
       eXo.System.info("COPY", "Copy a clean server " + server.cleanServer);
       eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/" + server.cleanServer, server.serverHome) ;
     }
@@ -104,6 +104,7 @@ Product.prototype.DeployTask = function(product, server, repos) {
                        " with project " +  project.artifactId + " " + project.version;
       eXo.System.info("INFO", message);
       new java.io.File(server.patchDir).mkdirs();
+      print("EXOMAN server.patchDir = " + server.patchDir);
       project.extractTo(repos, server.patchDir, "META-INF/maven.*") ;
     }
     

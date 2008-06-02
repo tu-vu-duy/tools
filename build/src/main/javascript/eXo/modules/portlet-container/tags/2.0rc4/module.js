@@ -10,7 +10,7 @@ function getModule(params) {
   module.name = "pc" ;
 
   module.services = {} ;
-  module.services.jsr168 = 
+  module.services.jsr168jsr286 = 
     new Project("org.exoplatform.portletcontainer", "exo.pc.component.core", "jar", module.version).
     addDependency(new Project("org.exoplatform.portletcontainer", "exo.pc.component.plugins.pc", "jar", module.version)).
     addDependency(new Project("javax.ccpp", "ccpp", "jar", "1.0")).
