@@ -23,6 +23,6 @@ $JAVA_CMD $MAVEN_OPTS -classpath $SCRIPT_DIR/src/main/resources/java/js.jar \
           -Dexo.java.home=$JAVA_HOME \
           -Dexo.current.dir=$CURRENT_DIR \
           -Dexo.base.dir=$EXO_BASE_DIRECTORY  \
-          -Dexo.m2.repos="file:$M2_REPO, http://vnserver.exoplatform.org/maven2"  \
+          -Dexo.m2.repos="file:$M2_REPO, http://192.168.1.10:9999/repository/"  \
           -Dclean.server=$CLEAN_SERVER  \
           org.mozilla.javascript.tools.shell.Main $SCRIPT_DIR/src/main/javascript/eXo/eXo.js $@
