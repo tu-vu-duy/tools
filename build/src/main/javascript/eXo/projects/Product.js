@@ -83,6 +83,7 @@ Product.prototype.getDependencyModule = function(depName) {
 
 Product.prototype.DeployTask = function(product, server, repos) {
 	patches = product.getServerPatches(server.name) ;
+  eXo.System.info("INFO", "Add DeployTask for product '"+product.name+"' version '"+product.codeRepo +"' on server '"+server.name+"' with patches '"+patches+"'.");
   if(patches == null) {
   	var msg = "The server " + server.name + " may not support this product: " + product.name 
   	         +". Please try to use another server" ;
@@ -104,7 +105,6 @@ Product.prototype.DeployTask = function(product, server, repos) {
                        " with project " +  project.artifactId + " " + project.version;
       eXo.System.info("INFO", message);
       new java.io.File(server.patchDir).mkdirs();
-      print("EXOMAN server.patchDir = " + server.patchDir);
       project.extractTo(repos, server.patchDir, "META-INF/maven.*") ;
     }
     

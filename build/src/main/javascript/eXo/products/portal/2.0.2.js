@@ -24,6 +24,7 @@ function getProduct(version) {
 
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
+  product.addServerPatch("jbossear",  portal.server.jboss.patch-ear) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   product.addServerPatch("ear",  portal.server.websphere.patch) ;
 
