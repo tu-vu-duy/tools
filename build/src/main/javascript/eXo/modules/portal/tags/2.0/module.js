@@ -113,7 +113,11 @@ function getModule(params) {
   module.server.jboss = {}
   module.server.jboss.patch = 
     new Project("org.exoplatform.portal", "exo.portal.server.jboss.patch", "jar", module.version);
-  
+
+  module.server.jbossear = {}
+  module.server.jbossear.patch = 
+    new Project("org.exoplatform.portal", "exo.portal.server.jboss.patch-ear", "jar", module.version);
+    
   module.server.websphere = {}
   module.server.websphere.patch = 
     new Project("org.exoplatform.portal", "exo.portal.server.websphere.patch", "jar", module.version);
