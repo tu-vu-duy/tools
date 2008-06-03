@@ -32,6 +32,7 @@ Product.GetProduct = function(name, version) {
 }
 
 Product.prototype.addServerPatch = function (serverName, project) {
+eXo.System.info("DEBUG", "Product.addServerPatch serverName = " + serverName);
   var holders = this.serverPatches.get(serverName) ;
   if (holders == null) {
     holders = new java.util.ArrayList(3) ;
@@ -40,7 +41,7 @@ Product.prototype.addServerPatch = function (serverName, project) {
   holders.add(project) ;
 }
 
-Product.prototype.getServerPatches = function(serverName) { 
+Product.prototype.getServerPatches = function(serverName) {
   return this.serverPatches.get(serverName) ; 
 }
 
