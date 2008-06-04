@@ -13,7 +13,7 @@ function getModule(params) {
   module.component = {}
   module.component.common = 
     new Project("org.exoplatform.core", "exo.core.component.common", "jar", module.version) .
-    addDependency(new Project("directory-naming", "naming-core", "jar", "0.8")).
+    //addDependency(new Project("directory-naming", "naming-core", "jar", "0.8")).
     addDependency(new Project("directory-naming", "naming-java", "jar", "0.8")).
     addDependency(new Project("jotm", "jotm", "jar", "2.0.10")).
     addDependency(new Project("javax.resource", "connector", "jar", "1.5"));
