@@ -21,7 +21,7 @@ function getModule(params) {
     addDependency(new Project("stax", "stax-api", "jar", "1.0")).
 //		addDependency(new Project("stax", "stax", "jar", "1.2.0")).
 		addDependency(new Project("org.apache.ws.commons","ws-commons-util","jar","1.0.1")).
-    addDependency(new Project("lucene", "lucene", "jar", "1.4.3")) ;
+    addDependency(new Project("org.apache.lucene", "lucene-core", "jar", "2.2.0")) ;
 
   module.frameworks = {}
   module.frameworks.web = 
