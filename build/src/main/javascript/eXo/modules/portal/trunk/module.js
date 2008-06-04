@@ -70,8 +70,8 @@ function getModule(params) {
 
     addDependency(jcr.services.jcr).
 
-    addDependency(eXoPortletContainer.services.jsr168jsr286).
-    addDependency(eXoPortletContainer.web.wsrp) ;
+    addDependency(eXoPortletContainer.services.jsr168jsr286);//.
+    //addDependency(eXoPortletContainer.web.wsrp) ;
     
 
   module.portlet = {};
