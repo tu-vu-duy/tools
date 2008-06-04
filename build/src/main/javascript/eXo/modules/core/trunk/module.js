@@ -39,7 +39,7 @@ function getModule(params) {
     addDependency(new Project("pdfbox", "pdfbox", "jar", "0.7.2")).
     addDependency(new Project("html-parser", "html-parser", "jar", "1.6")).
     addDependency(new Project("org.apache.poi", "poi", "jar", "3.0.2-FINAL")).
-    addDependency(new Project("poi", "poi-scratchpad", "jar", "3.0.2-FINAL"));
+    addDependency(new Project("org.apache.poi", "poi-scratchpad", "jar", "3.0.2-FINAL"));
     
   module.component.organization = 
     new Project("org.exoplatform.core", "exo.core.component.organization.api", "jar", module.version).
@@ -48,7 +48,8 @@ function getModule(params) {
   module.component.organization.ldap =
 	new Project("org.exoplatform.core", "exo.core.component.organization.ldap", "jar", module.version);
 	
-  module.component.security = 
+  module.component.security = {}
+  module.component.security.core = 
     new Project("org.exoplatform.core", "exo.core.component.security.core", "jar", module.version) ;
 
   module.component.xmlProcessing = 

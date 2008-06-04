@@ -58,9 +58,10 @@ function getModule(params) {
     addDependency(kernel.component.cache) .
     addDependency(kernel.component.command) .
     
+    addDependency(core.component.common) .
     addDependency(core.component.database) .
     addDependency(core.component.organization) .
-    addDependency(core.component.security) .
+    addDependency(core.component.security.core) .
     addDependency(core.component.xmlProcessing) .
     addDependency(core.component.documents).
     addDependency(core.component.resources).

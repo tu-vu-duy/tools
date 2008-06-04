@@ -48,7 +48,7 @@ function getModule(params) {
   module.component.organization.ldap =
 	new Project("org.exoplatform.core", "exo.core.component.organization.ldap", "jar", module.version);
 	
-  module.component.security = 
+  module.component.security.core = 
     new Project("org.exoplatform.core", "exo.core.component.security.core", "jar", module.version) ;
 
   module.component.xmlProcessing = 

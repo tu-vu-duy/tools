@@ -88,8 +88,8 @@ Tomcat.prototype.onDeploy = function(project) {
       "  <Manager className='org.apache.catalina.session.PersistentManager' saveOnRestart='false'/> \n" +
       "  <Realm className='org.apache.catalina.realm.JAASRealm' \n" +
       "         appName='exo-domain' \n" +
-      "         userClassNames='org.exoplatform.services.organization.auth.UserPrincipal' \n" +
-      "         roleClassNames='org.exoplatform.services.organization.auth.RolePrincipal' \n" +
+      "         userClassNames='org.exoplatform.services.security.jaas.UserPrincipal' \n" +
+      "         roleClassNames='org.exoplatform.services.security.jaas.RolePrincipal' \n" +
       "         debug='0' cache='false'/> \n" +
       "	 <Valve className='org.apache.catalina.authenticator.FormAuthenticator' characterEncoding='UTF-8'/>" +
       "</Context> \n";
