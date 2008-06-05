@@ -76,8 +76,9 @@ function exobuildInstructions() {
    "                       dbsetup=file will use the database and jcr files you provided.\n" +
    "                       dbsetup=ask allow you to enter the connection url , username and password of the database server.\n" +
    "                       dbsetup=defaults is the default option if dbsetup is not specified and will override settings by those defined in Database.js\n" +    
-   "  * --workflow=engine  Specify the workflow engine to bundle with the product. The possible values are bonita or jbpm.\n"+
-   "                       This option is only used for products that use workflow. Default engine is jbpm\n"
+   "  * --workflow=engine  Specify the workflow engine to bundle with the product. The possible values are bonita or jbpm.\n" +
+   "                       This option is only used for products that use workflow. Default engine is jbpm\n" +
+   "  * --help             To print this help. Also you can use option: '-help' or 'help' or '?' \n"
   );
 }
 
@@ -219,6 +220,9 @@ for(var i = 0; i <args.length; i++) {
     java.lang.System.setProperty("workflow",workflowName) ;
   } else if (arg == "--nointernet") {
     noInternet = true;
+  } else if (arg == "--help" || arg == "-help" || arg == "help" || arg == "?") {    
+    exobuildInstructions() ;
+    java.lang.System.exit(1);
   } else {
     errExobuild("UNKNOWN ARGUMENT", arg);
   }
