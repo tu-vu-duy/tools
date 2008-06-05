@@ -1,20 +1,17 @@
-#!/bin/bash
+@echo off
 
-# place of this file in the root directory of eXo sources (e.g.: eXoProjects)
+REM place of this file in the root directory of eXo sources (e.g.: eXoProjects)
 
-EXO_PROJECTS_SRC_DIR=`pwd | awk '{i=split($0, Name, "/") ; print(Name[i])}'`
-echo EXO_PROJECTS_SRC_DIR = $EXO_PROJECTS_SRC_DIR
+set EXO_PROJECTS_SRC_DIR=%~dp0
 
-cd ..
-echo "Updating $EXO_PROJECTS_SRC_DIR ..."
-svn co http://svn.exoplatform.org/svnroot/exoplatform/projects $EXO_PROJECTS_SRC_DIR
-echo " eXo: $EXO_PROJECTS_SRC_DIR DONE"
-cd $EXO_PROJECTS_SRC_DIR
+echo "Updating %EXO_PROJECTS_SRC_DIR% ..."
+svn up
+echo " eXo: %EXO_PROJECTS_SRC_DIR% DONE"
 
-svn co http://svn.exoplatform.org/svnroot/exoplatform/projects/kernel/tags kernel/tags
-echo " eXo: kernel/tags DONE"
 svn co http://svn.exoplatform.org/svnroot/exoplatform/projects/kernel/branches kernel/branches
 echo " eXo: kernel/branches DONE"
+svn co http://svn.exoplatform.org/svnroot/exoplatform/projects/kernel/tags kernel/tags
+echo " eXo: kernel/tags DONE"
 svn co http://svn.exoplatform.org/svnroot/exoplatform/projects/core/tags core/tags
 echo " eXo: core/tags DONE"
 svn co http://svn.exoplatform.org/svnroot/exoplatform/projects/core/branches core/branches
@@ -41,4 +38,4 @@ svn co http://svn.exoplatform.org/svnroot/exoplatform/projects/ecm/branches ecm/
 echo " eXo: ecm/branches DONE"
 
 echo "THE END"
-read
+pause null
