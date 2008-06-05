@@ -13,8 +13,10 @@ function Env() {
     this.currentDir = this.currentDir.replaceFirst("/", ":/");
   }
 
-  this.m2Repos = java.lang.System.getProperty("exo.m2.repos").split(",") ;
-  for(var i = 0 ; i< this.m2Repos.length; i++) this.m2Repos[i] = this.m2Repos[i].trim();
+  var m2Repos = java.lang.System.getProperty("exo.m2.repos").split(",") ;
+  this.m2Repos = new Array() ;
+  var j = 0;
+  for(var i = 0 ; i< m2Repos.length; i++) if(m2Repos[i].trim() != "") this.m2Repos[j++] = m2Repos[i].trim();
 }
 
 var eXo  = {

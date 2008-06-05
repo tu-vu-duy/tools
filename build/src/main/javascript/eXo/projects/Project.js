@@ -43,6 +43,7 @@ Project.prototype.hasDependency = function() {return this.dependencies != null ;
 Project.prototype.extractTo = function(repository, dir, ignore) {
   for( var i = 0; i < repository.length; i++) {
     try {
+    	print("Repository =====>" + repository[i] + "<====") ;
     var surl = repository[i] + "/" + this.relativePath;
       var url = new java.net.URL(surl);      
       eXo.System.info("PATCH", "Fetching patch at " + repository[i] + "/" + this.relativePath);
@@ -82,7 +83,6 @@ Project.prototype.deployTo = function(repository, server) {
   for(var i = 0; i < repository.length; i++) {
     try {
       var surl = repository[i] + "/" + this.relativePath;
-      
       var url = new java.net.URL(surl);
       
       var warName = null, fileName = null ;
