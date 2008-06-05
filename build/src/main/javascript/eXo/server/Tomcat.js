@@ -73,28 +73,28 @@ Tomcat.prototype.preDeploy = function(product) {
 }
 
 Tomcat.prototype.onDeploy = function(project) {
-  if("exo-portal" == project.type) {
-    var context = project.artifactId.substring(project.artifactId.lastIndexOf(".") + 1) ;
-    var dirname = this.serverHome + "/conf/Catalina/localhost/";
-    var destDir = new java.io.File(dirname);
-    if(!destDir.exists()) destDir.mkdirs() ;
-    var filename = dirname + context + ".xml";
-    eXo.System.info("TOMCAT", "Generating tomcat context" + filename);    
-    var config = 
-      "<Context path='/" + context+ "' docBase='" + context + "' debug='0' reloadable='true' crossContext='true'> \n" +
-      //className can be org.apache.catalina.logger.FileLogger
-      "  <Logger className='org.apache.catalina.logger.SystemOutLogger' \n" +
-      "          prefix='localhost_" + context + "_log.' suffix='.txt' timestamp='true'/> \n" +
-      "  <Manager className='org.apache.catalina.session.PersistentManager' saveOnRestart='false'/> \n" +
-      "  <Realm className='org.apache.catalina.realm.JAASRealm' \n" +
-      "         appName='exo-domain' \n" +
-      "         userClassNames='org.exoplatform.services.security.jaas.UserPrincipal' \n" +
-      "         roleClassNames='org.exoplatform.services.security.jaas.RolePrincipal' \n" +
-      "         debug='0' cache='false'/> \n" +
-      "	 <Valve className='org.apache.catalina.authenticator.FormAuthenticator' characterEncoding='UTF-8'/>" +
-      "</Context> \n";
-    eXo.core.IOUtil.createFile(filename, config) ;
-  }
+//  if("exo-portal" == project.type) {
+//    var context = project.artifactId.substring(project.artifactId.lastIndexOf(".") + 1) ;
+//    var dirname = this.serverHome + "/conf/Catalina/localhost/";
+//    var destDir = new java.io.File(dirname);
+//    if(!destDir.exists()) destDir.mkdirs() ;
+//    var filename = dirname + context + ".xml";
+//    eXo.System.info("TOMCAT", "Generating tomcat context" + filename);    
+//    var config = 
+//      "<Context path='/" + context+ "' docBase='" + context + "' debug='0' reloadable='true' crossContext='true'> \n" +
+//      //className can be org.apache.catalina.logger.FileLogger
+//      "  <Logger className='org.apache.catalina.logger.SystemOutLogger' \n" +
+//      "          prefix='localhost_" + context + "_log.' suffix='.txt' timestamp='true'/> \n" +
+//      "  <Manager className='org.apache.catalina.session.PersistentManager' saveOnRestart='false'/> \n" +
+//      "  <Realm className='org.apache.catalina.realm.JAASRealm' \n" +
+//      "         appName='exo-domain' \n" +
+//      "         userClassNames='org.exoplatform.services.security.jaas.UserPrincipal' \n" +
+//      "         roleClassNames='org.exoplatform.services.security.jaas.RolePrincipal' \n" +
+//      "         debug='0' cache='false'/> \n" +
+//      "	 <Valve className='org.apache.catalina.authenticator.FormAuthenticator' characterEncoding='UTF-8'/>" +
+//      "</Context> \n";
+//    eXo.core.IOUtil.createFile(filename, config) ;
+//  }
 }
 
 Tomcat.prototype.postDeploy = function(product) {
