@@ -17,7 +17,7 @@ JAVA_HOME=$EXO_BASE_DIRECTORY/jdk1.5
 
 #BSH_EXO_BASE_DIRECTORY=$JAVA_DIR
 #BSH_JAVA_HOME=$JAVA_HOME
-M2_REPOS="file:$EXO_BASE_DIRECTORY/exo-dependencies/repository, http://vnserver.exoplatform.org/maven2"
+M2_REMOTE_REPOS="http://vnserver.exoplatform.org/maven2, http://192.168.1.10:9999/repository/"
 
 ##################################################################################
 USER_HOME='/cygdrive/c/Documents\ and\ Settings/$USERNAME'
@@ -47,7 +47,7 @@ PATH=/usr/local/bin:$JAVA_HOME/bin:$M2_HOME/bin:$EXO_SH_SCRIPT:$PATH
 
 export PATH
 #export FLEX_HOME
-export JAVA_OPTS JAVA_HOME M2_HOME M2_REPO MAVEN_OPTS CLEAN_SERVER
+export JAVA_OPTS JAVA_HOME M2_HOME M2_REPO MAVEN_OPTS CLEAN_SERVER M2_REMOTE_REPOS
 #export EXO_BASE_DIRECTORY EXO_PROJECTS_SRC  BSH_EXO_BASE_DIRECTORY  BSH_M2_REPOS BSH_JAVA_HOME
 export EXO_BASE_DIRECTORY EXO_PROJECTS_SRC
 ##################################################################################
