@@ -11,11 +11,20 @@ function getModule(params) {
   var ecm = params.ecm;
 
   var module = new Module();
-
   module.version = "trunk" ;
   module.relativeMavenRepo = "org/exoplatform/spff" ;
   module.relativeSRCRepo = "spff/internet/trunk" ;
   module.name = "spff" ;
+  
+  module.component = {};
+  
+  module.component.synchro = 
+  	new Project("org.exoplatform.spff", "spff.component.synchro", "jar", module.version).
+  	addDependency(core.component.organization).
+    addDependency(core.component.ldap).
+    addDependency(kernel.component.common).
+    addDependency(kernel.container);
+    
     
   module.portlet = {}
   module.portlet.web = new Project("org.exoplatform.spff", "spff.portlet.web", "exo-portlet", module.version);

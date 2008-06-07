@@ -24,6 +24,9 @@ function getProduct(version) {
   var liveroom = Module.GetModule("liveroom/branches/1.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal}) ;
   var spff = Module.GetModule("spff/internet/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm, cs : cs});
     
+  // nécessaire pour le batch de synchro ldap/DB  
+  product.addDependencies(core.component.ldap);
+    
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.eXoWidget.web) ;
@@ -48,6 +51,7 @@ function getProduct(version) {
   product.addDependencies(spff.portlet.web) ;
   product.addDependencies(spff.web.spffResources) ;
   product.addDependencies(spff.web.spffportal) ;
+  product.addDependencies(spff.component.synchro) ;
   
   product.addServerPatch("tomcat", spff.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
