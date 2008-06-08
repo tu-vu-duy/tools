@@ -111,9 +111,10 @@ function getModule(params) {
 	addDependency(new Project("org.exoplatform.portal", "exo.portal.gadgets-core", "jar", "trunk")).
 	addDependency(new Project("org.exoplatform.portal", "exo.portal.gadgets-features", "jar", "trunk")).
 	addDependency(new Project("org.codehaus.woodstox", "wstx-asl", "jar", "3.2.1")).
-	addDependency(new Project("xerces", "xercesImpl", "jar", "2.6.2")).
-	addDependency(new Project("caja", "caja", "jar", "r820")).
-	addDependency(new Project("xml-apis", "xml-apis", "jar", "1.0.b2"));
+	//addDependency(new Project("xerces", "xercesImpl", "jar", "2.6.2")).
+	//addDependency(new Project("xml-apis", "xml-apis", "jar", "1.0.b2")).
+  addDependency(new Project("caja", "caja", "jar", "r820"));
+	
 	
 	
 	
