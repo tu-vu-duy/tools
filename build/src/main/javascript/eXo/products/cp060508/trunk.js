@@ -18,12 +18,14 @@ function getProduct(version) {
   var eXoJcr = Module.GetModule("jcr/tags/1.8.3") ;
   var portal = Module.GetModule("portal/branches/2.0.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
+  var cs = Module.GetModule("cs/branches/1.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var cp060508 = Module.GetModule("cp060508/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
     
   product.addDependencies(cp060508.web.portal) ; 
   product.addDependencies(cp060508.web.eXoResources) ;
   product.addDependencies(cp060508.portlet.web) ;
   
+  product.addDependencies(cs.eXoApplication.calendar) ;
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.web.eXoResources) ;
   product.addDependencies(portal.portlet.web) ;
@@ -37,7 +39,7 @@ function getProduct(version) {
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
   product.module = cp060508 ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, cs];
     
   return product ;
 }
