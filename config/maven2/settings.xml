@@ -44,13 +44,13 @@
   <!--
   <proxies>
     <proxy>
-      <id></id>
+      <id>eXoProxy</id>
       <active>true</active>
       <protocol>http</protocol>
       <username></username>
       <password></password>
-      <host></host>
-      <port></port>
+      <host>webcache.exoplatform.org</host>
+      <port>3128</port>
       <nonProxyHosts></nonProxyHosts>
     </proxy>
   </proxies>
@@ -166,6 +166,13 @@
         <exo.test.use.file>true</exo.test.use.file>
         <exo.test.includes>Test*</exo.test.includes>
         <exo.compile.optimize>true</exo.compile.optimize>
+	
+        <settings.activeProxy.host>webcache.exoplatform.org</settings.activeProxy.host>
+        <settings.activeProxy.port>3128</settings.activeProxy.port>
+        <settings.activeProxy.username></settings.activeProxy.username>
+        <settings.activeProxy.password></settings.activeProxy.password>
+        <settings.activeProxy.nonProxyHosts></settings.activeProxy.nonProxyHosts>
+	
       </properties>
     </profile>
 
