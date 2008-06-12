@@ -44,7 +44,7 @@
   <!--
   <proxies>
     <proxy>
-      <id>eXoProxy</id>
+      <id>eXoPlatformProxy</id>
       <active>true</active>
       <protocol>http</protocol>
       <username></username>
@@ -166,13 +166,15 @@
         <exo.test.use.file>true</exo.test.use.file>
         <exo.test.includes>Test*</exo.test.includes>
         <exo.compile.optimize>true</exo.compile.optimize>
-	
-        <settings.activeProxy.host>webcache.exoplatform.org</settings.activeProxy.host>
-        <settings.activeProxy.port>3128</settings.activeProxy.port>
-        <settings.activeProxy.username></settings.activeProxy.username>
-        <settings.activeProxy.password></settings.activeProxy.password>
-        <settings.activeProxy.nonProxyHosts></settings.activeProxy.nonProxyHosts>
-	
+
+<!-- Uncomment this if you want to use a proxy-->
+<!--	
+        <exo.proxy.host>webcache.exoplatform.org</exo.proxy.host>
+        <exo.proxy.port>3128</exo.proxy.port>
+        <exo.proxy.username></exo.proxy.username>
+        <exo.proxy.password></exo.proxy.password>
+        <exo.proxy.nonProxyHosts></exo.proxy.nonProxyHosts>
+-->	
       </properties>
     </profile>
 
