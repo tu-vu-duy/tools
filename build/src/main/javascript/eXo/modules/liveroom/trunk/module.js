@@ -32,7 +32,7 @@ function getModule(params) {
 		addDependency(new Project("org.slf4j", "slf4j-log4j12", "jar", "1.4.3"))
 		  	
   	);
-  module.eXoApplication.chat.webapp.deployName = "exomessenger";
+  module.eXoApplication.chat.webapp.deployName = "chat";
   
   module.web = {};
   module.web.liveroomportal = 
