@@ -12,6 +12,8 @@
     <module>webunit</module>
     <module>framework/junit</module>
     <module>plugin/pc</module>
+    <module>verificationResources</module>
+    <module>eXoParentPom</module>
   </modules>
 
   <build>

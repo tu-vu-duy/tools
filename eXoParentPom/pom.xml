@@ -1,0 +1,269 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.exoplatform.tool</groupId>
+  <artifactId>eXoParentPom</artifactId>
+  <name>eXo Platform - Root POM</name>
+  <packaging>pom</packaging>
+  <version>trunk</version>
+  <url>http://www.exoplatform.com</url>
+  <inceptionYear>2003</inceptionYear>
+  <licenses>
+    <license>
+      <name>GNU Affero General Public License</name>
+      <url>http://www.fsf.org/licensing/licenses/agpl-3.0.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <issueManagement>
+    <system>jira</system>
+    <url>http://jira.exoplatform.org/</url>
+  </issueManagement>
+  <developers />
+  <contributors />
+  <organization>
+    <name>eXo Platform</name>
+    <url>http://www.exoplatform.com/</url>
+  </organization>
+  <scm>
+    <connection>scm:svn:http://svn.exoplatform.org/svnroot/exoplatform/projects/tools/trunk/eXoParentPom</connection>
+    <developerConnection>scm:svn:http://svn.exoplatform.org/svnroot/exoplatform/projects/tools/trunk/eXoParentPom</developerConnection>
+    <url>http://svn.exoplatform.org/svnroot/exoplatform/projects/tools/trunk/eXoParentPom</url>
+  </scm>
+  <build>
+    <defaultGoal>install</defaultGoal>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <!-- Apply checkstyle rules and fail the build in case of errors. The checkstyle config
+             files are taken from the build-tools JAR module.-->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.1</version>
+          <dependencies>
+            <dependency>
+              <groupId>org.exoplatform.tool</groupId>
+              <artifactId>exo.tool.verificationResources</artifactId>
+			  <version>trunk</version>
+            </dependency>
+          </dependencies>
+          <configuration>
+            <consoleOutput>true</consoleOutput>
+            <configLocation>checkstyle.xml</configLocation>
+            <headerLocation>checkstyle.license</headerLocation>
+          </configuration>
+          <executions>
+            <execution>
+              <goals>
+                <goal>check</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.0-beta-7</version>
+          <configuration>
+            <!-- By default the release plugin will execute the "clean" and "verify" goals but won't perform an
+                 "install". This is causing problems since several modules will fail to build during release:prepare.
+                 See http://tinyurl.com/354vwe for more details. Thus we're forcing the execution of the "install"
+                 goal. -->
+            <preparationGoals>clean install</preparationGoals>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.0.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-site-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.0-beta-6</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.0.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.4.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.2-beta-1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-war-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.1-alpha-1</version>
+          <configuration>
+        	<warSourceExcludes>WEB-INF/lib/*.jar</warSourceExcludes>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>2.3</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>aspectj-maven-plugin</artifactId>
+          <!-- Lock down plugin version for build reproducibility -->
+          <version>1.0-beta-2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>summary</report>
+              <report>index</report>
+              <report>dependencies</report>
+              <report>dependency-convergence</report>
+              <report>issue-tracking</report>
+              <report>scm</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+  <profiles>
+    <profile>
+      <!-- Profile used when the release plugin executes. We want javadocs and source jars to be released. -->
+      <id>release</id>
+      <activation>
+        <property>
+          <!-- This property is automatically defined by the Maven release plugin when executing
+               a release. Thus this profile will be automatically enabled when releasing -->
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+  <repositories>
+    <repository>
+      <id>exo-repo</id>
+      <name>eXo Maven2 Repository</name>
+      <url>http://maven2.exoplatform.org/maven</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>exo-plugins-repo</id>
+      <name>eXo Maven2 Repository</name>
+      <url>http://maven2.exoplatform.org/maven</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+</project>
