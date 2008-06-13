@@ -33,7 +33,7 @@ function getProduct(version) {
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
     
-  product.codeRepo = "cs/tags/1.0" ;
+  product.codeRepo = "cs/branches/1.0" ;
 
   product.module = cs ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal ];
