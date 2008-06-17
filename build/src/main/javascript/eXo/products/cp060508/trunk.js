@@ -8,7 +8,7 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "cp060508/trunk" ;
   product.useWorkflow = false;
-  product.serverPluginVersion = "2.0" ;
+  product.serverPluginVersion = "2.0.2" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.1") ;
@@ -26,6 +26,9 @@ function getProduct(version) {
   product.addDependencies(cp060508.portlet.web) ;
   
   product.addDependencies(cs.eXoApplication.calendar) ;
+  product.addDependencies(cs.eXoApplication.mail) ;
+  product.addDependencies(cs.web.csResources) ;
+  
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.web.eXoResources) ;
   product.addDependencies(portal.portlet.web) ;
@@ -33,7 +36,6 @@ function getProduct(version) {
   product.addDependencies(portal.web.eXoMacSkin) ;
   product.addDependencies(portal.web.eXoVistaSkin) ;
 
-  
   product.addServerPatch("tomcat", cp060508.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
