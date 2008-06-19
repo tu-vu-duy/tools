@@ -23,6 +23,7 @@ function getModule(params) {
   		addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.service", "jar", module.version)).
   		addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.webapp", "war", module.version)).
       addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.client.openfire", "jar", module.version)).
+  		addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.webapp", "war", module.version)).
   		addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", module.version)).
   		addDependency(new Project("org.exoplatform.ecm", "exo.ecm.web.rest", "war", module.version)).
   		addDependency(new Project("jabber.smack", "smack", "jar", "3.0.4")).
@@ -34,6 +35,14 @@ function getModule(params) {
 		  	
   	);
   module.eXoApplication.chat.webapp.deployName = "chat";
+
+  module.eXoApplication.videoconf = {};
+  module.eXoApplication.videoconf.webapp = new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.videoconf.webapp", "war", module.version);
+  module.eXoApplication.videoconf.webapp.deployName = "videoconf";
+
+  module.eXoApplication.whiteboard = {};
+  module.eXoApplication.whiteboard.webapp = new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.whiteboard.webapp", "war", module.version);
+  module.eXoApplication.whiteboard.webapp.deployName = "whiteboard";
   
   module.web = {};
   module.web.liveroomportal = 
