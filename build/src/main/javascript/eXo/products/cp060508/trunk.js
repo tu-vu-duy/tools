@@ -7,8 +7,9 @@ function getProduct(version) {
   product.name = "cp060508" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "cp060508/trunk" ;
-  product.useWorkflow = false;
-  product.serverPluginVersion = "2.0.2" ;
+  product.useWorkflow = true;
+  product.workflowVersion = "2.0" ;
+  product.serverPluginVersion = "2.1.1" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.1") ;
@@ -19,7 +20,7 @@ function getProduct(version) {
   var portal = Module.GetModule("portal/branches/2.1.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var cs = Module.GetModule("cs/branches/1.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var cp060508 = Module.GetModule("cp060508/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var cp060508 = Module.GetModule("cp060508/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
     
   product.addDependencies(cp060508.web.portal) ; 
   product.addDependencies(cp060508.web.eXoResources) ;
@@ -28,6 +29,10 @@ function getProduct(version) {
   product.addDependencies(cs.eXoApplication.calendar) ;
   product.addDependencies(cs.eXoApplication.mail) ;
   product.addDependencies(cs.web.csResources) ;
+  
+  product.addDependencies(ecm.web.rest) ;
+  product.addDependencies(ecm.portlet.ecm) ;
+  product.addDependencies(ecm.portlet.workflow) ;
   
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.web.eXoResources) ;
