@@ -11,7 +11,7 @@ function getModule(params) {
 
   var module = new Module();
 
-  module.version =  "1.0" ;
+  module.version =  "1.0.1-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/cs" ;
   module.relativeSRCRepo =  "cs/branches/1.0" ;
   module.name = "cs" ;
@@ -60,6 +60,15 @@ function getModule(params) {
 	  addDependency(portal.webui.portal) .
       addDependency(jcr.frameworks.command) .
       addDependency(jcr.frameworks.web) ;
+      
+   module.web.csdemo = 
+    new Project("org.exoplatform.cs", "exo.cs.web.demo", "exo-portal", module.version).
+      addDependency(portal.web.eXoResources) .
+      addDependency(portal.web.eXoMacSkin) .
+      addDependency(portal.web.eXoVistaSkin) .
+	  addDependency(portal.webui.portal) .
+      addDependency(jcr.frameworks.command) .
+      addDependency(jcr.frameworks.web) ;     
       
   return module;
 }
