@@ -52,7 +52,6 @@ function getProduct(version) {
 //  product.addDependencies(wcm.portlet.websearches);
 //  product.addDependencies(wcm.web.wcmResources) ;
 
-	product.addDependencies(cp040608.portlet.web) ;
   product.addDependencies(cp040608.web.portal) ;
   product.addDependencies(cp040608.portlet.web) ;
 
