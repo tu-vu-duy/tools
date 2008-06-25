@@ -148,7 +148,6 @@ ServerUtil.prototype.patchWebspherePortalWebXml = function(deployEarDir, product
   eXo.System.info("INFO", "To be patched web.xml within " + product.portalwar + " file " + warFile + "/" + webXmlEntry);
   var webXML = eXo.core.IOUtil.getJarEntryAsText(warFile, webXmlEntry);
 
-  var toReplace = "<listener>";
   var b = new java.lang.StringBuilder();
   b.append("<!-- Websphere Listener -->\n");
   b.append("  <listener>\n");                                                                                                                                                                                                       
@@ -156,9 +155,8 @@ ServerUtil.prototype.patchWebspherePortalWebXml = function(deployEarDir, product
   b.append("  </listener>\n");
   b.append("\n");
   b.append("  <listener>");
-  webXML = webXML.replaceFirst(toReplace, b.toString());
+  webXML = webXML.replaceFirst("<listener>", b.toString());
   
-  toReplace = "<filter>";
   b = new java.lang.StringBuilder();
   b.append("<!-- Websphere filter -->\n");
   b.append("  <filter>\n");                                                                                                                                                                                                       
@@ -167,9 +165,8 @@ ServerUtil.prototype.patchWebspherePortalWebXml = function(deployEarDir, product
   b.append("  </filter>\n");
   b.append("\n");
   b.append("  <filter>");
-  webXML = webXML.replaceFirst(toReplace, b.toString());
+  webXML = webXML.replaceFirst("<filter>", b.toString());
   
-  toReplace = "<filter-mapping>";
   b = new java.lang.StringBuilder();
   b.append("<!-- Websphere filter-mapping -->\n");
   b.append("  <filter-mapping>\n");                                                                                                                                                                                                       
@@ -178,7 +175,8 @@ ServerUtil.prototype.patchWebspherePortalWebXml = function(deployEarDir, product
   b.append("  </filter-mapping>\n");
   b.append("\n");
   b.append("  <filter-mapping>");
-  webXML = webXML.replaceFirst(toReplace, b.toString());
+  webXML = webXML.replaceFirst("<filter-mapping>", b.toString());
+
  
   var replaceMap = new java.util.HashMap() ;
 
