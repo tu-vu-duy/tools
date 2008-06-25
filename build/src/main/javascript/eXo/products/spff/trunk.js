@@ -9,7 +9,7 @@ function getProduct(version) {
   product.codeRepo = "spff/internet/trunk" ;
   product.useWorkflow = true;  
   product.workflowVersion = "2.0" ;
-  product.serverPluginVersion = "2.0.2" ;
+  product.serverPluginVersion = "2.1.1" ;
   
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.1") ;
