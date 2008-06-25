@@ -7,7 +7,7 @@ function getModule(params) {
   var core = params.core;
   var eXoPortletContainer = params.eXoPortletContainer;
   var jcr = params.eXoJcr;
-
+  var ws = params.ws;
   var module = new Module();
 
   module.version =  "2.0.1" ;
@@ -67,8 +67,9 @@ function getModule(params) {
     
     addDependency(jcr.services.jcr) .
     
-    addDependency(eXoPortletContainer.services.jsr168jsr286) ;
-
+    addDependency(eXoPortletContainer.services.jsr168jsr286);
+    //addDependency(eXoPortletContainer.web.wsrp) ; // add this to activate wsrp support
+    
   module.portlet = {};
     
   module.portlet.exoadmin = 
