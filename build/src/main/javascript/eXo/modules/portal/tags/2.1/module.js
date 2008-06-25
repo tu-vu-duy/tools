@@ -67,8 +67,9 @@ function getModule(params) {
     
     addDependency(jcr.services.jcr) .
     
-    addDependency(eXoPortletContainer.services.jsr168jsr286) ;
-
+    addDependency(eXoPortletContainer.services.jsr168jsr286);
+//    addDependency(eXoPortletContainer.web.wsrp) ; // add this to activate wsrp support
+    
   module.portlet = {};
     
   module.portlet.exoadmin = 
