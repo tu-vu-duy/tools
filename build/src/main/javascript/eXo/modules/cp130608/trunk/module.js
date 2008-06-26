@@ -21,10 +21,6 @@ function getModule(params) {
   module.portlet = {}
   module.portlet.web = new Project("org.exoplatform.cp130608", "cp130608.portlet.web", "exo-portlet", module.version);
   module.portlet.web.deployName = "cp130608PortletWeb" ;
-	
-  module.web = {} ;
-  module.web.eXoResources = new Project("org.exoplatform.cp130608", "cp130608.web.cp130608Resources", "war", module.version);
-  module.web.eXoResources.deployName = "eXoResourcesCp130608" ;
   
   module.component = {} ;
   module.component.web=
@@ -48,6 +44,8 @@ function getModule(params) {
     addDependency(jcr.frameworks.web).
     addDependency(ecm.web.rest);
     
+  module.web.eXoResources = new Project("org.exoplatform.cp130608", "cp130608.web.cp130608Resources", "war", module.version);
+  module.web.eXoResources.deployName = "eXoResourcesCp130608" ;
 
   return module;
 }
