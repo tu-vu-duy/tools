@@ -9,7 +9,6 @@ function getModule(params) {
   var jcr = params.eXoJcr;
   var portal = params.portal;
   var ecm = params.ecm ;
-  //var cs = params.cs ;
   var ws = params.ws;
   var module = new Module();
 
@@ -36,14 +35,12 @@ function getModule(params) {
   module.server.tomcat.patch = 
     new Project("org.exoplatform.cp040608", "cp040608.server.tomcat.patch", "jar", module.version);
 
-  module.web = {}
   module.web.portal = 
     new Project("org.exoplatform.cp040608", "cp040608.web.portal", "exo-portal", module.version).   
     addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .
     addDependency(portal.webui.portal) .
-  //  addDependency(cs.web.csResources) .
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web).
     addDependency(ecm.web.rest);

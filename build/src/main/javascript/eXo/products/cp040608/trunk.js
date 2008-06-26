@@ -19,10 +19,6 @@ function getProduct(version) {
   var eXoJcr = Module.GetModule("jcr/tags/1.8.3") ;
   var portal = Module.GetModule("portal/branches/2.1.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });  
   var ecm = Module.GetModule("ecm/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
-//  var wcm = Module.GetModule("wcm/branches/0.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal, ecm : ecm});  
-//  var cs = Module.GetModule("cs/branches/1.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-//  var ks = Module.GetModule("ks/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal}); 
-//  var liveroom = Module.GetModule("liveroom/branches/1.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal}) ;
   var cp040608 = Module.GetModule("cp040608/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
     
   product.addDependencies(portal.portlet.exoadmin) ;
@@ -34,25 +30,8 @@ function getProduct(version) {
   product.addDependencies(ecm.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;
             
-//  product.addDependencies(cs.eXoApplication.mail) ;
-//  product.addDependencies(cs.eXoApplication.calendar) ;
-//  product.addDependencies(cs.eXoApplication.contact) ;
-//  product.addDependencies(cs.eXoApplication.content) ;
-//  product.addDependencies(cs.web.webservice) ;
-//  product.addDependencies(cs.web.csResources) ;
-
-//  product.addDependencies(ks.eXoApplication.forum) ;
-//  product.addDependencies(ks.eXoApplication.faq) ;
-//  product.addDependencies(ks.eXoApplication.wiki) ;
-//  product.addDependencies(ks.eXoApplication.blog) ;  
-
-//  product.addDependencies(liveroom.eXoApplication.chat.webapp) ;
-
-//  product.addDependencies(wcm.portlet.webpresentation);
-//  product.addDependencies(wcm.portlet.websearches);
-//  product.addDependencies(wcm.web.wcmResources) ;
-
   product.addDependencies(cp040608.web.portal) ;
+  product.addDependencies(cp040608.web.eXoResources) ;
   product.addDependencies(cp040608.portlet.web) ;
 
   product.addServerPatch("tomcat", cp040608.server.tomcat.patch) ;
