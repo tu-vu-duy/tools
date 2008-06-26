@@ -27,8 +27,8 @@ function getModule(params) {
     addDependency(core.component.resources).
     addDependency(core.component.organization).
     addDependency(new Project("javax.ccpp", "ccpp", "jar", "1.0")).
-    addDependency(new Project("javax.xml.bind", "jaxb-api", "jar", "2.0"));
-//    addDependency(new Project("com.sun.xml.bind", "jaxb-impl", "jar", "2.0.2")).
+    addDependency(new Project("javax.xml.bind", "jaxb-api", "jar", "2.0")).
+    addDependency(new Project("com.sun.xml.bind", "jaxb-impl", "jar", "2.0.2"));
 
 
   module.services.axis = 
