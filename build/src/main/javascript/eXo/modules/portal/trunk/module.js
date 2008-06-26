@@ -57,8 +57,7 @@ function getModule(params) {
     addDependency(kernel.component.remote) .
     addDependency(kernel.component.cache) .
     addDependency(kernel.component.command) .
-    
-    addDependency(core.component.common) .
+        
     addDependency(core.component.database) .
     addDependency(core.component.organization) .
     addDependency(core.component.security.core) .
