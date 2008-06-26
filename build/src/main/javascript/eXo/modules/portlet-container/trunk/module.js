@@ -61,11 +61,5 @@ function getModule(params) {
     addDependency(module.services.wsrp1).
     addDependency(module.services.wsrp2);
 
-//  module.web.portal = 
-//    new Project("org.exoplatform.portletcontainer", "exo.portletcontainer.applications.portal", "war", module.version).
-//    addDependency(module.services.wsrp1).
-//    addDependency(module.services.wsrp2);
-
-
   return module;
 }
