@@ -8,7 +8,7 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "cp150208/trunk" ;
   product.useWorkflow = false;
-  product.serverPluginVersion = "2.0.1" ;
+  product.serverPluginVersion = "2.1" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.1") ;
