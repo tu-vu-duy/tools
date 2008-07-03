@@ -38,8 +38,6 @@ function getModule(params) {
   module.web.portal = 
     new Project("org.exoplatform.cp040608", "cp040608.web.portal", "exo-portal", module.version).   
     addDependency(portal.web.eXoResources) .
-    addDependency(portal.web.eXoMacSkin) .
-    addDependency(portal.web.eXoVistaSkin) .
     addDependency(portal.webui.portal) .
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web).
