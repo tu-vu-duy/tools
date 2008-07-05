@@ -34,7 +34,10 @@ public  class BasicTestCase extends TestCase {
     long firstRun = 0  ;
     int testNum = getTestNumber() ;
     System.out.println(getDescription());
-    System.out.println("=====> BEGIN TEST CASE: " + getName() + "()" );
+    System.out.println("\n********************************************************\n" +
+    		                 "                   BEGIN TEST CASE                     \n" +
+    		                 "\t\t" + getName() + "\n" +
+    		                 "********************************************************\n" );
     for(counter_= 0; counter_ < testNum; counter_++) {
       super.runTest() ;
       if (counter_ == 0) {
@@ -42,10 +45,10 @@ public  class BasicTestCase extends TestCase {
       }
     }
     t = System.currentTimeMillis() - t;
-    System.out.println("<===== END TEST CASE: run " + getName() + "() " + 
+    System.out.println("\n\n\n=====> TEST CASE: run " + getName() + "() " + 
                        getTestNumber() + " time in " + t + 
                        "ms, first run: " + firstRun + "ms, " +
-                       "average: " + t/testNum+ "ms\n");
+                       "average: " + t/testNum+ "ms <==============\n\n\n");
   }
   
   protected  static void info(String s) {
