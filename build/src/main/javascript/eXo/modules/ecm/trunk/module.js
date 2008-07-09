@@ -21,6 +21,8 @@ function getModule(params) {
     new Project("org.exoplatform.ecm", "exo.ecm.portlet.ecm", "exo-portlet", module.version).
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.cms", "jar",  module.version)) .     
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.publication", "jar", module.version)).
+    addDependency(new Project("org.exoplatform.ecm", "exo.ecm.connector.fckeditor", "jar", module.version)).
+    addDependency(new Project("org.exoplatform.ecm", "exo.ecm.webui.ecm", "jar", module.version)).
     addDependency(new Project("rome", "rome", "jar", "0.8")) .
     addDependency(new Project("com.totsp.feedpod", "itunes-com-podcast", "jar", "0.2")) .
     addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")) .
