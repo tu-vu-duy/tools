@@ -3,13 +3,14 @@
 # place of this file in the root directory of eXo sources (e.g.: eXoProjects)
 
 EXO_PROJECTS_SRC_DIR=`pwd | awk '{i=split($0, Name, "/") ; print(Name[i])}'`
-echo EXO_PROJECTS_SRC_DIR = $EXO_PROJECTS_SRC_DIR
+#echo EXO_PROJECTS_SRC_DIR = $EXO_PROJECTS_SRC_DIR
 
-cd ..
 echo "Updating $EXO_PROJECTS_SRC_DIR ..."
-svn co http://svn.exoplatform.org/svnroot/exoplatform/projects $EXO_PROJECTS_SRC_DIR
+#cd ..
+#svn co http://svn.exoplatform.org/svnroot/exoplatform/projects $EXO_PROJECTS_SRC_DIR
+#cd $EXO_PROJECTS_SRC_DIR
+svn up
 echo " eXo: $EXO_PROJECTS_SRC_DIR DONE"
-cd $EXO_PROJECTS_SRC_DIR
 
 svn co http://svn.exoplatform.org/svnroot/exoplatform/projects/kernel/tags kernel/tags
 echo " eXo: kernel/tags DONE"
