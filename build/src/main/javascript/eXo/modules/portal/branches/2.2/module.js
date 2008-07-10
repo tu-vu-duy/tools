@@ -96,6 +96,9 @@ function getModule(params) {
     new Project("org.exoplatform.portal", "exo.portal.web.eXoSkinMac", "war", module.version);
   module.web.eXoVistaSkin = 
     new Project("org.exoplatform.portal", "exo.portal.web.eXoSkinVista", "war", module.version);
+	module.web.rest = 
+    new Project("org.exoplatform.portal", "exo.portal.web.rest", "war", module.version).
+    addDependency(ws.frameworks.servlet);
       
   module.web.portal = 
     new Project("org.exoplatform.portal", "exo.portal.web.portal", "exo-portal", module.version).
