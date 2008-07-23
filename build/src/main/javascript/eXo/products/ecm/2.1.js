@@ -9,7 +9,7 @@ function getProduct(version) {
   product.codeRepo = "ecm/branches/2.1" ;
   product.useWorkflow = true;
   product.workflowVersion = "2.1" ;
-  product.serverPluginVersion = "2.1" ;
+  product.serverPluginVersion = "2.2" ;
 
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.2") ;
