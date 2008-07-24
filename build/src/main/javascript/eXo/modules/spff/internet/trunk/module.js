@@ -43,11 +43,19 @@ function getModule(params) {
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web) ;
 
+//  module.patch = {}
+//  module.patch.loginmodule  = 
+//    new Project("org.exoplatform.spff", "spff.patch.loginmodule", "jar", module.version) ;
+
   module.server = {}
   
   module.server.tomcat = {}
   module.server.tomcat.patch = 
     new Project("org.exoplatform.spff", "spff.server.tomcat.patch", "jar", module.version);
+
+  module.server.jboss = {}
+  module.server.jboss.patch = 
+    new Project("org.exoplatform.spff", "spff.server.jboss.patch", "jar", module.version);
 
   return module;
 }
