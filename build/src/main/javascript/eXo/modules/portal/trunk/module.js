@@ -14,43 +14,49 @@ function getModule(params) {
   module.relativeMavenRepo =  "org/exoplatform/portal" ;
   module.relativeSRCRepo =  "portal/trunk" ;
   module.name =  "portal" ;
-    
+     
   module.component = {}
-  module.component.portal  = 
-    new Project("org.exoplatform.portal", "exo.portal.component.portal", "jar", module.version) ;
-  module.component.web = 
-    new Project("org.exoplatform.portal", "exo.portal.component.web", "jar", module.version) ;
-  module.component.applicationRegistry  = 
-    new Project("org.exoplatform.portal", "exo.portal.component.application-registry", "jar", module.version).
-  addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")) ;
   module.component.resources = 
     new Project("org.exoplatform.portal", "exo.portal.component.resources", "jar", module.version) ;
-      
+    
   module.component.xmlParser = 
     new Project("org.exoplatform.portal", "exo.portal.component.xml-parser", "jar", module.version).
     addDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0")).
     addDependency(new Project("commons-codec", "commons-codec", "jar", "1.3"));
-     
+      
   module.component.scripting =
     new Project("org.exoplatform.portal", "exo.portal.component.scripting", "jar", module.version).
-    addDependency(new Project("rhino", "js", "jar", "1.6R5")) ;
+    addDependency(module.component.xmlParser).
+    addDependency(new Project("rhino", "js", "jar", "1.6R5")).
+    addDependency(new Project("org.codehaus.groovy", "groovy-all", "jar", "1.5.6")) ;
+    
+  module.component.web = 
+    new Project("org.exoplatform.portal", "exo.portal.component.web", "jar", module.version).
+    addDependency(module.component.scripting) ;
+
+  module.component.portal  = 
+    new Project("org.exoplatform.portal", "exo.portal.component.portal", "jar", module.version).
+    addDependency(module.component.web) ;
+
+  module.component.applicationRegistry  = 
+    new Project("org.exoplatform.portal", "exo.portal.component.application-registry", "jar", module.version).
+    addDependency(module.component.portal).
+  	addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")) ;
 
   module.webui = {};
   module.webui.core = 
-    new Project("org.exoplatform.portal", "exo.portal.webui.core", "jar", module.version) ;
+    new Project("org.exoplatform.portal", "exo.portal.webui.core", "jar", module.version).
+    addDependency(module.component.web) ;
+    
   module.webui.eXo = 
-    new Project("org.exoplatform.portal", "exo.portal.webui.eXo", "jar", module.version) ;
+    new Project("org.exoplatform.portal", "exo.portal.webui.eXo", "jar", module.version).
+    addDependency(module.component.applicationRegistry).
+    addDependency(module.webui.core) ;
 
   module.webui.portal = 
     new Project("org.exoplatform.portal", "exo.portal.webui.portal", "jar", module.version).
-    addDependency(module.webui.core) .
-    addDependency(module.webui.eXo) .
-    addDependency(module.component.web).
     addDependency(module.component.resources) .
-    addDependency(module.component.applicationRegistry) .
-    addDependency(module.component.portal).
-    addDependency(module.component.xmlParser).
-    addDependency(module.component.scripting). 
+    addDependency(module.webui.eXo) .
     
     addDependency(kernel.container) .
     addDependency(kernel.component.common) .
@@ -93,25 +99,26 @@ function getModule(params) {
     new Project("org.exoplatform.portal", "exo.portal.eXoWidgetWeb", "war", module.version);
   module.eXoWidget.web.deployName = "eXoWidgetWeb" ;
   
-  module.eXoGadgetServer = new Project("org.exoplatform.portal", "exo.portal.gadgets-server", "war", module.version).
-	addDependency(new Project("commons-digester", "commons-digester", "jar", "1.7")).
-	addDependency(new Project("commons-io", "commons-io", "jar", "1.4")).
-	addDependency(new Project("net.oauth", "core", "jar", "20080328")).
-	addDependency(new Project("com.google.code.google-collections", "google-collect", "jar", "snapshot-20080321")).
-	addDependency(new Project("com.google.code.guice", "guice", "jar", "1.0")).
-	addDependency(new Project("org.hamcrest", "hamcrest-all", "jar", "1.1")).
-	addDependency(new Project("nu.validator.htmlparser", "htmlparser", "jar", "1.0.5")).
-	addDependency(new Project("jaxen", "jaxen", "jar", "1.1.1")).
-	addDependency(new Project("joda-time", "joda-time", "jar", "1.5.2")).
-	addDependency(new Project("org.json", "json", "jar", "20070829")).
-	addDependency(new Project("org.apache.shindig", "shindig-common", "jar", "1-SNAPSHOT")).
-	addDependency(new Project("org.apache.shindig", "shindig-social-api", "jar", "1-SNAPSHOT")).
-	addDependency(new Project("org.exoplatform.portal", "exo.portal.gadgets-core", "jar", "trunk")).
-	addDependency(new Project("org.exoplatform.portal", "exo.portal.gadgets-features", "jar", "trunk")).
-	addDependency(new Project("org.codehaus.woodstox", "wstx-asl", "jar", "3.2.1")).
-	//addDependency(new Project("xerces", "xercesImpl", "jar", "2.6.2")).
-	//addDependency(new Project("xml-apis", "xml-apis", "jar", "1.0.b2")).
-  addDependency(new Project("caja", "caja", "jar", "r820"));
+  module.eXoGadgetServer = 
+  	new Project("org.exoplatform.portal", "exo.portal.gadgets-server", "war", module.version).
+		addDependency(new Project("commons-digester", "commons-digester", "jar", "1.7")).
+		addDependency(new Project("commons-io", "commons-io", "jar", "1.4")).
+		addDependency(new Project("net.oauth", "core", "jar", "20080328")).
+		addDependency(new Project("com.google.code.google-collections", "google-collect", "jar", "snapshot-20080321")).
+		addDependency(new Project("com.google.code.guice", "guice", "jar", "1.0")).
+		addDependency(new Project("org.hamcrest", "hamcrest-all", "jar", "1.1")).
+		addDependency(new Project("nu.validator.htmlparser", "htmlparser", "jar", "1.0.5")).
+		addDependency(new Project("jaxen", "jaxen", "jar", "1.1.1")).
+		addDependency(new Project("joda-time", "joda-time", "jar", "1.5.2")).
+		addDependency(new Project("org.json", "json", "jar", "20070829")).
+		addDependency(new Project("org.apache.shindig", "shindig-common", "jar", "1-SNAPSHOT")).
+		addDependency(new Project("org.apache.shindig", "shindig-social-api", "jar", "1-SNAPSHOT")).
+		addDependency(new Project("org.exoplatform.portal", "exo.portal.gadgets-core", "jar", "trunk")).
+		addDependency(new Project("org.exoplatform.portal", "exo.portal.gadgets-features", "jar", "trunk")).
+		addDependency(new Project("org.codehaus.woodstox", "wstx-asl", "jar", "3.2.1")).
+		//addDependency(new Project("xerces", "xercesImpl", "jar", "2.6.2")).
+		//addDependency(new Project("xml-apis", "xml-apis", "jar", "1.0.b2")).
+	  addDependency(new Project("caja", "caja", "jar", "r820"));
 	
 	
 	
