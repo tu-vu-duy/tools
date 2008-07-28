@@ -43,9 +43,9 @@ function getModule(params) {
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web) ;
 
-//  module.patch = {}
-//  module.patch.loginmodule  = 
-//    new Project("org.exoplatform.spff", "spff.patch.loginmodule", "jar", module.version) ;
+  module.patch = {}
+  module.patch.loginmodule  = 
+    new Project("org.exoplatform.spff", "spff.patch.loginmodule", "jar", module.version) ;
 
   module.server = {}
   

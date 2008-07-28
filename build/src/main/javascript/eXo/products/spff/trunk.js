@@ -52,7 +52,7 @@ function getProduct(version) {
   product.addDependencies(spff.web.spffResources) ;
   product.addDependencies(spff.web.spffportal) ;
   product.addDependencies(spff.component.synchro) ;
-//  product.addDependencies(spff.patch.loginmodule) ; // to use only with JBoss, not Tomcat
+  product.addDependencies(spff.patch.loginmodule) ; // to use only with JBoss, not Tomcat
   
   product.addServerPatch("tomcat", spff.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
@@ -61,7 +61,7 @@ function getProduct(version) {
   product.addServerPatch("ear",  portal.server.websphere.patch) ;
   
   product.module = spff ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, cs, ks,/* liveroom*/];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, cs, ks, liveroom];
     
   return product ;
 }
