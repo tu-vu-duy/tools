@@ -18,7 +18,8 @@ function getModule(params) {
   module.name =  "cp040608" ;
        
   module.portlet = {}
-  module.portlet.web = new Project("org.exoplatform.cp040608", "cp040608.portlet.web", "exo-portlet", module.version);
+  module.portlet.web = new Project("org.exoplatform.cp040608", "cp040608.portlet.web", "exo-portlet", module.version).
+  		addDependency(new Project("org.exoplatform.cp040608", "cp040608.component.rest", "jar",  module.version));
   module.portlet.web.deployName = "cp040608PortletWeb" ;
 	
   module.web = {} ;
