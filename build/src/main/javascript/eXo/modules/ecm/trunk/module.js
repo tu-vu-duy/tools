@@ -20,6 +20,7 @@ function getModule(params) {
   module.portlet.ecm = 
     new Project("org.exoplatform.ecm", "exo.ecm.portlet.ecm", "exo-portlet", module.version).
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.cms", "jar",  module.version)) .     
+    addDependency(new Project("org.exoplatform.ecm", "exo.ecm.webui.ecm", "jar", module.version)).
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.publication", "jar", module.version)).
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.connector.fckeditor", "jar", module.version)).
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.webui.ecm", "jar", module.version)).
@@ -36,12 +37,21 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.api", "jar", module.version));     
         
   module.web = {}
+  module.web.eXoECMResources = 
+    new Project("org.exoplatform.ecm", "exo.ecm.web.eXoECMResources", "war", module.version) ;
+  module.web.eXoECMSkinMac = 
+    new Project("org.exoplatform.ecm", "exo.ecm.web.eXoECMSkinMac", "war", module.version);
+  module.web.eXoECMSkinVista = 
+    new Project("org.exoplatform.ecm", "exo.ecm.web.eXoECMSkinVista", "war", module.version);
   module.web.rest = 
     new Project("org.exoplatform.ecm", "exo.ecm.web.rest", "war", module.version).
     addDependency(ws.frameworks.servlet);
     
   module.web.ecmportal = 
     new Project("org.exoplatform.ecm", "exo.ecm.web.portal", "exo-portal", module.version).
+    addDependency(module.web.eXoECMResources) .
+    addDependency(module.web.eXoECMSkinMac) .
+    addDependency(module.web.eXoECMSkinVista) .
     addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .
