@@ -11,7 +11,7 @@ function getModule(params) {
 
   var module = new Module();
 
-  module.version =  "1.0" ;
+  module.version =  "1.0-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/ks" ;
   module.relativeSRCRepo =  "ks/branches/1.0" ;
   module.name = "ks" ;
@@ -26,7 +26,7 @@ function getModule(params) {
   module.eXoApplication.faq = 
     new Project("org.exoplatform.ks", "exo.ks.eXoApplication.faq.webapp", "war", module.version).
       addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.faq.service", "jar",  module.version)).
-      addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar",  module.version));
+      addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar",  "1.1-SNAPSHOT"));
   module.eXoApplication.faq.deployName = "faq";
 
   module.eXoApplication.wiki = 
