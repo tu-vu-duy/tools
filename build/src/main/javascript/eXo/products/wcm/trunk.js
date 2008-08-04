@@ -27,13 +27,15 @@ function getProduct(version) {
   product.addDependencies(portal.eXoWidget.web) ;
 	product.addDependencies(portal.eXoGadgetServer) ;
 	product.addDependencies(portal.eXoGadgets) ;
-  
+	product.addDependencies(portal.web.rest);
+	
+	product.addDependencies(ecm.portlet.ecm);
+  product.addDependencies(ecm.portlet.workflow); 
+  product.addDependencies(ecm.web.eXoECMResources) ;
+  		 
   product.addDependencies(wcm.portlet.iweb);
   product.addDependencies(wcm.portlet.webpresentation);
-  product.addDependencies(wcm.portlet.websearches);
-  product.addDependencies(ecm.portlet.ecm);
-  product.addDependencies(ecm.portlet.workflow);
-  product.addDependencies(ecm.web.rest);
+  product.addDependencies(wcm.portlet.websearches); 
   product.addDependencies(wcm.web.wcmResources) ;
   product.addDependencies(wcm.web.wcmportal) ;        
   
