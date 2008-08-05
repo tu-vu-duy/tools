@@ -12,9 +12,9 @@ function getModule(params) {
 
   var module = new Module();
 
-  module.version = "2.0.1" ;
+  module.version = "2.0.2" ;
   module.relativeMavenRepo =  "org/exoplatform/ecm" ;
-  module.relativeSRCRepo =  "ecm/branches/2.0.1" ;
+  module.relativeSRCRepo =  "ecm/tags/2.0.2" ;
   module.name =  "ecm" ;
     
   module.portlet = {}
