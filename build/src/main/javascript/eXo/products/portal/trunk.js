@@ -17,6 +17,7 @@ function getProduct(version) {
   var portal = Module.GetModule("portal/trunk", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
 
   product.addDependencies(portal.web.portal) ;
+  product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.portlet.dashboard) ;
