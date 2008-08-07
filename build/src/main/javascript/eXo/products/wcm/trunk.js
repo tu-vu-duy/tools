@@ -30,13 +30,13 @@ function getProduct(version) {
 	product.addDependencies(portal.web.rest);
 	
 	product.addDependencies(ecm.portlet.ecm);
-  product.addDependencies(ecm.portlet.workflow); 
-  product.addDependencies(ecm.web.eXoECMResources) ;
+  product.addDependencies(ecm.portlet.workflow);   
   		 
   product.addDependencies(wcm.portlet.iweb);
   product.addDependencies(wcm.portlet.webpresentation);
   product.addDependencies(wcm.portlet.websearches); 
-  product.addDependencies(wcm.web.wcmResources) ;
+  product.addDependencies(wcm.web.eXoWCMResources) ;
+  product.addDependencies(ecm.web.eXoECMResources) ;
   product.addDependencies(wcm.web.wcmportal) ;        
   
   product.addServerPatch("tomcat", ecm.server.tomcat.patch) ;
