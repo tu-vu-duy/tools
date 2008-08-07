@@ -37,8 +37,8 @@ function getModule(params) {
     
       
   module.web = {};
-  module.web.wcmResources = 
-    new Project("org.exoplatform.wcm", "exo.wcm.web.wcmResources", "war", module.version);
+  module.web.eXoWCMResources = 
+    new Project("org.exoplatform.wcm", "exo.wcm.web.eXoWCMResources", "war", module.version);
     
   module.web.wcmportal = 
     new Project("org.exoplatform.wcm", "exo.wcm.web.portal", "exo-portal", module.version).        
