@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "eXoPortal" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "portal/branches/2.2" ;
+  product.codeRepo = "portal/tags/2.2" ;
   product.serverPluginVersion = "2.2" ;
   
   var tool = Module.GetModule("tools/trunk") ;
@@ -15,7 +15,7 @@ function getProduct(version) {
   var ws = Module.GetModule("ws/tags/1.2.1");
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.1", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.9.1") ;
-  var portal = Module.GetModule("portal/branches/2.2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
+  var portal = Module.GetModule("portal/tags/2.2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
 
   product.addDependencies(portal.web.portal) ;
   product.addDependencies(portal.portlet.exoadmin) ;

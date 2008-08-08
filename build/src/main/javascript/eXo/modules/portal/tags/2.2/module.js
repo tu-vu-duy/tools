@@ -13,7 +13,7 @@ function getModule(params) {
 
   module.version =  "2.2" ;
   module.relativeMavenRepo =  "org/exoplatform/portal" ;
-  module.relativeSRCRepo =  "portal/branches/2.2" ;
+  module.relativeSRCRepo =  "portal/tags/2.2" ;
   module.name =  "portal" ;
     
   module.component = {}
