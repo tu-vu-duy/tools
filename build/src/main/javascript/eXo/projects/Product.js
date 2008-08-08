@@ -64,6 +64,18 @@ Product.prototype.getDependencies = function() {
   return this.dependenciesHolder.values() ; 
 }
 
+Product.prototype.getDependency = function(project) { 
+  return this.dependenciesHolder.get(project.relativePath) ; 
+}
+
+Product.prototype.hasDependency = function(project) { 
+  return this.dependenciesHolder.containsKey(project.relativePath);
+}
+
+Product.prototype.removeDependency = function(project) {
+  this.dependenciesHolder.remove(project.relativePath);
+}
+
 Product.prototype.hasDependencyModule = function(depName) {
 	var hasDep = false;
 	if (this.dependencyModule !== null) {
