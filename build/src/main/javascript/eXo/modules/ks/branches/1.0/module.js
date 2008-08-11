@@ -8,7 +8,7 @@ function getModule(params) {
   var eXoPortletContainer = params.eXoPortletContainer;
   var jcr = params.eXoJcr;
   var portal = params.portal;
-
+  var ws = params.ws;
   var module = new Module();
 
   module.version =  "1.0-SNAPSHOT" ;
