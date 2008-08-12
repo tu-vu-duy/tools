@@ -45,9 +45,7 @@ function getModule(params) {
     
   module.web.ecmportal = 
     new Project("org.exoplatform.ecm", "exo.ecm.web.portal", "exo-portal", module.version).
-    addDependency(module.web.eXoECMResources) .
-    addDependency(module.web.eXoECMSkinMac) .
-    addDependency(module.web.eXoECMSkinVista) .
+    addDependency(module.web.eXoECMResources) .    
     addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .
