@@ -39,13 +39,13 @@ function getModule(params) {
   module.web = {}
   module.web.eXoECMResources = 
     new Project("org.exoplatform.ecm", "exo.ecm.web.eXoECMResources", "war", module.version) ;  
+  module.web.eXoECMResources.deployName = "eXoECMResources" ;
   module.web.rest = 
     new Project("org.exoplatform.ecm", "exo.ecm.web.rest", "war", module.version).
     addDependency(ws.frameworks.servlet);
     
   module.web.ecmportal = 
     new Project("org.exoplatform.ecm", "exo.ecm.web.portal", "exo-portal", module.version).
-    addDependency(module.web.eXoECMResources) .    
     addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .

@@ -22,6 +22,7 @@ function getProduct(version) {
     
   product.addDependencies(ecm.web.ecmportal) ;
   product.addDependencies(ecm.web.rest) ;
+  product.addDependencies(ecm.web.eXoECMResources) ;
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(ecm.portlet.ecm) ;
