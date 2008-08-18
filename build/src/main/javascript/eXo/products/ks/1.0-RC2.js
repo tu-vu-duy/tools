@@ -15,7 +15,7 @@ function getProduct(version) {
   var eXoJcr = Module.GetModule("jcr/tags/1.9") ;
   var portal = Module.GetModule("portal/tags/2.2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });  
   var cs = Module.GetModule("cs/branches/1.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var ks = Module.GetModule("ks/tags/rc1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, cs: cs});
+  var ks = Module.GetModule("ks/tags/rc2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, cs: cs});
   
 
   product.addDependencies(portal.portlet.exoadmin) ;
@@ -36,7 +36,7 @@ function getProduct(version) {
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
     
-  product.codeRepo = "ks/tags/rc1" ;
+  product.codeRepo = "ks/tags/rc2" ;
 
   product.module = ks ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, cs ];
