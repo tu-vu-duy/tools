@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "eXoWebOS" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "webos/branches/1.0.2" ;
+  product.codeRepo = "webos/branches/1.1" ;
   product.useWorkflow = false;
   product.serverPluginVersion = "2.1.2" ;
     
@@ -17,7 +17,7 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.8.3") ;
   var portal = Module.GetModule("portal/branches/2.1.2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
-  var webos = Module.GetModule("webos/branches/1.0.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal });
+  var webos = Module.GetModule("webos/branches/1.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal });
   
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
