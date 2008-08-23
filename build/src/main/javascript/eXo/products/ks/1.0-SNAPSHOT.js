@@ -23,10 +23,10 @@ function getProduct(version) {
   product.addDependencies(portal.eXoWidget.web) ;
             
   product.addDependencies(ks.eXoApplication.forum) ;
-  
-  product.addDependencies(ks.eXoApplication.blog) ;
-  product.addDependencies(ks.eXoApplication.wiki) ;
   product.addDependencies(ks.eXoApplication.faq) ;
+  //product.addDependencies(ks.eXoApplication.blog) ;
+  //product.addDependencies(ks.eXoApplication.wiki) ;
+
   product.addDependencies(ks.web.ksportal) ;
   
   product.addDependencies(cs.web.csResources) ;
