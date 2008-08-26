@@ -170,14 +170,6 @@
         <exo.test.includes>Test*</exo.test.includes>
         <exo.compile.optimize>true</exo.compile.optimize>
 
-<!-- Uncomment this if you want to use a proxy-->
-<!--	
-        <exo.proxy.host>webcache.exoplatform.org</exo.proxy.host>
-        <exo.proxy.port>3128</exo.proxy.port>
-        <exo.proxy.username></exo.proxy.username>
-        <exo.proxy.password></exo.proxy.password>
-        <exo.proxy.nonProxyHosts></exo.proxy.nonProxyHosts>
--->	
       </properties>
     </profile>
 
