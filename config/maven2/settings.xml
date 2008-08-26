@@ -41,20 +41,23 @@
       -->
     </server>
   </servers>
-  <!--
+
+<!-- Uncomment this if you want to use a proxy-->
+<!--
   <proxies>
     <proxy>
-      <id>eXoPlatformProxy</id>
+      <id>eXoProxy</id>
       <active>true</active>
       <protocol>http</protocol>
-      <username></username>
-      <password></password>
       <host>webcache.exoplatform.org</host>
       <port>3128</port>
-      <nonProxyHosts></nonProxyHosts>
+      <username></username>
+      <password></password>
+      <nonProxyHosts>*.google.com|ibiblio.org</nonProxyHosts>
     </proxy>
   </proxies>
-  -->
+-->
+
   <offline>false</offline>
   <profiles>
 
