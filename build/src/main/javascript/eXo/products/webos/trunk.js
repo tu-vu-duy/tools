@@ -17,13 +17,22 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/trunk") ;
   var portal = Module.GetModule("portal/trunk", {kernel : kernel, core : core, ws:ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
-  var webos = Module.GetModule("webos/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal });
+  var webos = Module.GetModule("webos/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   
+  product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
+  product.addDependencies(portal.portlet.dashboard) ;
   product.addDependencies(portal.eXoWidget.web) ;
-
-	product.addDependencies(webos.web.webosResources) ;
+	product.addDependencies(portal.eXoGadgetServer) ;
+	product.addDependencies(portal.eXoGadgets) ;
+  product.addDependencies(portal.webui.portal);
+  
+	product.addDependencies(portal.web.eXoResources);
+	product.addDependencies(portal.web.eXoMacSkin);
+	product.addDependencies(portal.web.eXoVistaSkin);
+	product.addDependencies(webos.web.webosResources);
+	
   product.addDependencies(webos.web.webosportal) ;
   
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;

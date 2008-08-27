@@ -7,7 +7,6 @@ function getModule(params) {
   var core = params.core;
   var eXoPortletContainer = params.eXoPortletContainer;
   var jcr = params.eXoJcr;
-  var portal = params.portal;
 
   var module = new Module();
 
@@ -21,10 +20,6 @@ function getModule(params) {
   	new Project("org.exoplatform.webos", "exo.webos.web.webosResources", "war", module.version) ;
   module.web.webosportal = 
     new Project("org.exoplatform.webos", "exo.webos.web.portal", "exo-portal", module.version).
-    addDependency(portal.webui.portal) .
-  	addDependency(portal.web.eXoResources).
-    addDependency(portal.web.eXoMacSkin) .
-    addDependency(portal.web.eXoVistaSkin).
     addDependency(jcr.frameworks.web).
     addDependency(jcr.frameworks.command) ;
 

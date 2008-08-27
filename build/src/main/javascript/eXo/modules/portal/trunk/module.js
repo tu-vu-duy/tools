@@ -140,11 +140,7 @@ function getModule(params) {
     addDependency(ws.frameworks.servlet);
     
   module.web.portal = 
-    new Project("org.exoplatform.portal", "exo.portal.web.portal", "exo-portal", module.version).
-    addDependency(module.webui.portal) .
-    addDependency(module.web.eXoResources).
-    addDependency(module.web.eXoMacSkin).
-    addDependency(module.web.eXoVistaSkin).
+  	new Project("org.exoplatform.portal", "exo.portal.web.portal", "exo-portal", module.version).
     addDependency(jcr.frameworks.web).
     addDependency(jcr.frameworks.command) ;
   
