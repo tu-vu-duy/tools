@@ -18,21 +18,12 @@ function getModule(params) {
     
   module.eXoApplication = {};
     
-  module.eXoApplication.blog = 
-    new Project("org.exoplatform.ks", "exo.ks.eXoApplication.blog.webapp", "war", module.version).
-      addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.blog.service", "jar",  module.version));
-  module.eXoApplication.blog.deployName = "blog";
 
   module.eXoApplication.faq = 
     new Project("org.exoplatform.ks", "exo.ks.eXoApplication.faq.webapp", "war", module.version).
       addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.faq.service", "jar",  module.version)).
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar",  "1.1-SNAPSHOT"));
   module.eXoApplication.faq.deployName = "faq";
-
-  module.eXoApplication.wiki = 
-    new Project("org.exoplatform.ks", "exo.ks.eXoApplication.wiki.webapp", "war", module.version).
-      addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.wiki.service", "jar",  module.version));
-  module.eXoApplication.wiki.deployName = "wiki";
 
 
   module.eXoApplication.forum = 
