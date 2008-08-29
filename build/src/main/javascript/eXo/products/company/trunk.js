@@ -20,7 +20,7 @@ function getProduct(version) {
   var eXoJcr = Module.GetModule("jcr/tags/1.8.3") ;
   var portal = Module.GetModule("portal/tags/2.1.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/tags/2.0.2", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var company = Module.GetModule("company/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var company = Module.GetModule("company/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
 
   product.addDependencies(company.component.web) ;
   product.addDependencies(company.portlet.web) ;
@@ -29,7 +29,7 @@ function getProduct(version) {
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.eXoWidget.web) ;
-  product.addDependencies(ecm.portlet.ecm) ;
+  product.addDependencies(company.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;    
 
   product.addServerPatch("tomcat", company.server.tomcat.patch) ;
