@@ -21,7 +21,7 @@ function getProduct(version) {
   
   product.addDependencies(social.web.portal) ;
   product.addDependencies(social.web.eXoResources) ;
-  //product.addDependencies(social.component.core) ;
+  product.addDependencies(social.component.core) ;
   product.addDependencies(social.component.community) ;
   product.addDependencies(social.portlet.web) ;
     
