@@ -16,11 +16,11 @@ function getModule(params) {
   module.name = "social" ;  
 	
 	module.component = {} ;
-	module.component.core = 
-		new Project("org.exoplatform.social", "exo.social.component.core","jar", module.version);
+	module.component.people = 
+		new Project("org.exoplatform.social", "exo.social.component.people","jar", module.version);
 	
-	module.component.community = 
-		new Project("org.exoplatform.social", "exo.social.component.community","jar", module.version);
+	module.component.space = 
+		new Project("org.exoplatform.social", "exo.social.component.space","jar", module.version);
 	
 	module.web = {} ;
   module.web.portal = 
