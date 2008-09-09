@@ -23,6 +23,7 @@ function getModule(params) {
     new Project("org.exoplatform.wcm", "exo.wcm.portlet.web-presentation", "exo-portlet", module.version).    
     addDependency(new Project("org.exoplatform.wcm", "exo.wcm.connector.fckeditor", "jar",  module.version)).
     addDependency(new Project("org.exoplatform.wcm", "exo.wcm.component.wcm", "jar",  module.version)).
+    addDependency(new Project("org.exoplatform.wcm", "exo.wcm.component.plugins", "jar",  module.version)).
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.webui.ecm", "jar",  module.version));
     
  module.portlet.websearches = 
@@ -39,7 +40,7 @@ function getModule(params) {
     new Project("org.exoplatform.wcm", "exo.wcm.web.eXoWCMResources", "war", module.version);
     
   module.web.wcmportal = 
-    new Project("org.exoplatform.wcm", "exo.wcm.web.portal", "exo-portal", module.version).        
+    new Project("org.exoplatform.wcm", "exo.wcm.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .
