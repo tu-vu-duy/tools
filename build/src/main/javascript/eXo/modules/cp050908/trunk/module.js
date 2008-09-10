@@ -36,7 +36,6 @@ function getModule(params) {
   module.server.tomcat.patch = 
     new Project("org.exoplatform.cp050908", "cp050908.server.tomcat.patch", "jar", module.version);
 
-  module.web = {}
   module.web.portal = 
     new Project("org.exoplatform.cp050908", "exo.cp050908.web.portal", "exo-portal", module.version).   
     addDependency(portal.web.eXoResources) .

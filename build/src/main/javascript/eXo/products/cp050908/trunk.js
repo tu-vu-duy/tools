@@ -30,7 +30,9 @@ function getProduct(version) {
   product.addDependencies(ecm.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;
 
-  product.addDependencies(cp050908.web.portal) ;
+  product.addDependencies(cp050908.web.portal);
+  product.addDependencies(cp050908.portlet.web);
+  product.addDependencies(cp050908.web.eXoResources);
 
   product.addServerPatch("tomcat", cp050908.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
