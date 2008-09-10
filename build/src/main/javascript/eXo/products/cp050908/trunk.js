@@ -33,7 +33,7 @@ function getProduct(version) {
   product.addDependencies(cp050908.web.portal);
   product.addDependencies(cp050908.portlet.web);
   product.addDependencies(cp050908.web.eXoResources);
-
+  
   product.addServerPatch("tomcat", cp050908.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
