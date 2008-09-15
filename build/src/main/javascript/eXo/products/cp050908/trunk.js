@@ -21,6 +21,9 @@ function getProduct(version) {
   var ecm = Module.GetModule("ecm/tags/2.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var cp050908 = Module.GetModule("cp050908/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
     
+  product.addDependencies(core.component.ldap);
+  product.addDependencies(core.component.organization.ldap);
+  
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.eXoWidget.web) ;
@@ -33,10 +36,10 @@ function getProduct(version) {
   product.addDependencies(cp050908.web.portal);
   product.addDependencies(cp050908.portlet.web);
   product.addDependencies(cp050908.web.eXoResources);
+  product.addDependencies(cp050908.portlet.prope);
   
   product.addServerPatch("tomcat", cp050908.server.tomcat.patch) ;
-  product.addServerPatch("jboss",  portal.server.jboss.patch) ;
-  product.addServerPatch("jonas",  portal.server.jonas.patch) ;
+  product.addServerPatch("jbossear",  portal.server.jbossear.patch) ;
 
   product.module = cp050908 ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm];
