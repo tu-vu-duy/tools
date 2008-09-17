@@ -24,6 +24,9 @@ function getModule(params) {
   addDependency(new Project("javax.faces", "jsf-api", "jar", "1.2_04-p02")).
   addDependency(new Project("javax.faces", "jsf-impl", "jar", "1.2_04-p02")).
   addDependency(new Project("javax.servlet", "jstl", "jar", "1.2"));
+ 
+  module.portlet.full6 = new Project("org.exoplatform.cp050908", "cp050908.portlet.full6", "exo-portlet", module.version).
+  addDependency(new Project("javax.servlet", "jstl", "jar", "1.2"));  
   
   module.web = {} ;
   module.web.eXoResources = new Project("org.exoplatform.cp050908", "cp050908.web.cp050908Resources", "war", module.version);
