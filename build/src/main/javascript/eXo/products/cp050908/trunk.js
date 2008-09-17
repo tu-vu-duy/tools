@@ -37,6 +37,7 @@ function getProduct(version) {
   product.addDependencies(cp050908.portlet.web);
   product.addDependencies(cp050908.web.eXoResources);
   product.addDependencies(cp050908.portlet.prope);
+  product.addDependencies(cp050908.portlet.full6);
   
   product.addServerPatch("tomcat", cp050908.server.tomcat.patch) ;
   product.addServerPatch("jbossear",  portal.server.jbossear.patch) ;
