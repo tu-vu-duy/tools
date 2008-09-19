@@ -15,7 +15,7 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk", {kernel : kernel, core : core}) ;    
   var eXoJcr = Module.GetModule("jcr/trunk") ;
   var portal = Module.GetModule("portal/trunk", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
-  var webos = Module.GetModule("webos/trunk", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
+//  var webos = Module.GetModule("webos/trunk", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
 
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
@@ -29,7 +29,7 @@ function getProduct(version) {
 	product.addDependencies(portal.web.eXoResources);
 	product.addDependencies(portal.web.eXoMacSkin);
 	product.addDependencies(portal.web.eXoVistaSkin);
-	product.addDependencies(webos.web.webosResources);
+//	product.addDependencies(webos.web.webosResources);
 
   product.addDependencies(portal.web.portal) ;
 
