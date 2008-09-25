@@ -8,7 +8,7 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "cp060508/trunk" ;
   product.useWorkflow = true;
-  product.workflowVersion = "2.0.1" ;
+  product.workflowVersion = "2.0" ;
   product.serverPluginVersion = "2.1" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
@@ -20,7 +20,7 @@ function getProduct(version) {
   // Before changing portal version, please notify Romain !!
   var portal = Module.GetModule("portal/tags/2.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/tags/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
-  var cs = Module.GetModule("cs/tags/1.0.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ws : ws});
+  var cs = Module.GetModule("cs/branches/1.0.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ws : ws});
   var cp060508 = Module.GetModule("cp060508/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
     
   product.addDependencies(cp060508.web.portal) ; 
