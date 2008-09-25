@@ -5,12 +5,13 @@ function getModule(params) {
 
   var module = new Module();
   
-  module.version = "2.1" ;
+  module.version = "2.1.1" ;
   module.relativeMavenRepo = "org/exoplatform/core" ;
-  module.relativeSRCRepo = "core/tags/2.1" ;
+  module.relativeSRCRepo = "core/tags/2.1.1" ;
   module.name = "core" ;
 
   module.component = {}
+     
   module.component.ldap = new Project("org.exoplatform.core", "exo.core.component.ldap", "jar", module.version) ;
 
   module.component.database = 
@@ -18,7 +19,7 @@ function getModule(params) {
     addDependency(new Project("com.experlog", "xapool", "jar", "1.5.0")).
     addDependency(new Project("org.hibernate", "hibernate", "jar", "3.1.2")).
     addDependency(new Project("commons-collections", "commons-collections", "jar", "3.1")).
-    addDependency(new Project("c3p0", "c3p0", "jar", "0.8.4.5")).
+    addDependency(new Project("c3p0", "c3p0", "jar", "0.9.1.2")).
     addDependency(new Project("antlr", "antlr", "jar", "2.7.6rc1")).
     addDependency(new Project("javax.transaction", "jta", "jar", "1.0.1B")).
     addDependency(new Project("jotm", "jotm_jrmp_stubs", "jar", "2.0.10")).
@@ -41,7 +42,7 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.core", "exo.core.component.organization.jdbc", "jar", module.version));
 	
   module.component.organization.ldap =
-	new Project("org.exoplatform.core", "exo.core.component.organization.ldap", "jar", "2.1.1");
+	new Project("org.exoplatform.core", "exo.core.component.organization.ldap", "jar", module.version);
 	
   module.component.security = {}
   module.component.security.core = 
