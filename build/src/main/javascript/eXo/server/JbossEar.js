@@ -72,7 +72,7 @@ JbossEar.prototype.preDeploy = function(product) {
 	product.addDependencies(new Project("commons-pool", "commons-pool", "jar", "1.2")) ;
   product.addDependencies(new Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;
   product.addDependencies(new Project("org.exoplatform.portal", "exo.portal.server.jboss.plugin", "jar", product.serverPluginVersion)) ;
-
+  //product.removeDependency(new Project("quartz", "quartz", "jar", "1.5.0-RC2"));
 }
 
 JbossEar.prototype.onDeploy = function(project) { }
