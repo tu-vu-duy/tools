@@ -23,9 +23,6 @@ function getProduct(version) {
   var ks = Module.GetModule("ks/tags/rc3", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ws : ws});
   var webos = Module.GetModule("webos/branches/1.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal });
   var intranet = Module.GetModule("intranet/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
-    
-  product.addDependencies(core.component.ldap);
-  product.addDependencies(core.component.organization.ldap);
   
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
@@ -49,6 +46,7 @@ function getProduct(version) {
   product.addDependencies(intranet.web.portal);
   product.addDependencies(intranet.portlet.web);
   product.addDependencies(intranet.web.eXoResources);
+  product.addDependencies(intranet.zoho);
   
   product.addDependencies(webos.web.webosportal) ;
   

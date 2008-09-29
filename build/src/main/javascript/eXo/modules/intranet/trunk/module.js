@@ -23,6 +23,13 @@ function getModule(params) {
   module.web = {} ;
   module.web.eXoResources = new Project("org.exoplatform.intranet", "intranet.web.intranetResources", "war", module.version);
   module.web.eXoResources.deployName = "eXoResourcesIntranet" ;
+  
+  module.zoho = new Project("org.exoplatform.intranet", "zoho.webapp", "war", module.version).
+  		addDependency(new Project("commons-fileupload", "commons-fileupload", "jar", "1.1")).
+  		addDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0")).
+  		addDependency(new Project("commons-io", "commons-io", "jar", "1.4")).
+  		addDependency(new Project("org.exoplatform.intranet", "zoho.service", "jar", module.version));
+  module.zoho.deployName = "zoho" ;
       
   module.server = {}
   module.server.tomcat = {}
