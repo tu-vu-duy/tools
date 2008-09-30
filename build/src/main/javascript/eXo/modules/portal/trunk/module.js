@@ -10,7 +10,7 @@ function getModule(params) {
   var ws = params.ws;
   var module = new Module();
 
-  module.version =  "trunk" ;
+  module.version =  "2.5-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/portal" ;
   module.relativeSRCRepo =  "portal/trunk" ;
   module.name =  "portal" ;
@@ -113,14 +113,13 @@ function getModule(params) {
 		addDependency(new Project("org.json", "json", "jar", "20070829")).
 		addDependency(new Project("org.apache.shindig", "shindig-common", "jar", "1-SNAPSHOT")).
 		addDependency(new Project("org.apache.shindig", "shindig-social-api", "jar", "1-SNAPSHOT")).
-		addDependency(new Project("org.exoplatform.portal", "exo.portal.gadgets-core", "jar", "trunk")).
 		addDependency(new Project("org.apache.shindig", "shindig-features", "jar", "1-SNAPSHOT")).
 		addDependency(new Project("org.codehaus.woodstox", "wstx-asl", "jar", "3.2.1")).
 		addDependency(new Project("com.ibm.icu", "icu4j", "jar", "3.8")).
 		//addDependency(new Project("xerces", "xercesImpl", "jar", "2.6.2")).
 		//addDependency(new Project("xml-apis", "xml-apis", "jar", "1.0.b2")).
-	  addDependency(new Project("caja", "caja", "jar", "r820"));
-	
+	  addDependency(new Project("caja", "caja", "jar", "r820")).
+	  addDependency(new Project("org.exoplatform.portal", "exo.portal.gadgets-core", "jar", module.version)) ;
   module.eXoGadgetServer.deployName = "eXoGadgetServer" ;
   
   module.eXoGadgets = new Project("org.exoplatform.portal", "exo.portal.eXoGadgets", "war", module.version);
