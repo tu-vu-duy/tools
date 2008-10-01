@@ -9,7 +9,7 @@ function getProduct(version) {
   product.codeRepo = "ecm/trunk" ;
   product.useWorkflow = true;
   product.workflowVersion = "trunk" ;
-  product.serverPluginVersion = "trunk" ;
+  product.serverPluginVersion = "2.5-SNAPSHOT" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/trunk") ;
