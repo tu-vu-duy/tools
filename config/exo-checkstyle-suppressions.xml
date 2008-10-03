@@ -7,4 +7,6 @@
   <suppress checks="PackageHtmlCheck" files=".+[\\\/]*"/>
   <suppress checks="InnerAssignmentCheck" files=".+[\\\/]*"/>
 
+  <suppress checks="HiddenFieldCheck" files=".+[\\\/]*"/>
+
 </suppressions>
