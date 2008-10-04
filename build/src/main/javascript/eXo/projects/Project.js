@@ -108,7 +108,10 @@ Project.prototype.deployTo = function(repository, server) {
         fileName = server.deployLibDir + "/" + this.artifactId + "-" +this.version + "." + this.type ;
       }
       
-      var out = new java.io.FileOutputStream(fileName) ;
+			var file = new java.io.File(fileName);
+			var parentFolder = new java.io.File(file.getParent()) ;
+      if(!parentFolder.exists()) parentFolder.mkdirs() ;
+      var out = new java.io.FileOutputStream(file) ;
 
       var is = url.openStream() ;
 

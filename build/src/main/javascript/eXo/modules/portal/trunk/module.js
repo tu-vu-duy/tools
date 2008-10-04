@@ -71,7 +71,7 @@ function getModule(params) {
     addDependency(core.component.documents).
     addDependency(core.component.resources).
 
-  	addDependency(ws.frameworks.cometd).
+//  	addDependency(ws.frameworks.cometd).
 
     addDependency(jcr.services.jcr).
 
