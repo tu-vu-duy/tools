@@ -54,6 +54,9 @@ function getProduct(version) {
   product.addDependencies(spff.component.synchro) ;
   product.addDependencies(spff.patch.loginmodule) ; // to use only with JBoss, not Tomcat
   
+  product.removeDependency(eXoPortletContainer.web.wsrp);
+  product.removeDependencyById("exo.jcr.component.ftp");
+  
   product.addServerPatch("tomcat", spff.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jboss",  spff.server.jboss.patch) ;
