@@ -68,12 +68,31 @@ Product.prototype.getDependency = function(project) {
   return this.dependenciesHolder.get(project.relativePath) ; 
 }
 
+Product.prototype.getDependencyById = function(depId) {
+	var arrDep = this.getDependencies().toArray();
+	for (var i = 0; i < arrDep.length; i++) {
+		var project = arrDep[i];
+		if (project.artifactId == depId) {
+			return project;
+		}
+	}
+	return null;
+}
+
 Product.prototype.hasDependency = function(project) { 
   return this.dependenciesHolder.containsKey(project.relativePath);
 }
 
 Product.prototype.removeDependency = function(project) {
+  eXo.System.info("DELETE", "Remove dependency " + project.artifactId);
   this.dependenciesHolder.remove(project.relativePath);
+}
+
+Product.prototype.removeDependencyById = function(projectId) {
+  var project = this.getDependencyById(projectId);
+  if (project !== null) {
+  	this.removeDependency(project);
+  }
 }
 
 Product.prototype.hasDependencyModule = function(depName) {
