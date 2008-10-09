@@ -111,11 +111,12 @@ function getModule(params) {
 		addDependency(new Project("jaxen", "jaxen", "jar", "1.1.1")).
 		addDependency(new Project("joda-time", "joda-time", "jar", "1.5.2")).
 		addDependency(new Project("org.json", "json", "jar", "20070829")).
-		addDependency(new Project("org.apache.shindig", "shindig-common", "jar", "r701294")).
-		addDependency(new Project("org.apache.shindig", "shindig-social-api", "jar", "r701294")).
-		addDependency(new Project("org.apache.shindig", "shindig-features", "jar", "r701294")).
+		addDependency(new Project("org.apache.shindig", "shindig-common", "jar", "r702815")).
+		addDependency(new Project("org.apache.shindig", "shindig-social-api", "jar", "r702815")).
+		addDependency(new Project("org.apache.shindig", "shindig-features", "jar", "r702815")).
 		addDependency(new Project("org.codehaus.woodstox", "wstx-asl", "jar", "3.2.1")).
 		addDependency(new Project("com.ibm.icu", "icu4j", "jar", "3.8")).
+		addDependency(new Project("backport-util-concurrent", "backport-util-concurrent", "jar", "3.1")).
 		//addDependency(new Project("xerces", "xercesImpl", "jar", "2.6.2")).
 		//addDependency(new Project("xml-apis", "xml-apis", "jar", "1.0.b2")).
 	  addDependency(new Project("caja", "caja", "jar", "r820")).
