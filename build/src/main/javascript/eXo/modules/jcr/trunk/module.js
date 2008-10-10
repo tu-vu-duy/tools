@@ -20,8 +20,10 @@ function getModule(params) {
     addDependency(new Project("javagroups", "jgroups-all", "jar", "2.5.0")).
     addDependency(new Project("stax", "stax-api", "jar", "1.0")).
 //		addDependency(new Project("stax", "stax", "jar", "1.2.0")).
-		addDependency(new Project("org.apache.ws.commons","ws-commons-util","jar","1.0.1")).
-    addDependency(new Project("org.apache.lucene", "lucene-core", "jar", "2.2.0")) ;
+		addDependency(new Project("org.apache.ws.commons","ws-commons-util","jar","1.0.1")).		
+    addDependency(new Project("org.apache.lucene", "lucene-core", "jar", "2.2.0")).
+    addDependency(new Project("org.apache.lucene", "lucene-spellchecker", "jar", "2.2.0")).
+    addDependency(new Project("org.apache.lucene", "lucene-memory", "jar", "2.2.0"));
 
   module.frameworks = {}
   module.frameworks.web = 
