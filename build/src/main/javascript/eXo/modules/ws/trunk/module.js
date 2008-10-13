@@ -39,8 +39,8 @@ function getModule(params) {
 
   module.frameworks.cometd =
 	new Project("org.exoplatform.ws", "exo.ws.frameworks.cometd.webapp", "war", module.version).
-    addDependency(new Project("org.mortbay.jetty", "cometd-bayeux", "jar", "7.0-SNAPSHOT")).
-	addDependency(new Project("org.mortbay.jetty", "jetty-util", "jar", "7.0-SNAPSHOT")).
+    addDependency(new Project("org.mortbay.jetty", "cometd-bayeux", "jar", "6.1.11")).
+	addDependency(new Project("org.mortbay.jetty", "jetty-util", "jar", "6.1.11")).
 	addDependency(new Project("org.mortbay.jetty", "cometd-api", "jar", "0.9.20080221")).
 	addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.cometd.service", "jar", module.version));  
           
