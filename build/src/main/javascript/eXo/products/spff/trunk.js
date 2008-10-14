@@ -8,7 +8,7 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "spff/internet/trunk" ;
   product.useWorkflow = true;  
-  product.workflowVersion = "2.1" ;
+  product.workflowVersion = "2.1.1" ;
   product.serverPluginVersion = "2.2" ;
   
   var tool =  Module.GetModule("tools/trunk") ;
@@ -46,7 +46,8 @@ function getProduct(version) {
   product.addDependencies(ks.eXoApplication.forum) ;
   product.addDependencies(ks.eXoApplication.faq) ;
   
-  product.addDependencies(liveroom.eXoApplication.chat.webapp) ;
+  //product.addDependencies(liveroom.eXoApplication.chat.webapp) ;
+  product.addDependencies(liveroom.eXoApplication.whiteboard.webapp) ;
   
   product.addDependencies(spff.portlet.web) ;
   product.addDependencies(spff.web.spffResources) ;
@@ -55,6 +56,8 @@ function getProduct(version) {
   product.addDependencies(spff.patch.loginmodule) ; // to use only with JBoss, not Tomcat
   
   product.removeDependency(eXoPortletContainer.web.wsrp);
+  product.removeDependency(eXoPortletContainer.services.wsrp1);
+  product.removeDependency(eXoPortletContainer.services.wsrp2);
   product.removeDependencyById("exo.jcr.component.ftp");
   
   product.addServerPatch("tomcat", spff.server.tomcat.patch) ;
