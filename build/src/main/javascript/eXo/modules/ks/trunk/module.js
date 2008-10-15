@@ -29,6 +29,7 @@ function getModule(params) {
 
   module.eXoApplication.forum = 
     new Project("org.exoplatform.ks", "exo.ks.eXoApplication.forum.webapp", "war", module.version).
+      addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", module.version)).
       addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.forum.service", "jar",  module.version));
   module.eXoApplication.forum.deployName = "forum";
 
@@ -42,6 +43,8 @@ function getModule(params) {
   /*module.web.ksResources = 
     new Project("org.exoplatform.ks", "exo.ks.web.ksResources", "war", module.version) ;
     */
+  module.web.webservice = 
+    new Project("org.exoplatform.ks", "exo.ks.web.webservice", "jar",  module.version);
   module.web.ksportal = 
     new Project("org.exoplatform.ks", "exo.ks.web.portal", "exo-portal", module.version).
       addDependency(portal.web.eXoResources) .
