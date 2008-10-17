@@ -17,8 +17,8 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.ws", "exo.ws.commons", "jar", module.version)).
     addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0")) .
     addDependency(new Project("javax.xml.parsers", "jaxp-api", "jar", "1.4")) .
-    addDependency(new Project("javax.xml.bind", "jaxp-api", "jar", "2.0")) .
-    addDependency(new Project("com.sun.xml.bind", "jaxb-impl", "jar", "2.0.2")) .
+    addDependency(new Project("javax.xml.bind", "jaxp-api", "jar", "2.1")) .
+    addDependency(new Project("com.sun.xml.bind", "jaxb-impl", "jar", "2.1.7")) .
     addDependency(new Project("com.sun.xml.parsers", "jaxp-ri", "jar", "1.4")) .
     addDependency(new Project("org.jvnet.jaxb2.maven2", "maven-jaxb2-plugin", "jar", "0.1"));
           
