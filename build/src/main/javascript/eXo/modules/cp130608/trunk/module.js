@@ -19,8 +19,13 @@ function getModule(params) {
   module.name =  "cp130608" ;
        
   module.portlet = {}
-  module.portlet.web = new Project("org.exoplatform.cp130608", "cp130608.portlet.web", "exo-portlet", module.version);
+  module.portlet.web = new Project("org.exoplatform.cp130608", "cp130608.portlet.web", "exo-portlet", module.version).
+  addDependency(new Project("org.exoplatform.cp130608", "be.wallonie.refsrc.component.manageselectbox", "jar", module.version)).
+  addDependency(new Project("org.exoplatform.cp130608", "be.wallonie.refsrc.component.grouplistener", "jar", module.version));
   module.portlet.web.deployName = "cp130608PortletWeb" ;
+  
+  module.portlet.Refsrc = new Project("org.exoplatform.cp130608", "cp130608.portlet.Refsrc", "exo-portlet", module.version);
+  module.portlet.Refsrc.deployName = "cp130608PortletRefsrc" ;
   
   module.component = {} ;
   module.component.web=
