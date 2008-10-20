@@ -49,7 +49,7 @@ function getModule(params) {
     addDependency(jcr.frameworks.web).
     addDependency(ecm.web.rest);
     
-  module.web.eXoResources = new Project("org.exoplatform.cp130608", "cp130608.web.cp130608Resources", "war", module.version);
+  module.web.eXoResources = new Project("org.exoplatform.cp130608", "cp130608.web.resources", "war", module.version);
   module.web.eXoResources.deployName = "eXoResourcesCp130608" ;
 
   return module;
