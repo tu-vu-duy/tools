@@ -1,0 +1,76 @@
+<project>
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.exoplatform.config</groupId>
+  <artifactId>exo.product.checker</artifactId>
+  <packaging>jar</packaging>
+  <version>trunk</version>
+  <name>eXo Tools Product Checker</name>
+  <url>http://www.exoplatform.org</url>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+          <optimize>true</optimize>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <skip>${exo.test.skip}</skip>
+          <useFile>${exo.test.use.file}</useFile>
+          <testFailureIgnore>${exo.test.failure.ignore}</testFailureIgnore>
+          <classesDirectory>${exo.test.classesdirectory}</classesDirectory>
+          <forkMode>${exo.test.forkMode}</forkMode>
+          <includes>
+            <include implementation="java.lang.String">**/Test*.java</include>
+          </includes>
+          <systemProperties>
+            <property>
+              <name>emma.coverage.out.file</name>
+              <value>target/emma/coverage.ec</value>
+            </property>
+            <property>
+              <name>exo.projects.directory.src</name>
+              <value>${exo.projects.directory.src}</value>
+            </property>
+            <property>
+              <name>exo.product.checker.log</name>
+              <value>false</value>
+            </property>
+          </systemProperties>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+
+  <profiles>
+    <profile>
+      <id>default</id>
+      <activation>
+        <property>
+          <name>default</name>
+        </property>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties></properties>
+    </profile>
+  </profiles>
+</project>
