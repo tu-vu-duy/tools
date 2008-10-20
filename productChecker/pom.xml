@@ -52,7 +52,7 @@
             </property>
             <property>
               <name>exo.product.checker.log</name>
-              <value>false</value>
+              <value>${exo.product.checker.log}</value>
             </property>
           </systemProperties>
         </configuration>
