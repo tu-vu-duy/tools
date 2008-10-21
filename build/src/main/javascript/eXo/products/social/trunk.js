@@ -23,7 +23,7 @@ function getProduct(version) {
   product.addDependencies(social.web.eXoResources) ;
   product.addDependencies(social.component.people) ;
   product.addDependencies(social.component.space) ;
-  product.addDependencies(social.portlet.web) ;
+  product.addDependencies(social.portlet.space) ;
   product.addDependencies(social.portlet.profile);
   product.addDependencies(social.web.opensocial);
   product.addDependencies(social.component.opensocial);

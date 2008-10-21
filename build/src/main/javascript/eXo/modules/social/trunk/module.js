@@ -40,8 +40,8 @@ function getModule(params) {
     new Project("org.exoplatform.social", "exo.social.server.tomcat.patch", "jar", module.version);
 	
 	module.portlet = {}
-  module.portlet.web = new Project("org.exoplatform.social", "exo.social.portlet.web", "exo-portlet", module.version);
-  module.portlet.web.deployName = "socialPortletWeb" ;
+  module.portlet.space = new Project("org.exoplatform.social", "exo.social.portlet.space", "exo-portlet", module.version);
+  module.portlet.space.deployName = "space" ;
 
   module.portlet.profile = new Project("org.exoplatform.social", "exo.social.portlet.profile", "exo-portlet", module.version);
   module.portlet.profile.deployName = "profile" ;
