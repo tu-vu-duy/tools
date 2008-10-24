@@ -18,7 +18,8 @@ function getModule(params) {
     
   module.eXoApplication = {};
 
-
+	module.eXoApplication.common = new Project("org.exoplatform.ks", "exo.ks.eXoApplication.common","jar",module.version) ; 
+  
   module.eXoApplication.faq = 
     new Project("org.exoplatform.ks", "exo.ks.eXoApplication.faq.webapp", "war", module.version).
       addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.faq.service", "jar",  module.version)).
