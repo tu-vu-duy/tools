@@ -14,7 +14,7 @@
     <module>plugin/pc</module>
     <module>verificationResources</module>
     <module>eXoParentPom</module>
-    <module>productChecker</module>
+    <!-- module>productChecker</module -->
     
   </modules>
 
