@@ -57,6 +57,7 @@ function getModule(params) {
 	  addDependency(portal.webui.portal) .
       addDependency(jcr.frameworks.command) .
       addDependency(jcr.frameworks.web) ;
+  module.web.webservice = new Project("org.exoplatform.liveroom", "exo.liveroom.web.webservice", "jar", module.version);
   
   module.server = {}
   module.server.tomcat = {}

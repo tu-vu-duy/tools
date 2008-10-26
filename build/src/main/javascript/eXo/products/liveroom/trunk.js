@@ -11,8 +11,7 @@ function getProduct(version) {
 
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.2") ;
-  //var ws = Module.GetModule("ws/tags/1.2");
-  var ws = Module.GetModule("ws/trunk");
+  var ws = Module.GetModule("ws/tags/1.3");
   var core = Module.GetModule("core/tags/2.1") ;
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.1", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.9") ;
@@ -28,6 +27,7 @@ function getProduct(version) {
   product.addDependencies(liveroom.eXoApplication.videoconf.webapp) ;
   product.addDependencies(liveroom.eXoApplication.whiteboard.webapp) ;
   product.addDependencies(liveroom.web.liveroomportal) ;
+  product.addDependencies(liveroom.web.webservice) ;
   
 
   product.addServerPatch("tomcat",liveroom.server.tomcat.patch) ;
