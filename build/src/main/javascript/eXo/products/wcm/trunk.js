@@ -12,11 +12,11 @@ function getProduct(version) {
   product.serverPluginVersion = "trunk" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/trunk") ;
-  var ws = Module.GetModule("ws/trunk");
-  var core = Module.GetModule("core/trunk") ;
-  var eXoPortletContainer = Module.GetModule("portlet-container/trunk", {kernel : kernel, core : core}) ;
-  var eXoJcr = Module.GetModule("jcr/trunk") ;
+  var kernel = Module.GetModule("kernel/tags/2.0.3") ;
+  var ws = Module.GetModule("ws/tags/1.3");
+  var core = Module.GetModule("core/tags/2.1.2") ;
+  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.3", {kernel : kernel, core : core}) ;
+  var eXoJcr = Module.GetModule("jcr/tags/1.10") ;
   var portal = Module.GetModule("portal/trunk", {kernel : kernel, core : core, ws:ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr ,ws : ws, portal : portal});
   var wcm = Module.GetModule("wcm/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal,ecm : ecm});
