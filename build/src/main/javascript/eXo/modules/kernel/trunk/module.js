@@ -52,7 +52,7 @@ function getModule(params) {
 
   module.component.remote = 
     new Project("org.exoplatform.kernel", "exo.kernel.component.remote", "jar", module.version). 
-    addDependency(new Project("javagroups", "jgroups-all", "jar", "2.5.0"));
+    addDependency(new Project("javagroups", "jgroups-all", "jar", "2.5.2"));
   
   return module;
 }
