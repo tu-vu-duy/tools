@@ -63,6 +63,8 @@ Project.prototype.extractTo = function(repository, dir, ignore) {
               read =  is.read(buf);
             }
             out.close();
+            if (file.getCanonicalPath().endsWith(".sh"))
+              IOUtil.prototype.chmodExecutable(file);
             eXo.System.info("PATCH", dir + "/" + entry.getName()) ;
           }
         }

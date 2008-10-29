@@ -80,6 +80,7 @@ IOUtil.prototype.cp = function(src, dest) {
     }
     input.close();  
     output.close(); 
+    this.chmod(srcFolder,dest)
     eXo.System.vinfo("COPY", "Copy file " + src) ;
   } else {
     var destFolder = new java.io.File(dest) ;
@@ -292,6 +293,24 @@ IOUtil.prototype.ear = function(src, dest) {
   }
   zos.close() ;
   this.log = false;
+}
+
+IOUtil.prototype.chmod = function(srcFolder, dest) {
+  if (!java.lang.System.getProperty("os.name").startsWith("Windows")) {
+    try{
+      java.lang.Runtime.getRuntime().exec("chmod --reference=" + srcFolder + " " + dest );
+    } catch(error) {
+    }
+  }
+}
+
+IOUtil.prototype.chmodExecutable = function(dest) {
+  if (!java.lang.System.getProperty("os.name").startsWith("Windows")) {
+    try{
+      java.lang.Runtime.getRuntime().exec("chmod +x " + dest );
+    } catch(error) {
+    }
+  }
 }
 
 eXo.core.IOUtil = new IOUtil() ;
