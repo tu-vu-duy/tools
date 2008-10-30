@@ -134,6 +134,7 @@ public class ProductExtractor {
     name = convertProjectNameToFolderName(name);
     
     String basePath = ProductExtractor.EXO_PROJECTS + "/" + name;
+    System.out.println(">>> ProductExtractor.getAllVersions() basePath = " + basePath);
     List<String> folders = getFolderNames(basePath);
     for (String folder : folders) {
       if (!folder.equalsIgnoreCase("trunk")) {
@@ -153,9 +154,11 @@ public class ProductExtractor {
   }
 
   public static List<String> getFolderNames(String path) {
+    System.out.println(">>> EXOMAN ProductExtractor.getFolderNames() path = " + path);
     List<String> dirs = new ArrayList<String>();
     File dir = new File(path);
     File[] list = dir.listFiles();
+    System.out.println(">>> ProductExtractor.getFolderNames() list = " + list);
     Arrays.sort(list);
     for (File file : list) {
       if (file.isDirectory() && !file.isHidden()) {
