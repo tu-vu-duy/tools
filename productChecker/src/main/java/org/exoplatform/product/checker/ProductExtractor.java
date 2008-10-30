@@ -169,7 +169,7 @@ public class ProductExtractor {
   }
 
   private static boolean isValidProject(String path) {
-    File f = new File(path + "/pom.xml");
+    File f = new File(path + File.separator +"pom.xml");
     return f.exists();
   }
 
