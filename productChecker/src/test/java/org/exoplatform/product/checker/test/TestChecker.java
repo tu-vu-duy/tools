@@ -16,6 +16,8 @@
  */
 package org.exoplatform.product.checker.test;
 
+import java.util.List;
+
 import junit.framework.TestCase;
 
 import org.exoplatform.product.checker.ProductChecker;
@@ -39,22 +41,20 @@ public class TestChecker extends TestCase {
     System.out.println("TestChecker tearDown");
   }
 
-  public void testJcr1_9() {
-    System.out.println(">>> TestChecker.testJcr1_9 = ");
+  public void testProduct() {
+    System.out.println(">>> TestChecker.testProduct = ");
     ProductChecker.ISLOG = Boolean.parseBoolean(System.getProperty("exo.product.checker.log"));
-    int errors = ProductChecker.check("jcr", "1.9");
-    System.out.println(">>> TestChecker.testJcr1_9 All errors for jcr 1.9 = " + errors);
+    String productName = System.getProperty("exo.product.checker.productname");
+    String productVersion = System.getProperty("exo.product.checker.productversion");
+    if (productName != null && !productName.startsWith("${") && productVersion != null
+        && !productVersion.startsWith("${")) {
+      ProductChecker.check(productName, productVersion);
+    } else if (productName != null && !productName.startsWith("${")) {
+      ProductChecker.check(productName);
+    } else {
+      ProductChecker.check();
+    }
+
   }
 
-  public void testPc() {
-    System.out.println(">>> TestChecker.testPc = ");
-    ProductChecker.ISLOG = Boolean.parseBoolean(System.getProperty("exo.product.checker.log"));
-    ProductChecker.check("pc");
-  }
-
-  public void testAll() {
-    System.out.println(">>> TestChecker.testAll = ");
-    ProductChecker.ISLOG = Boolean.parseBoolean(System.getProperty("exo.product.checker.log"));
-    ProductChecker.check();
-  }
 }

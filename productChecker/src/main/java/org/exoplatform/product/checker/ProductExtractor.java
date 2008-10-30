@@ -10,82 +10,73 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by The eXo Platform SAS
- * Author : Alexey Zavizionov
- *          alexey.zavizionov@exoplatform.com.ua
+ * Created by The eXo Platform SAS Author : Alexey Zavizionov
+ * alexey.zavizionov@exoplatform.com.ua
  */
 public class ProductExtractor {
 
-//  public static Product get(String name, String version, String forName) {
-//    System.out.println(">>> ProductExtractor.get Constants.EXO_PROJECTS = " + Constants.EXO_PROJECTS);
-//    try {
-//      String path = Constants.EXO_PROJECTS + "/" + name + "/" + version + "/pom.xml";
-//      BufferedReader in = new BufferedReader(new FileReader(path));
-//      String s, s2 = new String();
-//      while ((s = in.readLine()) != null) {
-//        if (s.contains(forName + ".version")) {
-//          System.out.println(">>> ProductExtractor.get s = " + s);
-//          String forVersion = s.substring(s.indexOf(">") + 1, s.lastIndexOf("<"));
-//          System.out.println(">>> ProductExtractor.get forVersion = " + forVersion);
-//          Product product = new Product(forName, forVersion);
-//          return product;
-//        }
-//        s2 += s + "\n";
-//      }
-//      in.close();
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
-//
-//    return null;
-//  }
+  private static String       EXO_PROJECTS = null; //"/home/hudson/eXoProjects"; 
 
-  public static List<Product> get(String name, String version) throws FileNotFoundException {
+  private static List<String> allProducts  = null;
+
+  public static Product get(String name, String version) throws FileNotFoundException {
+    ProductExtractor.processExoprojects();
     try {
+
       String newName = convertProjectNameToFolderName(name);
+
+      if (!isExoProduct(newName))
+        return null;
+
+      Product product = new Product(name, version);
 
       BufferedReader in = null;
       try {
-        if (version.equalsIgnoreCase("trunk")) {
-          String path = Constants.EXO_PROJECTS + "/" + newName + "/" + version + "/pom.xml";
+        if (version.equalsIgnoreCase(getTrunkVersion(ProductExtractor.EXO_PROJECTS + "/" + newName
+            + "/"))) {
+          String path = ProductExtractor.EXO_PROJECTS + "/" + newName + "/" + "trunk" + "/pom.xml";
           in = new BufferedReader(new FileReader(path));
         } else {
-          String path = Constants.EXO_PROJECTS + "/" + newName + "/tags/" + version + "/pom.xml";
+          String path = ProductExtractor.EXO_PROJECTS + "/" + newName + "/tags/" + version
+              + "/pom.xml";
           in = new BufferedReader(new FileReader(path));
         }
       } catch (FileNotFoundException fnfe) {
-        String path = Constants.EXO_PROJECTS + "/" + newName + "/branches/" + version + "/pom.xml";
+        String path = ProductExtractor.EXO_PROJECTS + "/" + newName + "/branches/" + version
+            + "/pom.xml";
         in = new BufferedReader(new FileReader(path));
       }
 
-      String s, s2 = new String();
+      String s;
+      String s2 = new String();
       List<Product> productList = new ArrayList<Product>();
+      product.setProductList(productList);
       while ((s = in.readLine()) != null) {
         if (s.contains(".version>")) {
           String forVersion = s.substring(s.indexOf(">") + 1, s.lastIndexOf("<"));
           String forName = s.substring(s.indexOf("<") + 1, s.indexOf(".version"));
           forName = forName.substring(forName.lastIndexOf(".") + 1);
-          if (forName.equalsIgnoreCase(name) || forName.equalsIgnoreCase(convertProjectNameToFolderName(name)))
+          if (forName.equalsIgnoreCase(name)
+              || forName.equalsIgnoreCase(convertProjectNameToFolderName(name)))
             continue;
           if (forName.equalsIgnoreCase("platform"))
             continue;
-          Product temp = new Product(forName, forVersion);
           try {
-            List<Product> p = get(forName, forVersion);
-            temp.setProductList(p);
-            productList.add(temp);
+            Product temp = get(forName, forVersion);
+            if (temp != null)
+              productList.add(temp);
           } catch (FileNotFoundException e) {
             if (isExoProduct(forName)) {
-              if(ProductChecker.ISLOG)
-              System.out.println(">>> ProductExtractor.get Not found product = " + e.getMessage()
-                  + " for product  = " + name + "." + version);
+              if (ProductChecker.ISLOG)
+                System.out.println(">>> ProductExtractor.get Not found product = " + e.getMessage()
+                    + " for product  = " + name + "." + version);
             }
           }
         }
         s2 += s + "\n";
       }
       in.close();
-      return productList;
+      return product;
     } catch (FileNotFoundException e) {
       throw new FileNotFoundException(name + "." + version);
     } catch (IOException e) {
@@ -95,19 +86,51 @@ public class ProductExtractor {
     return null;
   }
 
+  private static String getTrunkVersion(String path) {
+    path += "trunk/pom.xml";
+    try {
+      BufferedReader in = new BufferedReader(new FileReader(path));
+      String s;
+      while ((s = in.readLine()) != null) {
+        if (s.contains("<parent>")) {
+          String s2;
+          while ((s2 = in.readLine()) != null) {
+            if (s2.contains("</parent>"))
+              break;
+          }
+        }
+        if (s.contains("<version>")) {
+          s = s.substring(s.indexOf("<version>") + "<version>".length(), s.indexOf("</"));
+          return s;
+        }
+      }
+      in.close();
+    } catch (FileNotFoundException e) {
+      return null;
+    } catch (IOException e) {
+      return null;
+    }
+    return null;
+  }
+
   private static boolean isExoProduct(String forName) {
     return getAllProducts().contains(forName);
   }
 
   public static List<String> getAllProducts() {
-    List<String> products = getFolderNames(Constants.EXO_PROJECTS);
+    if (ProductExtractor.allProducts != null)
+      return ProductExtractor.allProducts;
+    ProductExtractor.processExoprojects();
+    List<String> products = getFolderNames(ProductExtractor.EXO_PROJECTS);
+    ProductExtractor.allProducts = products;
     return products;
   }
 
   public static List<String> getAllVersions(String name) {
+    ProductExtractor.processExoprojects();
     List<String> versions = new ArrayList<String>();
     name = convertProjectNameToFolderName(name);
-    String basePath = Constants.EXO_PROJECTS + "/" + name;
+    String basePath = ProductExtractor.EXO_PROJECTS + "/" + name;
     List<String> folders = getFolderNames(basePath);
     for (String folder : folders) {
       if (!folder.equalsIgnoreCase("trunk")) {
@@ -118,8 +141,9 @@ public class ProductExtractor {
           }
         }
       } else {
-        if (isValidProject(basePath + "/" + folder))
-          versions.add(folder);
+        if (isValidProject(basePath + "/" + folder)) {
+          versions.add(getTrunkVersion(basePath + "/"));
+        }
       }
     }
     return versions;
@@ -156,6 +180,25 @@ public class ProductExtractor {
     if (newName.equalsIgnoreCase("tool"))
       newName = newName.replaceAll("tool", "tools");
     return newName;
+  }
+
+  public static void processExoprojects() {
+    if (ProductExtractor.EXO_PROJECTS == null) {
+      try {
+        String exo = null;
+//      exo = System.getProperty("exo.projects.directory.src");
+        if (exo == null) {
+          File f = new File(".");
+          exo = f.getCanonicalPath();
+          if (exo.contains("tools")) {
+            exo = exo.substring(0, exo.indexOf("tools") - 1);
+          }
+        }
+        ProductExtractor.EXO_PROJECTS = exo;
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
   }
 
 }

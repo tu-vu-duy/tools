@@ -46,12 +46,21 @@
               <name>emma.coverage.out.file</name>
               <value>target/emma/coverage.ec</value>
             </property>
+<!--            <property>-->
+<!--              <name>exo.projects.directory.src</name>-->
+<!--              <value>${exo.projects.directory.src}</value>-->
+<!--            </property>-->
             <property>
-              <name>exo.projects.directory.src</name>
-              <value>${exo.projects.directory.src}</value>
+              <name>exo.product.checker.productname</name>
+              <value>${exo.product.checker.productname}</value>
+            </property>
+            <property>
+              <name>exo.product.checker.productversion</name>
+              <value>${exo.product.checker.productversion}</value>
             </property>
             <property>
               <name>exo.product.checker.log</name>
+<!--              <value>true</value>-->
               <value>${exo.product.checker.log}</value>
             </property>
           </systemProperties>
@@ -59,7 +68,6 @@
       </plugin>
     </plugins>
   </build>
-
 
   <profiles>
     <profile>
@@ -73,4 +81,5 @@
       <properties></properties>
     </profile>
   </profiles>
+  
 </project>
