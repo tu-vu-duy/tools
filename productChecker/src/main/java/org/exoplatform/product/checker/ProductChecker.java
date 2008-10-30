@@ -1,6 +1,5 @@
 package org.exoplatform.product.checker;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -61,7 +60,8 @@ public class ProductChecker {
 
   public static int check(String name) {
     if (ISLOG)
-      System.out.println(">>> ProductChecker.check = Start checking for all versions of " + name + " ...");
+      System.out.println(">>> ProductChecker.check = Start checking for all versions of " + name
+          + " ...");
     int errors = 0;
     List<String> versions = ProductExtractor.getAllVersions(name);
     for (String version : versions) {

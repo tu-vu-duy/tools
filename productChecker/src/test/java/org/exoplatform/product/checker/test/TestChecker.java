@@ -16,8 +16,6 @@
  */
 package org.exoplatform.product.checker.test;
 
-import java.util.List;
-
 import junit.framework.TestCase;
 
 import org.exoplatform.product.checker.ProductChecker;

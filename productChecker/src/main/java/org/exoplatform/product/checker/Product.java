@@ -3,9 +3,8 @@ package org.exoplatform.product.checker;
 import java.util.List;
 
 /**
- * Created by The eXo Platform SAS
- * Author : Alexey Zavizionov
- *          alexey.zavizionov@exoplatform.com.ua
+ * Created by The eXo Platform SAS Author : Alexey Zavizionov
+ * alexey.zavizionov@exoplatform.com.ua
  */
 public class Product {
 
@@ -53,7 +52,7 @@ public class Product {
     System.out.println(">>> Product.printInfo this.name    = " + this.name);
     System.out.println(">>> Product.printInfo this.version = " + this.version);
   }
-  
+
   @Override
   public String toString() {
     return super.toString() + ",name=" + this.name + ",version=" + this.version;

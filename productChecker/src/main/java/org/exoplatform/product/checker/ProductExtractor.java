@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class ProductExtractor {
 
-  private static String       EXO_PROJECTS = null; //"/home/hudson/eXoProjects"; 
+  private static String       EXO_PROJECTS = null;
 
   private static List<String> allProducts  = null;
 
@@ -31,8 +31,7 @@ public class ProductExtractor {
       Product product = new Product(name, version);
 
       BufferedReader in = null;
-      String path = ProductExtractor.EXO_PROJECTS + File.separator + newName
-          + File.separator;
+      String path = ProductExtractor.EXO_PROJECTS + File.separator + newName + File.separator;
       try {
         if (version.equalsIgnoreCase(getTrunkVersion(path))) {
           in = new BufferedReader(new FileReader(path + "trunk" + File.separator + "pom.xml"));
@@ -135,8 +134,7 @@ public class ProductExtractor {
       if (!folder.equalsIgnoreCase("trunk")) {
         List<String> subFolders = getFolderNames(basePath + File.separator + folder);
         for (String subFolderName : subFolders) {
-          if (isValidProject(basePath + File.separator + folder + File.separator
-              + subFolderName)) {
+          if (isValidProject(basePath + File.separator + folder + File.separator + subFolderName)) {
             versions.add(subFolderName);
           }
         }
@@ -169,7 +167,7 @@ public class ProductExtractor {
   }
 
   private static boolean isValidProject(String path) {
-    File f = new File(path + File.separator +"pom.xml");
+    File f = new File(path + File.separator + "pom.xml");
     return f.exists();
   }
 
