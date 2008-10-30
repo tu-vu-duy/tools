@@ -28,8 +28,9 @@ function getProduct(version) {
   //product.addDependencies(ks.eXoApplication.wiki) ;
   product.addDependencies(ks.eXoApplication.faq) ;
   product.addDependencies(ks.web.ksportal) ;
+  product.addDependencies(ks.web.ksResources) ;
   product.addDependencies(ks.web.webservice) ;
-  product.addDependencies(cs.web.csResources) ;
+  //product.addDependencies(cs.web.csResources) ;
   product.addDependencies(cs.eXoApplication.contact) ;
   
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;

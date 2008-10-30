@@ -41,9 +41,8 @@ function getModule(params) {
   module.eXoApplication.content.deployName = "content";
   */	  
   module.web = {}
-  /*module.web.ksResources = 
+  module.web.ksResources = 
     new Project("org.exoplatform.ks", "exo.ks.web.ksResources", "war", module.version) ;
-    */
   module.web.webservice = 
     new Project("org.exoplatform.ks", "exo.ks.web.webservice", "jar",  module.version);
   module.web.ksportal = 

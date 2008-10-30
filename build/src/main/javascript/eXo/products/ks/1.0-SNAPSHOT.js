@@ -16,7 +16,7 @@ function getProduct(version) {
   var portal = Module.GetModule("portal/tags/2.2.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });  
   var cs = Module.GetModule("cs/branches/1.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var ks = Module.GetModule("ks/branches/1.0", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, cs : cs});
-  
+  //var ks = Module.GetModule("ks/branches/1.0", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
 
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
@@ -29,7 +29,7 @@ function getProduct(version) {
 
   product.addDependencies(ks.web.ksportal) ;
   
-  product.addDependencies(cs.web.csResources) ;
+  product.addDependencies(ks.web.ksResources) ;
   product.addDependencies(cs.eXoApplication.contact) ;
   
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
@@ -40,6 +40,7 @@ function getProduct(version) {
 
   product.module = ks ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, cs ];
+  //product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal];
     
   return product ;
 }
