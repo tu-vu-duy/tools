@@ -128,8 +128,11 @@ public class ProductExtractor {
 
   public static List<String> getAllVersions(String name) {
     ProductExtractor.processExoprojects();
+    System.out.println(">>> ProductExtractor.getAllVersions() ProductExtractor.EXO_PROJECTS = "
+        + ProductExtractor.EXO_PROJECTS);
     List<String> versions = new ArrayList<String>();
     name = convertProjectNameToFolderName(name);
+    
     String basePath = ProductExtractor.EXO_PROJECTS + "/" + name;
     List<String> folders = getFolderNames(basePath);
     for (String folder : folders) {
