@@ -31,20 +31,18 @@ public class ProductExtractor {
       Product product = new Product(name, version);
 
       BufferedReader in = null;
+      String path = ProductExtractor.EXO_PROJECTS + File.separator + newName
+          + File.separator;
       try {
-        if (version.equalsIgnoreCase(getTrunkVersion(ProductExtractor.EXO_PROJECTS + "/" + newName
-            + "/"))) {
-          String path = ProductExtractor.EXO_PROJECTS + "/" + newName + "/" + "trunk" + "/pom.xml";
-          in = new BufferedReader(new FileReader(path));
+        if (version.equalsIgnoreCase(getTrunkVersion(path))) {
+          in = new BufferedReader(new FileReader(path + "trunk" + File.separator + "pom.xml"));
         } else {
-          String path = ProductExtractor.EXO_PROJECTS + "/" + newName + "/tags/" + version
-              + "/pom.xml";
-          in = new BufferedReader(new FileReader(path));
+          in = new BufferedReader(new FileReader(path + "tags" + File.separator + version
+              + File.separator + "pom.xml"));
         }
       } catch (FileNotFoundException fnfe) {
-        String path = ProductExtractor.EXO_PROJECTS + "/" + newName + "/branches/" + version
-            + "/pom.xml";
-        in = new BufferedReader(new FileReader(path));
+        in = new BufferedReader(new FileReader(path + "branches" + File.separator + version
+            + File.separator + "pom.xml"));
       }
 
       String s;
@@ -87,7 +85,7 @@ public class ProductExtractor {
   }
 
   private static String getTrunkVersion(String path) {
-    path += "trunk/pom.xml";
+    path += "trunk" + File.separator + "pom.xml";
     try {
       BufferedReader in = new BufferedReader(new FileReader(path));
       String s;
@@ -128,25 +126,23 @@ public class ProductExtractor {
 
   public static List<String> getAllVersions(String name) {
     ProductExtractor.processExoprojects();
-    System.out.println(">>> ProductExtractor.getAllVersions() ProductExtractor.EXO_PROJECTS = "
-        + ProductExtractor.EXO_PROJECTS);
     List<String> versions = new ArrayList<String>();
     name = convertProjectNameToFolderName(name);
-    
-    String basePath = ProductExtractor.EXO_PROJECTS + "/" + name;
-    System.out.println(">>> ProductExtractor.getAllVersions() basePath = " + basePath);
+
+    String basePath = ProductExtractor.EXO_PROJECTS + File.separator + name;
     List<String> folders = getFolderNames(basePath);
     for (String folder : folders) {
       if (!folder.equalsIgnoreCase("trunk")) {
-        List<String> subFolders = getFolderNames(basePath + "/" + folder);
+        List<String> subFolders = getFolderNames(basePath + File.separator + folder);
         for (String subFolderName : subFolders) {
-          if (isValidProject(basePath + "/" + folder + "/" + subFolderName)) {
+          if (isValidProject(basePath + File.separator + folder + File.separator
+              + subFolderName)) {
             versions.add(subFolderName);
           }
         }
       } else {
-        if (isValidProject(basePath + "/" + folder)) {
-          versions.add(getTrunkVersion(basePath + "/"));
+        if (isValidProject(basePath + File.separator + folder)) {
+          versions.add(getTrunkVersion(basePath + File.separator));
         }
       }
     }
@@ -154,17 +150,15 @@ public class ProductExtractor {
   }
 
   public static List<String> getFolderNames(String path) {
-    System.out.println(">>> EXOMAN ProductExtractor.getFolderNames() path = " + path);
     List<String> dirs = new ArrayList<String>();
     File dir = new File(path);
     File[] list = dir.listFiles();
-    System.out.println(">>> ProductExtractor.getFolderNames() list = " + list);
     Arrays.sort(list);
     for (File file : list) {
       if (file.isDirectory() && !file.isHidden()) {
         try {
           String folderName = file.getCanonicalPath();
-          folderName = folderName.substring(folderName.lastIndexOf("/") + 1);
+          folderName = folderName.substring(folderName.lastIndexOf(File.separator) + 1);
           dirs.add(folderName);
         } catch (Exception e) {
           e.printStackTrace();
