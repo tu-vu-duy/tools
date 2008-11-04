@@ -11,9 +11,9 @@ function getModule(params) {
 	
   var module = new Module();
   
-  module.version = "trunk" ;
+  module.version = "1.0-beta1" ;
   module.relativeMavenRepo = "org/exoplatform/liveroom" ;
-  module.relativeSRCRepo = "liveroom/trunk" ;
+  module.relativeSRCRepo = "liveroom/tags/1.0-beta1" ;
   module.name = "liveroom" ;
   
   module.eXoApplication = {}
@@ -95,7 +95,7 @@ function deployServer(server) {
 
 function configServer(server) {
 	var desc = new TaskDescriptor("Copy Openfire configuration", eXo.env.workingDir) ;
-  desc.openfireJar = "exo.liveroom.eXoApplication.organization.client.openfire-trunk.jar" ;
+  desc.openfireJar = "exo.liveroom.eXoApplication.organization.client.openfire-1.0-beta1.jar" ;
 	desc.execute = function() {
 		// gets the configuration file -in a buffer - of openfire (openfire.xml) from the library jar file
 		var configBuffer = eXo.core.IOUtil.getJarEntryContent(server.deployLibDir+"/"+this.openfireJar, "openfire/openfire.xml") ;
