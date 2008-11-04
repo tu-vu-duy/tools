@@ -8,8 +8,8 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "cp040608/trunk" ;
   product.useWorkflow = true;
-  product.workflowVersion = "2.0.3" ;
-  product.serverPluginVersion = "2.1.1" ;
+  product.workflowVersion = "2.0.4" ;
+  product.serverPluginVersion = "2.1.2" ;
   
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.1") ;
@@ -17,8 +17,8 @@ function getProduct(version) {
   var core = Module.GetModule("core/tags/2.0.2") ;
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.8.3") ;
-  var portal = Module.GetModule("portal/tags/2.1.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });  
-  var ecm = Module.GetModule("ecm/tags/2.0.3", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
+  var portal = Module.GetModule("portal/branches/2.1.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });  
+  var ecm = Module.GetModule("ecm/branches/2.0.4", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var cp040608 = Module.GetModule("cp040608/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
     
   product.addDependencies(portal.portlet.exoadmin) ;
