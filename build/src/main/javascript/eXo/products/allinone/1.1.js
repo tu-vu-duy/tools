@@ -20,12 +20,12 @@ function getProduct(version) {
   var portal = Module.GetModule("portal/tags/2.2.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, ws : ws });  
   var ecm = Module.GetModule("ecm/tags/2.1.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   
-  var cs = Module.GetModule("cs/branches/1.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var cs = Module.GetModule("cs/tags/1.1Beta1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var allinone = Module.GetModule("allinone/branches/1.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, ws :ws, eXoJcr : eXoJcr, portal : portal, cs: cs, ecm : ecm});
     
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
-  //product.addDependencies(portal.eXoWidget.web) ;
+  product.addDependencies(portal.eXoWidget.web) ;
   
   product.addDependencies(ecm.web.rest) ;
   product.addDependencies(ecm.portlet.ecm) ;
