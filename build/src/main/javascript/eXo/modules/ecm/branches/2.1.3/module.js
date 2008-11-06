@@ -34,6 +34,10 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.api", "jar", module.version));     
         
   module.web = {};
+  
+  module.web.rest = 
+    new Project("org.exoplatform.ecm", "exo.ecm.web.rest", "war", module.version).
+    addDependency(ws.frameworks.servlet);  
     
   module.web.ecmportal = 
     new Project("org.exoplatform.ecm", "exo.ecm.web.portal", "exo-portal", module.version).

@@ -20,9 +20,9 @@ function getProduct(version) {
   var portal = Module.GetModule("portal/tags/2.2.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/branches/2.1.3", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
 
-  product.addDependencies(portal.web.rest) ;
   product.addDependencies(ecm.web.ecmportal) ;
   product.addDependencies(portal.portlet.exoadmin) ;
+  product.addDependencies(ecm.web.rest) ;
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(ecm.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;
