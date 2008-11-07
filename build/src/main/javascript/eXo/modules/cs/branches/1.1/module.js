@@ -35,7 +35,7 @@ function getModule(params) {
 	  addDependency(ws.frameworks.cometd).
 	  addDependency(new Project("rome", "rome", "jar", "0.8")).
 	  addDependency(new Project("jdom", "jdom", "jar", "1.0")).
-      addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")) ;
+      addDependency(new Project("ical4j", "ical4j", "jar", "1.0-beta5")) ;
   module.eXoApplication.calendar.deployName = "calendar";
     
   module.eXoApplication.contact = 
