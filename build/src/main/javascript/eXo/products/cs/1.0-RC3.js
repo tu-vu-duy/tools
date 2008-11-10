@@ -6,7 +6,7 @@ function getProduct(version) {
   var product = new Product();
   product.name = "eXoCS" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "cs/tags/rc3" ;
+  product.codeRepo = "cs/tags/1.0-rc3" ;
   product.serverPluginVersion = "2.0.1" ;
 
   var tool =  Module.GetModule("tools/trunk") ;
@@ -16,7 +16,7 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0rc5", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.8.3") ;
   var portal = Module.GetModule("portal/tags/2.0.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });  
-  var cs = Module.GetModule("cs/tags/rc3", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var cs = Module.GetModule("cs/tags/1.0-rc3", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
 
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
