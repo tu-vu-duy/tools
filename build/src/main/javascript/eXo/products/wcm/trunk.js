@@ -9,15 +9,15 @@ function getProduct(version) {
   product.codeRepo = "wcm/trunk" ;
   product.useWorkflow = true;
   product.workflowVersion = "trunk" ;
-  product.serverPluginVersion = "trunk" ;
+  product.serverPluginVersion = "2.5rc1" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/tags/2.0.3") ;
+  var kernel = Module.GetModule("kernel/tags/2.0.4") ;
   var ws = Module.GetModule("ws/tags/1.3");
   var core = Module.GetModule("core/tags/2.1.2") ;
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.3", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.10") ;
-  var portal = Module.GetModule("portal/trunk", {kernel : kernel, core : core, ws:ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
+  var portal = Module.GetModule("portal/tags/2.5rc1", {kernel : kernel, core : core, ws:ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr ,ws : ws, portal : portal});
   var wcm = Module.GetModule("wcm/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal,ecm : ecm});
     
