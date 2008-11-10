@@ -7,7 +7,7 @@ function getProduct(version) {
   product.name = "eXoPortal" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "portal/tags/2.5rc1" ;
-  product.serverPluginVersion = "2.5rc1"
+  product.serverPluginVersion = "2.5rc1";
 
   var tool = Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.4") ;
