@@ -11,7 +11,7 @@ function getModule(params) {
   var ws = params.ws;
   var module = new Module();
 
-  module.version =  "trunk" ;
+  module.version =  "1.2-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/cs" ;
   module.relativeSRCRepo =  "cs/trunk" ;
   module.name = "cs" ;
@@ -22,16 +22,10 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar",  module.version));
   module.eXoApplication.mail.deployName = "mail";
     
-/*
-  module.eXoApplication.forum = 
-    new Project("org.exoplatform.cs", "exo.cs.eXoApplication.forum.webapp", "war", module.version).
-      addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.forum.service", "jar",  module.version));
-  module.eXoApplication.forum.deployName = "forum";
-//*/
   module.eXoApplication.calendar = 
     new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.webapp", "war", module.version).
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  module.version)).
-	  addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", module.version)).
+	  addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", 1.3)).
 	  addDependency(ws.frameworks.cometd).
 	  addDependency(new Project("rome", "rome", "jar", "0.8")).
 	  addDependency(new Project("jdom", "jdom", "jar", "1.0")).
@@ -59,7 +53,14 @@ function getModule(params) {
       addDependency(portal.web.eXoResources) .
       addDependency(portal.web.eXoMacSkin) .
       addDependency(portal.web.eXoVistaSkin) .
+      addDependency(portal.web.rest) .  
+      addDependency(ws.frameworks.servlet) .   
 	  addDependency(portal.webui.portal) .
+	  addDependency(portal.eXoGadgetServer).
+	  addDependency(portal.eXoGadgets).
+	  addDependency(portal.portlet.exoadmin) .
+	  addDependency(portal.portlet.web) .
+	  addDependency(portal.portlet.dashboard) .
       addDependency(jcr.frameworks.command) .
       addDependency(jcr.frameworks.web) ;
       
