@@ -18,14 +18,13 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/trunk") ;
   var portal = Module.GetModule("portal/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });  
-  var liveroom = Module.GetModule("liveroom/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal}) ;
+  var liveroom = Module.GetModule("liveroom/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, ws : ws, portal : portal}) ;
 
     var red5 = Module.GetModule("red5/trunk") ;
     
+    product.addDependencies(liveroom.eXoApplication.videoconf.service) ;
     
-    product.addDependencies(liveroom.videoconf.server) ;
-    
-    product.addServerPatch("tomcat", red5.server.tomcat.patch) ;
+    product.addServerPatch("red5-tomcat", red5.server.tomcat.patch) ;
 
   product.module = red5 ;
   product.dependencyModule = [];

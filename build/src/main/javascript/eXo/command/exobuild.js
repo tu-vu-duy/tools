@@ -1,4 +1,5 @@
 eXo.require("eXo.server.Tomcat") ;
+eXo.require("eXo.server.Red5Tomcat") ;
 eXo.require("eXo.server.Jboss") ;
 eXo.require("eXo.server.JbossEar") ;
 eXo.require("eXo.server.Ear") ;
@@ -25,13 +26,14 @@ databaseMap.put("sqlserver", eXo.server.Database.SqlServerDB("sqlserver"));
 // initialize possible server setups  
 var serverMap = new java.util.HashMap();
 serverMap.put("tomcat", new Tomcat(eXo.env.workingDir + "/exo-tomcat"));
+serverMap.put("red5-tomcat", new Red5Tomcat(eXo.env.workingDir + "/red5-tomcat"));
 serverMap.put("jboss", new Jboss(eXo.env.workingDir + "/exo-jboss"));
 serverMap.put("jbossear", new JbossEar(eXo.env.workingDir + "/exo-jboss"));
 serverMap.put("jonas", new Jonas(eXo.env.workingDir + "/exo-jonas"));
 serverMap.put("ear", new Ear(eXo.env.workingDir + "/exo-ear"));
 
-var modules = ["all","pc", "jcr", "ws", "tools", "ecm", "cs", "ks", "portal"];
-var products = ["cs", "ks", "ecm", "portal", "ultimate", "wcm", "webos"];
+var modules = ["all","pc", "jcr", "ws", "tools", "ecm", "cs", "ks", "portal", "liveroom"];
+var products = ["cs", "ks", "ecm", "portal", "ultimate", "wcm", "webos", "liveroom"];
 
 function exobuildInstructions() {
   print(
@@ -306,12 +308,12 @@ if ((product.hasDependencyModule("liveroom") || productName=="liveroom") && depl
     (product.module.name=="liveroom") ? product.module : product.getDependencyModule("liveroom") ;
 	liveroomModule.configure(tasks, deployServers) ;
 //  TODO : configure and deploy red5 tomcat
-//	if(deployServers != null) {
-//	   var commands = ["js.sh exobuild --product=red5 --deploy" ] ; //,
-//	   				//   "cd $EXO_WORKING_DIR/red5-tomcat/bin && chmod +x *.sh" ] ;
-//	   for (var i = 0; i < commands.length; i++)
-//	     eXo.System.run(commands[i], true, true) ;
-//	}
+  if(deployServers != null) {
+     var commands = ["js.sh exobuild --product=red5 --deploy=red5-tomcat" ] ; //,
+             //   "cd $EXO_WORKING_DIR/red5-tomcat/bin && chmod +x *.sh" ] ;
+     for (var i = 0; i < commands.length; i++)
+       eXo.System.run(commands[i], true, true) ;
+  }
 }
 /**
  * Liveroom / Red5
@@ -320,12 +322,12 @@ if ((product.hasDependencyModule("liveroom") || productName=="liveroom") && depl
  *  - port 5080
  *  - no database
  */
-// if (product.name == "red5") {
-// 	deployServers = null;
-// 	server = new Tomcat(eXo.env.workingDir + "/red5-tomcat") ;
-// 	deployServers.add(server);
-// 	database = null;
-// }
+/*if (product.name == "red5") {
+  server = new Red5Tomcat(eXo.env.workingDir + "/red5-tomcat") ;
+  deployServers.add(server);
+  tasks.add(product.DeployTask(product, server, eXo.env.m2Repos));
+  database = null;
+}*/
 
 for(var i = 0; i < tasks.size(); i++) {
   task = tasks.get(i) ;
