@@ -31,7 +31,6 @@ function getProduct(version) {
 	product.addDependencies(ecm.portlet.ecm);
   product.addDependencies(ecm.portlet.workflow);   
   		 
-  product.addDependencies(wcm.portlet.iweb);
   product.addDependencies(wcm.portlet.webpresentation);
   product.addDependencies(wcm.portlet.websearches); 
   product.addDependencies(wcm.web.eXoWCMResources) ;
