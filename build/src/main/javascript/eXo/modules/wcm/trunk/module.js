@@ -32,10 +32,6 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.wcm", "exo.wcm.component.wcm", "jar",  module.version)).
     addDependency(new Project("org.exoplatform.wcm", "exo.wcm.component.search", "jar",  module.version));
     
-  module.portlet.iweb = 
-    new Project("org.exoplatform.wcm", "exo.wcm.portlet.iweb", "exo-portlet", module.version);
-    
-      
   module.web = {};
   module.web.eXoWCMResources = 
     new Project("org.exoplatform.wcm", "exo.wcm.web.eXoWCMResources", "war", module.version);
