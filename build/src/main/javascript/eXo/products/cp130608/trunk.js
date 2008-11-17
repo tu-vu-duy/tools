@@ -58,6 +58,7 @@ function getProduct(version) {
   product.addDependencies(cp130608.web.eXoResources) ;
 
   product.addServerPatch("tomcat", ecm.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", cp130608.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
