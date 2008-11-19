@@ -36,7 +36,10 @@ function getModule(params) {
   module.frameworks.servlet = 
     new Project("org.exoplatform.ws", "exo.ws.frameworks.servlet", "jar", module.version)
     //.addDependency(new Project("javax.servlet", "servlet-api", "jar", "2.4"));  
-
+    
+  module.frameworks.json = 
+    new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", module.version);
+    
   module.frameworks.cometd =
 	new Project("org.exoplatform.ws", "exo.ws.frameworks.cometd.webapp", "war", module.version).
     addDependency(new Project("org.mortbay.jetty", "cometd-bayeux", "jar", "6.1.11")).
