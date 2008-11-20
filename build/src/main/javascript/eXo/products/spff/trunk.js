@@ -8,20 +8,20 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "spff/internet/trunk" ;
   product.useWorkflow = true;  
-  product.workflowVersion = "2.1.1" ;
-  product.serverPluginVersion = "2.2" ;
+  product.workflowVersion = "2.1.2" ;
+  product.serverPluginVersion = "2.2.1" ;
   
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.2") ;
-  var ws = Module.GetModule("ws/tags/1.2");
-  var core = Module.GetModule("core/tags/2.1") ;
-  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.1", {kernel : kernel, core : core}) ;
-  var eXoJcr = Module.GetModule("jcr/tags/1.9") ;
-  var portal = Module.GetModule("portal/tags/2.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, ws : ws });  
-  var ecm = Module.GetModule("ecm/tags/2.1.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
-  var cs = Module.GetModule("cs/tags/1.1Beta1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ws : ws});
-  var ks = Module.GetModule("ks/tags/rc3", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ws : ws}); 
-  var liveroom = Module.GetModule("liveroom/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, ws : ws, portal : portal}) ;
+  var ws = Module.GetModule("ws/tags/1.2.1");
+  var core = Module.GetModule("core/tags/2.1.1") ;
+  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.2", {kernel : kernel, core : core}) ;
+  var eXoJcr = Module.GetModule("jcr/branches/1.9.3.1") ;
+  var portal = Module.GetModule("portal/tags/2.2.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, ws : ws });  
+  var ecm = Module.GetModule("ecm/tags/2.1.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
+  var cs = Module.GetModule("cs/tags/1.1Beta3", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ws : ws});
+  var ks = Module.GetModule("ks/tags/rc4", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ws : ws}); 
+  var liveroom = Module.GetModule("liveroom/tags/1.0-beta1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, ws : ws, portal : portal}) ;
   var spff = Module.GetModule("spff/internet/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm, cs : cs});
 
   // necessaire pour le batch de synchro ldap/DB  
@@ -46,8 +46,8 @@ function getProduct(version) {
   product.addDependencies(ks.eXoApplication.forum) ;
   product.addDependencies(ks.eXoApplication.faq) ;
   
-  //product.addDependencies(liveroom.eXoApplication.chat.webapp) ;
-  product.addDependencies(liveroom.eXoApplication.whiteboard.webapp) ;
+  product.addDependencies(liveroom.eXoApplication.chat.webapp) ;
+  //product.addDependencies(liveroom.eXoApplication.whiteboard.webapp) ;
   
   product.addDependencies(spff.portlet.web) ;
   product.addDependencies(spff.web.spffResources) ;
