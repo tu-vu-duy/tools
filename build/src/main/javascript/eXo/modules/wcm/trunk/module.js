@@ -25,8 +25,7 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.wcm", "exo.wcm.connector.fckeditor", "jar",  module.version)).
     addDependency(new Project("org.exoplatform.wcm", "exo.wcm.component.wcm", "jar",  module.version)).
     addDependency(new Project("org.exoplatform.wcm", "exo.wcm.webui.wcm", "jar",  module.version)).
-    addDependency(new Project("org.exoplatform.wcm", "exo.wcm.component.publication", "jar",  module.version)).
-    addDependency(new Project("org.exoplatform.ecm", "exo.ecm.webui.ecm", "jar",  module.version)).
+    addDependency(new Project("org.exoplatform.wcm", "exo.wcm.component.publication", "jar",  module.version)).    
     addDependency(ws.frameworks.json) .
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web).
