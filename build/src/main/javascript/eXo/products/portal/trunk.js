@@ -37,6 +37,10 @@ function getProduct(version) {
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   product.addServerPatch("ear",  portal.server.websphere.patch) ;
 
+	/* cleanup duplicated lib */
+  product.removeDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0"));
+  product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "3.1"));
+
   product.module = portal ;
   product.dependencyModule = [ tool, kernel, core, eXoPortletContainer, ws, eXoJcr ];
 
