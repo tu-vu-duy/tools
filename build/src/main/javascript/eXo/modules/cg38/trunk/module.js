@@ -16,7 +16,7 @@ function getModule(params) {
 
   module.version = "trunk" ;
   module.relativeMavenRepo =  "org/exoplatform/cg38" ;
-  module.relativeSRCRepo =  "cg38/trunk" ;
+  module.relativeSRCRepo =  "cg38/project/trunk" ;
   module.name =  "cg38" ;  
         
   module.portlet = {}
