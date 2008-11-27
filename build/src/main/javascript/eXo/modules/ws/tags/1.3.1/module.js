@@ -6,7 +6,7 @@ function getModule(params) {
 
   module.version = "1.3.1" ;
   module.relativeMavenRepo =  "org/exoplatform/ws" ;
-  module.relativeSRCRepo =  "ws/branches/1.3.1" ;
+  module.relativeSRCRepo =  "ws/tags/1.3.1" ;
   module.name =  "ws" ;
 
   module.commons = 

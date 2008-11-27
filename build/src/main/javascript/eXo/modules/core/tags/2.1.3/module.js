@@ -7,7 +7,7 @@ function getModule(params) {
   
   module.version = "2.1.3" ;
   module.relativeMavenRepo = "org/exoplatform/core" ;
-  module.relativeSRCRepo = "core/branches/2.1.3" ;
+  module.relativeSRCRepo = "core/tags/2.1.3" ;
   module.name = "core" ;
 
   module.component = {}
