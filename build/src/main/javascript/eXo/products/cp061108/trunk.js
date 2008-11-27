@@ -40,7 +40,8 @@ function getProduct(version) {
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.web.eXoResources) ;
   product.addDependencies(portal.portlet.web) ;
-  product.addDependencies(portal.eXoWidget.web) ;
+  product.addDependencies(portal.eXoGadgetServer) ;
+	product.addDependencies(portal.eXoGadgets) ;
   product.addDependencies(portal.web.eXoMacSkin) ;
   product.addDependencies(portal.web.eXoVistaSkin) ;
 
