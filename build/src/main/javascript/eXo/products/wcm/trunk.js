@@ -10,14 +10,14 @@ function getProduct(version) {
   product.useWorkflow = true;
   product.workflowVersion = "2.2-SNAPSHOT" ;
   product.serverPluginVersion = "2.5-SNAPSHOT" ;
-    
-  var tool =  Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/trunk") ;
-  var ws = Module.GetModule("ws/trunk");
-  var core = Module.GetModule("core/trunk") ;
-  var eXoPortletContainer = Module.GetModule("portlet-container/trunk", {kernel : kernel, core : core}) ;
-  var eXoJcr = Module.GetModule("jcr/trunk") ;
-  var portal = Module.GetModule("portal/trunk", {kernel : kernel, core : core, ws:ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
+  
+  var tool = Module.GetModule("tools/trunk") ;
+  var kernel = Module.GetModule("kernel/tags/2.0.5") ;
+  var core = Module.GetModule("core/tags/2.1.3") ;
+  var ws = Module.GetModule("ws/tags/1.3.1");
+  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.4", {kernel : kernel, core : core}) ;    
+  var eXoJcr = Module.GetModule("jcr/branches/1.10.1", {kernel : kernel, core : core, ws : ws}) ;
+  var portal = Module.GetModule("portal/trunk", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});         
   var ecm = Module.GetModule("ecm/trunk", {kernel : kernel, core : core,ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr , portal : portal});
   var wcm = Module.GetModule("wcm/trunk", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
     
