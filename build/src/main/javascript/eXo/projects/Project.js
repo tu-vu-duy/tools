@@ -87,25 +87,25 @@ Project.prototype.deployTo = function(repository, server) {
       var url = new java.net.URL(surl);
       
       var warName = null, fileName = null ;
-      if(this.extension == "war") {
-        if(this.deployName != null) {
-          warName = this.deployName ;
-        } else {
-          warName = this.artifactId ;
-          var temp = warName.substring(warName.length - 7);
-          if(temp.match(".webapp")) {
-            warName = warName.substring(0, warName.lastIndexOf(".")) ;
-          }
-          warName = warName.substring(warName.lastIndexOf(".") + 1) ;
+      if(this.deployName != null) {
+      	warName = this.deployName;
+      } else {
+        warName = this.artifactId ;
+        var temp = warName.substring(warName.length - 7);
+        if(temp.match(".webapp")) {
+          warName = warName.substring(0, warName.lastIndexOf(".")) ;
         }
-        fileName = warName + ".war" ;
-        fileName = server.deployWebappDir + "/"  + fileName  ;
+        warName = warName.substring(warName.lastIndexOf(".") + 1) ;
+      }
+      
+      if(this.extension == "war") {
+        fileName = server.deployWebappDir + "/" + warName + ".war"  ;
      	} else if(this.type == "exo-ear-jar") {
         fileName = server.deployWebappDir + "/" + this.artifactId + ".jar" ;
       } else if(this.type == "exo-ear-rar") {
         fileName = server.deployWebappDir + "/" + this.artifactId + ".rar" ;
       } else if(this.type == "exopc-war") {
-        fileName = server.deployWebappDir + "/" + this.artifactId + ".war" ;
+        fileName = server.deployWebappDir + "/" + warName + ".war" ;
       } else {
         fileName = server.deployLibDir + "/" + this.artifactId + "-" +this.version + "." + this.type ;
       }
