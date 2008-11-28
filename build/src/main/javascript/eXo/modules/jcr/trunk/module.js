@@ -16,6 +16,7 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.ext", "jar", module.version)).
     addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.webdav", "jar", module.version)).
     addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.ftp", "jar", module.version)) .
+    addDependency(core.component.documents) .
     addDependency(new Project("jcr", "jcr", "jar", "1.0")).
     addDependency(new Project("concurrent", "concurrent", "jar", "1.3.4")).
     addDependency(new Project("javagroups", "jgroups-all", "jar", "2.5.2")).
