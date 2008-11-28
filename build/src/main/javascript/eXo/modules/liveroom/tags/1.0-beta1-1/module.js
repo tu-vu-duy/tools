@@ -13,7 +13,7 @@ function getModule(params) {
   
   module.version = "1.0-beta1-1" ;
   module.relativeMavenRepo = "org/exoplatform/liveroom" ;
-  module.relativeSRCRepo = "liveroom/branches/1.0-beta1-1" ;
+  module.relativeSRCRepo = "liveroom/tags/1.0-beta1-1" ;
   module.name = "liveroom" ;
   
   module.eXoApplication = {}
