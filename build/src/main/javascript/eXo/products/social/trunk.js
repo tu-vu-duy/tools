@@ -18,7 +18,6 @@ function getProduct(version) {
   var eXoJcr = Module.GetModule("jcr/branches/1.10.1", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/trunk", {kernel : kernel, core : core, ws:ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var social = Module.GetModule("social/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-//  var webos = Module.GetModule("webos/trunk", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
   
   product.addDependencies(social.web.portal) ;
   product.addDependencies(social.web.eXoResources) ;
@@ -38,7 +37,6 @@ function getProduct(version) {
   product.addDependencies(portal.webui.portal);
   
   product.addDependencies(portal.web.eXoResources);
-//  product.addDependencies(webos.web.webosResources);
   product.addDependencies(portal.web.eXoMacSkin);
   product.addDependencies(portal.web.eXoVistaSkin);
 
@@ -51,19 +49,17 @@ function getProduct(version) {
   product.removeDependency(new Project("commons-beanutils", "commons-beanutils", "jar", "1.6"));
   product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "2.1"));
   product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "3.1"));
-//  product.removeDependency(new Project("commons-digester", "commons-digester", "jar", "1.7")):
+  product.removeDependency(new Project("commons-digester", "commons-digester", "jar", "1.6"));
   product.removeDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0"));
-//  product.removeDependency(new Project("commons-logging", "commons-logging-api", "jar", "1.0.4"));
+  product.removeDependency(new Project("xstream", "xstream", "jar", "1.0.2"));
 
   product.addDependencies(new Project("commons-beanutils", "commons-beanutils", "jar", "1.7.0"));
   product.addDependencies(new Project("commons-beanutils", "commons-beanutils-core", "jar", "1.7.0"));
-  product.addDependencies(new Project("commons-collections", "commons-collections", "jar", "3.2.1"));
-//  product.addDependencies(new Project("commons-digester", "commons-digester", "jar", "1.7")):
+  product.addDependencies(new Project("commons-digester", "commons-digester", "jar", "1.7"));
   product.addDependencies(new Project("commons-httpclient", "commons-httpclient", "jar", "3.1"));
-//  product.addDependencies(new Project("commons-logging", "commons-logging-api", "jar", "1.1.1"));
 
+  product.addDependencies(new Project("findbugs", "annotations", "jar", "1.0.0"));
 
-  // product.removeDependency(portal.eXoGadgetServer);
   
   product.addServerPatch("tomcat", social.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
