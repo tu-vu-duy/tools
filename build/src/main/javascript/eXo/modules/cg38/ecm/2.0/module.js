@@ -12,7 +12,7 @@ function getModule(params) {
 
   var module = new Module();
 
-  module.version = "2.0.2" ;
+  module.version = "2.0" ;
   module.relativeMavenRepo =  "org/exoplatform/ecm" ;
   module.relativeSRCRepo =  "cg38/ecm/2.0" ;
   module.name =  "ecm" ;
@@ -20,8 +20,7 @@ function getModule(params) {
   module.portlet = {}
   module.portlet.ecm = 
     new Project("org.exoplatform.ecm", "exo.ecm.portlet.ecm", "exo-portlet", module.version).
-    addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.cms", "jar",  module.version)) .      
-    addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.publication", "jar", module.version)).
+    addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.cms", "jar",  module.version)) . 
     addDependency(new Project("rome", "rome", "jar", "0.8")) .
     addDependency(new Project("com.totsp.feedpod", "itunes-com-podcast", "jar", "0.2")) .
     addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")) .

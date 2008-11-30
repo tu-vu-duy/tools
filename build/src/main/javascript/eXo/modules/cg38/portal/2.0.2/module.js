@@ -10,7 +10,7 @@ function getModule(params) {
 
   var module = new Module();
 
-  module.version =  "2.0" ;
+  module.version =  "2.0.2" ;
   module.relativeMavenRepo =  "org/exoplatform/portal" ;
   module.relativeSRCRepo =  "cg38/portal/2.0.2" ;
   module.name =  "portal" ;
