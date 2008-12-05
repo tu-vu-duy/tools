@@ -41,16 +41,13 @@ Project.prototype.addDependency =  function(project) {
 Project.prototype.hasDependency = function() {return this.dependencies != null ;}
 
 Project.prototype.extractTo = function(repository, dir, ignore) {
-	print(repository.length);
   for( var i = 0; i < repository.length; i++) {
     try {
       var surl = repository[i] + "/" + this.relativePath;
-      print("\n\n tront : " + surl + "\n\n")
       var url = new java.net.URL(surl);      
       eXo.System.info("PATCH", "Fetching patch at " + repository[i] + "/" + this.relativePath);
       var is = new java.util.jar.JarInputStream(url.openStream()) ;
       var entry = is.getNextEntry() ;
-      print("\n\n tront : " + surl + "\n\n")
       while(entry != null) {
         if(!entry.isDirectory()) {
           var name = entry.getName() ;
@@ -75,8 +72,9 @@ Project.prototype.extractTo = function(repository, dir, ignore) {
       }
       is.close() ;
       return ;
-    } catch(err) { 
-      print(err.message);
+    } catch(err) {
+      eXo.System.info(err.message);
+      if(i < (repository.length - 1)) eXo.System.info("Trying to download from the repo : " + repository[i+1]);
     }
 
   }
@@ -144,7 +142,10 @@ Project.prototype.deployTo = function(repository, server) {
       is.close() ;
 	  eXo.System.info("DEPLOY", fileName);      
       return ;
-    } catch(err) { print(err.message); }
+    } catch(err) {
+      eXo.System.info(err.message);
+      if(i < (repository.length - 1)) eXo.System.info("Trying to download from the repo : " + repository[i+1]);
+    }
   }
   throw("Error while deploying the project : " + this.relativePath) ;
 }
