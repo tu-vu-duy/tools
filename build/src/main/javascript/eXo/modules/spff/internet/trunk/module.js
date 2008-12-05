@@ -18,13 +18,19 @@ function getModule(params) {
   
   module.component = {};
   
+
   module.component.synchro = 
-  	new Project("org.exoplatform.spff", "spff.component.synchro", "jar", module.version).
-  	addDependency(core.component.organization).
-    addDependency(core.component.ldap).
-    addDependency(kernel.component.common).
-    addDependency(kernel.container);
-    
+	  	new Project("org.exoplatform.spff", "spff.component.synchro", "jar", module.version).
+	  	addDependency(core.component.organization).
+	    addDependency(core.component.ldap).
+	    addDependency(kernel.component.common).
+	    addDependency(kernel.container);
+ 
+  module.tool = {};
+  module.tool.migration = 
+	  	new Project("org.exoplatform.spff", "spff.tool.migration", "jar", module.version).
+	  	addDependency(jcr.services.jcr).
+	    addDependency(kernel.container); 
     
   module.portlet = {}
   module.portlet.web = new Project("org.exoplatform.spff", "spff.portlet.web", "exo-portlet", module.version);

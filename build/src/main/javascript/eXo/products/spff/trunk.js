@@ -8,8 +8,8 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "spff/internet/trunk" ;
   product.useWorkflow = true;  
-  product.workflowVersion = "2.1.2" ;
-  product.serverPluginVersion = "2.2.1" ;
+  product.workflowVersion = "2.1.3" ;
+  product.serverPluginVersion = "2.2.2" ;
   
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.4") ;
@@ -54,6 +54,7 @@ function getProduct(version) {
   product.addDependencies(spff.web.spffResources) ;
   product.addDependencies(spff.web.spffportal) ;
   product.addDependencies(spff.component.synchro) ;
+  product.addDependencies(spff.tool.migration) ;
   product.addDependencies(spff.patch.loginmodule) ; // to use only with JBoss, not Tomcat
   
   product.removeDependency(eXoPortletContainer.web.wsrp);
