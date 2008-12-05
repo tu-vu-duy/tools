@@ -21,7 +21,8 @@ function getModule(params) {
         
   module.portlet = {}
   module.portlet.web = new Project("org.exoplatform.cg38", "cg38.portlet.web", "exo-portlet", module.version).
-  	addDependency(new Project("org.exoplatform.cg38", "cg38.component.rss", "jar",  module.version));
+  	addDependency(new Project("org.exoplatform.cg38", "cg38.component.rss", "jar",  module.version)).
+  	addDependency(new Project("org.exoplatform.cg38", "cg38.component.jcraction", "jar",  module.version));
   module.portlet.web.deployName = "cg38PortletWeb" ;
   
   module.web = {}
