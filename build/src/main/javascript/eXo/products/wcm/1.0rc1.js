@@ -37,7 +37,7 @@ function getProduct(version) {
   product.addDependencies(ecm.web.eXoECMResources) ;
   product.addDependencies(wcm.web.wcmportal) ;        
   
-  product.addServerPatch("tomcat", ecm.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jbossear",  portal.server.jbossear.patch) ;  
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
