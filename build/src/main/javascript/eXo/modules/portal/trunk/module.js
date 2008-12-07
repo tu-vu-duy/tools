@@ -72,6 +72,7 @@ function getModule(params) {
     addDependency(core.component.xmlProcessing) .
     addDependency(core.component.documents).
     addDependency(core.component.resources).
+    addDependency(core.component.gifbackport).
 
 //  	addDependency(ws.frameworks.cometd).
 
