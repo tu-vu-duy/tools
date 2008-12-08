@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "cg38" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "cg38/project/trunk" ;
+  product.codeRepo = "cg38" ;
   product.useWorkflow = true;
   product.workflowVersion = "2.0" ;
   product.serverPluginVersion = "2.1" ;
