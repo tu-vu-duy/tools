@@ -8,7 +8,6 @@ function getProduct(version) {
   var product = new Product();
   product.name = "liveroom" ;
   product.portalwar = "portal.war" ;
-  product.serverPluginVersion = "2.2.1";
 
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.4") ;
@@ -18,6 +17,8 @@ function getProduct(version) {
   var eXoJcr = Module.GetModule("jcr/tags/1.9.3.1", {ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.2.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });  
   var liveroom = Module.GetModule("liveroom/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal}) ;
+
+  product.serverPluginVersion = portal.version;
 
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
