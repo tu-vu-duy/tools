@@ -8,6 +8,7 @@ function getProduct(version) {
   var product = new Product();
   product.name = "liveroom" ;
   product.portalwar = "portal.war" ;
+  product.serverPluginVersion = "2.2.1";
 
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.4") ;
