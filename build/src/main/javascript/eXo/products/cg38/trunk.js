@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "cg38" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "cg38" ;
+  product.codeRepo = "cg38/project/trunk" ;
   product.useWorkflow = true;
   product.workflowVersion = "2.0" ;
   product.serverPluginVersion = "2.1" ;
@@ -26,6 +26,7 @@ function getProduct(version) {
   product.addDependencies(cg38.web.cg38portal) ;
   product.addDependencies(cg38.web.cg38Resources) ;
   product.addDependencies(cg38.portlet.web) ;
+  product.addDependencies(cg38.component.jcraction);
   
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
