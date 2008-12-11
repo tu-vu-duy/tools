@@ -25,6 +25,8 @@ function getModule(params) {
  //	addDependency(jcr.component.core).
 //	addDependency(jcr.component.ext).
 //	addDependency(ecm.component.cms);
+
+  module.component.cg38CategoriesService = new Project("org.exoplatform.cg38", "cg38.component.categories", "jar", module.version);
         
   module.portlet = {}
   module.portlet.web = new Project("org.exoplatform.cg38", "cg38.portlet.web", "exo-portlet", module.version).
