@@ -298,6 +298,16 @@ if(deployServers != null && !deployServers.isEmpty()) {
       tasks.add(ReleaseTask(server, product, version)) ;
   }
 }
+
+for(var i = 0; i < tasks.size(); i++) {
+  task = tasks.get(i) ;
+  var start = java.lang.System.currentTimeMillis() ;
+  task.banner() ;
+  task.execute() ;
+  task.executionTime = java.lang.System.currentTimeMillis() - start ;
+  task.report() ;
+}
+
 /**
  * Liveroom
  * Deploys and configures Openfire
@@ -307,13 +317,11 @@ if ((product.hasDependencyModule("liveroom") || productName=="liveroom") && depl
   var liveroomModule = 
     (product.module.name=="liveroom") ? product.module : product.getDependencyModule("liveroom") ;
 	liveroomModule.configure(tasks, deployServers) ;
-//  TODO : configure and deploy red5 tomcat
-  //if(deployServers != null) {
-     //var commands = ["js.sh exobuild --product=red5 --deploy=red5-tomcat" ] ; //,
-             ////   "cd $EXO_WORKING_DIR/red5-tomcat/bin && chmod +x *.sh" ] ;
-     //for (var i = 0; i < commands.length; i++)
-       //eXo.System.run(commands[i], true, true) ;
-  //}
+  //TODO : configure and deploy red5 tomcat
+  var commands = ["js.sh exobuild --product=red5 --deploy=red5-tomcat" ] ;
+  for (var i = 0; i < commands.length; i++) {
+    eXo.System.run(commands[i], true, true) ;
+  }
 }
 /**
  * Liveroom / Red5
@@ -328,12 +336,3 @@ if ((product.hasDependencyModule("liveroom") || productName=="liveroom") && depl
   tasks.add(product.DeployTask(product, server, eXo.env.m2Repos));
   database = null;
 }*/
-
-for(var i = 0; i < tasks.size(); i++) {
-  task = tasks.get(i) ;
-  var start = java.lang.System.currentTimeMillis() ;
-  task.banner() ;
-  task.execute() ;
-  task.executionTime = java.lang.System.currentTimeMillis() - start ;
-  task.report() ;
-}
