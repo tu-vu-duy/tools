@@ -12,7 +12,7 @@ function getProduct(version) {
   product.serverPluginVersion = "trunk" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/tags/2.0.5") ;
+   var kernel = Module.GetModule("kernel/tags/2.0.5") ;
   var core = Module.GetModule("core/tags/2.1.3") ;
   var ws = Module.GetModule("ws/tags/1.3.1", {kernel : kernel, core : core});
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.4", {kernel : kernel, core : core}) ;    
@@ -21,7 +21,7 @@ function getProduct(version) {
   var ecm = Module.GetModule("ecm/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var cs = Module.GetModule("cs/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ws : ws});
   var cp061108 = Module.GetModule("cp061108/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-    
+   
   product.addDependencies(cp061108.web.portal) ; 
   product.addDependencies(cp061108.web.eXoResources) ;
   product.addDependencies(cp061108.portlet.web) ;
