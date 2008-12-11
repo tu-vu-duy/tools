@@ -97,7 +97,6 @@ Red5Tomcat.prototype.onDeploy = function(project) {
 }
 
 Red5Tomcat.prototype.postDeploy = function(product) {
-	
 }
 
 eXo.server.Red5Tomcat = Red5Tomcat.prototype.constructor ;

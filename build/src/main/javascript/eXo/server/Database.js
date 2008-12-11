@@ -55,6 +55,10 @@ DBInstance.prototype.ConfigureTask = function(product, server, dbsetup) {
  
   descriptor.execute =function () {
     
+    if (!product.portalwar) {
+      eXo.System.info("Server have not include portal to deploy database.");
+      return 1;
+    }
     var IOUtil =  eXo.core.IOUtil ;
     var jarFile =  server.deployWebappDir + "/" + product.portalwar ;
     var mentries = new java.util.HashMap() ;

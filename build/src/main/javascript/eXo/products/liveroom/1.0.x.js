@@ -26,8 +26,8 @@ function getProduct(version) {
   product.addDependencies(portal.web.rest) ;
   
   product.addDependencies(liveroom.eXoApplication.chat.webapp) ;
-  //product.addDependencies(liveroom.eXoApplication.videoconf.webapp) ;
-  //product.addDependencies(liveroom.eXoApplication.whiteboard.webapp) ;
+  product.addDependencies(liveroom.eXoApplication.videoconf.webapp) ;
+  product.addDependencies(liveroom.eXoApplication.whiteboard.webapp) ;
   product.addDependencies(liveroom.web.liveroomportal) ;
   product.addDependencies(liveroom.web.webservice) ;
   
