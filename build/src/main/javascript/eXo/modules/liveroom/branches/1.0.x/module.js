@@ -68,7 +68,7 @@ function getModule(params) {
   /**
    * Copies and configures openfire
    */
-  module.configure = function(tasks, deployServers) {
+  module.configure = function(tasks, deployServers, serverMap) {
   	// TODO : use less hardcoded values; create variables
   	if (deployServer!==null) {
 	  	var servers = deployServers.iterator();

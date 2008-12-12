@@ -298,6 +298,15 @@ if(deployServers != null && !deployServers.isEmpty()) {
       tasks.add(ReleaseTask(server, product, version)) ;
   }
 }
+/**
+ * Liveroom
+ * Deploys and configures Openfire
+ */
+if ((product.hasDependencyModule("liveroom") || productName=="liveroom") && deployServers != null) {
+  var liveroomModule = 
+        (product.module.name=="liveroom") ? product.module : product.getDependencyModule("liveroom") ;
+  liveroomModule.configure(tasks, serverMap, deployServers) ;
+}
 
 for(var i = 0; i < tasks.size(); i++) {
   task = tasks.get(i) ;
@@ -310,29 +319,12 @@ for(var i = 0; i < tasks.size(); i++) {
 
 /**
  * Liveroom
- * Deploys and configures Openfire
  * Deploys a Red5 server automatically after deploying Liveroom
  */
 if ((product.hasDependencyModule("liveroom") || productName=="liveroom") && deployServers != null) {
-  var liveroomModule = 
-    (product.module.name=="liveroom") ? product.module : product.getDependencyModule("liveroom") ;
-	liveroomModule.configure(tasks, deployServers) ;
   //TODO : configure and deploy red5 tomcat
   var commands = ["js.sh exobuild --product=red5 --deploy=red5-tomcat" ] ;
   for (var i = 0; i < commands.length; i++) {
     eXo.System.run(commands[i], true, true) ;
   }
 }
-/**
- * Liveroom / Red5
- * Configures the Red5 server with :
- *  - serverName red5-tomcat
- *  - port 5080
- *  - no database
- */
-/*if (product.name == "red5") {
-  server = new Red5Tomcat(eXo.env.workingDir + "/red5-tomcat") ;
-  deployServers.add(server);
-  tasks.add(product.DeployTask(product, server, eXo.env.m2Repos));
-  database = null;
-}*/
