@@ -38,6 +38,7 @@ function getProduct(version) {
   product.addDependencies(ecm.web.rest) ;
   product.addDependencies(ecm.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;
+  product.addDependencies(ecm.webui.ecm); 
   product.addDependencies(wcm.portlet.webpresentation) ;
   product.addDependencies(wcm.portlet.websearches) ;       
   

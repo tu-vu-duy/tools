@@ -13,9 +13,13 @@ function getModule(params) {
   var module = new Module();
 
   module.version = "2.0" ;
-  module.relativeMavenRepo =  "org/exoplatform/ecm" ;
+  module.relativeMavenRepo =  "org/exoplatform/cg38" ;
   module.relativeSRCRepo =  "cg38/ecm/2.0" ;
   module.name =  "ecm" ;
+    
+  module.connector = {};
+  module.connector.fckeditor = 
+     new Project("org.exoplatform.cg38", "exo.ecm.connector.fckeditor", "jar", module.version);
     
   module.portlet = {}
   module.portlet.ecm = 
@@ -47,6 +51,11 @@ function getModule(params) {
     addDependency(portal.webui.portal) .
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web) ;
+
+  module.webui = {};
+  module.webui.ecm = 
+    new Project("org.exoplatform.cg38", "exo.ecm.webui.ecm", "jar", module.version).
+    addDependency(module.connector.fckeditor);
 
   module.server = {}
   
