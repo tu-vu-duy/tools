@@ -305,7 +305,7 @@ if(deployServers != null && !deployServers.isEmpty()) {
 if ((product.hasDependencyModule("liveroom") || productName=="liveroom") && deployServers != null) {
   var liveroomModule = 
         (product.module.name=="liveroom") ? product.module : product.getDependencyModule("liveroom") ;
-  liveroomModule.configure(tasks, serverMap, deployServers) ;
+  liveroomModule.configure(tasks, deployServers, serverMap) ;
 }
 
 for(var i = 0; i < tasks.size(); i++) {
