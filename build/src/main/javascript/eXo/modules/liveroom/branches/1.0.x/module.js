@@ -113,7 +113,7 @@ function deployRed5Server(mainServer, module) {
   server.cleanServer = "red5-0.7.0";
   server.serverHome = eXo.env.workingDir + "/" + server.name;
   server.deployWebappDir = server.serverHome + "/webapps";
-  deployServerTask.description = "Deploy red5-tomcat server";
+  deployServerTask.description = "Deploy " + server.name + " ";
 	deployServerTask.execute = function() {
     eXo.System.info("DELETE", "Delete " + server.serverHome);
     eXo.core.IOUtil.remove(server.serverHome);
