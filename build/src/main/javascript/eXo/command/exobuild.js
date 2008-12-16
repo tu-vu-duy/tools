@@ -1,5 +1,4 @@
 eXo.require("eXo.server.Tomcat") ;
-eXo.require("eXo.server.Red5Tomcat") ;
 eXo.require("eXo.server.Jboss") ;
 eXo.require("eXo.server.JbossEar") ;
 eXo.require("eXo.server.Ear") ;
@@ -26,7 +25,6 @@ databaseMap.put("sqlserver", eXo.server.Database.SqlServerDB("sqlserver"));
 // initialize possible server setups  
 var serverMap = new java.util.HashMap();
 serverMap.put("tomcat", new Tomcat(eXo.env.workingDir + "/exo-tomcat"));
-serverMap.put("red5-tomcat", new Red5Tomcat(eXo.env.workingDir + "/red5-tomcat"));
 serverMap.put("jboss", new Jboss(eXo.env.workingDir + "/exo-jboss"));
 serverMap.put("jbossear", new JbossEar(eXo.env.workingDir + "/exo-jboss"));
 serverMap.put("jonas", new Jonas(eXo.env.workingDir + "/exo-jonas"));
@@ -301,6 +299,7 @@ if(deployServers != null && !deployServers.isEmpty()) {
 /**
  * Liveroom
  * Deploys and configures Openfire
+ * Deploys a Red5 server automatically after deploying Liveroom
  */
 if ((product.hasDependencyModule("liveroom") || productName=="liveroom") && deployServers != null) {
   var liveroomModule = 
@@ -315,16 +314,4 @@ for(var i = 0; i < tasks.size(); i++) {
   task.execute() ;
   task.executionTime = java.lang.System.currentTimeMillis() - start ;
   task.report() ;
-}
-
-/**
- * Liveroom
- * Deploys a Red5 server automatically after deploying Liveroom
- */
-if ((product.hasDependencyModule("liveroom") || productName=="liveroom") && deployServers != null) {
-  //TODO : configure and deploy red5 tomcat
-  var commands = ["js.sh exobuild --product=red5 --deploy=red5-tomcat" ] ;
-  for (var i = 0; i < commands.length; i++) {
-    eXo.System.run(commands[i], true, true) ;
-  }
 }

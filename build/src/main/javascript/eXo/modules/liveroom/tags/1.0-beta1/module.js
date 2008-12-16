@@ -88,7 +88,7 @@ function deployServer(server) {
 	descriptor.description = "Copies Openfire from "+eXo.env.dependenciesDir+" to "+eXo.env.workingDir;
 	descriptor.execute = function() {
 		eXo.System.info("INFO", "Copying Openfire...");
-		eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/openfire", server.serverHome+"/jabber");
+		eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/openfire-3.4.5", server.serverHome+"/jabber");
 	}
 	return descriptor ;
 }

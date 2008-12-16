@@ -70,49 +70,69 @@ function getModule(params) {
   module.server.tomcat.patch = 
     new Project("org.exoplatform.liveroom", "exo.liveroom.server.tomcat.patch", "jar", module.version);
 
-
   /**
-   * Copies and configures openfire
+   * Configure and deploy Openfire, Red5 servers
    */
   module.configure = function(tasks, deployServers, serverMap) {
-  	// TODO : use less hardcoded values; create variables
-  	if (deployServer!==null) {
-	  	var servers = deployServers.iterator();
-	    while (servers.hasNext()) {
-	    	server = servers.next();
-	    	tasks.add(deployServer(server));
-	    	tasks.add(configServer(server));
-	    }
-  	}
+  	if (deployServers!==null) {
+      var server = serverMap.get("tomcat");
+      tasks.add(deployOpenfireServer(server, this));
+      tasks.add(deployRed5Server(server, this));
+    }
   };
 
   return module ;
 }
 
-function deployServer(server) {
-	var descriptor = new TaskDescriptor("Release Dependency Task", eXo.env.dependenciesDir) ;
-	descriptor.description = "Copies Openfire from "+eXo.env.dependenciesDir+" to "+eXo.env.workingDir;
-	descriptor.execute = function() {
-		eXo.System.info("INFO", "Copying Openfire...");
-		eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/openfire", server.serverHome+"/jabber");
-	}
-	return descriptor ;
-}
-
-function configServer(server) {
-	var desc = new TaskDescriptor("Copy Openfire configuration", eXo.env.workingDir) ;
-  desc.openfireJar = "exo.liveroom.eXoApplication.organization.client.openfire-trunk.jar" ;
-	desc.execute = function() {
-		// gets the configuration file -in a buffer - of openfire (openfire.xml) from the library jar file
-		var configBuffer = eXo.core.IOUtil.getJarEntryContent(server.deployLibDir+"/"+this.openfireJar, "openfire/openfire.xml") ;
+function deployOpenfireServer(mainServer, module) {
+	var deployServerTask = new TaskDescriptor("Release Dependency Task", eXo.env.dependenciesDir) ;
+  var server = {};
+  server.cleanServer = "openfire-3.4.5";
+  server.name = "exo-openfire";
+  server.serverHome = eXo.env.workingDir + "/" + server.name;
+  server.deployLibDir = server.serverHome + "/lib";
+  server.openfireJar = "exo.liveroom.eXoApplication.organization.client.openfire-" + module.version + ".jar" ;
+  deployServerTask.description = "Deploy " + server.name + " ";
+	deployServerTask.execute = function() {
+    eXo.System.info("DELETE", "Delete " + server.serverHome);
+    eXo.core.IOUtil.remove(server.serverHome);
+		eXo.System.info("COPY", "Copy a clean server " + server.name);
+		eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/" + server.cleanServer, server.serverHome);
+    eXo.System.info("Gets the configuration file -in a buffer - of openfire (openfire.xml) from the library jar file");
+		var configBuffer = eXo.core.IOUtil.getJarEntryContent(mainServer.deployLibDir+"/"+server.openfireJar, "openfire/openfire.xml") ;
 		if (configBuffer===null) { eXo.System.info("ERROR", "Error retrieving config file from jar !"); return; }
 		// writes the buffer into the configuration file (openfire/conf/openfire.xml)
 		eXo.System.info("INFO", "Creating config file from buffer...");
-		eXo.core.IOUtil.createFile(server.serverHome+"/jabber/conf/openfire.xml", configBuffer);
+		eXo.core.IOUtil.createFile(server.serverHome+"/conf/openfire.xml", configBuffer);
 		// copies the exo openfire library to openfire server
 		eXo.System.info("INFO", "Copying exo openfire library file...");
-		eXo.core.IOUtil.cp(server.deployLibDir+"/"+this.openfireJar, 
-						           server.serverHome+"/jabber/lib/"+this.openfireJar);
+		eXo.core.IOUtil.cp(mainServer.deployLibDir + "/" + server.openfireJar, 
+						           server.deployLibDir + "/" + server.openfireJar);
 	}
-	return desc ;
+	return deployServerTask ;
+}
+
+function deployRed5Server(mainServer, module) {
+	var deployServerTask = new TaskDescriptor("Release Dependency Task", eXo.env.dependenciesDir) ;
+  var server = {};
+  server.name = "exo-red5";
+  server.cleanServer = "red5-0.7.0";
+  server.serverHome = eXo.env.workingDir + "/" + server.name;
+  server.deployWebappDir = server.serverHome + "/webapps";
+  deployServerTask.description = "Deploy red5-tomcat server";
+	deployServerTask.execute = function() {
+    eXo.System.info("DELETE", "Delete " + server.serverHome);
+    eXo.core.IOUtil.remove(server.serverHome);
+		eXo.System.info("COPY", "Copy a clean server " + server.name);
+		eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/" + server.cleanServer, server.serverHome);
+		eXo.System.info("eXo " + server.name + " applications file...");
+    var whiteboard = new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.whiteboard.service", "war", module.version);
+    whiteboard.deployName = "whiteboard";
+    whiteboard.deployTo(eXo.env.m2Repos, server);
+
+    var videoconf = new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.videoconf.service", "war", module.version);
+    videoconf.deployName = "videoconf";
+    videoconf.deployTo(eXo.env.m2Repos, server);
+	}
+	return deployServerTask ;
 }
