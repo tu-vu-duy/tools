@@ -27,7 +27,8 @@ function getModule(params) {
 
   module.eXoApplication.forum = 
     new Project("org.exoplatform.ks", "exo.ks.eXoApplication.forum.webapp", "war", module.version).
-      addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.forum.service", "jar",  module.version);
+      addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.forum.service", "jar",  module.version).
+      addDependency(new Project("org.exoplatform.ks", "exo.ks.component.providers", "jar", module.version)));
   module.eXoApplication.forum.deployName = "forum";
   
 /*
@@ -35,7 +36,7 @@ function getModule(params) {
     new Project("org.exoplatform.ks", "exo.ks.eXoApplication.content.webapp", "war", module.version).
       addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.content.service", "jar",  module.version));
   module.eXoApplication.content.deployName = "content";
-  */	  
+  */   
   module.web = {}
   module.web.ksResources = 
     new Project("org.exoplatform.ks", "exo.ks.web.ksResources", "war", module.version) ;
@@ -44,7 +45,7 @@ function getModule(params) {
       addDependency(portal.web.eXoResources) .
       addDependency(portal.web.eXoMacSkin) .
       addDependency(portal.web.eXoVistaSkin) .
-	  addDependency(portal.webui.portal) .
+   addDependency(portal.webui.portal) .
       addDependency(jcr.frameworks.command) .
       addDependency(jcr.frameworks.web) ;
       
