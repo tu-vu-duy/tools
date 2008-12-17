@@ -23,6 +23,7 @@ function getProduct(version) {
             
   product.addDependencies(ks.eXoApplication.forum) ;
   product.addDependencies(ks.eXoApplication.faq) ;
+  product.addDependencies(ks.eXoApplication.common) ;
   //product.addDependencies(ks.eXoApplication.blog) ;
   //product.addDependencies(ks.eXoApplication.wiki) ;
 
