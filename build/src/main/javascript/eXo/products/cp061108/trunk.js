@@ -34,6 +34,7 @@ function getProduct(version) {
 //  product.addDependencies(ecm.web.rest) ;
   product.addDependencies(ecm.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;
+  product.addDependencies(ecm.web.eXoECMResources);
   
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
