@@ -28,7 +28,7 @@ function getProduct(version) {
   //product.addDependencies(ks.eXoApplication.wiki) ;
 
   product.addDependencies(ks.web.ksportal) ;
-  
+  product.addDependencies(ks.web.webservice) ;
   product.addDependencies(ks.web.ksResources) ;
   //product.addDependencies(cs.eXoApplication.contact) ;
   

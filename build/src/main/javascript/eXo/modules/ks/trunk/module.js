@@ -41,8 +41,8 @@ function getModule(params) {
   module.web = {}
   module.web.ksResources = 
     new Project("org.exoplatform.ks", "exo.ks.web.ksResources", "war", module.version) ;
-  /*module.web.webservice = 
-    new Project("org.exoplatform.ks", "exo.ks.web.webservice", "jar",  module.version);*/
+  module.web.webservice = 
+    new Project("org.exoplatform.ks", "exo.ks.web.webservice", "jar",  module.version);
   module.web.ksportal = 
     new Project("org.exoplatform.ks", "exo.ks.web.portal", "exo-portal", module.version).
       addDependency(portal.web.eXoResources) .
