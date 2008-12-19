@@ -2,8 +2,9 @@ eXo.require("eXo.projects.Module") ;
 eXo.require("eXo.projects.Product") ;
 
 function getModule(params) {
-  var core = params.core;	
+  var core = params.core;
   var ws = params.ws;
+
   var module = {} ;
   
   module.version = "1.11-SNAPSHOT" ;
@@ -23,7 +24,7 @@ function getModule(params) {
     addDependency(new Project("javagroups", "jgroups-all", "jar", "2.5.2")).
     addDependency(new Project("stax", "stax-api", "jar", "1.0")).
 //		addDependency(new Project("stax", "stax", "jar", "1.2.0")).
-		addDependency(new Project("org.apache.ws.commons","ws-commons-util","jar","1.0.1")).
+		addDependency(new Project("org.apache.ws.commons","ws-commons-util","jar","1.0.1")).		
     addDependency(new Project("org.apache.lucene", "lucene-core", "jar", "2.2.0")).
     addDependency(new Project("org.apache.lucene", "lucene-spellchecker", "jar", "2.2.0")).
     addDependency(new Project("org.apache.lucene", "lucene-memory", "jar", "2.2.0"));
@@ -31,10 +32,7 @@ function getModule(params) {
   module.frameworks = {}
   module.frameworks.web = 
     new Project("org.exoplatform.jcr", "exo.jcr.framework.web", "jar", module.version).  
-//    addDependency(new Project("org.exoplatform.ws", "exo.ws.rest.core", "jar", "1.2.1")).
-      addDependency(ws.rest).
-//    addDependency(new Project("org.exoplatform.ws", "exo.ws.commons", "jar", "1.2.1")).
-      addDependency(ws.commons).
+    addDependency(ws.rest).
     addDependency(new Project("commons-chain", "commons-chain", "jar", "1.0"));
 
   module.frameworks.command = new Project("org.exoplatform.jcr", "exo.jcr.framework.command", "jar", module.version).

@@ -7,17 +7,26 @@ function getProduct(version) {
   product.name = "eXoCS" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "cs/branches-dev/ws-2.0-test" ;
-  product.serverPluginVersion = "2.5rc1" ;
+  product.serverPluginVersion = "2.5rc2" ;
 
   var tool =  Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/tags/2.0.4") ;
-  var ws = Module.GetModule("ws/branches/2.0-SNAPSHOT");
-  var core = Module.GetModule("core/tags/2.1.2") ;
-  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.3", {kernel : kernel, core : core}) ;
-  var eXoJcr = Module.GetModule("jcr/branches/1.11-SNAPSHOT", {kernel : kernel, core : core, ws : ws}) ;
-  var portal = Module.GetModule("portal/tags/2.5rc1", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
+  var kernel = Module.GetModule("kernel/trunk") ;
+  var ws = Module.GetModule("ws/branches/2.0");
+  var core = Module.GetModule("core/trunk") ;
+  var eXoPortletContainer = Module.GetModule("portlet-container/trunk", {kernel : kernel, core : core}) ;
+  var eXoJcr = Module.GetModule("jcr/branches/1.11", {kernel : kernel, core : core, ws : ws}) ;
+  var portal = Module.GetModule("portal/tags/2.5rc2", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
   var cs = Module.GetModule("cs/branches-dev/ws-2.0-test", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
 
+  
+  
+  product.addDependencies(portal.web.rest) ;   
+  product.addDependencies(portal.portlet.exoadmin) ;
+  product.addDependencies(portal.portlet.web) ;
+  product.addDependencies(portal.portlet.dashboard) ;
+	product.addDependencies(portal.eXoGadgetServer) ;
+	product.addDependencies(portal.eXoGadgets) ;  
+  
   
   //product.addDependencies(portal.portlet.dashboard) ;
   //product.addDependencies(portal.eXoGadgetServer) ;

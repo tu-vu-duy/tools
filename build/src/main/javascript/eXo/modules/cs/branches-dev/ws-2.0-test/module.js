@@ -32,7 +32,8 @@ function getModule(params) {
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  module.version)).
 	  addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "2.0-SNAPSHOT")).
 	  addDependency(ws.frameworks.cometd).
-	  addDependency(new Project("org.exoplatform.portal", "exo.portal.web.rest", "war", "2.2.1")).
+	  addDependency(new Project("org.exoplatform.portal", "exo.portal.web.rest", "war", "2.5rc2")).
+	  addDependency(new Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")).
 	  addDependency(new Project("rome", "rome", "jar", "0.8")).
 	  addDependency(new Project("jdom", "jdom", "jar", "1.0")).
       addDependency(new Project("ical4j", "ical4j", "jar", "1.0-beta5")) ;
@@ -56,12 +57,12 @@ function getModule(params) {
     new Project("org.exoplatform.cs", "exo.cs.web.csResources", "war", module.version) ;
   module.web.csportal = 
     new Project("org.exoplatform.cs", "exo.cs.web.portal", "exo-portal", module.version).
-      addDependency(portal.web.eXoResources) .
-      addDependency(portal.web.eXoMacSkin) .
-      addDependency(portal.web.eXoVistaSkin) .
-	  addDependency(portal.webui.portal) .
-      addDependency(jcr.frameworks.command) .
-      addDependency(jcr.frameworks.web) ;
+    addDependency(portal.web.eXoResources) .
+    addDependency(portal.web.eXoMacSkin) .
+    addDependency(portal.web.eXoVistaSkin) .
+    addDependency(portal.webui.portal) .
+    addDependency(jcr.frameworks.command) .
+    addDependency(jcr.frameworks.web) ;   
       
    module.web.csdemo = 
     new Project("org.exoplatform.cs", "exo.cs.web.demo", "exo-portal", module.version).
