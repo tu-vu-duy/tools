@@ -13,7 +13,6 @@ set EXO_OPTS=%EXO_OPTS% -Dexo.working.dir=%EXO_WORKING_DIR%
 set EXO_OPTS=%EXO_OPTS% -Dexo.src.dir=%EXO_PROJECTS_SRC%
 set EXO_OPTS=%EXO_OPTS% -Dexo.dep.dir=%EXO_DEPENDENCIES_DIR%
 set EXO_OPTS=%EXO_OPTS% -Dexo.m2.repos=%M2_REPOS%
-set EXO_OPTS=%EXO_OPTS% -Dexo.m2.home=%M2_HOME%
 set EXO_OPTS=%EXO_OPTS% -Dclean.server=%CLEAN_SERVER%
  
 java %JAVA_MEM_OPTS% %JAVA_CLASSPATH% %EXO_OPTS% org.mozilla.javascript.tools.shell.Main %BUILD_DIR%\src\main\javascript\eXo\eXo.js %*

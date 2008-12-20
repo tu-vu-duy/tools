@@ -1,5 +1,4 @@
 function Env() {
-
   this.baseDir = java.lang.System.getProperty("exo.base.dir");
   this.workingDir = java.lang.System.getProperty("exo.working.dir");
   if(this.workingDir == null || this.workingDir.equals("")) this.workingDir = this.baseDir + "/exo-working" ;
@@ -13,8 +12,6 @@ function Env() {
     this.currentDir = this.currentDir.substring("/cygdrive/".length) ;
     this.currentDir = this.currentDir.replaceFirst("/", ":/");
   }
-  this.m2Home = java.lang.System.getProperty("exo.m2.home");
-  if(this.m2Home == null || this.m2Home.equals("")) this.m2Home = this.baseDir + "/maven2" ;
 
   var m2Repos = java.lang.System.getProperty("exo.m2.repos").split(",") ;
   this.m2Repos = new Array() ;
