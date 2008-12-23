@@ -55,7 +55,6 @@ var eXo  = {
       jsLocation = eXo.env.eXoProjectsDir +  '/tools/trunk/build/src/main/javascript/' ;
     }
     var path = jsLocation  + '/' + relativePath;
-	
     try {
       load(path) ;
     } catch(err){
