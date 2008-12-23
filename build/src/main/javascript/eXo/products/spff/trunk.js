@@ -53,9 +53,10 @@ function getProduct(version) {
   product.addDependencies(spff.portlet.web) ;
   product.addDependencies(spff.web.spffResources) ;
   product.addDependencies(spff.web.spffportal) ;
-  product.addDependencies(spff.component.synchro) ;
+  //product.addDependencies(spff.component.synchro) ;
   product.addDependencies(spff.tool.migration) ;
   product.addDependencies(spff.patch.loginmodule) ; // to use only with JBoss, not Tomcat
+  product.addDependencies(spff.patch.authenticator) ; 
   
   product.removeDependency(eXoPortletContainer.web.wsrp);
   product.removeDependency(eXoPortletContainer.services.wsrp1);
@@ -70,6 +71,6 @@ function getProduct(version) {
   
   product.module = spff ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, cs, ks, liveroom];
-    
+
   return product ;
 }
