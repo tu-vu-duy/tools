@@ -16,15 +16,15 @@ function getModule(params) {
   module.relativeSRCRepo = "spff/internet/trunk" ;
   module.name = "spff" ;
   
-  module.component = {};
+//  module.component = {};
   
 
-  module.component.synchro = 
-	  	new Project("org.exoplatform.spff", "spff.component.synchro", "jar", module.version).
-	  	addDependency(core.component.organization).
-	    addDependency(core.component.ldap).
-	    addDependency(kernel.component.common).
-	    addDependency(kernel.container);
+//  module.component.synchro = 
+//	  	new Project("org.exoplatform.spff", "spff.component.synchro", "jar", module.version).
+//	  	addDependency(core.component.organization).
+//	    addDependency(core.component.ldap).
+//	    addDependency(kernel.component.common).
+//	    addDependency(kernel.container);
  
   module.tool = {};
   module.tool.migration = 
@@ -52,6 +52,8 @@ function getModule(params) {
   module.patch = {}
   module.patch.loginmodule  = 
     new Project("org.exoplatform.spff", "spff.patch.loginmodule", "jar", module.version) ;
+  module.patch.authenticator  = 
+	    new Project("org.exoplatform.spff", "spff.patch.authenticator", "jar", module.version) ;
 
   module.server = {}
   
