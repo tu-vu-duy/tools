@@ -9,8 +9,8 @@ function Workflow(workflowName, workflowVersion) {
 
 Workflow.prototype.configWorkflow = function(product) {  
 	if(this.name == "jbpm") {
-		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.facade", "jar", this.version)) ;
-		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.engine", "jar", "3.0")) ;
+		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", this.version)) ;
+		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.engine", "jar", "3.0")) ;
 		//For POC using 2.0, please use this	
 		//product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", "2.0")) ;
     // workflow version management has been fixed. Use "product.workflowVersion" variable in your JS product descriptor	to set
