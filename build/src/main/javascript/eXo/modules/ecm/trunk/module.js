@@ -22,7 +22,7 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.cms", "jar",  module.version)) .     
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.deployment", "jar",  module.version)) .    
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.publication", "jar", module.version)).
-    addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.workflowPublication", "jar", module.version)).
+    //addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.workflowPublication", "jar", module.version)).
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.connector.fckeditor", "jar", module.version)).
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.webui.ecm", "jar", module.version)).
     addDependency(new Project("rome", "rome", "jar", "0.8")) .
