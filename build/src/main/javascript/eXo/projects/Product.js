@@ -8,7 +8,7 @@ function Product() {
   this.serverPatches      = new java.util.HashMap() ;
 
   this.module = null ;
-  //this.useWorkflow = false;
+  this.useWorkflow = false;
   this.dependencyModule = null ;
   this.serverPluginVersion = "trunk" ;
 }
