@@ -179,8 +179,9 @@ var product = null;
 var dialect = "hsqldb";
 var database = databaseMap.get(dialect);
 var version = "trunk";
-var workflow = new Workflow("jbpm",version)
-var contentvalidation = new ContentValidation("jbpm",version)
+var workflow = new Workflow("jbpm",version);
+var contentvalidation = new ContentValidation("jbpm",version);
+var contentvalidation_ = false;
 var tasks =  new java.util.ArrayList() ;
 var noInternet = false;
 
@@ -225,6 +226,7 @@ for(var i = 0; i <args.length; i++) {
     var contentvalidationName = arg.substring("--contentvalidation=".length);
     contentvalidation = new ContentValidation(contentvalidationName,version);
     java.lang.System.setProperty("contentvalidation",contentvalidationName);  
+    contentvalidation_ = true;
   } else if (arg == "--nointernet") {
     noInternet = true;
   } else if (arg == "--help" || arg == "-help" || arg == "help" || arg == "?") {    
@@ -287,7 +289,7 @@ if(deployServers != null && !deployServers.isEmpty()) {
     workflow.version = product.workflowVersion ;
 		workflow.configWorkflow(product);
 	}
-	if(product.useContentValidation) {	
+	if(contentvalidation_) {	
     contentvalidation.version = product.contentvalidationVersion;
 		contentvalidation.configContentValidation(product);
 	}		 	

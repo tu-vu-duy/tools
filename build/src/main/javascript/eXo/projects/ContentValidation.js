@@ -8,6 +8,7 @@ function ContentValidation(contentValidationName, contentValidationVersion) {
 }
 
 ContentValidation.prototype.configContentValidation = function(product) {  	
+	eXo.System.info("INFO", "I AM IN CONTENT VALIDATION : ");
 	product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.validation-request", "jar", this.version));
 	if(this.name == "jbpm") {	                                        		
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.content.backup", "jar", this.version));
