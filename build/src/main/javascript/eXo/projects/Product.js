@@ -9,6 +9,7 @@ function Product() {
 
   this.module = null ;
   this.useWorkflow = false;
+  this.useContentValidation = false;
   this.dependencyModule = null ;
   this.serverPluginVersion = "trunk" ;
 }

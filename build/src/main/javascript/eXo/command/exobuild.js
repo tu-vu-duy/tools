@@ -9,6 +9,7 @@ eXo.require("eXo.command.maven") ;
 eXo.require("eXo.command.svn") ;
 eXo.require("eXo.core.IOUtil") ;
 eXo.require("eXo.projects.Workflow") ;
+eXo.require("eXo.projects.ContentValidation") ;
 eXo.require("eXo.projects.Product") ;
 
 // initialize possible database setups   
@@ -44,7 +45,8 @@ function exobuildInstructions() {
    "           [--exclude=modules]\n" +
    "           [--deploy[=server]]\n" +
    "           [--release[=server]]\n" +   
-   "           [--workflow[=jbpm|bonita]]\n" +
+   "           [--workflow[=jbpm|bonita]]\n" +   
+   "           [--contentvalidation[=jbpm|bonita]]\n" +   
    "           [--clean-mvn-repo]\n" +
    "           [--database[=dialect]]\n" +
    "           [--dbsetup=option]\n" +
@@ -178,6 +180,7 @@ var dialect = "hsqldb";
 var database = databaseMap.get(dialect);
 var version = "trunk";
 var workflow = new Workflow("jbpm",version)
+var contentvalidation = new ContentValidation("jbpm",version)
 var tasks =  new java.util.ArrayList() ;
 var noInternet = false;
 
@@ -217,7 +220,11 @@ for(var i = 0; i <args.length; i++) {
   } else if (arg.match("--workflow")) {
     var workflowName = arg.substring("--workflow=".length);
     workflow = new Workflow(workflowName,version);
-    java.lang.System.setProperty("workflow",workflowName) ;
+    java.lang.System.setProperty("workflow",workflowName) ;  
+  } else if (arg.match("--contentvalidation")) {
+    var contentvalidationName = arg.substring("--contentvalidation=".length);
+    contentvalidation = new ContentValidation(contentvalidationName,version);
+    java.lang.System.setProperty("contentvalidation",contentvalidationName);  
   } else if (arg == "--nointernet") {
     noInternet = true;
   } else if (arg == "--help" || arg == "-help" || arg == "help" || arg == "?") {    
@@ -279,7 +286,11 @@ if(deployServers != null && !deployServers.isEmpty()) {
 	if(product.useWorkflow) {	
     workflow.version = product.workflowVersion ;
 		workflow.configWorkflow(product);
-	}	 	
+	}
+	if(product.useContentValidation) {	
+    contentvalidation.version = product.contentvalidationVersion;
+		contentvalidation.configContentValidation(product);
+	}		 	
 	var serv = deployServers.iterator();
   while (serv.hasNext()) {
     server = serv.next();
