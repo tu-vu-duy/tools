@@ -8,7 +8,7 @@ function getModule(params) {
   var eXoPortletContainer = params.eXoPortletContainer;
   var jcr = params.eXoJcr;
   var portal = params.portal;
-
+  var ws = params.ws;
   var module = new Module();
 
   module.version =  "trunk" ;
@@ -27,8 +27,9 @@ function getModule(params) {
 
 
   module.eXoApplication.forum = 
-    new Project("org.exoplatform.ks", "exo.ks.eXoApplication.forum.webapp", "war", module.version).
-      addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", module.version)).
+    new Project("org.exoplatform.ks", "exo.ks.eXoApplication.forum.webapp", "war", module.version).       
+			addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", 1.3)).
+	    addDependency(ws.frameworks.cometd).
       addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.forum.service", "jar",  module.version));
   module.eXoApplication.forum.deployName = "forum";
 
