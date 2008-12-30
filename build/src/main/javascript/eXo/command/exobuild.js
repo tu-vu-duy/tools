@@ -179,8 +179,8 @@ var product = null;
 var dialect = "hsqldb";
 var database = databaseMap.get(dialect);
 var version = "trunk";
-var workflow = new Workflow("jbpm",version);
-var contentvalidation = new ContentValidation("jbpm",version);
+var workflow = new Workflow("bonita",version);
+var contentvalidation = new ContentValidation("bonita",version);
 var contentvalidation_ = false;
 var tasks =  new java.util.ArrayList() ;
 var noInternet = false;
@@ -219,14 +219,25 @@ for(var i = 0; i <args.length; i++) {
       productName = arg.substring("--product=".length);
     }
   } else if (arg.match("--workflow")) {
-    var workflowName = arg.substring("--workflow=".length);
-    workflow = new Workflow(workflowName,version);
-    java.lang.System.setProperty("workflow",workflowName) ;  
+	    java.lang.System.setProperty("workflow","bonita");
+	    var workflowName = arg.substring("--workflow=".length);
+	    contentvalidationName = "bonita";
+	    if (workflowName != "") {
+	      contentvalidationName = workflowName;
+	      workflow = new Workflow(workflowName,version);
+	      java.lang.System.setProperty("workflow",workflowName);
+	    }
+	    contentvalidation = new ContentValidation(contentvalidationName,version);
+	    java.lang.System.setProperty("contentvalidation",contentvalidationName);  
+	    contentvalidation_ = true;
   } else if (arg.match("--contentvalidation")) {
-    var contentvalidationName = arg.substring("--contentvalidation=".length);
-    contentvalidation = new ContentValidation(contentvalidationName,version);
-    java.lang.System.setProperty("contentvalidation",contentvalidationName);  
-    contentvalidation_ = true;
+	    var contentvalidationName = arg.substring("--contentvalidation=".length);
+	    java.lang.System.setProperty("contentvalidation","bonita");  
+	    if (contentvalidationName != "") {
+		    contentvalidation = new ContentValidation(contentvalidationName,version);
+		    java.lang.System.setProperty("contentvalidation",contentvalidationName);  
+	    }
+	    contentvalidation_ = true;
   } else if (arg == "--nointernet") {
     noInternet = true;
   } else if (arg == "--help" || arg == "-help" || arg == "help" || arg == "?") {    

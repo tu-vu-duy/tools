@@ -16,7 +16,7 @@ ContentValidation.prototype.configContentValidation = function(product) {
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.content.publishing", "jar", this.version));
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.content.validation", "jar", this.version));
 		
-	} else if(this.name = "bonita") {
+	} else if(this.name == "bonita") {
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.bonita.content.backup", "jar", this.version));
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.bonita.content.validation", "jar", this.version));
     product.addServerPatch("jonas",new Project("org.exoplatform.ecm", "exo.ecm.server.jonas.patch", "jar", this.version));
