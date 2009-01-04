@@ -30,8 +30,9 @@ function getProduct(version) {
   product.addDependencies(cs.web.webservice) ;
   product.addDependencies(cs.web.csResources) ;
   product.addDependencies(cs.web.csportal) ;
+  product.addDependencies(cs.web.rest) ;
   
-  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+  product.addServerPatch("tomcat",  cs.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 

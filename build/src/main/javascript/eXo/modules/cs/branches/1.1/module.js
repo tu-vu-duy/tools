@@ -33,6 +33,7 @@ function getModule(params) {
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  module.version)).
 	  addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.2")).
 	  addDependency(ws.frameworks.cometd).
+	  addDependency(ws.frameworks.servlet).
 	  addDependency(new Project("rome", "rome", "jar", "0.8")).
 	  addDependency(new Project("jdom", "jdom", "jar", "1.0")).
       addDependency(new Project("ical4j", "ical4j", "jar", "1.0-beta5")) ;
@@ -71,6 +72,14 @@ function getModule(params) {
 	  addDependency(portal.webui.portal) .
       addDependency(jcr.frameworks.command) .
       addDependency(jcr.frameworks.web) ;     
+   module.web.rest = 
+	    new Project("org.exoplatform.cs", "exo.cs.web.rest", "war", module.version);
+   
+   module.server = {}
+   
+   module.server.tomcat = {}
+   module.server.tomcat.patch = 
+     new Project("org.exoplatform.cs", "exo.cs.server.tomcat.patch", "jar", module.version);
       
   return module;
 }
