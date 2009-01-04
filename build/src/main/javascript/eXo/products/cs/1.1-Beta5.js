@@ -6,7 +6,7 @@ function getProduct(version) {
   var product = new Product();
   product.name = "eXoCS" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "cs/tags/1.1-Beta5" ;
+  product.codeRepo = "cs/tags/1.1Beta5" ;
   product.serverPluginVersion = "2.2.1" ;
 
   var tool =  Module.GetModule("tools/trunk") ;
