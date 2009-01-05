@@ -7,10 +7,11 @@ function Workflow(workflowName, workflowVersion) {
   this.version = workflowVersion;   
 }
 
-Workflow.prototype.configWorkflow = function(product) {  
+Workflow.prototype.configWorkflow = function(product) {
+  
 	if(this.name == "jbpm") {
-		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", this.version)) ;
-		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.engine", "jar", "3.0")) ;
+		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", this.version));
+		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.engine", "jar", "3.0"));
 		//For POC using 2.0, please use this	
 		//product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", "2.0")) ;
     // workflow version management has been fixed. Use "product.workflowVersion" variable in your JS product descriptor	to set
@@ -24,7 +25,7 @@ Workflow.prototype.configWorkflow = function(product) {
     product.addDependencies(new Project("org.objectweb.bonita", "jabber", "exo-ear-rar", "3.0")) ;
     product.addDependencies(new Project("org.objectweb.bonita", "loadclass", "exo-ear-rar", "3.0")) ;
     product.addServerPatch("jonas",new Project("org.exoplatform.ecm", "exo.ecm.server.jonas.patch", "jar", this.version)) ;
-	}	  
+	}
 }
 
 eXo.projects.Workflow = Workflow.prototype.constructor ;

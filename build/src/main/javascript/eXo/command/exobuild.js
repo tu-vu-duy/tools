@@ -179,9 +179,7 @@ var product = null;
 var dialect = "hsqldb";
 var database = databaseMap.get(dialect);
 var version = "trunk";
-var workflow = new Workflow("bonita",version);
-var contentvalidation = new ContentValidation("bonita",version);
-var contentvalidation_ = false;
+var workflow = new Workflow("jbpm",version)
 var tasks =  new java.util.ArrayList() ;
 var noInternet = false;
 
@@ -219,25 +217,9 @@ for(var i = 0; i <args.length; i++) {
       productName = arg.substring("--product=".length);
     }
   } else if (arg.match("--workflow")) {
-	    java.lang.System.setProperty("workflow","bonita");
 	    var workflowName = arg.substring("--workflow=".length);
-	    contentvalidationName = "bonita";
-	    if (workflowName != "") {
-	      contentvalidationName = workflowName;
-	      workflow = new Workflow(workflowName,version);
-	      java.lang.System.setProperty("workflow",workflowName);
-	    }
-	    contentvalidation = new ContentValidation(contentvalidationName,version);
-	    java.lang.System.setProperty("contentvalidation",contentvalidationName);  
-	    contentvalidation_ = true;
-  } else if (arg.match("--contentvalidation")) {
-	    var contentvalidationName = arg.substring("--contentvalidation=".length);
-	    java.lang.System.setProperty("contentvalidation","bonita");  
-	    if (contentvalidationName != "") {
-		    contentvalidation = new ContentValidation(contentvalidationName,version);
-		    java.lang.System.setProperty("contentvalidation",contentvalidationName);  
-	    }
-	    contentvalidation_ = true;
+	    workflow = new Workflow(workflowName,version);
+	    java.lang.System.setProperty("workflow",workflowName);
   } else if (arg == "--nointernet") {
     noInternet = true;
   } else if (arg == "--help" || arg == "-help" || arg == "help" || arg == "?") {    
@@ -296,14 +278,10 @@ if(build_) {
 
 
 if(deployServers != null && !deployServers.isEmpty()) {
-	if(product.useWorkflow) {	
-    workflow.version = product.workflowVersion ;
+  if(product.useWorkflow) {
+	  workflow.version = product.workflowVersion;
 		workflow.configWorkflow(product);
-	}
-	if(contentvalidation_) {	
-    contentvalidation.version = product.contentvalidationVersion;
-		contentvalidation.configContentValidation(product);
-	}		 	
+  }
 	var serv = deployServers.iterator();
   while (serv.hasNext()) {
     server = serv.next();
