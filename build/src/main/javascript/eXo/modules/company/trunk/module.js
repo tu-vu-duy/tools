@@ -16,6 +16,8 @@ function getModule(params) {
   module.relativeMavenRepo =  "org/exoplatform/company" ;
   module.relativeSRCRepo =  "company/trunk" ;
   module.name =  "company" ;
+  
+  var ksversion = "1.0-RC5" ;
     
   module.portlet = {}
   module.portlet.web = new Project("org.exoplatform.company", "company.portlet.web", "exo-portlet", module.version);
@@ -33,6 +35,19 @@ function getModule(params) {
     addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")) ;
 //    addDependency(new Project("javax.xml.stream", "stax-api", "jar", "1.0")) ;    
   
+  
+  module.eXoApplication = {};
+  
+  module.eXoApplication.faq = new Project("org.exoplatform.ks", "exo.ks.eXoApplication.faq.webapp", "war", ksversion).
+   addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.faq.service", "jar", ksversion));
+  module.eXoApplication.faq.deployName = "faq";
+
+  module.eXoApplication.forum = new Project("org.exoplatform.ks", "exo.ks.eXoApplication.forum.webapp", "war", ksversion).
+    addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.forum.service", "jar",  ksversion).
+    addDependency(new Project("org.exoplatform.ks", "exo.ks.component.providers", "jar", ksversion)));
+  module.eXoApplication.forum.deployName = "forum";
+  
+  
   module.component={}
   module.component.web=
     new Project("org.exoplatform.company", "company.component.web", "jar", module.version).
@@ -40,6 +55,8 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar","trunk"));                        
   
   module.web = {}
+  module.web.ksResources = 
+    new Project("org.exoplatform.ks", "exo.ks.web.ksResources", "war", ksversion) ;  
   module.web.companyResources = 
     new Project("org.exoplatform.company", "company.web.eXoResourcesCompany", "exo-portal", module.version) ;    
   module.web.portal = 

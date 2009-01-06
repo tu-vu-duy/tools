@@ -8,7 +8,7 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "company/trunk" ;
   product.useWorkflow = true ;
-  product.workflowVersion = "2.1" ;
+  product.workflowVersion = "2.1.2" ;
   product.serverPluginVersion = "2.2" ;
 
   var tool =  Module.GetModule("tools/trunk") ;
@@ -19,6 +19,7 @@ function getProduct(version) {
   var eXoJcr = Module.GetModule("jcr/tags/1.9.3") ;
   var portal = Module.GetModule("portal/tags/2.2.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/tags/2.1.2", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var ks = Module.GetModule("ks/tags/rc5", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var company = Module.GetModule("company/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
 
   product.addDependencies(portal.portlet.exoadmin) ;
@@ -28,6 +29,10 @@ function getProduct(version) {
   product.addDependencies(ecm.web.rest) ;  
   product.addDependencies(company.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;
+  
+  product.addDependencies(ks.eXoApplication.forum) ;
+  product.addDependencies(ks.eXoApplication.faq) ;
+  product.addDependencies(ks.web.ksResources) ;
   
   product.addDependencies(company.component.web) ;
   product.addDependencies(company.web.portal) ;
