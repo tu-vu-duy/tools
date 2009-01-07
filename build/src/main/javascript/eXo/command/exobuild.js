@@ -1,15 +1,15 @@
-eXo.require("eXo.server.Tomcat") ;
-eXo.require("eXo.server.Jboss") ;
-eXo.require("eXo.server.JbossEar") ;
-eXo.require("eXo.server.Ear") ;
-eXo.require("eXo.server.Jonas") ;
-eXo.require("eXo.server.Database") ;
-eXo.require("eXo.core.TaskDescriptor") ;
-eXo.require("eXo.command.maven") ;
-eXo.require("eXo.command.svn") ;
-eXo.require("eXo.core.IOUtil") ;
-eXo.require("eXo.projects.Workflow") ;
-eXo.require("eXo.projects.ContentValidation") ;
+eXo.require("eXo.server.Tomcat");
+eXo.require("eXo.server.Jboss");
+eXo.require("eXo.server.JbossEar");
+eXo.require("eXo.server.Ear");
+eXo.require("eXo.server.Jonas");
+eXo.require("eXo.server.Database");
+eXo.require("eXo.core.TaskDescriptor");
+eXo.require("eXo.command.maven");
+eXo.require("eXo.command.svn");
+eXo.require("eXo.core.IOUtil");
+eXo.require("eXo.projects.Workflow");
+eXo.require("eXo.projects.WorkflowPlugin");
 eXo.require("eXo.projects.Product") ;
 
 // initialize possible database setups   
@@ -179,8 +179,10 @@ var product = null;
 var dialect = "hsqldb";
 var database = databaseMap.get(dialect);
 var version = "trunk";
-var workflow = new Workflow("jbpm",version)
-var tasks =  new java.util.ArrayList() ;
+var workflow = new Workflow("jbpm",version);
+var workflowPlugin = new WorkflowPlugin("bonita", version);
+var useWorkflowPlugin = false;
+var tasks =  new java.util.ArrayList();
 var noInternet = false;
 
 var args = arguments;
@@ -220,6 +222,8 @@ for(var i = 0; i <args.length; i++) {
 	    var workflowName = arg.substring("--workflow=".length);
 	    workflow = new Workflow(workflowName,version);
 	    java.lang.System.setProperty("workflow",workflowName);
+	    workflowPlugin = new WorkflowPlugin(workflowName,version);
+	    useWorkflowPlugin = true;
   } else if (arg == "--nointernet") {
     noInternet = true;
   } else if (arg == "--help" || arg == "-help" || arg == "help" || arg == "?") {    
@@ -277,10 +281,14 @@ if(build_) {
 }
 
 
-if(deployServers != null && !deployServers.isEmpty()) {
-  if(product.useWorkflow) {
+if (deployServers != null && !deployServers.isEmpty()) {
+  if (product.useWorkflow) {
 	  workflow.version = product.workflowVersion;
 		workflow.configWorkflow(product);
+  }
+  if (product.name == "eXoDMS" && useWorkflowPlugin) {
+    workflowPlugin.version = product.workflowVersion;
+    workflowPlugin.configWorkflowPlugin(product);
   }
 	var serv = deployServers.iterator();
   while (serv.hasNext()) {

@@ -11,7 +11,7 @@ function getModule(params) {
   var portal = params.portal;  
   var module = new Module();
   
-  module.version = "2.3-SNAPSHOT";
+  module.version = "1.0-SNAPSHOT";
   module.relativeMavenRepo =  "org/exoplatform/ecm/workflow";
   module.relativeSRCRepo =  "ecm/workflow/trunk";
   module.name =  "workflow";
@@ -20,7 +20,7 @@ function getModule(params) {
   module.portlet.workflow = 
     new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.portlet.workflow", "exo-portlet", module.version).
     addDependency(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.api", "jar", module.version)).
-    addDependency(new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.webui.ecm", "jar", module.version)).
+    addDependency(new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.webui.ecm", "jar", "2.3-SNAPSHOT")).
     addDependency(new Project("rome", "rome", "jar", "0.8")).
     addDependency(new Project("com.totsp.feedpod", "itunes-com-podcast", "jar", "0.2")).
     addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")).

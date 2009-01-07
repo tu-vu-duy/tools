@@ -7,7 +7,6 @@ function getProduct(version) {
   product.name = "eXoDMS" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "ecm/dms/trunk" ;
-  //product.useWorkflow = true;
   product.contentvalidationVersion = "1.0-SNAPSHOT" ;
   product.workflowVersion = "2.3-SNAPSHOT" ;
   product.serverPluginVersion = "2.5" ;
