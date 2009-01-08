@@ -54,7 +54,7 @@ function getProduct(version) {
   product.addDependencies(spff.web.spffResources) ;
   product.addDependencies(spff.web.spffportal) ;
   //product.addDependencies(spff.component.synchro) ;
-  product.addDependencies(spff.tool.migration) ;
+  //product.addDependencies(spff.tool.migration) ;
   product.addDependencies(spff.patch.loginmodule) ; // to use only with JBoss, not Tomcat
   product.addDependencies(spff.patch.authenticator) ; 
   
