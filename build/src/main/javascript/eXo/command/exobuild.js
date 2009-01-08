@@ -4,6 +4,7 @@ eXo.require("eXo.server.JbossEar");
 eXo.require("eXo.server.Ear");
 eXo.require("eXo.server.Jonas");
 eXo.require("eXo.server.Database");
+eXo.require("eXo.server.WorkflowConfig");
 eXo.require("eXo.core.TaskDescriptor");
 eXo.require("eXo.command.maven");
 eXo.require("eXo.command.svn");
@@ -299,11 +300,17 @@ if (deployServers != null && !deployServers.isEmpty()) {
       tasks.add(database.DeployTask(product, server, eXo.env.m2Repos)) ;
       tasks.add(database.ConfigureTask(product, server, dbsetup)) ;
     }
-    if (server.name == "ear") {
-      tasks.add(EarTask(server, product, version)) ;
+    if (product.useWorkflow) {
+      var patchWorkflow = eXo.server.WorkflowConfig;
+      print("\n\n abc patchWorkflow ==  " + patchWorkflow);
+      tasks.add(patchWorkflow.patchWarWorkflow(server, product, workflow.name));
     }
+    if (server.name == "ear") {
+      tasks.add(EarTask(server, product, version));
+    }
+    
     if (release_)
-      tasks.add(ReleaseTask(server, product, version)) ;
+      tasks.add(ReleaseTask(server, product, version));
   }
 }
 /**
