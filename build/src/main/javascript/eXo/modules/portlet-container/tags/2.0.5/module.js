@@ -7,9 +7,9 @@ function getModule(params) {
   var core = params.core;
 
   var module = new Module();
-  module.version = "2.0.6-SNAPSHOT" ;
+  module.version = "2.0.5" ;
   module.relativeMavenRepo = "org/exoplatform/portletcontainer" ;
-  module.relativeSRCRepo = "portlet-container/trunk" ;
+  module.relativeSRCRepo = "portlet-container/tags/2.0.5" ;
   module.name = "pc" ;
 
   module.services = {} ;
