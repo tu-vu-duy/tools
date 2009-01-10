@@ -24,16 +24,24 @@ Workflow.prototype.configWorkflow = function(product) {
 	} else if(this.name == "bonita") {
 	  if (product.name == "eXoWorkflow") {
   	  product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.bonita", "jar", "1.0-SNAPSHOT"));
+  	  //product.addDependencies(new Project("org.exoplatform.workflow", "exo.workflow.component.workflow.impl.bonita", "jar", "trunk"));
 	  } else {
-	    product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.bonita", "jar", this.version)) ;
+	    product.addDependencies(new Project("org.exoplatform.workflow", "exo.workflow.component.workflow.impl.bonita", "jar", this.version));
 		}
-		product.addDependencies(new Project("org.objectweb.bonita", "bonita-client", "jar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "bonita", "exo-ear-jar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "config", "exo-ear-rar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "bonita_ws", "war", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "jabber", "exo-ear-rar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "loadclass", "exo-ear-rar", "3.0")) ;
-    product.addServerPatch("jonas",new Project("org.exoplatform.ecm", "exo.ecm.server.jonas.patch", "jar", this.version)) ;
+		//product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.bonita", "jar", "1.0-SNAPSHOT")) ;
+		product.addDependencies(new Project("org.ow2.bonita", "bonita-api", "jar", "4.0")) ;
+		product.addDependencies(new Project("org.ow2.bonita", "bonita-core", "jar", "4.0")) ;
+		product.addDependencies(new Project("org.ow2.novabpm", "novaBpmIdentity", "jar", "1.0")) ;
+		product.addDependencies(new Project("org.ow2.novabpm", "novaBpmUtil", "jar", "1.0")) ;
+		product.addDependencies(new Project("org.jbpm", "pvm", "jar", "r2175")) ;
+		
+		//Add external dependencies 
+		product.addDependencies(new Project("bsh", "bsh", "jar", "2.0b1")) ;
+		product.addDependencies(new Project("net.sf.ehcache", "ehcache", "jar", "1.5.0")) ;
+		product.addDependencies(new Project("backport-util-concurrent", "backport-util-concurrent", "jar", "3.1")) ;
+		product.addDependencies(new Project("org.ow2.util.asm", "asm", "jar", "3.1"));
+    //product.addServerPatch("tomcat",new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.server.tomcat.patch", "jar", this.version));
+    product.addServerPatch("tomcat",new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.server.tomcat.patch", "jar", "1.0-SNAPSHOT"));
 	}
 }
 

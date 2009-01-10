@@ -36,7 +36,8 @@ WorkflowPlugin.prototype.configWorkflowPlugin = function(product) {
     // workflow version to use (avoid problem with trunk product using branche for workflow for example)	
 	} else if(this.name == "bonita") {
 		product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.bonitaconfig", "jar", "1.0-SNAPSHOT"));
-		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.bonita", "jar", "1.0-SNAPSHOT"));
+		//product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.bonita", "jar", "1.0-SNAPSHOT"));
+		product.addDependencies(new Project("org.exoplatform.workflow", "exo.workflow.component.workflow.impl.bonita", "jar", "trunk"));
 		product.addDependencies(new Project("org.objectweb.bonita", "bonita-client", "jar", "3.0")) ;
     product.addDependencies(new Project("org.objectweb.bonita", "bonita", "exo-ear-jar", "3.0")) ;
     product.addDependencies(new Project("org.objectweb.bonita", "config", "exo-ear-rar", "3.0")) ;
