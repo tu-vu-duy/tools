@@ -18,8 +18,8 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.4", {kernel : kernel, core : core}) ;    
   var eXoJcr = Module.GetModule("jcr/tags/1.10.1", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.5", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});         
-  var dms = Module.GetModule("ecm/dms/trunk", {kernel : kernel, core : core,ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr , portal : portal});
-  var wcm = Module.GetModule("ecm/wcm/trunk", {kernel : kernel, core : core,ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
+  var ecm = Module.GetModule("ecm/tags/2.2", {kernel : kernel, core : core,ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr , portal : portal});
+  var wcm = Module.GetModule("ecm/wcm/trunk", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
     
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
@@ -28,12 +28,13 @@ function getProduct(version) {
 	product.addDependencies(portal.eXoGadgets) ;
 	product.addDependencies(portal.web.rest);
 	
-	product.addDependencies(dms.portlet.dms);
+	product.addDependencies(ecm.portlet.ecm);
+  product.addDependencies(ecm.portlet.workflow);   
   		 
   product.addDependencies(wcm.portlet.webpresentation);
   product.addDependencies(wcm.portlet.websearches); 
   product.addDependencies(wcm.web.eXoWCMResources) ;
-  product.addDependencies(dms.web.eXoECMResources) ;
+  product.addDependencies(ecm.web.eXoECMResources) ;
   product.addDependencies(wcm.web.wcmportal) ;        
   
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
@@ -43,7 +44,7 @@ function getProduct(version) {
   product.addServerPatch("ear",  portal.server.websphere.patch) ;
 
   product.module = wcm ;
-  product.dependencyModule = [tool, kernel, core, ws, eXoPortletContainer, eXoJcr, portal, dms];
+  product.dependencyModule = [tool, kernel, core, ws, eXoPortletContainer, eXoJcr, portal, ecm];
     
   return product ;
 }
