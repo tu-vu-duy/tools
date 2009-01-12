@@ -10,7 +10,7 @@ function getModule(params) {
   var ws = params.ws;
   var module = new Module();
 
-  module.version =  "2.5.1-SNAPSHOT" ;
+  module.version =  "2.6-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/portal" ;
   module.relativeSRCRepo =  "portal/trunk" ;
   module.name =  "portal" ;
