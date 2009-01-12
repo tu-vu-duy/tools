@@ -302,8 +302,7 @@ if (deployServers != null && !deployServers.isEmpty()) {
     }
     if (product.useWorkflow) {
       var patchWorkflow = eXo.server.WorkflowConfig;
-      print("\n\n abc patchWorkflow ==  " + patchWorkflow);
-      tasks.add(patchWorkflow.patchWarWorkflow(server, product, workflow.name));
+      tasks.add(patchWorkflow.patchWarWorkflow(server, product));
     }
     if (server.name == "ear") {
       tasks.add(EarTask(server, product, version));
