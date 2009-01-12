@@ -10,25 +10,19 @@ function Workflow(workflowName, workflowVersion) {
 Workflow.prototype.configWorkflow = function(product) {
   print("\n\n name = " + product.name);
 	if(this.name == "jbpm") {
-	  if (product.name == "eXoWorkflow") {
-	      product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.facade", "jar", "1.0-SNAPSHOT"));
-	  		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.engine", "jar", "3.0"));
-	  } else {
-			product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", this.version));
-			product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.engine", "jar", "3.0"));
-	  }
+	  //if (product.name == "eXoWorkflow") {
+      product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.facade", "jar", "1.0-SNAPSHOT"));
+  		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.engine", "jar", "3.0"));
+	//  } else {
+	//		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", this.version));
+	//		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.engine", "jar", "3.0"));
+	//  }
 		//For POC using 2.0, please use this	
 		//product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", "2.0")) ;
     // workflow version management has been fixed. Use "product.workflowVersion" variable in your JS product descriptor	to set
     // workflow version to use (avoid problem with trunk product using branche for workflow for example)	
 	} else if(this.name == "bonita") {
-	  if (product.name == "eXoWorkflow") {
-  	  product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.bonita", "jar", "1.0-SNAPSHOT"));
-  	  //product.addDependencies(new Project("org.exoplatform.workflow", "exo.workflow.component.workflow.impl.bonita", "jar", "trunk"));
-	  } else {
-	    product.addDependencies(new Project("org.exoplatform.workflow", "exo.workflow.component.workflow.impl.bonita", "jar", this.version));
-		}
-		//product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.bonita", "jar", "1.0-SNAPSHOT")) ;
+  	product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.bonita", "jar", "1.0-SNAPSHOT"));
 		product.addDependencies(new Project("org.ow2.bonita", "bonita-api", "jar", "4.0")) ;
 		product.addDependencies(new Project("org.ow2.bonita", "bonita-core", "jar", "4.0")) ;
 		product.addDependencies(new Project("org.ow2.novabpm", "novaBpmIdentity", "jar", "1.0")) ;

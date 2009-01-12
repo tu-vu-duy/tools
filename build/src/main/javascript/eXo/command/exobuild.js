@@ -183,6 +183,7 @@ var version = "trunk";
 var workflow = new Workflow("jbpm",version);
 var workflowPlugin = new WorkflowPlugin("bonita", version);
 var useWorkflowPlugin = false;
+var addWorkflow = false;
 var tasks =  new java.util.ArrayList();
 var noInternet = false;
 
@@ -225,6 +226,7 @@ for(var i = 0; i <args.length; i++) {
 	    java.lang.System.setProperty("workflow",workflowName);
 	    workflowPlugin = new WorkflowPlugin(workflowName,version);
 	    useWorkflowPlugin = true;
+	    addWorkflow       = true;
   } else if (arg == "--nointernet") {
     noInternet = true;
   } else if (arg == "--help" || arg == "-help" || arg == "help" || arg == "?") {    
@@ -283,7 +285,7 @@ if(build_) {
 
 
 if (deployServers != null && !deployServers.isEmpty()) {
-  if (product.useWorkflow) {
+  if (product.useWorkflow || addWorkflow) {
 	  workflow.version = product.workflowVersion;
 		workflow.configWorkflow(product);
   }

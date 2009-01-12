@@ -24,27 +24,19 @@ WorkflowPlugin.prototype.configWorkflowPlugin = function(product) {
   
 	if(this.name == "jbpm") {
 	  product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.jbpmconfig", "jar", "1.0-SNAPSHOT"));
-		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.facade", "jar", "1.0-SNAPSHOT")) ;
-		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.engine", "jar", "3.0")) ;
-		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.payraise", "jar", "1.0-SNAPSHOT")) ;
-		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.holiday", "jar", "1.0-SNAPSHOT")) ;
-		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.content.validation", "jar", "1.0-SNAPSHOT")) ;
-		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.content.backup", "jar", "1.0-SNAPSHOT")) ;
+		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.payraise", "jar", "1.0-SNAPSHOT"));
+		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.holiday", "jar", "1.0-SNAPSHOT"));
+		product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation.bp", "exo.ecm.contentvalidation.bp.jbpm.content.validation", "jar", "1.0-SNAPSHOT"));
+		product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation.bp", "exo.ecm.contentvalidation.bp.jbpm.content.backup", "jar", "1.0-SNAPSHOT"));
 		//For POC using 2.0, please use this	
 		//product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", "2.0")) ;
     // workflow version management has been fixed. Use "product.workflowVersion" variable in your JS product descriptor	to set
     // workflow version to use (avoid problem with trunk product using branche for workflow for example)	
 	} else if(this.name == "bonita") {
 		product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.bonitaconfig", "jar", "1.0-SNAPSHOT"));
-		//product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.bonita", "jar", "1.0-SNAPSHOT"));
-		product.addDependencies(new Project("org.exoplatform.workflow", "exo.workflow.component.workflow.impl.bonita", "jar", "trunk"));
-		product.addDependencies(new Project("org.objectweb.bonita", "bonita-client", "jar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "bonita", "exo-ear-jar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "config", "exo-ear-rar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "bonita_ws", "war", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "jabber", "exo-ear-rar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "loadclass", "exo-ear-rar", "3.0")) ;
-    product.addServerPatch("jonas",new Project("org.exoplatform.ecm", "exo.ecm.server.jonas.patch", "jar", this.version)) ;
+		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.bonita", "jar", "1.0-SNAPSHOT"));
+		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.bonita.holiday", "jar", "1.0-SNAPSHOT")) ;
+		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.bonita.payraise", "jar", "1.0-SNAPSHOT")) ;
 	}
 }
 
