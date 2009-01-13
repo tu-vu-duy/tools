@@ -10,7 +10,6 @@ eXo.require("eXo.command.maven");
 eXo.require("eXo.command.svn");
 eXo.require("eXo.core.IOUtil");
 eXo.require("eXo.projects.Workflow");
-eXo.require("eXo.projects.WorkflowPlugin");
 eXo.require("eXo.projects.Product") ;
 
 // initialize possible database setups   
@@ -181,9 +180,8 @@ var dialect = "hsqldb";
 var database = databaseMap.get(dialect);
 var version = "trunk";
 var workflow = new Workflow("bonita",version);
-var workflowPlugin = new WorkflowPlugin("bonita", version);
-var useWorkflowPlugin = false;
-var addWorkflow = false;
+//var workflowPlugin = new WorkflowPlugin("bonita", version);
+var useWorkflowPlg = false;
 var tasks =  new java.util.ArrayList();
 var noInternet = false;
 
@@ -225,12 +223,10 @@ for(var i = 0; i <args.length; i++) {
 	    if (workflowName !="") {
 	      workflow = new Workflow(workflowName,version);
 	      java.lang.System.setProperty("workflow",workflowName);
-  	    workflowPlugin = new WorkflowPlugin(workflowName,version);
 	    } else {
 	      java.lang.System.setProperty("workflow","bonita");
 	    }
-	    useWorkflowPlugin = true;
-	    addWorkflow       = true;
+	    useWorkflowPlg = true;
   } else if (arg == "--nointernet") {
     noInternet = true;
   } else if (arg == "--help" || arg == "-help" || arg == "help" || arg == "?") {    
@@ -267,7 +263,6 @@ if(update_) {
   tasks.add(exosvn.UpdateTask(eXo.env.eXoProjectsDir + "/" + product.codeRepo));
 }
 
-
 if(build_) {
   var mvnArgs = ["clean", "install"] ;
   for(var i = 0; i < product.dependencyModule.length; i++) {
@@ -287,16 +282,12 @@ if(build_) {
   tasks.add(maven.MavenTask(moduleDir, mvnArgs));
 }
 
-
 if (deployServers != null && !deployServers.isEmpty()) {
-  if (product.useWorkflow || addWorkflow) {
-	  workflow.version = product.workflowVersion;
-		workflow.configWorkflow(product);
+  if (product.useWorkflow || useWorkflowPlg) {
+    workflow.version = product.workflowVersion;
+    workflow.configWorkflow(product);
   }
-  if (product.name == "eXoDMS" && useWorkflowPlugin) {
-    workflowPlugin.version = product.workflowVersion;
-    workflowPlugin.configWorkflowPlugin(product);
-  }
+  
 	var serv = deployServers.iterator();
   while (serv.hasNext()) {
     server = serv.next();
@@ -306,7 +297,7 @@ if (deployServers != null && !deployServers.isEmpty()) {
       tasks.add(database.DeployTask(product, server, eXo.env.m2Repos)) ;
       tasks.add(database.ConfigureTask(product, server, dbsetup)) ;
     }
-    if (product.useWorkflow) {
+    if (product.name == "eXoWorkflow") {
       var patchWorkflow = eXo.server.WorkflowConfig;
       tasks.add(patchWorkflow.patchWarWorkflow(server, product));
     }
