@@ -9,6 +9,7 @@ function WorkflowConfig() {
 WorkflowConfig.prototype.patchWarWorkflow = function(server,product) {
   var descriptor =  new TaskDescriptor("Configure workflow", null) ;
   var workflowName = java.lang.System.getProperty("workflow");
+  if (workflowName == null || workflowName == "") workflowName = "bonita";
   descriptor.description = "Configure to use workflow with " + workflowName;
   descriptor.execute =function () {
      var jarFile =  server.deployWebappDir + "/" + product.portalwar;

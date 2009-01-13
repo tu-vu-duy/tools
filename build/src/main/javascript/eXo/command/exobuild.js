@@ -180,7 +180,6 @@ var dialect = "hsqldb";
 var database = databaseMap.get(dialect);
 var version = "trunk";
 var workflow = new Workflow("bonita",version);
-//var workflowPlugin = new WorkflowPlugin("bonita", version);
 var useWorkflowPlg = false;
 var tasks =  new java.util.ArrayList();
 var noInternet = false;
@@ -223,8 +222,6 @@ for(var i = 0; i <args.length; i++) {
 	    if (workflowName !="") {
 	      workflow = new Workflow(workflowName,version);
 	      java.lang.System.setProperty("workflow",workflowName);
-	    } else {
-	      java.lang.System.setProperty("workflow","bonita");
 	    }
 	    useWorkflowPlg = true;
   } else if (arg == "--nointernet") {
