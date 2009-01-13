@@ -12,16 +12,16 @@ function getProduct(version) {
   product.serverPluginVersion = "2.5.1" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/tags/2.0.5") ;
+  var kernel = Module.GetModule("kernel/tags/2.0.6") ;
   var core = Module.GetModule("core/tags/2.1.3") ;
-  var ws = Module.GetModule("ws/tags/1.3.1", {kernel : kernel, core : core});
+  var ws = Module.GetModule("ws/tags/1.3.1");
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.4", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.10.1", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.5.1", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var workflow = Module.GetModule("ecm/workflow/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
     
   product.addDependencies(portal.web.rest);
-  product.addDependencies(workflow.web.ecmportal);
+  product.addDependencies(workflow.web.portal);
   product.addDependencies(workflow.web.eXoWorkflowResources);
   product.addDependencies(portal.portlet.exoadmin);
   product.addDependencies(portal.portlet.web);

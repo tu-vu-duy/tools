@@ -222,7 +222,7 @@ for(var i = 0; i <args.length; i++) {
 	    if (workflowName !="") {
 	      workflow = new Workflow(workflowName,version);
 	      java.lang.System.setProperty("workflow",workflowName);
-	    }
+	    } 
 	    useWorkflowPlg = true;
   } else if (arg == "--nointernet") {
     noInternet = true;

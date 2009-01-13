@@ -8,16 +8,15 @@ function Workflow(workflowName, workflowVersion) {
 }
 
 Workflow.prototype.configWorkflow = function(product) {
-  
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.6") ;
   var core = Module.GetModule("core/tags/2.1.3") ;
   var ws = Module.GetModule("ws/tags/1.3.1");
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.4", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.10.1", {kernel : kernel, core : core, ws : ws}) ;
-  var portal = Module.GetModule("portal/tags/2.5", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
+  var portal = Module.GetModule("portal/tags/2.5.1", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var workflow = Module.GetModule("ecm/workflow/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
-
+    
   product.addDependencies(workflow.portlet.workflow);
   
 	if(this.name == "jbpm") {
@@ -25,7 +24,7 @@ Workflow.prototype.configWorkflow = function(product) {
  		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.engine", "jar", "3.0"));
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.payraise", "jar", "1.0-SNAPSHOT"));
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.holiday", "jar", "1.0-SNAPSHOT"));
-		if (product.name == "eXoDMS") {
+		if (product.useContentvalidation) {
 		  product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.jbpmconfig", "jar", this.version));
 			product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation.bp", "exo.ecm.contentvalidation.bp.jbpm.content.validation", "jar", this.version));
 			product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation.bp", "exo.ecm.contentvalidation.bp.jbpm.content.backup", "jar", this.version));
@@ -37,7 +36,7 @@ Workflow.prototype.configWorkflow = function(product) {
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.bonita", "jar", this.version));
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.bonita.holiday", "jar", this.version)) ;
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.bonita.payraise", "jar", this.version)) ;
-		if (product.name == "eXoDMS") {
+		if (product.useContentvalidation) {
 		  product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.plugin", "jar", this.version));
       product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.workflowPublication", "jar", this.version));
 			product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.bonitaconfig", "jar", this.version));

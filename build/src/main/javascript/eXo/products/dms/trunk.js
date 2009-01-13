@@ -7,12 +7,13 @@ function getProduct(version) {
   product.name = "eXoDMS" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "ecm/dms/trunk" ;
-  product.contentvalidationVersion = "1.0-SNAPSHOT" ;
+  product.useContentvalidation = true;
+  product.contentvalidationVersion = "1.0-SNAPSHOT";
   product.workflowVersion = "1.0-SNAPSHOT" ;
   product.serverPluginVersion = "2.5.1" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/tags/2.0.5") ;
+  var kernel = Module.GetModule("kernel/tags/2.0.6") ;
   var core = Module.GetModule("core/tags/2.1.3") ;
   var ws = Module.GetModule("ws/tags/1.3.1");
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.4", {kernel : kernel, core : core}) ;
