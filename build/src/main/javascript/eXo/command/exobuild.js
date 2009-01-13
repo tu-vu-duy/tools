@@ -180,7 +180,7 @@ var product = null;
 var dialect = "hsqldb";
 var database = databaseMap.get(dialect);
 var version = "trunk";
-var workflow = new Workflow("jbpm",version);
+var workflow = new Workflow("bonita",version);
 var workflowPlugin = new WorkflowPlugin("bonita", version);
 var useWorkflowPlugin = false;
 var addWorkflow = false;
@@ -222,9 +222,13 @@ for(var i = 0; i <args.length; i++) {
     }
   } else if (arg.match("--workflow")) {
 	    var workflowName = arg.substring("--workflow=".length);
-	    workflow = new Workflow(workflowName,version);
-	    java.lang.System.setProperty("workflow",workflowName);
-	    workflowPlugin = new WorkflowPlugin(workflowName,version);
+	    if (workflowName !="") {
+	      workflow = new Workflow(workflowName,version);
+	      java.lang.System.setProperty("workflow",workflowName);
+  	    workflowPlugin = new WorkflowPlugin(workflowName,version);
+	    } else {
+	      java.lang.System.setProperty("workflow","bonita");
+	    }
 	    useWorkflowPlugin = true;
 	    addWorkflow       = true;
   } else if (arg == "--nointernet") {
