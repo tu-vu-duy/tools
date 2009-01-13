@@ -14,7 +14,7 @@ function getModule(params) {
   module.version = "1.0-SNAPSHOT";
   module.relativeMavenRepo =  "org/exoplatform/ecm/workflow";
   module.relativeSRCRepo =  "ecm/workflow/trunk";
-  module.name =  "workflow";
+  module.name =  "eXoWorkflow";
     
   module.portlet = {}
   module.portlet.workflow = 
@@ -30,9 +30,9 @@ function getModule(params) {
     addDependency(new Project("pdfbox", "pdfbox", "jar", "0.7.2")) ;     
         
   module.web = {}
-  module.web.eXoECMResources = 
-    new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.web.eXoECMResources", "war", module.version) ;  
-  module.web.eXoECMResources.deployName = "eXoECMResources" ;
+  module.web.eXoWorkflowResources = 
+    new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.web.eXoWorkflowResources", "war", module.version) ;  
+  module.web.eXoWorkflowResources.deployName = "eXoWorkflowResources" ;
   
   module.web.ecmportal = 
     new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.web.portal", "exo-portal", module.version).
