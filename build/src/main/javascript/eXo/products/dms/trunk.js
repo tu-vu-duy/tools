@@ -22,8 +22,8 @@ function getProduct(version) {
   var dms = Module.GetModule("ecm/dms/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
     
   product.addDependencies(portal.web.rest);
-  product.addDependencies(dms.web.ecmportal);
-  product.addDependencies(dms.web.eXoECMResources);
+  product.addDependencies(dms.web.dmsportal);
+  product.addDependencies(dms.web.eXoDMSResources);
   product.addDependencies(portal.portlet.exoadmin);
   product.addDependencies(portal.portlet.web);
   product.addDependencies(portal.portlet.dashboard);

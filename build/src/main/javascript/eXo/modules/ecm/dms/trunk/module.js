@@ -23,7 +23,7 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.component.deployment", "jar",  module.version)) .    
     addDependency(new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.component.publication", "jar", module.version)).
     addDependency(new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.connector.fckeditor", "jar", module.version)).
-    addDependency(new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.webui.ecm", "jar", module.version)).
+    addDependency(new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.webui.dms", "jar", module.version)).
     addDependency(new Project("rome", "rome", "jar", "0.8")) .
     addDependency(new Project("com.totsp.feedpod", "itunes-com-podcast", "jar", "0.2")) .
     addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")) .
@@ -33,11 +33,11 @@ function getModule(params) {
     addDependency(new Project("pdfbox", "pdfbox", "jar", "0.7.2")) ;
   
   module.web = {}
-  module.web.eXoECMResources = 
-    new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.web.eXoECMResources", "war", module.version) ;  
-  module.web.eXoECMResources.deployName = "eXoECMResources" ;
+  module.web.eXoDMSResources = 
+    new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.web.eXoDMSResources", "war", module.version) ;  
+  module.web.eXoDMSResources.deployName = "eXoDMSResources" ;
       
-  module.web.ecmportal = 
+  module.web.dmsportal = 
     new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
