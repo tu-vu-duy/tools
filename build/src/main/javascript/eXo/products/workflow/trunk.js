@@ -23,7 +23,6 @@ function getProduct(version) {
   product.addDependencies(portal.web.rest);
   product.addDependencies(workflow.web.portal);
   product.addDependencies(workflow.web.eXoWorkflowResources);
-  product.addDependencies(workflow.webui.workflow);
   product.addDependencies(portal.portlet.exoadmin);
   product.addDependencies(portal.portlet.web);
   product.addDependencies(portal.portlet.dashboard);
