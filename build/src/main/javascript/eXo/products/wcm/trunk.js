@@ -7,6 +7,9 @@ function getProduct(version) {
   product.name = "eXoWCM" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "ecm/wcm/trunk" ;
+  product.useContentvalidation = true;
+  product.contentvalidationVersion = "1.0-SNAPSHOT";
+  product.workflowVersion = "1.0-SNAPSHOT" ;
   product.serverPluginVersion = "2.5" ;
   
   var tool = Module.GetModule("tools/trunk") ;
