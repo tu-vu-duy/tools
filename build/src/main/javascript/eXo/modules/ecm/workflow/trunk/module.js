@@ -28,14 +28,14 @@ function getModule(params) {
     addDependency(new Project("jdom", "jdom", "jar", "1.0")).
     addDependency(new Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")).
     addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")).
-    addDependency(new Project("pdfbox", "pdfbox", "jar", "0.7.2")) ;     
+    addDependency(new Project("pdfbox", "pdfbox", "jar", "0.7.2"));     
         
   module.web = {}
   module.web.eXoWorkflowResources = 
     new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.web.eXoWorkflowResources", "war", module.version) ;  
   module.web.eXoWorkflowResources.deployName = "eXoWorkflowResources" ;
   
-  module.web.ecmportal = 
+  module.web.portal = 
     new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources).
     addDependency(portal.web.eXoMacSkin).
