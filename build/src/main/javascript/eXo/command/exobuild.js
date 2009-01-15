@@ -10,6 +10,7 @@ eXo.require("eXo.command.maven");
 eXo.require("eXo.command.svn");
 eXo.require("eXo.core.IOUtil");
 eXo.require("eXo.projects.Workflow");
+eXo.require("eXo.projects.WorkflowBackup");
 eXo.require("eXo.projects.Product") ;
 
 // initialize possible database setups   
@@ -180,7 +181,9 @@ var dialect = "hsqldb";
 var database = databaseMap.get(dialect);
 var version = "trunk";
 var workflow = new Workflow("bonita",version);
+var workflowBackup = new WorkflowBackup("jbpm",version);
 var useWorkflowPlg = false;
+var enableWorkflow = false;
 var tasks =  new java.util.ArrayList();
 var noInternet = false;
 
@@ -219,11 +222,14 @@ for(var i = 0; i <args.length; i++) {
     }
   } else if (arg.match("--workflow")) {
 	    var workflowName = arg.substring("--workflow=".length);
-	    if (workflowName !="") {
-	      workflow = new Workflow(workflowName,version);
-	      java.lang.System.setProperty("workflow",workflowName);
+	    if (workflowName != "") {
+	      workflow.name = workflowName;
+	      workflowBackup.name =  workflowName;
+	      java.lang.System.setProperty("workflow", workflowName);
 	    } 
 	    useWorkflowPlg = true;
+  } else if (arg.match("--enable-workflow")) {
+	    enableWorkflow = true;
   } else if (arg == "--nointernet") {
     noInternet = true;
   } else if (arg == "--help" || arg == "-help" || arg == "help" || arg == "?") {    
@@ -281,8 +287,13 @@ if(build_) {
 
 if (deployServers != null && !deployServers.isEmpty()) {
   if (product.useWorkflow || useWorkflowPlg) {
-    workflow.version = product.workflowVersion;
-    workflow.configWorkflow(product);
+    if (enableWorkflow) {
+      workflow.version = product.workflowVersion;
+      workflow.configWorkflow(product);
+    } else {
+      workflowBackup.version = product.workflowVersion;
+      workflowBackup.configWorkflow(product);
+    }
   }
   
 	var serv = deployServers.iterator();
