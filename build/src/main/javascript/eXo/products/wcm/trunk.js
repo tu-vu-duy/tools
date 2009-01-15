@@ -34,7 +34,7 @@ function getProduct(version) {
   product.addDependencies(wcm.portlet.webpresentation);
   product.addDependencies(wcm.portlet.websearches); 
   product.addDependencies(wcm.web.eXoWCMResources) ;
-  product.addDependencies(dms.web.eXoECMResources) ;
+  product.addDependencies(dms.web.eXoDMSResources) ;
   product.addDependencies(wcm.web.wcmportal) ;        
   
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
