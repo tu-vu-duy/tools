@@ -229,6 +229,7 @@ for(var i = 0; i <args.length; i++) {
 	    } 
 	    useWorkflowPlg = true;
   } else if (arg.match("--enable-workflow")) {
+      eXo.System.info("INFO", "We use parameter enable-workflow to add somes dependencies from ecm/workflow product");
 	    enableWorkflow = true;
   } else if (arg == "--nointernet") {
     noInternet = true;
