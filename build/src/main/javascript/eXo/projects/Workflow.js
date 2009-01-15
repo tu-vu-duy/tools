@@ -47,7 +47,7 @@ Workflow.prototype.configWorkflow = function(product) {
 		product.addDependencies(new Project("net.sf.ehcache", "ehcache", "jar", "1.5.0"));
 		product.addDependencies(new Project("backport-util-concurrent", "backport-util-concurrent", "jar", "3.1"));
 		product.addDependencies(new Project("org.ow2.util.asm", "asm", "jar", "3.1"));
-		product.addServerPatch("tomcat",new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.server.tomcat.patch", "jar", "1.0-SNAPSHOT"));
+		product.addServerPatch("tomcat",new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.server.tomcat.patch", "jar", this.version));
 	}
 }
 
@@ -58,11 +58,9 @@ Workflow.prototype.getPortlet = function() {
 	    addDependency(new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.webui.dms", "jar", "2.3-SNAPSHOT")).
 	    addDependency(new Project("rome", "rome", "jar", "0.8")).
 	    addDependency(new Project("com.totsp.feedpod", "itunes-com-podcast", "jar", "0.2")).
-	    addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")).
 	    addDependency(new Project("jdom", "jdom", "jar", "1.0")).
 	    addDependency(new Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")).
 	    addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")).
-	    addDependency(new Project("pdfbox", "pdfbox", "jar", "0.7.2"));   
 }
 
 eXo.projects.Workflow = Workflow.prototype.constructor ;

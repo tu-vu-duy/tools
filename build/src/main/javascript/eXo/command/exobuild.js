@@ -221,6 +221,7 @@ for(var i = 0; i <args.length; i++) {
       productName = arg.substring("--product=".length);
     }
   } else if (arg.match("--workflow")) {
+      eXo.System.info("INFO", "This parameter was deprecated since ECM 2.3. If you are using DMS 2.3 please use --enable-workflow to replace the old one");
 	    var workflowName = arg.substring("--workflow=".length);
 	    if (workflowName != "") {
 	      workflow.name = workflowName;
@@ -229,7 +230,6 @@ for(var i = 0; i <args.length; i++) {
 	    } 
 	    useWorkflowPlg = true;
   } else if (arg.match("--enable-workflow")) {
-      eXo.System.info("INFO", "We use parameter enable-workflow to add somes dependencies from ecm/workflow product");
 	    enableWorkflow = true;
   } else if (arg == "--nointernet") {
     noInternet = true;
