@@ -17,13 +17,13 @@ WorkflowBackup.prototype.configWorkflow = function(product) {
     // workflow version to use (avoid problem with trunk product using branche for workflow for example)	
 	} else if(this.name = "bonita") {
 		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.bonita", "jar", this.version)) ;
-		product.addDependencies(new Project("org.objectweb.bonita", "bonita-client", "jar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "bonita", "exo-ear-jar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "config", "exo-ear-rar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "bonita_ws", "war", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "jabber", "exo-ear-rar", "3.0")) ;
-    product.addDependencies(new Project("org.objectweb.bonita", "loadclass", "exo-ear-rar", "3.0")) ;
-    product.addServerPatch("jonas",new Project("org.exoplatform.ecm", "exo.ecm.server.jonas.patch", "jar", this.version)) ;
+		product.addDependencies(new Project("org.objectweb.bonita", "bonita-client", "jar", "3.0"));
+    product.addDependencies(new Project("org.objectweb.bonita", "bonita", "exo-ear-jar", "3.0"));
+    product.addDependencies(new Project("org.objectweb.bonita", "config", "exo-ear-rar", "3.0"));
+    product.addDependencies(new Project("org.objectweb.bonita", "bonita_ws", "war", "3.0"));
+    product.addDependencies(new Project("org.objectweb.bonita", "jabber", "exo-ear-rar", "3.0"));
+    product.addDependencies(new Project("org.objectweb.bonita", "loadclass", "exo-ear-rar", "3.0"));
+    product.addServerPatch("jonas",new Project("org.exoplatform.ecm", "exo.ecm.server.jonas.patch", "jar", this.version));
 	}	  
 }
 

@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "eXoECM" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "ecm/tags/rc6" ;
+  product.codeRepo = "ecm/dms/tags/rc6" ;
   product.useWorkflow = true;
   product.workflowVersion = "rc6" ;
   product.serverPluginVersion = "2.1" ;

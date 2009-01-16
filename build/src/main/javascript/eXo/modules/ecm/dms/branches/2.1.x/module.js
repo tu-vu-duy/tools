@@ -14,7 +14,7 @@ function getModule(params) {
 
   module.version = "2.1.x" ;
   module.relativeMavenRepo =  "org/exoplatform/ecm" ;
-  module.relativeSRCRepo =  "ecm/branches/2.1.x" ;
+  module.relativeSRCRepo =  "ecm/dms/branches/2.1.x" ;
   module.name =  "ecm" ;
     
   module.portlet = {}

@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "eXoECM";
   product.portalwar = "portal.war";
-  product.codeRepo = "ecm/branches/2.1.x";
+  product.codeRepo = "ecm/dms/branches/2.1.x";
   product.useWorkflow = true;
   product.workflowVersion = "2.1.x";
   product.serverPluginVersion = "2.2.2";

@@ -248,6 +248,10 @@ if(productName == null || productName == "") {
   errExobuild("NULL product", "");
 } else {
   product = Product.GetProduct(productName, version);
+  if (productName == "workflow") {
+    enableWorkflow = true;
+  }
+  
 }
 
 if(deployServers!=null && !deployServers.isEmpty() && dbsetup == "ask") {

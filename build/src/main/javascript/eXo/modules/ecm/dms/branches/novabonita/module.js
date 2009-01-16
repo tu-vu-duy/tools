@@ -13,7 +13,7 @@ function getModule(params) {
   
   module.version = "novabonita" ;
   module.relativeMavenRepo =  "org/exoplatform/ecm" ;
-  module.relativeSRCRepo =  "ecm/branches/novabonita" ;
+  module.relativeSRCRepo =  "ecm/dms/branches/novabonita" ;
   module.name =  "ecm" ;
     
   module.portlet = {}

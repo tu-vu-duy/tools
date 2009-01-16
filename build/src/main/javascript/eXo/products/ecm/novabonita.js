@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "eXoECM" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "ecm/branches/novabonita" ;
+  product.codeRepo = "ecm/dms/branches/novabonita" ;
   product.useWorkflow = true;
   product.workflowVersion = "trunk" ;
   product.serverPluginVersion = "2.5rc1" ;
