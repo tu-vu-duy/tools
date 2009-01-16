@@ -47,7 +47,7 @@ function exobuildInstructions() {
    "           [--deploy[=server]]\n" +
    "           [--release[=server]]\n" +   
    "           [--workflow[=jbpm|bonita]]\n" +   
-   "           [--contentvalidation[=jbpm|bonita]]\n" +   
+   "           [--enable-workflow[=bonita|jbpm]]\n" +   
    "           [--clean-mvn-repo]\n" +
    "           [--database[=dialect]]\n" +
    "           [--dbsetup=option]\n" +
@@ -79,8 +79,11 @@ function exobuildInstructions() {
    "                       dbsetup=file will use the database and jcr files you provided.\n" +
    "                       dbsetup=ask allow you to enter the connection url , username and password of the database server.\n" +
    "                       dbsetup=defaults is the default option if dbsetup is not specified and will override settings by those defined in Database.js\n" +    
-   "  * --workflow=engine  Specify the workflow engine to bundle with the product. The possible values are bonita or jbpm.\n" +
+   "  * --workflow=engine  (For the old verions of ECM from 2.0 to 2.2.x) Specify the workflow engine to bundle with the product. The possible values are bonita or jbpm.\n" +
    "                       This option is only used for products that use workflow. Default engine is jbpm\n" +
+   "  * --enable-workflow=engine  
+   "                       (Since DMS 2.3) Specify the workflow engine to bundle with the product. The possible values are bonita or jbpm.\n" +
+   "                       This option is only used for products that use workflow. Default engine is bonita\n" +
    "  * --help             To print this help. Also you can use option: '-help' or 'help' or '?' \n"
   );
 }
