@@ -294,7 +294,7 @@ if(build_) {
 }
 
 if (deployServers != null && !deployServers.isEmpty()) {
-  if (product.useWorkflow || useWorkflowPlg) {
+  if (product.useWorkflow || useWorkflowPlg || enableWorkflow) {
     if (enableWorkflow) {
       workflow.version = product.workflowVersion;
       workflow.configWorkflow(product);
