@@ -81,7 +81,7 @@ function exobuildInstructions() {
    "                       dbsetup=defaults is the default option if dbsetup is not specified and will override settings by those defined in Database.js\n" +    
    "  * --workflow=engine  (For the old verions of ECM from 2.0 to 2.2.x) Specify the workflow engine to bundle with the product. The possible values are bonita or jbpm.\n" +
    "                       This option is only used for products that use workflow. Default engine is jbpm\n" +
-   "  * --enable-workflow=engine  
+   "  * --enable-workflow=engine + .\n" + 
    "                       (Since DMS 2.3) Specify the workflow engine to bundle with the product. The possible values are bonita or jbpm.\n" +
    "                       This option is only used for products that use workflow. Default engine is bonita\n" +
    "  * --help             To print this help. Also you can use option: '-help' or 'help' or '?' \n"
