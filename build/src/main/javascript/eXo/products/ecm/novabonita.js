@@ -19,7 +19,7 @@ function getProduct(version) {
   var eXoJcr = Module.GetModule("jcr/tags/1.10") ;
   var portal = Module.GetModule("portal/tags/2.5rc1", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var workflow = Module.GetModule("workflow/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
-  var ecm = Module.GetModule("ecm//branches/novabonita", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
+  var ecm = Module.GetModule("ecm/dms/branches/novabonita", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
     
   product.addDependencies(ecm.web.ecmportal) ;
   product.addDependencies(ecm.web.rest) ;
