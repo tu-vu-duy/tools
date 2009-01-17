@@ -233,6 +233,12 @@ for(var i = 0; i <args.length; i++) {
 	    } 
 	    useWorkflowPlg = true;
   } else if (arg.match("--enable-workflow")) {
+      var workflowName = arg.substring("--enable-workflow=".length);
+	    if (workflowName != "") {
+	      workflow.name = workflowName;
+	      java.lang.System.setProperty("workflow", workflowName);
+	    } 
+	    useWorkflowPlg = true;
 	    enableWorkflow = true;
   } else if (arg == "--nointernet") {
     noInternet = true;
