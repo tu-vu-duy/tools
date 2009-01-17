@@ -6,20 +6,20 @@ function getProduct(version) {
   
   product.name = "eXoWCM" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "wcm/branches/1.0Beta1/" ;
+  product.codeRepo = "ecm/wcm/branches/1.0Beta1/" ;
   product.useWorkflow = true;
   product.workflowVersion = "trunk" ;
   product.serverPluginVersion = "trunk" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/trunk") ;
-  var ws = Module.GetModule("ws/trunk");
-  var core = Module.GetModule("core/trunk") ;
-  var eXoPortletContainer = Module.GetModule("portlet-container/trunk", {kernel : kernel, core : core}) ;
-  var eXoJcr = Module.GetModule("jcr/trunk") ;
-  var portal = Module.GetModule("portal/trunk", {kernel : kernel, core : core, ws:ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
-  var ecm = Module.GetModule("ecm/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr ,ws : ws, portal : portal});
-  var wcm = Module.GetModule("wcm/branches/1.0Beta1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal,ecm : ecm});
+  var kernel = Module.GetModule("kernel/tags/2.0.6") ;
+  var ws = Module.GetModule("ws/tags/1.3.1");
+  var core = Module.GetModule("core/tags/2.1.3") ;
+  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.4", {kernel : kernel, core : core}) ;
+  var eXoJcr = Module.GetModule("jcr/tags/1.10.1", {kernel : kernel, core : core, ws : ws}) ;
+  var portal = Module.GetModule("portal/tags/2.5", {kernel : kernel, core : core, ws:ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
+  var ecm = Module.GetModule("ecm/dms/tags/2.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr ,ws : ws, portal : portal});
+  var wcm = Module.GetModule("ecm/wcm/branches/1.0Beta1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal,ecm : ecm});
     
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
@@ -38,7 +38,7 @@ function getProduct(version) {
   product.addDependencies(ecm.web.eXoECMResources) ;
   product.addDependencies(wcm.web.wcmportal) ;        
   
-  product.addServerPatch("tomcat", ecm.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jbossear",  portal.server.jbossear.patch) ;  
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
