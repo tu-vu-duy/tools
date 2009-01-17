@@ -15,7 +15,7 @@ function getModule(params) {
 
   module.version = "1.0rc1" ;
   module.relativeMavenRepo =  "org/exoplatform/wcm" ;
-  module.relativeSRCRepo =  "wcm/tags/1.0rc1" ;
+  module.relativeSRCRepo =  "ecm/wcm/tags/1.0rc1" ;
   module.name =  "wcm" ;
   
   module.portlet = {};
