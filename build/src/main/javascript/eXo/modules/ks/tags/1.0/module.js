@@ -36,7 +36,14 @@ function getModule(params) {
     new Project("org.exoplatform.ks", "exo.ks.eXoApplication.content.webapp", "war", module.version).
       addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.content.service", "jar",  module.version));
   module.eXoApplication.content.deployName = "content";
-  */	  
+  */
+  
+  module.server = {}
+  
+  module.server.tomcat = {}
+  module.server.tomcat.patch = 
+    new Project("org.exoplatform.ks", "exo.ks.server.tomcat.patch", "jar", module.version);
+  	  
   module.web = {}
   module.web.ksResources = 
     new Project("org.exoplatform.ks", "exo.ks.web.ksResources", "war", module.version) ;
