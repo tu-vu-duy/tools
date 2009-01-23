@@ -33,6 +33,7 @@ function getProduct(version) {
   product.addDependencies(cs.web.rest) ;
   
   product.addServerPatch("tomcat",  cs.server.tomcat.patch) ;
+  product.addServerPatch("tomcat",  cs.server.tomcat.plugin) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
