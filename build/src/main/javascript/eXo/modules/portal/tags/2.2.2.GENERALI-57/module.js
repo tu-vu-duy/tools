@@ -91,13 +91,13 @@ function getModule(params) {
     
   module.web = {}
   module.web.eXoResources = 
-    new Project("org.exoplatform.portal", "exo.portal.web.eXoResources", "war", "2.2.2.GENERALI-57");
+    new Project("org.exoplatform.portal", "exo.portal.web.eXoResources", "war", module.version);
   module.web.eXoMacSkin = 
-    new Project("org.exoplatform.portal", "exo.portal.web.eXoSkinMac", "war", "2.2.2.GENERALI-57");
+    new Project("org.exoplatform.portal", "exo.portal.web.eXoSkinMac", "war", module.version);
   module.web.eXoVistaSkin = 
-    new Project("org.exoplatform.portal", "exo.portal.web.eXoSkinVista", "war", "2.2.2.GENERALI-57");
+    new Project("org.exoplatform.portal", "exo.portal.web.eXoSkinVista", "war", module.version);
 	module.web.rest = 
-    new Project("org.exoplatform.portal", "exo.portal.web.rest", "war", "2.2.2.GENERALI-57").
+    new Project("org.exoplatform.portal", "exo.portal.web.rest", "war", module.version).
     addDependency(ws.frameworks.servlet);
       
   module.web.portal = 
