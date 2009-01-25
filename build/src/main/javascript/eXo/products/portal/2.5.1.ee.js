@@ -8,7 +8,7 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "portal/branches/2.5.1.ee" ;
   product.serverPluginVersion = "2.5.1.ee" ;
-
+  
   var tool = Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/branches/2.0.6.ee") ;
   var core = Module.GetModule("core/branches/2.1.3.ee") ;

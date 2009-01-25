@@ -73,6 +73,15 @@ JbossEar.prototype.preDeploy = function(product) {
   product.addDependencies(new Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;
   product.addDependencies(new Project("org.exoplatform.portal", "exo.portal.server.jboss.plugin", "jar", product.serverPluginVersion)) ;
   //product.removeDependency(new Project("quartz", "quartz", "jar", "1.5.0-RC2"));
+
+  // Above 2.5 we don't bundle JOTM anymore  
+  var version = product.version;
+  if (version.indexOf("2.0") != 0 &&
+      version.indexOf("2.1") != 0 &&
+      version.indexOf("2.2") != 0) {
+    product.removeDependency(new Project("jotm", "jotm_jrmp_stubs", "jar", "2.0.10"));
+    product.removeDependency(new Project("jotm", "jotm", "jar", "2.0.10"));
+  }
 }
 
 JbossEar.prototype.onDeploy = function(project) { }

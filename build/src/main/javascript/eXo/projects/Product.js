@@ -14,13 +14,24 @@ function Product() {
   this.serverPluginVersion = "trunk" ;
 }
 
+Product.prototype.getVersion = function() {
+	
+	
+};
+
 Product.GetProduct = function(name, version) {
   // Try to load the product descriptor corresponding to the specified name and version
   eXo.load(version + ".js", eXo.env.eXoProjectsDir + "/tools/trunk/build/src/main/javascript/eXo/products/" + name);
 
   try {
     // The function getProduct() is defined in the loaded product decriptor
-    return getProduct(version);
+    var product = getProduct(version);
+    
+    // Set the version on the product
+    product.version = version;
+    
+    //
+    return product;
   } catch(error) {
     print(error);
     print("ERROR while loading product descriptor (name=\""
