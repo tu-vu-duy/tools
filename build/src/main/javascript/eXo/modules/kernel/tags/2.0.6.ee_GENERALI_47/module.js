@@ -6,7 +6,7 @@ function getModule(params) {
 
   module.version = "2.0.6.ee_GENERALI_47" ;
   module.relativeMavenRepo =  "org/exoplatform/kernel" ;
-  module.relativeSRCRepo =  "kernel/branches/2.0.6.ee_GENERALI_47" ;
+  module.relativeSRCRepo =  "kernel/tags/2.0.6.ee_GENERALI_47" ;
   module.name = "kernel" ;
     
   module.commons = 
