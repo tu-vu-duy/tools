@@ -27,6 +27,7 @@ function getProduct(version) {
   product.addDependencies(social.portlet.profile);
   product.addDependencies(social.web.opensocial);
   product.addDependencies(social.component.opensocial);
+  product.addDependencies(social.application.rest) ;
     
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
@@ -61,7 +62,7 @@ function getProduct(version) {
   product.addDependencies(new Project("findbugs", "annotations", "jar", "1.0.0"));
 
   
-  product.addServerPatch("tomcat", social.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   product.module = social ;

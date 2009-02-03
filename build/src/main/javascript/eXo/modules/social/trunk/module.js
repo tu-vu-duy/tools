@@ -34,11 +34,6 @@ function getModule(params) {
 	module.web.eXoResources = new Project("org.exoplatform.social", "exo.social.web.socialResources", "war", module.version);
   module.web.eXoResources.deployName = "eXoResourcesSocial" ;
 	
-	module.server = {}
-  module.server.tomcat = {}
-  module.server.tomcat.patch = 
-    new Project("org.exoplatform.social", "exo.social.server.tomcat.patch", "jar", module.version);
-	
 	module.portlet = {}
   module.portlet.space = new Project("org.exoplatform.social", "exo.social.portlet.space", "exo-portlet", module.version);
   module.portlet.space.deployName = "space" ;
@@ -46,6 +41,9 @@ function getModule(params) {
   module.portlet.profile = new Project("org.exoplatform.social", "exo.social.portlet.profile", "exo-portlet", module.version);
   module.portlet.profile.deployName = "profile" ;
 
+	module.application = {}
+  module.application.rest = new Project("org.exoplatform.social", "exo.social.application.rest","jar", module.version).
+  	addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.1"));
 
   module.web.opensocial =new Project("org.exoplatform.social", "exo.social.web.opensocial", "war", module.version).
 		addDependency(new Project("commons-betwixt", "commons-betwixt", "jar", "0.8")).
