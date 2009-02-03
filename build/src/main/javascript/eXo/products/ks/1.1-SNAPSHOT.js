@@ -14,15 +14,17 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.4", {kernel : kernel, core : core}) ;    
   var eXoJcr = Module.GetModule("jcr/tags/1.10.1", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.5", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});  
+  var webos = Module.GetModule("webos/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ks = Module.GetModule("ks/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  
 
-  product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
-  product.addDependencies(portal.portlet.dashboard) ;
-	product.addDependencies(portal.eXoGadgetServer) ;
+  product.addDependencies(portal.eXoGadgetServer) ;
 	product.addDependencies(portal.eXoGadgets) ;
-  product.addDependencies(portal.webui.portal);
+  product.addDependencies(portal.web.rest) ;
+  product.addDependencies(portal.portlet.dashboard) ;
+  product.addDependencies(webos.web.webosResources);
   //product.addDependencies(portal.eXoWidget.web) ;
             
   product.addDependencies(ks.eXoApplication.forum) ;
