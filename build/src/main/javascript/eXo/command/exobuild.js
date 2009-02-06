@@ -323,6 +323,14 @@ if (deployServers != null && !deployServers.isEmpty()) {
       var patchWorkflow = eXo.server.WorkflowConfig;
       tasks.add(patchWorkflow.patchWarWorkflow(server, product));
     }
+    if (product.name == "eXoDMS") {
+      if (product.useWorkflow || useWorkflowPlg || enableWorkflow) {
+	      if (enableWorkflow) {
+	        var patchWorkflow = eXo.server.WorkflowConfig;
+	        tasks.add(patchWorkflow.patchWarWorkflow(server, product));
+	      }
+	    }
+    }
     if (server.name == "ear") {
       tasks.add(EarTask(server, product, version));
     }
