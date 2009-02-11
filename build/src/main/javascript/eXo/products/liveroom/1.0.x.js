@@ -30,6 +30,7 @@ function getProduct(version) {
   product.addDependencies(liveroom.eXoApplication.whiteboard.webapp) ;
   product.addDependencies(liveroom.web.liveroomportal) ;
   product.addDependencies(liveroom.web.webservice) ;
+  product.addDependencies(liveroom.web.liveroomResources) ;
   
 
   product.addServerPatch("tomcat",liveroom.server.tomcat.patch) ;
