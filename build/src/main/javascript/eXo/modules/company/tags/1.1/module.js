@@ -51,7 +51,7 @@ function getModule(params) {
   module.component={}
   module.component.web=
     new Project("org.exoplatform.company", "company.component.web", "jar", module.version).
-    addDependency(portal.component.web)         
+    addDependency(portal.component.web).         
     addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar","trunk"));                        
   
   module.web = {}
