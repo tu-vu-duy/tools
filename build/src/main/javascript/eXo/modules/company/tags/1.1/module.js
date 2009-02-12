@@ -12,9 +12,9 @@ function getModule(params) {
 
   var module = new Module();
 
-  module.version =  "1.2-SNAPSHOT" ;
+  module.version =  "1.1" ;
   module.relativeMavenRepo =  "org/exoplatform/company" ;
-  module.relativeSRCRepo =  "company/trunk" ;
+  module.relativeSRCRepo =  "company/tags/1.1" ;
   module.name =  "company" ;
   
   var ksversion = "1.0" ;
@@ -51,8 +51,8 @@ function getModule(params) {
   module.component={}
   module.component.web=
     new Project("org.exoplatform.company", "company.component.web", "jar", module.version).
-    addDependency(portal.component.web));     
-    //addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar","trunk"));                        
+    addDependency(portal.component.web)         
+    addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar","trunk"));                        
   
   module.web = {}
   module.web.ksResources = 
