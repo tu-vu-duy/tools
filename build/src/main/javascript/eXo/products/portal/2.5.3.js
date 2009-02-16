@@ -4,21 +4,19 @@ eXo.require("eXo.projects.Product") ;
 function getProduct(version) {
   var product = new Product();
   
-  product.name = "eXoWebOS" ;
+  product.name = "eXoPortal" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "webos/trunk" ;
-  product.useWorkflow = false;
-  product.serverPluginVersion = "2.5.3-SNAPSHOT" ;
-    
+  product.codeRepo = "portal/branches/2.5.3" ;
+  product.serverPluginVersion = "2.5.3-SNAPSHOT"
+
   var tool = Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.5") ;
   var core = Module.GetModule("core/tags/2.1.3") ;
-  var ws = Module.GetModule("ws/tags/1.3.1");
+  var ws = Module.GetModule("ws/tags/1.3.1", {kernel : kernel, core : core});
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.5", {kernel : kernel, core : core}) ;    
   var eXoJcr = Module.GetModule("jcr/tags/1.10.1", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/branches/2.5.3", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
-  var webos = Module.GetModule("webos/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
-  
+
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
@@ -30,16 +28,21 @@ function getProduct(version) {
 	product.addDependencies(portal.web.eXoResources);
 	product.addDependencies(portal.web.eXoMacSkin);
 	product.addDependencies(portal.web.eXoVistaSkin);
-	product.addDependencies(webos.web.webosResources);
-	
-  product.addDependencies(webos.web.webosportal) ;
-  
+
+  product.addDependencies(portal.web.portal) ;
+
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
+  product.addServerPatch("jbossear",  portal.server.jbossear.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
+  product.addServerPatch("ear",  portal.server.websphere.patch) ;
 
-  product.module = webos ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal];
-    
+	/* cleanup duplicated lib */
+  product.removeDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0"));
+  product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "3.1"));
+
+  product.module = portal ;
+  product.dependencyModule = [ tool, kernel, core, eXoPortletContainer, ws, eXoJcr ];
+
   return product ;
 }
