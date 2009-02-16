@@ -10,7 +10,7 @@ function getModule(params) {
 
   var module = new Module();
 
-  module.version = "1.5-SNAPSHOT" ;
+  module.version = "1.6-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/webos" ;
   module.relativeSRCRepo =  "webos/trunk" ;
   module.name =  "webos" ;
