@@ -33,6 +33,10 @@ function getProduct(version) {
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   product.addServerPatch("ear",  portal.server.websphere.patch) 
 
+
+  product.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
+  
+
   product.module = cs ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal ];
     

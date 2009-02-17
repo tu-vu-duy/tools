@@ -19,6 +19,7 @@ function getModule(params) {
   module.eXoApplication = {};
   module.eXoApplication.mail = 
     new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.webapp", "war", module.version).
+    addDependency(new Project("javax.mail", "mail", "jar", "1.4.1")).
     addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar",  module.version));
   module.eXoApplication.mail.deployName = "mail";
     
