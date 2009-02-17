@@ -33,12 +33,13 @@ function getProduct(version) {
   
   //product.addDependencies(ecm.web.ecmportal) ;
   product.addDependencies(ecm.web.eXoECMResources) ;
-  product.addDependencies(ecm.portlet.ecm) ;
+  //product.addDependencies(ecm.portlet.ecm) ;
   product.addDependencies(ecm.portlet.workflow) ;            
   
   product.addDependencies(cp040608.web.portal) ;
   product.addDependencies(cp040608.web.eXoResources) ;
   product.addDependencies(cp040608.portlet.web) ;
+  product.addDependencies(cp040608.portlet.ecm) ;
   
   product.removeDependency(eXoPortletContainer.web.wsrp);
 

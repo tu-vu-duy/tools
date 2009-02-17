@@ -9,6 +9,7 @@ function getModule(params) {
   var jcr = params.eXoJcr;
   var portal = params.portal;
 	var ws = params.ws;
+	var ecm = params.ecm;
   var module = new Module();
 
   module.version = "2.0" ;
@@ -21,6 +22,10 @@ function getModule(params) {
   		addDependency(new Project("org.exoplatform.cp040608", "cp040608.component.rest", "jar",  module.version)).
   		addDependency(new Project("org.exoplatform.cp040608", "cp040608.component.services", "jar",  module.version));
   module.portlet.web.deployName = "cp040608PortletWeb" ;
+  
+  module.portlet.ecm = new Project("org.exoplatform.cp040608", "cp040608.portlet.ecm", "exo-portlet", module.version).
+  		addDependency(ecm.portlet.ecm);
+  module.portlet.ecm.deployName = "ecm" ;
   
   /*module.component = {} ;
   module.component.web=
