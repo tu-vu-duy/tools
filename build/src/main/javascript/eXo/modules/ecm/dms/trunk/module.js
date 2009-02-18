@@ -32,6 +32,13 @@ function getModule(params) {
     addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")).
     addDependency(new Project("pdfbox", "pdfbox", "jar", "0.7.2")) ;
   
+  
+  module.portlet.jcr_console = 
+    new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.portlet.jcr-console", "exo-portlet", module.version).
+    addDependency(new Project("exo-weblogic", "exo-weblogic-authproviders", "jar", "1.0")).
+	  addDependency(new Project("exo-weblogic", "exo-weblogic-loginmodule", "jar", "1.0")).  
+	  addDependency(new Project("commons-logging", "commons-logging", "jar", "1.0.4"));
+  
   module.web = {}
   module.web.eXoDMSResources = 
     new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.web.eXoDMSResources", "war", module.version) ;  
