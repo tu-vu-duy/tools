@@ -28,6 +28,7 @@ function getProduct(version) {
   product.addDependencies(cg38.portlet.web) ;
   //product.addDependencies(cg38.component.jcraction);
   product.addDependencies(cg38.component.cg38CategoriesService);
+  product.addDependencies(cg38.component.cg38Indexation);
   
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
