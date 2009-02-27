@@ -58,5 +58,7 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.core", "exo.core.component.database", "jar", module.version));
     module.component.gifbackport = 
     new Project("org.exoplatform.core", "exo.core.component.gifbackport", "jar", module.version);
+    
+  module.component.scriptGroovy = new Project("org.exoplatform.core", "exo.core.component.script.groovy", "jar", module.version) ;
   return module;
 }

@@ -16,6 +16,7 @@ function getModule(params) {
   module.services.jcr = 
     new Project("org.exoplatform.jcr", "exo.jcr.component.core", "jar", module.version).
     addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.ext", "jar", module.version)).
+    addDependency(core.component.scriptGroovy) .
     addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.webdav", "jar", module.version)).
     addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.ftp", "jar", module.version)) .
     addDependency(core.component.documents) .

@@ -42,7 +42,7 @@ function getProduct(version) {
   product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "3.1"));
 
   product.module = portal ;
-  product.dependencyModule = [ tool, kernel, core, eXoPortletContainer, ws, eXoJcr ];
+  product.dependencyModule = [ tool, kernel, core, ws, eXoJcr, eXoPortletContainer];
 
   return product ;
 }
