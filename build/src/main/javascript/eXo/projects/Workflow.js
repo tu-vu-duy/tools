@@ -16,22 +16,22 @@ Workflow.prototype.configWorkflow = function(product) {
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.payraise", "jar", this.version));
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.holiday", "jar", this.version));
 		if (product.useContentvalidation) {
-		  product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.jbpmconfig", "jar", this.version));
-			product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation.bp", "exo.ecm.contentvalidation.bp.jbpm.content.publishing", "jar", this.version));
-			product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.plugin", "jar", this.version));
-      product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.workflowPublication", "jar", this.version));
-      product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.webui", "jar", this.version));
+		  product.addDependencies(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.jbpmconfig", "jar", this.version));
+			product.addDependencies(new Project("org.exoplatform.ecm.dms.ext.contentvalidation.bp", "exo.ecm.dms.ext.contentvalidation.bp.jbpm.content.publishing", "jar", this.version));
+			product.addDependencies(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.plugin", "jar", this.version));
+      product.addDependencies(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.workflowPublication", "jar", this.version));
+      product.addDependencies(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.webui", "jar", this.version));
 		}
 	} else if(this.name == "bonita") {
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.bonita", "jar", this.version));
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.bonita.holiday", "jar", this.version));
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.bonita.payraise", "jar", this.version));
 		if (product.useContentvalidation) {
-		  product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.plugin", "jar", this.version));
-      product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.workflowPublication", "jar", this.version));
-			product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.bonitaconfig", "jar", this.version));
-			product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation.bp", "exo.ecm.contentvalidation.bp.bonita.content-publishing", "jar", this.version));
-			product.addDependencies(new Project("org.exoplatform.ecm.contentvalidation", "exo.ecm.contentvalidation.component.webui", "jar", this.version));
+		  product.addDependencies(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.plugin", "jar", this.version));
+      product.addDependencies(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.workflowPublication", "jar", this.version));
+			product.addDependencies(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.bonitaconfig", "jar", this.version));
+			product.addDependencies(new Project("org.exoplatform.ecm.dms.ext.contentvalidation.bp", "exo.ecm.dms.ext.contentvalidation.bp.bonita.content-publishing", "jar", this.version));
+			product.addDependencies(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.webui", "jar", this.version));
 		}
 		
 		product.addDependencies(new Project("org.ow2.bonita", "bonita-api", "jar", "4.0"));

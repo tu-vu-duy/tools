@@ -18,12 +18,12 @@ function getModule(params) {
     
   module.portlet = {}
   module.portlet.dms = 
-    new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.portlet.ecm", "exo-portlet", module.version).
-    addDependency(new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.component.cms", "jar",  module.version)) .     
-    addDependency(new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.component.deployment", "jar",  module.version)) .    
-    addDependency(new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.component.publication", "jar", module.version)).
-    addDependency(new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.connector.fckeditor", "jar", module.version)).
-    addDependency(new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.webui.dms", "jar", module.version)).
+    new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.portlet.ecm", "exo-portlet", module.version).
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.cms", "jar",  module.version)) .     
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.deployment", "jar",  module.version)) .    
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.publication", "jar", module.version)).
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.connector.fckeditor", "jar", module.version)).
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.webui.dms", "jar", module.version)).
     addDependency(new Project("rome", "rome", "jar", "0.8")) .
     addDependency(new Project("com.totsp.feedpod", "itunes-com-podcast", "jar", "0.2")) .
     addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")) .
@@ -34,18 +34,18 @@ function getModule(params) {
   
   
   module.portlet.jcr_console = 
-    new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.portlet.jcr-console", "exo-portlet", module.version).
+    new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.portlet.jcr-console", "exo-portlet", module.version).
     addDependency(new Project("exo-weblogic", "exo-weblogic-authproviders", "jar", "1.0")).
 	  addDependency(new Project("exo-weblogic", "exo-weblogic-loginmodule", "jar", "1.0")).  
 	  addDependency(new Project("commons-logging", "commons-logging", "jar", "1.0.4"));
   
   module.web = {}
   module.web.eXoDMSResources = 
-    new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.web.eXoDMSResources", "war", module.version) ;  
+    new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.web.eXoDMSResources", "war", module.version) ;  
   module.web.eXoDMSResources.deployName = "eXoDMSResources" ;
       
   module.web.dmsportal = 
-    new Project("org.exoplatform.ecm.dms", "exo.ecm.dms.web.portal", "exo-portal", module.version).
+    new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .

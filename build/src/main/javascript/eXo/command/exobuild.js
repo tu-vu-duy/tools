@@ -281,7 +281,15 @@ if(update_) {
 }
 
 if(build_) {
-  var mvnArgs = ["clean", "install"] ;
+  var mvnArgs;
+  // When you use --enable-workflow parameter, with DMS product,
+  // we need use Maven profiles function to build 
+  // DMS with both component DMS-core and DMS-ext(including content validation)
+  if (enableWorkflow && (product.name == "eXoDMS")) {
+    mvnArgs = ["clean", "install", "-P", "ext"];
+  } else {
+    mvnArgs = ["clean", "install"];
+  }
   for(var i = 0; i < product.dependencyModule.length; i++) {
   	var module = product.dependencyModule[i] ;
     if(cleanMVNRepo_) {

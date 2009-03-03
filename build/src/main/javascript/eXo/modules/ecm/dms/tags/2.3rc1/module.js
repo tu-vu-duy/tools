@@ -1,4 +1,4 @@
-eXo.require("eXo.projects.Module") ;
+  eXo.require("eXo.projects.Module") ;
 eXo.require("eXo.projects.Product") ;
 
 function getModule(params) {
