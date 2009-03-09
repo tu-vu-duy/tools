@@ -30,14 +30,22 @@ function getModule(params) {
     addDependency(new Project("jdom", "jdom", "jar", "1.0")).
     addDependency(new Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")).
     addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")).
-    addDependency(new Project("pdfbox", "pdfbox", "jar", "0.7.2")) ;
-  
+    addDependency(new Project("pdfbox", "pdfbox", "jar", "0.7.2"));
   
   module.portlet.jcr_console = 
     new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.portlet.jcr-console", "exo-portlet", module.version).
     addDependency(new Project("exo-weblogic", "exo-weblogic-authproviders", "jar", "1.0")).
 	  addDependency(new Project("exo-weblogic", "exo-weblogic-loginmodule", "jar", "1.0")).  
 	  addDependency(new Project("commons-logging", "commons-logging", "jar", "1.0.4"));
+  
+  module.gadgets = 
+    new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.gadgets", "war", module.version).
+    addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.2"));  
+    module.gadgets.deployName = "eXoDMSGadgets";
+  
+  module.application = {}
+  module.application.rest = new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.publication","jar", module.version).
+  	addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.2"));
   
   module.web = {}
   module.web.eXoDMSResources = 
