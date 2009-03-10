@@ -13,17 +13,29 @@
 package org.exoplatform.test.mocks.servlet;
 
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpSession;
-import javax.servlet.ServletInputStream;
-import javax.servlet.RequestDispatcher;
-
-import java.util.*;
-import java.security.Principal;
-import java.io.UnsupportedEncodingException;
-import java.io.IOException;
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Vector;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletInputStream;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class MockServletRequest implements HttpServletRequest {
 
@@ -36,11 +48,24 @@ public class MockServletRequest implements HttpServletRequest {
   private String enc = "ISO-8859-1";
   private String pathInfo_ ;
   private String requestURI_ ;
+  private URL url;
   private String method = "GET";
+  private String contextPath = "";
 
   private String remoteUser = "REMOTE USER FROM MOCK";
 
   public MockServletRequest(HttpSession session, Locale locale) {
+
+    this(session, locale, false);
+    
+  }
+  
+  public MockServletRequest(HttpSession session, Locale locale, boolean secure) {
+ 
+    this(session, null, null, locale, secure);
+  }
+  
+  public MockServletRequest(HttpSession session, URL url, String contextPath, Locale locale, boolean secure) {
     this.session = session;
     this.locale = locale;
     headers = new HashMap();
@@ -53,18 +78,23 @@ public class MockServletRequest implements HttpServletRequest {
     headers.put("header3", headersMultiple);
     parameters = new HashMap();
     attributes = new HashMap();
+    this.secure = secure;
+    if(url == null) {
+      try {
+        this.url = new URL("http://exoplatform.com:80/context/path?q=v");
+        this.contextPath = "/context";
+      } catch (MalformedURLException e) {} 
+    } else {
+      this.url = url;
+      this.contextPath = contextPath;
+    }
   }
-  
+
   public void reset() { 
     parameters = new HashMap();
     attributes = new HashMap();
   }
   
-  public MockServletRequest(HttpSession session, Locale locale, boolean secure) {
-    this(session, locale);
-    this.secure = secure;
-  }
-
   public String getAuthType() {
     return DIGEST_AUTH;
   }
@@ -112,11 +142,11 @@ public class MockServletRequest implements HttpServletRequest {
   }
 
   public String getContextPath() {
-    return null;
+    return contextPath;
   }
 
   public String getQueryString() {
-    return null;
+    return url.getQuery();
   }
 
   public String getRemoteUser() {
@@ -142,15 +172,23 @@ public class MockServletRequest implements HttpServletRequest {
     return null;
   }
 
-  public String getRequestURI() {  return requestURI_;  }
-  public void   setRequestURI(String s) {  requestURI_ =  s ; }
+  public String getRequestURI() { 
+    if(this.requestURI_ == null)
+      return url.getPath();  
+    else
+      return requestURI_;
+  }
+  
+  public void   setRequestURI(String s) {  
+    this.requestURI_ = s;
+  }
 
   public StringBuffer getRequestURL() {
-    return null;
+    return new StringBuffer(url.toString());
   }
 
   public String getServletPath() {
-    return null;
+    return url.getPath();
   }
 
   public HttpSession getSession(boolean b) {
@@ -225,11 +263,11 @@ public class MockServletRequest implements HttpServletRequest {
 
   public String getProtocol() {  return null; }
 
-  public String getScheme() {   return null; }
+  public String getScheme() {   return url.getProtocol(); }
 
-  public String getServerName() {  return null; }
+  public String getServerName() {  return url.getHost(); }
 
-  public int getServerPort() {  return 0; }
+  public int getServerPort() {  return url.getPort(); }
 
   public BufferedReader getReader() throws IOException {  return null; }
 
