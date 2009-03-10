@@ -17,17 +17,11 @@ function getProduct(version) {
   var ws = Module.GetModule("ws/tags/1.3.1");
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.4", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.10.1", {kernel : kernel, core : core, ws : ws}) ;
-  var portal = Module.GetModule("portal/tags/2.5.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
+  var portal = Module.GetModule("portal/tags/2.5", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/dms/tags/2.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
-  //var cs = Module.GetModule("cs/tags/1.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var wcm = Module.GetModule("ecm/wcm/tags/1.0", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
+  var cs = Module.GetModule("cs/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var cg38 = Module.GetModule("cg38/branches/2.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm, wcm : wcm});
-    
-  product.addDependencies(cg38.web.cg38portal) ;
-  product.addDependencies(cg38.web.cg38Resources) ;
-  product.addDependencies(cg38.portlet.web) ;
-  product.addDependencies(cg38.component.jcraction);
-  product.addDependencies(cg38.component.cg38CategoriesService);
   
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
@@ -45,14 +39,20 @@ function getProduct(version) {
   product.addDependencies(ecm.web.eXoECMResources) ;
   //product.addDependencies(wcm.web.wcmportal) ; 
     
-  //product.addDependencies(cs.eXoApplication.content) ;   
+  product.addDependencies(cs.eXoApplication.content) ;   
+  
+  product.addDependencies(cg38.web.cg38portal) ;
+  product.addDependencies(cg38.web.cg38Resources) ;
+  product.addDependencies(cg38.portlet.web) ;
+  //product.addDependencies(cg38.component.jcraction);
+  //product.addDependencies(cg38.component.cg38CategoriesService);
   
   product.addServerPatch("tomcat", cg38.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
   product.module = cg38 ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, wcm];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, wcm, cs];
     
   return product ;
 }
