@@ -8,7 +8,7 @@
 
   <groupId>org.exoplatform.tool</groupId>
   <artifactId>exo.tool.framework.junit</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>eXo Mock Objects framework</name>
   <description>eXo Mock Objects framework</description>
@@ -17,9 +17,9 @@
      <exo.product.specification>1.0.0</exo.product.specification>
   </properties>
   <scm>
-    <connection>scm:svn:http://svn.exoplatform.org/projects/utils/testing/framework/tags/1.0.0</connection>
-    <developerConnection>scm:svn:http://svn.exoplatform.org/projects/utils/testing/framework/tags/1.0.0</developerConnection>
-    <url>http://fisheye.exoplatform.org/browse/projects/utils/testing/framework/tags/1.0.0</url>
+    <connection>scm:svn:http://svn.exoplatform.org/projects/utils/testing/framework/trunk</connection>
+    <developerConnection>scm:svn:http://svn.exoplatform.org/projects/utils/testing/framework/trunk</developerConnection>
+    <url>http://fisheye.exoplatform.org/browse/projects/utils/testing/framework/trunk</url>
   </scm>
 
   <dependencies>
