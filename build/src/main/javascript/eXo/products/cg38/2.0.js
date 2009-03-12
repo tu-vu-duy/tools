@@ -9,7 +9,7 @@ function getProduct(version) {
   product.codeRepo = "cg38/branches/2.0" ;
   product.useWorkflow = true;
   product.workflowVersion = "2.2" ;
-  product.serverPluginVersion = "2.5.1" ;
+  product.serverPluginVersion = "2.5" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.6") ;
