@@ -52,7 +52,7 @@ function getModule(params) {
   module.component.web=
     new Project("org.exoplatform.company", "company.component.web", "jar", module.version).
     addDependency(portal.component.web).         
-    addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar","trunk"));                        
+    addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar","1.0"));                        
   
   module.web = {}
   module.web.ksResources = 
