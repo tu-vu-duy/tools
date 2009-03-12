@@ -11,7 +11,7 @@ function getModule(params) {
   var portal = params.portal;  
   var module = new Module();
   
-  module.version = "2.3-SNAPSHOT" ;
+  module.version = "2.4-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/ecm/dms" ;
   module.relativeSRCRepo =  "ecm/dms/trunk" ;
   module.name =  "dms" ;
