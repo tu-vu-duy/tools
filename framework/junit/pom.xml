@@ -1,26 +1,17 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project>
   <parent>
-    <groupId>org.exoplatform</groupId>
-    <artifactId>parent</artifactId>
-    <version>1.1.0</version>
-  </parent>
+    <groupId>org.exoplatform.tool</groupId>
+    <artifactId>config</artifactId>
+    <version>trunk</version>
+  </parent> 
 
-  <groupId>org.exoplatform.tool</groupId>
+  <modelVersion>4.0.0</modelVersion>
   <artifactId>exo.tool.framework.junit</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
+  <version>${org.exoplatform.tool.version}</version>
   <name>eXo Mock Objects framework</name>
+  <url>http://maven.apache.org</url>
   <description>eXo Mock Objects framework</description>
-  <properties>
-     <exo.product.name>exo-mock-objects</exo.product.name>
-     <exo.product.specification>1.0.0</exo.product.specification>
-  </properties>
-  <scm>
-    <connection>scm:svn:http://svn.exoplatform.org/projects/utils/testing/framework/trunk</connection>
-    <developerConnection>scm:svn:http://svn.exoplatform.org/projects/utils/testing/framework/trunk</developerConnection>
-    <url>http://fisheye.exoplatform.org/browse/projects/utils/testing/framework/trunk</url>
-  </scm>
 
   <dependencies>
     <dependency>
@@ -29,12 +20,12 @@
       <version>3.8.1</version>
       <scope>compile</scope>
     </dependency>
-
+    
     <dependency>
       <groupId>cglib</groupId>
       <artifactId>cglib</artifactId>
       <version>2.1</version>
-      <scope>test</scope>
+      <scope>test</scope>	
     </dependency>
 
     <dependency>
@@ -42,19 +33,19 @@
       <artifactId>portlet-api</artifactId>
       <version>2.0</version>
       <scope>compile</scope>
-    </dependency>
+    </dependency>   
 
     <dependency>
       <groupId>javax.faces</groupId>
       <artifactId>jsf-api</artifactId>
       <version>1.2</version>
-    </dependency>
+    </dependency>   
 
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
       <version>2.3</version>
       <scope>compile</scope>
-    </dependency>
-  </dependencies>
+    </dependency> 
+  </dependencies>   
 </project>
