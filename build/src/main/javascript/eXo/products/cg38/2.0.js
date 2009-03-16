@@ -45,7 +45,8 @@ function getProduct(version) {
   product.addDependencies(cg38.web.cg38Resources) ;
   product.addDependencies(cg38.portlet.web) ;
   //product.addDependencies(cg38.component.jcraction);
-  //product.addDependencies(cg38.component.cg38CategoriesService);
+  product.addDependencies(cg38.component.cg38CategoriesService);
+  product.addDependencies(cg38.component.cg38Indexation);
   
   product.addServerPatch("tomcat", cg38.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
