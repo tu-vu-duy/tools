@@ -19,8 +19,8 @@ function getProduct(version) {
   var eXoJcr = Module.GetModule("jcr/tags/1.9.3.1", {ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.2.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, ws : ws });  
   var ecm = Module.GetModule("ecm/dms/tags/2.1.3", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
-  var cs = Module.GetModule("cs/tags/1.1Beta3-1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ws : ws});
-  var ks = Module.GetModule("ks/tags/rc4-1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ws : ws}); 
+  var cs = Module.GetModule("cs/tags/1.1Beta3-2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ws : ws});
+  var ks = Module.GetModule("ks/tags/1.0rc4-2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ws : ws}); 
   var liveroom = Module.GetModule("liveroom/tags/1.0-beta1-1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, ws : ws, portal : portal}) ;
   var spff = Module.GetModule("spff/internet/tags/2.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm, cs : cs});
 
