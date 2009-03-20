@@ -24,7 +24,8 @@ function getModule(params) {
   		addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.webapp", "war", module.version)).
       addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.client.openfire", "jar", module.version)).
   		addDependency(new Project("org.exoplatform.liveroom", "exo.liveroom.eXoApplication.organization.webapp", "war", module.version)).
-  		addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.3-SNAPSHOT")).
+  		addDependency(ws.frameworks.json).
+  		//addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.3")).
   		addDependency(ws.frameworks.cometd).
   		addDependency(new Project("org.exoplatform.portal", "exo.portal.web.rest", "war", "2.2.1")).
   		addDependency(new Project("jabber.smack", "smack", "jar", "3.0.4")).
