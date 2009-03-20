@@ -4,9 +4,9 @@ eXo.require("eXo.projects.Product") ;
 function getModule(params) {
   var module = new Module();
 
-  module.version = "1.3.3-SNAPSHOT" ;
+  module.version = "1.3.3" ;
   module.relativeMavenRepo =  "org/exoplatform/ws" ;
-  module.relativeSRCRepo =  "ws/branches/1.3.3" ;
+  module.relativeSRCRepo =  "ws/tags/1.3.3" ;
   module.name =  "ws" ;
 
   module.commons = 
