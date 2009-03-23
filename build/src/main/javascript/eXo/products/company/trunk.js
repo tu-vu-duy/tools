@@ -34,7 +34,6 @@ function getProduct(version) {
   //product.addDependencies(dms.web.dmsportal);
   product.addDependencies(dms.web.eXoDMSResources);
   product.addDependencies(dms.portlet.dms);
-  product.addDependencies(dms.portlet.jcr_console);
   product.addDependencies(dms.gadgets);
   
   product.addDependencies(ks.eXoApplication.forum) ;
@@ -51,13 +50,13 @@ function getProduct(version) {
   
   //product.addDependencies(workflow.portlet.workflow);
 
-  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", company.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
   product.module = company ;
-  //product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, dms];
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, dms, workflow];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, dms];
+  //product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, dms, workflow];
   
   return product ;
 }
