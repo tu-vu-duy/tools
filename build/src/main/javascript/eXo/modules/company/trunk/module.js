@@ -76,8 +76,6 @@ function getModule(params) {
     addDependency(kernel.component.command) .
     addDependency(core.component.database) .
     addDependency(core.component.organization) .
-    addDependency(core.component.organization.ldap) .
-    addDependency(core.component.ldap) .
     addDependency(core.component.security.core) .
     addDependency(core.component.xmlProcessing) .
     addDependency(core.component.documents).
