@@ -65,6 +65,28 @@ function getModule(params) {
     new Project("org.exoplatform.company", "company.component.web", "jar", module.version).
     addDependency(portal.component.web);
   
+  portal.webui.portal = 
+    new Project("org.exoplatform.portal", "exo.portal.webui.portal", "jar", portal.version).
+    addDependency(portal.component.resources) .
+    addDependency(portal.webui.eXo) .
+    addDependency(kernel.container) .
+    addDependency(kernel.component.common) .
+    addDependency(kernel.component.remote) .
+    addDependency(kernel.component.cache) .
+    addDependency(kernel.component.command) .
+    addDependency(core.component.database) .
+    addDependency(core.component.organization) .
+    addDependency(core.component.organization.ldap) .
+    addDependency(core.component.ldap) .
+    addDependency(core.component.security.core) .
+    addDependency(core.component.xmlProcessing) .
+    addDependency(core.component.documents).
+    addDependency(core.component.resources).
+    addDependency(core.component.gifbackport).
+    addDependency(jcr.services.jcr).
+    addDependency(eXoPortletContainer.services.jsr168jsr286).
+    addDependency(eXoPortletContainer.web.wsrp) ;
+	
   module.web = {}  
   module.web.ksResources = 
     new Project("org.exoplatform.ks", "exo.ks.web.ksResources", "war", ksversion) ;  
