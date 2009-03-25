@@ -48,6 +48,10 @@ function getProduct(version) {
   product.addDependencies(cg38.component.cg38CategoriesService);
   product.addDependencies(cg38.component.cg38Indexation);
   
+  product.removeDependency(eXoPortletContainer.web.wsrp);
+  product.removeDependency(eXoPortletContainer.services.wsrp1);
+  product.removeDependency(eXoPortletContainer.services.wsrp2);
+  
   product.addServerPatch("tomcat", cg38.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
