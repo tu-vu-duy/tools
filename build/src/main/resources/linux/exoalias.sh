@@ -25,14 +25,3 @@ alias exobuild="js.sh exobuild"
 #alias exosvn="exobsh.sh exosvn"
 alias exosvn="js.sh exosvn"
 alias rmdb="rm -rf $EXO_WORKING_DIR/exo-tomcat/temp/data"
-alias context="exoproject --deploy=context"
-alias quick="exoproject --deploy=quickwar"
-alias module="exoproject --deploy=module"
-
-alias DCP=" cd $EXO_PROJECTS_SRC/portal/trunk &&
-   cd web/eXoResources/ && context &&
-   cd ../eXoSkinMac/ && context &&
-   cd ../eXoSkinVista/ && context &&
-   cd ../portal/ && context &&
-   cd ../../portlet/exoadmin/ && context && quick &&
-   cd ../web/ && context && quick && cd ../../"
