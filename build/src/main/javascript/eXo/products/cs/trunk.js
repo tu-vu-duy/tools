@@ -23,11 +23,13 @@ function getProduct(version) {
   product.addDependencies(cs.eXoApplication.contact) ;
   product.addDependencies(cs.eXoApplication.content) ;
 
+  product.addDependencies(cs.eXoApplication.chat) ;
+  
   product.addDependencies(cs.web.webservice) ;
   product.addDependencies(cs.web.csResources) ;
   product.addDependencies(cs.web.csportal) ;
   
-  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", cs.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jbossear",  portal.server.jbossear.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
