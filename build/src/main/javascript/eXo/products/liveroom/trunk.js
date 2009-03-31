@@ -25,11 +25,9 @@ function getProduct(version) {
   product.addDependencies(portal.eXoWidget.web) ;
   product.addDependencies(portal.web.rest) ;
   
-  product.addDependencies(liveroom.eXoApplication.chat.webapp) ;
   product.addDependencies(liveroom.eXoApplication.videoconf.webapp) ;
   product.addDependencies(liveroom.eXoApplication.whiteboard.webapp) ;
   product.addDependencies(liveroom.web.liveroomportal) ;
-  product.addDependencies(liveroom.web.webservice) ;
   
 
   product.addServerPatch("tomcat",liveroom.server.tomcat.patch) ;
