@@ -27,7 +27,6 @@ function getModule(params) {
     new Project("org.exoplatform.company", "company.portlet.ecm", "exo-portlet", module.version).
     addDependency(new Project("org.exoplatform.company", "company.component.cms", "jar",  module.version)) .      
     addDependency(new Project("org.exoplatform.company.bp", "exo.company.bp.jbpm.contactus", "jar", module.version)) .
-    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.portlet.ecm", "exo-portlet", dmsversion)) .   
     addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.cms", "jar",  dmsversion)) .     
     addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.deployment", "jar",  dmsversion)) .    
     addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.publication", "jar", dmsversion)).

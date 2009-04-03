@@ -33,7 +33,6 @@ function getProduct(version) {
   
   //product.addDependencies(dms.web.dmsportal);
   product.addDependencies(dms.web.eXoDMSResources);
-  product.addDependencies(dms.portlet.dms);
   product.addDependencies(dms.gadgets);
   
   product.addDependencies(ks.eXoApplication.forum) ;
