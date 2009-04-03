@@ -33,13 +33,18 @@ function getProduct(version) {
   product.addDependencies(cs.web.rest) ;
   
   product.addServerPatch("tomcat",  cs.server.tomcat.patch) ;
-  product.addServerPatch("tomcat",  cs.server.tomcat.plugin) ;
+  //product.addServerPatch("tomcat",  cs.server.tomcat.plugin) ;
   //product.removeServerPatch("tomcat", portal.server.tomcat.plugin) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
-
+  
   product.module = cs ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal ];
     
+  product.preDeploy = function() {
+	  eXo.System.info("INFO", "Product Pre Deploy phase in cs 1.1");
+	  this.removeDependencyById("exo.portal.server.tomcat.plugin");
+  };
+  
   return product ;
 }

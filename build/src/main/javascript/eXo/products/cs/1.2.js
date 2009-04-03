@@ -34,11 +34,16 @@ function getProduct(version) {
   product.addServerPatch("ear",  portal.server.websphere.patch) 
 
 
-  product.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
+  //product.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
   
 
   product.module = cs ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal ];
-    
+  
+  product.preDeploy = function() {
+	  eXo.System.info("INFO", "Product Pre Deploy phase in cs 1.2");
+	  this.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
+  };
+  
   return product ;
 }

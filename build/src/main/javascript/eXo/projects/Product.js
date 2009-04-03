@@ -104,6 +104,8 @@ Product.prototype.removeDependencyById = function(projectId) {
   var project = this.getDependencyById(projectId);
   if (project !== null) {
   	this.removeDependency(project);
+  } else {
+	  eXo.System.info("ERROR", "Dependency " + projectId + " doesn't exist !");  
   }
 }
 
@@ -124,6 +126,13 @@ Product.prototype.getDependencyModule = function(depName) {
 	}
 	return mod ;
 }
+/**
+ * 
+ */
+Product.prototype.preDeploy = function() {
+	//TODO : to overwrite in your product definition
+	// like : product.cleanDependencies = function() { .. }
+};
 
 Product.prototype.DeployTask = function(product, server, repos) {
 	patches = product.getServerPatches(server.name) ;
@@ -142,7 +151,8 @@ Product.prototype.DeployTask = function(product, server, repos) {
       eXo.System.info("COPY", "Copy a clean server " + server.cleanServer);
       eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/" + server.cleanServer, server.serverHome) ;
     }
-    server.preDeploy(product) ;    
+    server.preDeploy(product) ; 
+    product.preDeploy();
     for(var i = 0; i <  patches.size(); i++) {
       project = patches.get(i) ;
       var message = "Patch the server " + server.name + 

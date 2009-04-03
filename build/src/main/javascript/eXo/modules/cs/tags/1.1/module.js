@@ -80,7 +80,7 @@ function getModule(params) {
    module.server.tomcat = {}
    module.server.tomcat.patch = 
      new Project("org.exoplatform.cs", "exo.cs.server.tomcat.patch", "jar", module.version);
-   module.server.tomcat.plugin = 
-	 new Project("org.exoplatform.cs", "exo.cs.server.tomcat.plugin", "jar", module.version);
+   //module.server.tomcat.plugin = 
+	 //new Project("org.exoplatform.cs", "exo.cs.server.tomcat.plugin", "jar", module.version);
   return module;
 }
