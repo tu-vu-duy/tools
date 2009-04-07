@@ -8,7 +8,7 @@ function JbossEar(jbossHome) {
   this.name = "jbossear" ;
   this.serverHome = jbossHome ;
   this.cleanServer = java.lang.System.getProperty("clean.server") ;
-  if(this.cleanServer == null || this.cleanServer.equals("") || !this.cleanServer.startsWith("jboss")) this.cleanServer = "jboss-4.2.2.GA" ;
+  if(this.cleanServer == null || this.cleanServer.equals("") || !this.cleanServer.startsWith("jboss")) this.cleanServer = "jboss-4.2.3.GA" ;
   this.deployLibDir = this.serverHome + "/server/default/deploy/exoplatform.ear" ;
   this.deployWebappDir = this.serverHome + "/server/default/deploy/exoplatform.ear";
   this.patchDir = this.serverHome;// + "/server/default"; //because we have to patch bin/ directory
