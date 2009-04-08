@@ -4,7 +4,7 @@ eXo.require("eXo.projects.Product") ;
 function getModule(params) {
   var module = new Module();
 
-  module.version = "2.0.7-SNAPSHOT" ;
+  module.version = "2.1.1-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/kernel" ;
   module.relativeSRCRepo =  "kernel/trunk" ;
   module.name = "kernel" ;

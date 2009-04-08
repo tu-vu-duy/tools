@@ -5,7 +5,7 @@ function getModule(params) {
 
   var module = new Module();
   
-  module.version = "2.1.4-SNAPSHOT" ;
+  module.version = "2.2.1-SNAPSHOT" ;
   module.relativeMavenRepo = "org/exoplatform/core" ;
   module.relativeSRCRepo = "core/trunk" ;
   module.name = "core" ;
@@ -58,5 +58,7 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.core", "exo.core.component.database", "jar", module.version));
     module.component.gifbackport = 
     new Project("org.exoplatform.core", "exo.core.component.gifbackport", "jar", module.version);
+    
+  module.component.scriptGroovy = new Project("org.exoplatform.core", "exo.core.component.script.groovy", "jar", module.version) ;
   return module;
 }

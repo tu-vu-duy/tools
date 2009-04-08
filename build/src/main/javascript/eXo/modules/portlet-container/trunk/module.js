@@ -5,9 +5,10 @@ function getModule(params) {
 
   var kernel = params.kernel;
   var core = params.core;
+  var ws = params.ws;
 
   var module = new Module();
-  module.version = "2.0.6-SNAPSHOT" ;
+  module.version = "2.1.1-SNAPSHOT" ;
   module.relativeMavenRepo = "org/exoplatform/portletcontainer" ;
   module.relativeSRCRepo = "portlet-container/trunk" ;
   module.name = "pc" ;
@@ -53,12 +54,13 @@ function getModule(params) {
     addDependency(module.services.axis).
     addDependency(kernel.component.cache).
     addDependency(core.component.organization).
-    addDependency(core.component.database);
+    addDependency(core.component.database).
+    addDependency(ws.soap_cxf_jsr181);
 
   module.web = {}
   module.web.wsrp = 
     new Project("org.exoplatform.portletcontainer", "exo.pc.applications.wsrp", "exopc-war", module.version).
-    addDependency(module.services.wsrp1).
+//    addDependency(module.services.wsrp1).
     addDependency(module.services.wsrp2);
 
   return module;
