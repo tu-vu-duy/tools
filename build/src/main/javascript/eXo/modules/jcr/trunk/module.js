@@ -2,10 +2,12 @@ eXo.require("eXo.projects.Module") ;
 eXo.require("eXo.projects.Product") ;
 
 function getModule(params) {
+  var core = params.core;
   var ws = params.ws;
+
   var module = {} ;
   
-  module.version = "1.10.2-SNAPSHOT" ;
+  module.version = "1.11.1-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/jcr" ;
   module.relativeSRCRepo =  "jcr/trunk" ;
   module.name =  "jcr" ;
