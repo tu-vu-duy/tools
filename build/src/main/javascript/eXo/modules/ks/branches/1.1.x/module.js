@@ -14,8 +14,8 @@ function getModule(params) {
   module.version = "1.1.x" ;
   module.relativeMavenRepo =  "org/exoplatform/ks" ;
   module.relativeSRCRepo =  "ks/branches/1.1.x" ;
-  module.name = "ks" ;
-    
+  module.name = "ks" ;  
+  
   module.eXoApplication = {};
 
 	module.eXoApplication.common = new Project("org.exoplatform.ks", "exo.ks.eXoApplication.common","jar",module.version) ; 
