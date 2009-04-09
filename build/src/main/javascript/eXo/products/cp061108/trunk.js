@@ -32,6 +32,8 @@ function getProduct(version) {
   product.addDependencies(cs.eXoApplication.mail) ;
   product.addDependencies(cs.eXoApplication.content) ;
   product.addDependencies(cs.eXoApplication.contact) ;
+  
+  product.addDependencies(cs.web.webservice) ;
   product.addDependencies(cs.web.csResources) ;
   
 //  product.addDependencies(ecm.web.rest) ;
