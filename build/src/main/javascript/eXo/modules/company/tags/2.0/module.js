@@ -13,7 +13,7 @@ function getModule(params) {
 
   module.version =  "2.0" ;
   module.relativeMavenRepo =  "org/exoplatform/company" ;
-  module.relativeSRCRepo =  "company/trunk" ;
+  module.relativeSRCRepo =  "company/tags/2.0" ;
   module.name =  "company" ;
   
   var dmsversion = "2.3" ;

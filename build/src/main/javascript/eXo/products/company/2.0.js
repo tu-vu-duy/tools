@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "company" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "company/trunk" ;
+  product.codeRepo = "company/tags/2.0" ;
   //product.useWorkflow = true ;
   product.useContentvalidation = true;
   product.contentvalidationVersion = "2.3";

@@ -13,7 +13,7 @@ function getModule(params) {
 
   module.version =  "2.0.1-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/company" ;
-  module.relativeSRCRepo =  "company/trunk" ;
+  module.relativeSRCRepo =  "company/branches/2.0.x" ;
   module.name =  "company" ;
   
   var ksversion = "1.1-rc1" ;
