@@ -11,7 +11,7 @@ function getModule(params) {
   var dms = params.dms;
   var module = new Module();
 
-  module.version =  "2.0.1-SNAPSHOT" ;
+  module.version =  "2.1-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/company" ;
   module.relativeSRCRepo =  "company/trunk" ;
   module.name =  "company" ;
