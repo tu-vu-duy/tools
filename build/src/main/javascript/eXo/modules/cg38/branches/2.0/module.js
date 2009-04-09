@@ -28,10 +28,12 @@ function getModule(params) {
 
   module.component.cg38CategoriesService = new Project("org.exoplatform.cg38", "cg38.component.categories", "jar", module.version);
   module.component.cg38Indexation = new Project("org.exoplatform.cg38", "cg38.component.indexation", "jar", module.version);
+  //module.component.search = new Project("org.exoplatform.cg38", "cg38.component.search", "jar", module.version);
   
   module.portlet = {}
   module.portlet.web = new Project("org.exoplatform.cg38", "cg38.portlet.web", "exo-portlet", module.version).
-  	addDependency(new Project("org.exoplatform.cg38", "cg38.component.rss", "jar",  module.version));
+  	addDependency(new Project("org.exoplatform.cg38", "cg38.component.rss", "jar",  module.version)).
+  	addDependency(new Project("org.exoplatform.cg38", "cg38.component.search", "jar",  module.version));
   module.portlet.web.deployName = "cg38PortletWeb" ;
   
   module.web = {}

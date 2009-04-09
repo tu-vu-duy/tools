@@ -47,6 +47,8 @@ function getProduct(version) {
   //product.addDependencies(cg38.component.jcraction);
   product.addDependencies(cg38.component.cg38CategoriesService);
   product.addDependencies(cg38.component.cg38Indexation);
+  //product.addDependencies(cg38.component.search);
+  //product.addDependencies(cg38.component.rss);
   
   product.removeDependency(eXoPortletContainer.web.wsrp);
   product.removeDependency(eXoPortletContainer.services.wsrp1);
