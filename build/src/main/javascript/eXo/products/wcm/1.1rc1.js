@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "eXoWCM" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "ecm/wcm/1.1rc1" ;
+  product.codeRepo = "ecm/wcm/tags/1.1rc1" ;
   product.useContentvalidation = true;
   product.contentvalidationVersion = "2.3";
   product.workflowVersion = "1.0" ;
