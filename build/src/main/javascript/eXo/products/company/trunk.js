@@ -21,6 +21,7 @@ function getProduct(version) {
   var eXoJcr = Module.GetModule("jcr/tags/1.10.2", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.5.2", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var dms = Module.GetModule("ecm/dms/tags/2.3", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
+  var cs = Module.GetModule("cs/tags/1.2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var ks = Module.GetModule("ks/tags/1.1-rc1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var company = Module.GetModule("company/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
   
@@ -39,6 +40,12 @@ function getProduct(version) {
   product.addDependencies(ks.eXoApplication.faq) ;
   product.addDependencies(ks.eXoApplication.common) ;
   product.addDependencies(ks.web.ksResources) ;
+  
+  product.addDependencies(cs.eXoApplication.mail) ;
+  product.addDependencies(cs.eXoApplication.calendar) ;
+  product.addDependencies(cs.eXoApplication.contact) ;
+  product.addDependencies(cs.eXoApplication.content) ;
+  product.addDependencies(cs.web.csResources) ;
   
   product.addDependencies(company.portlet.dms) ;
   product.addDependencies(company.component.web) ;
