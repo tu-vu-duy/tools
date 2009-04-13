@@ -17,21 +17,28 @@ function getProduct(version) {
   var kernel = Module.GetModule("kernel/tags/2.0.6") ;
   var core = Module.GetModule("core/tags/2.1.4") ;
   var ws = Module.GetModule("ws/tags/1.3.2");
-  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.5", {kernel : kernel, core : core}) ;
+  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.6", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.10.2", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.5.2", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var dms = Module.GetModule("ecm/dms/tags/2.3", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var cs = Module.GetModule("cs/tags/1.2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var ks = Module.GetModule("ks/tags/1.1-rc1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var webos = Module.GetModule("webos/tags/1.5", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
+  var cs = Module.GetModule("cs/tags/1.2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var ks = Module.GetModule("ks/tags/1.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var company = Module.GetModule("company/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
+    
+  product.addDependencies(portal.web.rest) ;
+  product.addDependencies(portal.portlet.exoadmin) ;
+  product.addDependencies(portal.portlet.web) ;
+  product.addDependencies(portal.eXoGadgetServer) ;
+  product.addDependencies(portal.eXoGadgets) ;
   
-  product.addDependencies(portal.web.rest);
-  product.addDependencies(portal.portlet.exoadmin);
-  product.addDependencies(portal.portlet.web);
-  //product.addDependencies(portal.portlet.dashboard);
-  product.addDependencies(portal.eXoGadgetServer);
-  product.addDependencies(portal.eXoGadgets);  
+  product.addDependencies(portal.web.eXoResources);
+  product.addDependencies(portal.web.eXoMacSkin);
+  product.addDependencies(portal.web.eXoVistaSkin);
   
+  product.addDependencies(webos.web.webosResources);
+
   //product.addDependencies(dms.web.dmsportal);
   product.addDependencies(dms.web.eXoDMSResources);
   product.addDependencies(dms.gadgets);
@@ -39,7 +46,9 @@ function getProduct(version) {
   product.addDependencies(ks.eXoApplication.forum) ;
   product.addDependencies(ks.eXoApplication.faq) ;
   product.addDependencies(ks.eXoApplication.common) ;
+  product.addDependencies(ks.web.webservice) ;
   product.addDependencies(ks.web.ksResources) ;
+
   
   product.addDependencies(cs.eXoApplication.mail) ;
   product.addDependencies(cs.eXoApplication.calendar) ;
