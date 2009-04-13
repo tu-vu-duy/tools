@@ -10,7 +10,7 @@ function getModule(params) {
 
   var module = new Module();
 
-  module.version = "trunk" ;
+  module.version = "1.0-alpha3-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/social" ;
   module.relativeSRCRepo =  "social/trunk" ;
   module.name = "social" ;  
@@ -48,7 +48,7 @@ function getModule(params) {
   module.web.opensocial =new Project("org.exoplatform.social", "exo.social.web.opensocial", "war", module.version).
 		addDependency(new Project("commons-betwixt", "commons-betwixt", "jar", "0.8")).
 		addDependency(new Project("net.sf.json-lib", "json-lib", "jar", "2.2")).
-		addDependency(new Project("org.apache.shindig", "shindig-social-api", "jar", "0.8.1-1-r719456")).
+		addDependency(new Project("org.apache.shindig", "shindig-social-api", "jar", "1.0.0-incubating-r749233")).
 		addDependency(new Project("com.thoughtworks.xstream", "xstream", "jar", "1.2")).
 		addDependency(new Project("jdom", "jdom", "jar", "1.0")).
 		addDependency(new Project("org.apache.geronimo.specs", "geronimo-stax-api_1.0_spec", "jar", "1.0.1"));
