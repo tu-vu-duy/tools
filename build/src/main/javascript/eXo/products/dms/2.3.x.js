@@ -10,15 +10,15 @@ function getProduct(version) {
   product.useContentvalidation = true;
   product.contentvalidationVersion = "2.3.x";
   product.workflowVersion = "1.0";
-  product.serverPluginVersion = "2.5.2";
+  product.serverPluginVersion = "2.5.3";
     
   var tool =  Module.GetModule("tools/trunk");
-  var kernel = Module.GetModule("kernel/tags/2.0.6");
-  var core = Module.GetModule("core/tags/2.1.4");
-  var ws = Module.GetModule("ws/tags/1.3.2");
-  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.4", {kernel : kernel, core : core});
-  var eXoJcr = Module.GetModule("jcr/tags/1.10.2", {kernel : kernel, core : core, ws : ws});
-  var portal = Module.GetModule("portal/tags/2.5.2", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
+  var kernel = Module.GetModule("kernel/tags/2.0.7");
+  var core = Module.GetModule("core/tags/2.1.5");
+  var ws = Module.GetModule("ws/tags/1.3.3");
+  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.6", {kernel : kernel, core : core});
+  var eXoJcr = Module.GetModule("jcr/tags/1.10.3", {kernel : kernel, core : core, ws : ws});
+  var portal = Module.GetModule("portal/tags/2.5.3", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var dms = Module.GetModule("ecm/dms/branches/2.3.x", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
     
   product.addDependencies(portal.web.rest);
@@ -38,6 +38,10 @@ function getProduct(version) {
   product.addServerPatch("jbossear",  portal.server.jbossear.patch);  
   product.addServerPatch("jonas",  portal.server.jonas.patch);
   product.addServerPatch("ear",  portal.server.websphere.patch);
+
+  product.removeDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0"));
+  product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "3.1"));
+  product.removeDependency(new Project("rome", "rome", "jar", "0.8"));
 
   product.module = dms;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal];
