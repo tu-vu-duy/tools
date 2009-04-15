@@ -26,8 +26,8 @@ function getModule(params) {
   module.eXoApplication.calendar = 
     new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.webapp", "war", module.version).
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  module.version)).
-	  //addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", 1.3)).
-	  //addDependency(ws.frameworks.cometd).
+	  addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", 1.3)).
+	  addDependency(ws.frameworks.cometd).
 	  addDependency(new Project("rome", "rome", "jar", "0.8")).
 	  addDependency(new Project("jdom", "jdom", "jar", "1.0")).
       addDependency(new Project("ical4j", "ical4j", "jar", "1.0-beta5")) ;
@@ -43,28 +43,6 @@ function getModule(params) {
     new Project("org.exoplatform.cs", "exo.cs.eXoApplication.content.webapp", "war", module.version).
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.content.service", "jar",  module.version));
   module.eXoApplication.content.deployName = "content";
-  
-   
-  module.eXoApplication.chat = new Project("org.exoplatform.cs", "exo.cs.eXoApplication.chat.webapp", "war", module.version).
-  	  addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.chat.service", "jar", module.version).
-  	  addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.service", "jar", module.version)).
-  	  addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.webapp", "war", module.version)).
-      addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.client.openfire", "jar", module.version)).
-  	  addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.webapp", "war", module.version)).
-  	  addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.1")).
-  	  addDependency(ws.frameworks.cometd).
-  	  addDependency(new Project("org.exoplatform.portal", "exo.portal.web.rest", "war", "2.2.1")).
-  	  addDependency(new Project("jabber.smack", "smack", "jar", "3.0.4")).
-  	  addDependency(new Project("jabber.smack", "smackx", "jar", "3.0.4")).
-  	  addDependency(new Project("org.jcrom", "jcrom", "jar", "1.2")).
-      addDependency(new Project("commons-fileupload", "commons-fileupload", "jar", "1.0")).
-	  addDependency(new Project("commons-io", "commons-io", "jar", "1.3")).
-	  addDependency(new Project("log4j", "log4j", "jar", "1.2.12")).
-	  addDependency(new Project("org.slf4j", "slf4j-api", "jar", "1.4.3")).
-	  addDependency(new Project("org.slf4j", "slf4j-log4j12", "jar", "1.4.3"))
-		  	
-  	);
-   
   
   module.web = {}
   module.web.webservice = 
@@ -86,11 +64,6 @@ function getModule(params) {
 	  addDependency(portal.portlet.dashboard) .
       addDependency(jcr.frameworks.command) .
       addDependency(jcr.frameworks.web) ;
-  
-  
-  
       
   return module;
 }
-
- 
