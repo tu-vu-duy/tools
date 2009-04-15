@@ -358,6 +358,17 @@ if ((product.hasDependencyModule("liveroom") || productName=="liveroom") && depl
   liveroomModule.configure(tasks, deployServers, serverMap) ;
 }
 
+/**
+ * Deploy openfire for CS Chat application
+ * Deploys and configures Openfire
+ * Deploys a Red5 server automatically after deploying Liveroom
+ */
+if ((product.hasDependencyModule("cs") || productName=="cs") && deployServers != null) {
+  var csModule = 
+        (product.module.name=="cs") ? product.module : product.getDependencyModule("cs") ;
+  csModule.configure(tasks, deployServers, serverMap) ;
+}
+
 for(var i = 0; i < tasks.size(); i++) {
   task = tasks.get(i) ;
   var start = java.lang.System.currentTimeMillis() ;
