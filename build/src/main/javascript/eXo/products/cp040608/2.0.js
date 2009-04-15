@@ -20,8 +20,10 @@ function getProduct(version) {
   var portal = Module.GetModule("portal/tags/2.5.2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/dms/tags/2.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var cs = Module.GetModule("cs/tags/1.2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var ks = Module.GetModule("ks/tags/1.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var cp040608 = Module.GetModule("cp040608/branches/2.0", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
-    
+      /* Portal dependencies */
+
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
@@ -31,9 +33,10 @@ function getProduct(version) {
   product.addDependencies(portal.webui.portal);
   product.addDependencies(portal.web.eXoResources);
   
-  //product.addDependencies(ecm.web.ecmportal) ;
+  /* ECM dependencies */
+  
   product.addDependencies(ecm.web.eXoECMResources) ;
-  //product.addDependencies(ecm.portlet.ecm) ;
+  //product.addDependencies(ecm.portlet.ecm) ; now comes from cp040608
   product.addDependencies(ecm.portlet.workflow) ;            
   
   /* CS dependencies */
@@ -45,7 +48,17 @@ function getProduct(version) {
 
   product.addDependencies(cs.web.webservice) ;
   product.addDependencies(cs.web.csResources) ;
+  
+  /* KS dependencies */
+  
+  product.addDependencies(ks.eXoApplication.forum) ;
+  product.addDependencies(ks.eXoApplication.faq) ;
+  product.addDependencies(ks.eXoApplication.common) ;
+  
+  product.addDependencies(ks.web.webservice) ;
+  product.addDependencies(ks.web.ksResources) ;
 
+  /* CP040608 dependencies */
 
   product.addDependencies(cp040608.web.portal) ;
   product.addDependencies(cp040608.web.eXoResources) ;
@@ -59,7 +72,7 @@ function getProduct(version) {
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
   product.module = cp040608 ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, cs];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, cs, ks];
   
   return product;
 }
