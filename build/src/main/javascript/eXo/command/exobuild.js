@@ -366,7 +366,10 @@ if ((product.hasDependencyModule("liveroom") || productName=="liveroom") && depl
 if ((product.hasDependencyModule("cs") || productName=="cs") && deployServers != null) {
   var csModule = 
         (product.module.name=="cs") ? product.module : product.getDependencyModule("cs") ;
-  csModule.configure(tasks, deployServers, serverMap) ;
+  if (csModule.eXoApplication &&
+  	  csModule.eXoApplication.chat) {
+	  csModule.configure(tasks, deployServers, serverMap) ;
+  }
 }
 
 for(var i = 0; i < tasks.size(); i++) {
