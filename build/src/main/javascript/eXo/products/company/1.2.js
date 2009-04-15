@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "company" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "company/branches/1.2" ;
+  product.codeRepo = "company/tags/1.2" ;
   product.useWorkflow = true ;
   product.workflowVersion = "1.0" ;
   product.serverPluginVersion = "2.2" ;
@@ -20,7 +20,7 @@ function getProduct(version) {
   var portal = Module.GetModule("portal/tags/2.2.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ecm = Module.GetModule("ecm/dms/tags/2.1.2", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var ks = Module.GetModule("ks/tags/1.0", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var company = Module.GetModule("company/branches/1.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
+  var company = Module.GetModule("company/tags/1.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
 
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
