@@ -6,7 +6,7 @@ function getProduct(version) {
   var product = new Product();
   product.name = "eXoCS" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "cs/trunk" ;
+  product.codeRepo = "cs/branches/1.2.x" ;
   product.serverPluginVersion = "2.5.3" ;
 
   var tool =  Module.GetModule("tools/trunk") ;
@@ -16,7 +16,7 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.6", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.10.3", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.5.3", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr }); 
-  var cs = Module.GetModule("cs/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var cs = Module.GetModule("cs/branches/1.2.x", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
 
   product.addDependencies(cs.eXoApplication.mail) ;
   product.addDependencies(cs.eXoApplication.calendar) ;
@@ -33,10 +33,7 @@ function getProduct(version) {
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jbossear",  portal.server.jbossear.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
-  product.addServerPatch("ear",  portal.server.websphere.patch) 
-
-
-  //product.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
+  product.addServerPatch("ear",  portal.server.websphere.patch)    
   
 
   product.module = cs ;

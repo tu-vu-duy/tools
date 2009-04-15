@@ -11,9 +11,9 @@ function getModule(params) {
   var ws = params.ws;
   var module = new Module();
 
-  module.version =  "1.3-SNAPSHOT" ;
+  module.version =  "1.2.1-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/cs" ;
-  module.relativeSRCRepo =  "cs/trunk" ;
+  module.relativeSRCRepo =  "cs/branches/1.2.x" ;
   module.name = "cs" ;
     
   module.eXoApplication = {};
@@ -64,7 +64,7 @@ function getModule(params) {
 	  addDependency(new Project("org.slf4j", "slf4j-log4j12", "jar", "1.4.3"))
 		  	
   	);
-  module.eXoApplication.chat.deployName = "chat";
+   
   
   module.web = {}
   module.web.webservice = 
@@ -88,82 +88,9 @@ function getModule(params) {
       addDependency(jcr.frameworks.web) ;
   
   
-  /**
-   * Configure and add server path for chat, single sign-on
-   */
-  /*module.server = {}
-  module.server.tomcat = {}
-  module.server.tomcat.patch = 
-    new Project("org.exoplatform.cs", "exo.cs.server.tomcat.patch", "jar", module.version);
-  */
-  /**
-   * Configure and deploy Openfire
-   */
-  module.configure = function(tasks, deployServers, serverMap) {
-  	if (deployServers!==null) {
-      var server = serverMap.get("tomcat");
-      tasks.add(deployOpenfireServer(server, this));
-      //tasks.add(deployRed5Server(server, this));
-    }
-  };
   
       
   return module;
 }
 
-/**
- * Configure and deploy Openfire, Red5 servers for integrated chat on cs 
- */
-
-function deployOpenfireServer(mainServer, module) {
-	var deployServerTask = new TaskDescriptor("Release Dependency Task", eXo.env.dependenciesDir) ;
-  var server = {};
-  server.cleanServer = "openfire-3.4.5";
-  server.name = "exo-openfire";
-  server.serverHome = eXo.env.workingDir + "/" + server.name;
-  server.deployLibDir = server.serverHome + "/lib";
-  server.openfireJar = "exo.cs.eXoApplication.organization.client.openfire-" + module.version + ".jar" ;
-  deployServerTask.description = "Deploy " + server.name + " ";
-	deployServerTask.execute = function() {
-    eXo.System.info("DELETE", "Delete " + server.serverHome);
-    eXo.core.IOUtil.remove(server.serverHome);
-		eXo.System.info("COPY", "Copy a clean server " + server.name);
-		eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/" + server.cleanServer, server.serverHome);
-    eXo.System.info("Gets the configuration file -in a buffer - of openfire (openfire.xml) from the library jar file");
-		var configBuffer = eXo.core.IOUtil.getJarEntryContent(mainServer.deployLibDir+"/"+server.openfireJar, "openfire/openfire.xml") ;
-		if (configBuffer===null) { eXo.System.info("ERROR", "Error retrieving config file from jar !"); return; }
-		// writes the buffer into the configuration file (openfire/conf/openfire.xml)
-		eXo.System.info("INFO", "Creating config file from buffer...");
-		eXo.core.IOUtil.createFile(server.serverHome+"/conf/openfire.xml", configBuffer);
-		// copies the exo openfire library to openfire server
-		eXo.System.info("INFO", "Copying exo openfire library file...");
-		eXo.core.IOUtil.cp(mainServer.deployLibDir + "/" + server.openfireJar, 
-						           server.deployLibDir + "/" + server.openfireJar);
-	}
-	return deployServerTask ;
-}
-
-/*function deployRed5Server(mainServer, module) {
-	var deployServerTask = new TaskDescriptor("Release Dependency Task", eXo.env.dependenciesDir) ;
-  var server = {};
-  server.name = "exo-red5";
-  server.cleanServer = "red5-0.7.0";
-  server.serverHome = eXo.env.workingDir + "/" + server.name;
-  server.deployWebappDir = server.serverHome + "/webapps";
-  deployServerTask.description = "Deploy " + server.name + " ";
-	deployServerTask.execute = function() {
-    eXo.System.info("DELETE", "Delete " + server.serverHome);
-    eXo.core.IOUtil.remove(server.serverHome);
-		eXo.System.info("COPY", "Copy a clean server " + server.name);
-		eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/" + server.cleanServer, server.serverHome);
-		eXo.System.info("eXo " + server.name + " applications file...");
-    var whiteboard = new Project("org.exoplatform.cs", "exo.liveroom.eXoApplication.whiteboard.service", "war", module.version);
-    whiteboard.deployName = "whiteboard";
-    whiteboard.deployTo(eXo.env.m2Repos, server);
-
-    var videoconf = new Project("org.exoplatform.cs", "exo.liveroom.eXoApplication.videoconf.service", "war", module.version);
-    videoconf.deployName = "videoconf";
-    videoconf.deployTo(eXo.env.m2Repos, server);
-	}
-	return deployServerTask ;
-}*/
+ 
