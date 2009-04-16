@@ -5,7 +5,7 @@ function getModule(params) {
 
   var module = new Module();
   
-  module.version = "2.2.1-SNAPSHOT" ;
+  module.version = "2.2.2-SNAPSHOT" ;
   module.relativeMavenRepo = "org/exoplatform/core" ;
   module.relativeSRCRepo = "core/trunk" ;
   module.name = "core" ;
