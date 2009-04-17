@@ -29,14 +29,12 @@ function getProduct(version) {
   product.addDependencies(cs.web.csResources) ;
   product.addDependencies(cs.web.csportal) ;
   
-  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
-  product.addServerPatch("jboss",  portal.server.jboss.patch) ;
+  product.addServerPatch("tomcat", cs.server.tomcat.patch) ;
+  product.addServerPatch("jboss",  cs.server.jboss.patch) ;
   product.addServerPatch("jbossear",  portal.server.jbossear.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   product.addServerPatch("ear",  portal.server.websphere.patch) 
-
-
-  //product.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
+ 
   
 
   product.module = cs ;

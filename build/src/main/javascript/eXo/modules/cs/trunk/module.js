@@ -48,12 +48,12 @@ function getModule(params) {
   module.eXoApplication.chat = new Project("org.exoplatform.cs", "exo.cs.eXoApplication.chat.webapp", "war", module.version).
   	  addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.chat.service", "jar", module.version).
   	  addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.service", "jar", module.version)).
-  	  addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.webapp", "war", module.version)).
+  	  //addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.webapp", "war", module.version)).
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.client.openfire", "jar", module.version)).
-  	  addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.webapp", "war", module.version)).
+  	  //addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.webapp", "war", module.version)).
   	  addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.1")).
   	  addDependency(ws.frameworks.cometd).
-  	  addDependency(new Project("org.exoplatform.portal", "exo.portal.web.rest", "war", "2.2.1")).
+  	  addDependency(new Project("org.exoplatform.portal", "exo.portal.web.rest", "war", "2.5.3")).
   	  addDependency(new Project("jabber.smack", "smack", "jar", "3.0.4")).
   	  addDependency(new Project("jabber.smack", "smackx", "jar", "3.0.4")).
   	  addDependency(new Project("org.jcrom", "jcrom", "jar", "1.2")).
@@ -91,11 +91,16 @@ function getModule(params) {
   /**
    * Configure and add server path for chat, single sign-on
    */
-  /*module.server = {}
+  module.server = {}
   module.server.tomcat = {}
   module.server.tomcat.patch = 
     new Project("org.exoplatform.cs", "exo.cs.server.tomcat.patch", "jar", module.version);
-  */
+
+  module.server.jboss = {}
+  module.server.jboss.patch = 
+	    new Project("org.exoplatform.cs", "exo.cs.server.jboss.patch", "jar", module.version);
+  
+  
   /**
    * Configure and deploy Openfire
    */
