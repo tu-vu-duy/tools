@@ -25,3 +25,5 @@ alias exobuild="js.sh exobuild"
 #alias exosvn="exobsh.sh exosvn"
 alias exosvn="js.sh exosvn"
 alias rmdb="rm -rf $EXO_WORKING_DIR/exo-tomcat/temp/data"
+
+alias jbossRun="cd $EXO_WORKING_DIR/exo-jboss/bin && chmod +x *.sh && ./eXo.sh run"

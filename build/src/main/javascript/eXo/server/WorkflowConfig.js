@@ -16,7 +16,6 @@ WorkflowConfig.prototype.patchWarWorkflow = function(server,product) {
     var IOUtil =  eXo.core.IOUtil;
     var mentries = new java.util.HashMap();
     var properties = new java.util.HashMap();
-    var properties = new java.util.HashMap();
     properties.put("${workflow}", workflowName);
     if (product.name == "eXoWorkflow") {
       eXo.System.info("CONF", "JCR settings: " + properties.entrySet());	
