@@ -12,7 +12,7 @@ function getModule(params) {
   var portal = params.portal;  
   var module = new Module();
   
-  module.version = "1.0-SNAPSHOT";
+  module.version = "1.1-SNAPSHOT";
   module.relativeMavenRepo =  "org/exoplatform/ecm/workflow";
   module.relativeSRCRepo =  "ecm/workflow/trunk";
   module.name =  "eXoWorkflow";
