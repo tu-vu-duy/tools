@@ -13,7 +13,7 @@ function getModule(params) {
     new Project("org.exoplatform.kernel", "exo.kernel.commons", "jar", module.version).
     addDependency(new Project("commons-lang", "commons-lang", "jar", "2.3")).
     addDependency(new Project("xpp3", "xpp3", "jar", "1.1.3.4.O")).
-    addDependency(new Project("xstream", "xstream", "jar", "1.2")).
+//    addDependency(new Project("xstream", "xstream", "jar", "1.2")).
     addDependency(new Project("dom4j", "dom4j", "jar", "1.6.1"));
     
   module.container = 
