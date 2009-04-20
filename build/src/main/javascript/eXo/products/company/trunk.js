@@ -7,8 +7,6 @@ function getProduct(version) {
   product.name = "company" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "company/trunk" ;
-  //product.useWorkflow = true ;
-  product.useContentvalidation = true;
   product.contentvalidationVersion = "2.3";
   product.workflowVersion = "1.0";
   product.serverPluginVersion = "2.5.2" ;
@@ -25,7 +23,7 @@ function getProduct(version) {
   var webos = Module.GetModule("webos/tags/1.5", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ks = Module.GetModule("ks/tags/1.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var company = Module.GetModule("company/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
-    
+
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
