@@ -47,8 +47,8 @@ Workflow.prototype.configWorkflow = function(product) {
 		product.addDependencies(new Project("org.ow2.util.asm", "asm", "jar", "3.1"));
 		product.addServerPatch("jbossear",new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.server.jboss.patch-ear", "jar", this.version));
 		product.addServerPatch("jboss",new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.server.jboss.patch", "jar", this.version));
+  	product.addServerPatch("tomcat",new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.server.tomcat.patch", "jar", this.version));
 	}
-	product.addServerPatch("tomcat",new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.server.tomcat.patch", "jar", this.version));
 }
 
 Workflow.prototype.getPortlet = function() {
