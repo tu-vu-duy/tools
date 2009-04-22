@@ -26,8 +26,8 @@ function getModule(params) {
   module.eXoApplication.calendar = 
     new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.webapp", "war", module.version).
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  module.version)).
-	  //addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", 1.3)).
-	  //addDependency(ws.frameworks.cometd).
+	  addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.3")).
+	  addDependency(ws.frameworks.cometd).
 	  addDependency(new Project("rome", "rome", "jar", "0.8")).
 	  addDependency(new Project("jdom", "jdom", "jar", "1.0")).
       addDependency(new Project("ical4j", "ical4j", "jar", "1.0-beta5")) ;
@@ -44,7 +44,7 @@ function getModule(params) {
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.content.service", "jar",  module.version));
   module.eXoApplication.content.deployName = "content";
   
-  module.eXoApplication.chat = new Project("org.exoplatform.cs", "exo.cs.eXoApplication.chat.webapp", "war", module.version).
+  /*module.eXoApplication.chat = new Project("org.exoplatform.cs", "exo.cs.eXoApplication.chat.webapp", "war", module.version).
 	  addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.chat.service", "jar", module.version).
 	  addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.service", "jar", module.version)).
 	  //addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.webapp", "war", module.version)).
@@ -64,7 +64,7 @@ function getModule(params) {
 	  	
 	);
   
-  module.eXoApplication.chat.deployName = "chat";
+  module.eXoApplication.chat.deployName = "chat";*/
 
    
   module.web = {}
@@ -98,20 +98,20 @@ function getModule(params) {
   module.server.tomcat.patch = 
     new Project("org.exoplatform.cs", "exo.cs.server.tomcat.patch", "jar", module.version);
   
-  module.server.jboss = {}
+ /* module.server.jboss = {}
   module.server.jboss.patch = 
 	    new Project("org.exoplatform.cs", "exo.cs.server.jboss.patch", "jar", module.version);
-  
+  */
   /**
    * Configure and deploy Openfire
    */
-  module.configure = function(tasks, deployServers, serverMap) {
+  /*module.configure = function(tasks, deployServers, serverMap) {
   	if (deployServers!==null) {
       var server = serverMap.get("tomcat");
       tasks.add(deployOpenfireServer(server, this));
        
     }
-  };
+  };*/
   
       
   return module;
