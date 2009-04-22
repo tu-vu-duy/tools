@@ -22,7 +22,8 @@ function getProduct(version) {
   var cs = Module.GetModule("cs/tags/1.2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var webos = Module.GetModule("webos/tags/1.5", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ks = Module.GetModule("ks/tags/1.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var company = Module.GetModule("company/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
+  var workflow = Module.GetModule("ecm/workflow/tags/1.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
+  var company = Module.GetModule("company/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, ws : ws});
 
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
@@ -37,7 +38,6 @@ function getProduct(version) {
   
   product.addDependencies(webos.web.webosResources);
 
-  //product.addDependencies(dms.web.dmsportal);
   product.addDependencies(dms.web.eXoDMSResources);
   product.addDependencies(dms.gadgets);
   
@@ -49,10 +49,14 @@ function getProduct(version) {
 
   
   product.addDependencies(cs.eXoApplication.mail) ;
-  product.addDependencies(cs.eXoApplication.calendar) ;
+  // replaced by "company.eXoApplication.calendar"
+  //product.addDependencies(cs.eXoApplication.calendar) ;
   product.addDependencies(cs.eXoApplication.contact) ;
   product.addDependencies(cs.eXoApplication.content) ;
+  product.addDependencies(cs.web.webservice) ;
   product.addDependencies(cs.web.csResources) ;
+  
+  product.addDependencies(company.eXoApplication.calendar) ;
   
   product.addDependencies(company.portlet.dms) ;
   product.addDependencies(company.component.web) ;
@@ -61,15 +65,15 @@ function getProduct(version) {
   product.addDependencies(company.portlet.web) ;
   product.addDependencies(company.application.rest) ;
   
-  //product.addDependencies(workflow.portlet.workflow);
-
+  product.addDependencies(workflow.web.eXoWorkflowResources);
+  product.addDependencies(workflow.portlet.workflow);
+  
   product.addServerPatch("tomcat", company.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
   product.module = company ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, dms];
-  //product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, dms, workflow];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, dms, cs, ws];
   
   return product ;
 }

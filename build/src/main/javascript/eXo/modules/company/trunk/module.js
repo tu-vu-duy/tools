@@ -9,6 +9,7 @@ function getModule(params) {
   var jcr = params.eXoJcr;
   var portal = params.portal;
   var dms = params.dms;
+  var ws = params.ws;
   var module = new Module();
 
   module.version =  "2.1-SNAPSHOT" ;
@@ -19,6 +20,7 @@ function getModule(params) {
   var ksversion = "1.1" ;
   var dmsversion = "2.3" ;
   var workflowversion = "1.0" ;
+  var csversion = "1.2" ;
     
   module.portlet = {}
   module.portlet.web = new Project("org.exoplatform.company", "company.portlet.web", "exo-portlet", module.version);
@@ -51,54 +53,16 @@ function getModule(params) {
     addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")).
     addDependency(new Project("pdfbox", "pdfbox", "jar", "0.7.2"));
   
-  module.gadgets = 
-    new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.gadgets", "war", dmsversion).
-    addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.2"));  
-    module.gadgets.deployName = "eXoDMSGadgets";
-  
   module.application = {}
   module.application.rest = new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.publication","jar", dmsversion).
   	addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.2"));
-  
-  module.eXoApplication = {};
-  
-  module.eXoApplication.faq = new Project("org.exoplatform.ks", "exo.ks.eXoApplication.faq.webapp", "war", ksversion).
-   addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.faq.service", "jar", ksversion));
-  module.eXoApplication.faq.deployName = "faq";
-
-  module.eXoApplication.forum = new Project("org.exoplatform.ks", "exo.ks.eXoApplication.forum.webapp", "war", ksversion).
-    addDependency(new Project("org.exoplatform.ks", "exo.ks.eXoApplication.forum.service", "jar",  ksversion).
-    addDependency(new Project("org.exoplatform.ks", "exo.ks.component.providers", "jar", ksversion)));
-  module.eXoApplication.forum.deployName = "forum";
   
   module.component={}
   module.component.web=
     new Project("org.exoplatform.company", "company.component.web", "jar", module.version).
     addDependency(portal.component.web);
   
-  portal.webui.portal = 
-    new Project("org.exoplatform.portal", "exo.portal.webui.portal", "jar", portal.version).
-    addDependency(portal.component.resources) .
-    addDependency(portal.webui.eXo) .
-    addDependency(kernel.container) .
-    addDependency(kernel.component.common) .
-    addDependency(kernel.component.remote) .
-    addDependency(kernel.component.cache) .
-    addDependency(kernel.component.command) .
-    addDependency(core.component.database) .
-    addDependency(core.component.organization) .
-    addDependency(core.component.security.core) .
-    addDependency(core.component.xmlProcessing) .
-    addDependency(core.component.documents).
-    addDependency(core.component.resources).
-    addDependency(core.component.gifbackport).
-    addDependency(jcr.services.jcr).
-    addDependency(eXoPortletContainer.services.jsr168jsr286).
-    addDependency(eXoPortletContainer.web.wsrp) ;
-	
   module.web = {}  
-  module.web.ksResources = 
-    new Project("org.exoplatform.ks", "exo.ks.web.ksResources", "war", ksversion) ;  
   module.web.companyResources = 
     new Project("org.exoplatform.company", "company.web.eXoResourcesCompany", "exo-portal", module.version) ;    
   module.web.portal = 
@@ -109,6 +73,17 @@ function getModule(params) {
     addDependency(portal.webui.portal). 
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web) ;
+
+  module.eXoApplication = {}  
+  module.eXoApplication.calendar = 
+    new Project("org.exoplatform.company", "exo.company.cs.eXoApplication.calendar.webapp", "war", module.version).
+      addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  csversion)).
+	  addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.2")).
+	  addDependency(ws.frameworks.cometd).
+	  addDependency(new Project("rome", "rome", "jar", "0.8")).
+	  addDependency(new Project("jdom", "jdom", "jar", "1.0")).
+      addDependency(new Project("ical4j", "ical4j", "jar", "1.0-beta5")) ;
+  module.eXoApplication.calendar.deployName = "calendar";
 
   module.server = {}
   module.server.tomcat = {}
