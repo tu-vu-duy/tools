@@ -8,7 +8,9 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "cp040608/branches/2.0" ;
   product.useWorkflow = true;
-  product.workflowVersion = "2.2" ;
+  product.useContentvalidation = true;
+  product.contentvalidationVersion = "2.3";
+  product.workflowVersion = "1.0" ;
   product.serverPluginVersion = "2.5.2" ;
   
   var tool =  Module.GetModule("tools/trunk") ;
@@ -18,7 +20,8 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.4", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.10.1", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.5.2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
-  var ecm = Module.GetModule("ecm/dms/tags/2.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
+  var ecm = Module.GetModule("ecm/dms/tags/2.3", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
+  var workflow = Module.GetModule("ecm/workflow/tags/1.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var cs = Module.GetModule("cs/tags/1.2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var ks = Module.GetModule("ks/tags/1.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var cp040608 = Module.GetModule("cp040608/branches/2.0", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm});
@@ -35,9 +38,12 @@ function getProduct(version) {
   
   /* ECM dependencies */
   
-  product.addDependencies(ecm.web.eXoECMResources) ;
+  product.addDependencies(ecm.web.eXoDMSResources) ;
+  product.addDependencies(ecm.portlet.jcr_console);
+  product.addDependencies(ecm.gadgets);
   //product.addDependencies(ecm.portlet.ecm) ; now comes from cp040608
-  product.addDependencies(ecm.portlet.workflow) ;            
+  product.addDependencies(workflow.web.eXoWorkflowResources);
+  product.addDependencies(workflow.portlet.workflow) ;            
   
   /* CS dependencies */
   
@@ -64,6 +70,8 @@ function getProduct(version) {
   product.addDependencies(cp040608.web.eXoResources) ;
   product.addDependencies(cp040608.portlet.web) ;
   product.addDependencies(cp040608.portlet.ecm) ;
+
+  // */
   
   product.removeDependency(eXoPortletContainer.web.wsrp);
 
@@ -72,7 +80,7 @@ function getProduct(version) {
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
   product.module = cp040608 ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, cs, ks];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, workflow, cs, ks];
   
   return product;
 }
