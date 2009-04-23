@@ -24,7 +24,7 @@ function getModule(params) {
   module.portlet.web.deployName = "cp040608PortletWeb" ;
   
   module.portlet.ecm = new Project("org.exoplatform.cp040608", "cp040608.portlet.ecm", "exo-portlet", module.version).
-  		addDependency(ecm.portlet.ecm);
+  		addDependency(ecm.portlet.dms);
   module.portlet.ecm.deployName = "ecm" ;
   
   /*module.component = {} ;
