@@ -30,6 +30,9 @@ function getModule(params) {
   module.portlet.web = new Project("org.exoplatform.spff", "spff.portlet.web", "exo-portlet", module.version);
   module.portlet.web.deployName = "spffWeb" ;
     
+  module.portlet.spffadmin = new Project("org.exoplatform.spff", "spff.portlet.spffadmin", "exo-portlet", module.version);
+  module.portlet.spffadmin.deployName = "spffadmin" ;
+
   module.web = {}
   module.web.spffResources = new Project("org.exoplatform.spff", "spff.web.spffResources", "war", module.version);
   module.web.spffResources.deployName = "spffResources" ;
