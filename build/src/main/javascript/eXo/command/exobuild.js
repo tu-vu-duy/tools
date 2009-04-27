@@ -234,10 +234,13 @@ for(var i = 0; i <args.length; i++) {
 	    useWorkflowPlg = true;
   } else if (arg.match("--enable-workflow")) {
       var workflowName = arg.substring("--enable-workflow=".length);
-	    if (workflowName != "") {
+	    if ((workflowName == "bonita") ||  (workflowName == "jbpm")) {
 	      workflow.name = workflowName;
 	      java.lang.System.setProperty("workflow", workflowName);
-	    } 
+	    } else {
+		  eXo.System.info("ERR", "'--enable-workflow' only accepts 'bonita' or 'jbpm'");
+		  java.lang.System.exit(1);
+		}
 	    useWorkflowPlg = true;
 	    enableWorkflow = true;
   } else if (arg == "--nointernet") {
