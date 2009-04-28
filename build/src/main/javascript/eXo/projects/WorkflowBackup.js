@@ -9,15 +9,19 @@ function WorkflowBackup(workflowName, workflowVersion) {
 
 WorkflowBackup.prototype.configWorkflow = function(product) {  
 	if(this.name == "jbpm") {
-		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", this.version)) ;
-		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.engine", "jar", "3.0")) ;
+	
+			print("WorkflowBackup.js: adding dependencies for jbpm");
+
+		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.facade", "jar", this.version)) ;
+		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.engine", "jar", "3.0")) ;
 		//For POC using 2.0, please use this	
 		//product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.jbpm.facade", "jar", "2.0")) ;
     // workflow version management has been fixed. Use "product.workflowVersion" variable in your JS product descriptor	to set
     // workflow version to use (avoid problem with trunk product using branche for workflow for example)	
 	} else if(this.name = "bonita") {
-		product.addDependencies(new Project("org.exoplatform.ecm", "exo.ecm.component.workflow.impl.bonita", "jar", this.version)) ;
-		product.addDependencies(new Project("org.objectweb.bonita", "bonita-client", "jar", "3.0"));
+	print("WorkflowBackup.js: adding dependencies for bonita");
+	product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.bonita", "jar", this.version)) ;
+	product.addDependencies(new Project("org.objectweb.bonita", "bonita-client", "jar", "3.0"));
     product.addDependencies(new Project("org.objectweb.bonita", "bonita", "exo-ear-jar", "3.0"));
     product.addDependencies(new Project("org.objectweb.bonita", "config", "exo-ear-rar", "3.0"));
     product.addDependencies(new Project("org.objectweb.bonita", "bonita_ws", "war", "3.0"));

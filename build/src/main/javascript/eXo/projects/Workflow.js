@@ -9,8 +9,11 @@ function Workflow(workflowName, workflowVersion) {
 
 Workflow.prototype.configWorkflow = function(product) {
 
+print("Workflow.js: Configuring workflow version: " + this.version + "   name: "+this.name);
+
   product.addDependencies(this.getPortlet());
 	if(this.name == "jbpm") {
+	print("Workflow.js: adding dependencies for jbpm");
   	product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.facade", "jar", this.version));
  		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.engine", "jar", "3.0"));
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.payraise", "jar", this.version));
@@ -23,6 +26,8 @@ Workflow.prototype.configWorkflow = function(product) {
       product.addDependencies(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.webui", "jar", product.contentvalidationVersion));
 		}
 	} else if(this.name == "bonita") {
+		print("Workflow.js: adding dependencies for bonita");
+
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.bonita", "jar", this.version));
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.bonita.holiday", "jar", this.version));
 		product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.bonita.payraise", "jar", this.version));

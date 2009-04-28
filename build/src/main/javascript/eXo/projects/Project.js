@@ -1,6 +1,10 @@
 eXo.require("eXo.core.IOUtil")  ;
 
 function Project(gid, id, ptype, version) {
+
+  // Uncomment for debugging
+  // print("Project.js: new Project(gid: " + gid + " id: " + id + " ptype: "+ ptype + " version: "+ version + " )");
+  
   this.groupId =  gid ;
   this.artifactId = id ;
   this.version = version ;
