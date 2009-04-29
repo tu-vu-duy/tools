@@ -16,6 +16,7 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.6", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.10.3", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.5.3", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr }); 
+  var webos = Module.GetModule("webos/tags/1.5", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var cs = Module.GetModule("cs/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
 
   product.addDependencies(cs.eXoApplication.mail) ;
@@ -28,6 +29,8 @@ function getProduct(version) {
   product.addDependencies(cs.web.webservice) ;
   product.addDependencies(cs.web.csResources) ;
   product.addDependencies(cs.web.csportal) ;
+
+  product.addDependencies(webos.web.webosResources);	
   
   product.addServerPatch("tomcat", cs.server.tomcat.patch) ;
   product.addServerPatch("jboss",  cs.server.jboss.patch) ;

@@ -123,6 +123,18 @@ function getModule(params) {
 function deployOpenfireServer(mainServer, module) {
 	var deployServerTask = new TaskDescriptor("Release Dependency Task", eXo.env.dependenciesDir) ;
   var server = {};
+  
+  server.openfireJarPath = eXo.env.dependenciesDir + "/repository";  
+  for (var i=0; i < module.eXoApplication.chat.dependencies.size(); i++) {
+	  var tmpObj = module.eXoApplication.chat.dependencies.get(i).dependencies; 
+	  for (var j=0; j<tmpObj.size(); j++) {
+		  if (tmpObj.get(j).artifactId == "exo.cs.eXoApplication.organization.client.openfire") {
+			  server.openfireJarPath += "/" + tmpObj.get(j).relativePath;
+			  break;
+		  }
+	  }
+  }
+   
   server.cleanServer = "openfire-3.4.5";
   server.name = "exo-openfire";
   server.serverHome = eXo.env.workingDir + "/" + server.name;
@@ -135,14 +147,15 @@ function deployOpenfireServer(mainServer, module) {
 		eXo.System.info("COPY", "Copy a clean server " + server.name);
 		eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/" + server.cleanServer, server.serverHome);
     eXo.System.info("Gets the configuration file -in a buffer - of openfire (openfire.xml) from the library jar file");
-		var configBuffer = eXo.core.IOUtil.getJarEntryContent(mainServer.deployLibDir+"/"+server.openfireJar, "openfire/openfire.xml") ;
+		//var configBuffer = eXo.core.IOUtil.getJarEntryContent(mainServer.deployLibDir+"/"+server.openfireJar, "openfire/openfire.xml") ;
+		var configBuffer = eXo.core.IOUtil.getJarEntryContent(server.openfireJarPath, "openfire/openfire.xml") ;
 		if (configBuffer===null) { eXo.System.info("ERROR", "Error retrieving config file from jar !"); return; }
 		// writes the buffer into the configuration file (openfire/conf/openfire.xml)
 		eXo.System.info("INFO", "Creating config file from buffer...");
 		eXo.core.IOUtil.createFile(server.serverHome+"/conf/openfire.xml", configBuffer);
 		// copies the exo openfire library to openfire server
 		eXo.System.info("INFO", "Copying exo openfire library file...");
-		eXo.core.IOUtil.cp(mainServer.deployLibDir + "/" + server.openfireJar, 
+		eXo.core.IOUtil.cp(server.openfireJarPath, 
 						           server.deployLibDir + "/" + server.openfireJar);
 	}
 	return deployServerTask ;
