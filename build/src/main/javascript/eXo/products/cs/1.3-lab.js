@@ -29,6 +29,9 @@ function getProduct(version) {
   product.addDependencies(cs.web.csResources) ;
   product.addDependencies(cs.web.csportal) ;
   
+  // uncomment for benches
+  product.addDependencies(cs.tool.benches) ;
+  
   product.addServerPatch("tomcat", cs.server.tomcat.patch) ;
   product.addServerPatch("jboss",  cs.server.jboss.patch) ;
   product.addServerPatch("jbossear",  portal.server.jbossear.patch) ;
@@ -43,6 +46,7 @@ function getProduct(version) {
   product.preDeploy = function() {
 	  eXo.System.info("INFO", "Product Pre Deploy phase in cs trunk");
 	  this.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
+	  this.removeDependency(new Project("commons-logging", "commons-logging", "jar", "1.0.4"));
   };
   return product ;
 }

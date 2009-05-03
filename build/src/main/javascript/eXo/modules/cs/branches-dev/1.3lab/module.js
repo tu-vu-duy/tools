@@ -20,7 +20,9 @@ function getModule(params) {
   module.eXoApplication.mail = 
     new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.webapp", "war", module.version).
     addDependency(new Project("javax.mail", "mail", "jar", "1.4.1")).
+    addDependency(new Project("org.slf4j", "jcl-over-slf4j", "jar", "1.5.6")).
     addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.mail.service", "jar",  module.version));
+  
   module.eXoApplication.mail.deployName = "mail";
     
   module.eXoApplication.calendar = 
@@ -86,6 +88,9 @@ function getModule(params) {
 	  addDependency(portal.portlet.dashboard) .
       addDependency(jcr.frameworks.command) .
       addDependency(jcr.frameworks.web) ;
+  
+  module.tool = {}
+  module.tool.benches =  new Project("org.exoplatform.cs", "exo.cs.tool.benches", "jar",  module.version);
   
   
   /**
