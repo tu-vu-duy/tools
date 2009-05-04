@@ -66,6 +66,9 @@ function getModule(params) {
   	);
   module.eXoApplication.chat.deployName = "chat";
   
+  module.eXoApplication.chatbar = new Project("org.exoplatform.cs", "exo.cs.eXoApplication.chatbar.webapp", "war", module.version) ;
+  module.eXoApplication.chatbar.deployName = "chatbar";
+  
   module.web = {}
   module.web.webservice = 
     new Project("org.exoplatform.cs", "exo.cs.web.webservice", "jar",  module.version);
