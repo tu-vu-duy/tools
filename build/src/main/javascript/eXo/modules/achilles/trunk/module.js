@@ -11,7 +11,7 @@ function getModule(params) {
   
   var module = new Module();
 
-  module.version =  "1.0" ;
+  module.version =  "2.0" ;
   module.relativeMavenRepo =  "org/exoplatform/achilles" ;
   module.relativeSRCRepo =  "achilles/trunk" ;
   module.name = "achilles" ;
