@@ -107,7 +107,7 @@ function getModule(params) {
   	new Project("org.exoplatform.portal", "exo.portal.gadgets-server", "war", module.version).
 		addDependency(new Project("commons-io", "commons-io", "jar", "1.4")).
 		addDependency(new Project("net.oauth", "core", "jar", "20080621")).
-		addDependency(new Project("com.google.collections", "google-collections", "jar", "0.8")).
+		addDependency(new Project("com.google.code.google-collections", "google-collect", "jar", "snapshot-20080321")).
 		addDependency(new Project("com.google.code.guice", "guice", "jar", "1.0")).
 		addDependency(new Project("commons-lang", "commons-lang", "jar", "2.3")).
 		addDependency(new Project("rome", "rome", "jar", "0.9")).
@@ -116,10 +116,10 @@ function getModule(params) {
 		addDependency(new Project("jaxen", "jaxen", "jar", "1.1.1")).
 		addDependency(new Project("joda-time", "joda-time", "jar", "1.5.2")).
 		addDependency(new Project("org.json", "json", "jar", "20070829")).
-		addDependency(new Project("org.apache.shindig", "shindig-common", "jar", "1.0.0-incubating-r749233")).
-		addDependency(new Project("org.apache.shindig", "shindig-gadgets", "jar", "1.0.0-incubating-r749233")).
-		addDependency(new Project("org.apache.shindig", "shindig-features", "jar", "1.0.0-incubating-r749233")).		
-		addDependency(new Project("org.apache.shindig", "shindig-social-api", "jar", "1.0.0-incubating-r749233")).
+		addDependency(new Project("org.apache.shindig", "shindig-common", "jar", "0.8.1-1-r719456")).
+		addDependency(new Project("org.apache.shindig", "shindig-gadgets", "jar", "0.8.1-1-r719456")).
+		addDependency(new Project("org.apache.shindig", "shindig-features", "jar", "0.8.1-1-r719456")).		
+		addDependency(new Project("org.apache.shindig", "shindig-social-api", "jar", "0.8.1-1-r719456")).
 		addDependency(new Project("jdom", "jdom", "jar", "1.0")).
 //		addDependency(new Project("commons-codec", "commons-codec", "jar", "1.2")).
 		addDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.1")).
