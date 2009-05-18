@@ -21,13 +21,13 @@ function getProduct(version) {
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.portlet.dashboard) ;
-	product.addDependencies(portal.eXoGadgetServer) ;
-	product.addDependencies(portal.eXoGadgets) ;
+  product.addDependencies(portal.eXoGadgetServer) ;
+  product.addDependencies(portal.eXoGadgets) ;
   product.addDependencies(portal.webui.portal);
   
-	product.addDependencies(portal.web.eXoResources);
-	product.addDependencies(portal.web.eXoMacSkin);
-	product.addDependencies(portal.web.eXoVistaSkin);
+  product.addDependencies(portal.web.eXoResources);
+  product.addDependencies(portal.web.eXoMacSkin);
+  product.addDependencies(portal.web.eXoVistaSkin);
 
   product.addDependencies(portal.web.portal) ;
 
@@ -37,7 +37,7 @@ function getProduct(version) {
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   product.addServerPatch("ear",  portal.server.websphere.patch) ;
 
-	/* cleanup duplicated lib */
+  /* cleanup duplicated lib */
   product.removeDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0"));
   product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "3.1"));
 
