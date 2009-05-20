@@ -39,7 +39,17 @@ exoproject.prototype.QuickWarDeploy = function() {
     if(file.getName().endsWith(".jar")) {
       eXo.System.info("COPY", file.getName() + " to " + server.deployLibDir) ;
       eXo.core.IOUtil.cp(file.getAbsolutePath(), "src/main/webapp/WEB-INF/lib/"  + file.getName()) ;
-    }
+    } else if(file.getName().endsWith(".war")) {
+	  var jarDir = new java.io.File(file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - 4) + "/WEB-INF/lib") ;
+	  if(jarDir.exists()) {
+	    var jarChild =  jarDir.listFiles();
+	    for(i = 0; i < jarChild.length; i++) {
+		  var jarFile =  jarChild[i] ;
+    	  eXo.System.info("COPY", jarFile.getName() + " to " + server.deployLibDir) ;
+		  eXo.core.IOUtil.cp(jarFile.getAbsolutePath(), "src/main/webapp/WEB-INF/lib/"  + jarFile.getName()) ;
+		}
+	  }
+	}
   }
 }
 
