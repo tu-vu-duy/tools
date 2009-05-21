@@ -7,7 +7,7 @@ function getModule(params) {
 
   var module = {} ;
   
-  module.version = "1.11.1-SNAPSHOT" ;
+  module.version = "1.11.2-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/jcr" ;
   module.relativeSRCRepo =  "jcr/trunk" ;
   module.name =  "jcr" ;

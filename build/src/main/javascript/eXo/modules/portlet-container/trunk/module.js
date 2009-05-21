@@ -8,7 +8,7 @@ function getModule(params) {
   var ws = params.ws;
 
   var module = new Module();
-  module.version = "2.1.1-SNAPSHOT" ;
+  module.version = "2.1.2-SNAPSHOT" ;
   module.relativeMavenRepo = "org/exoplatform/portletcontainer" ;
   module.relativeSRCRepo = "portlet-container/trunk" ;
   module.name = "pc" ;
