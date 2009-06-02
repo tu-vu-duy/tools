@@ -43,7 +43,8 @@ function getModule(params) {
 
 	module.application = {}
   module.application.rest = new Project("org.exoplatform.social", "exo.social.application.rest","jar", module.version).
-  	addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.1"));
+  	addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.1")).
+  	addDependency(new Project("org.exoplatform.core", "exo.core.component.script.groovy", "jar", "2.2.2-SNAPSHOT"));
 
   module.web.opensocial =new Project("org.exoplatform.social", "exo.social.web.opensocial", "war", module.version).
 		addDependency(new Project("commons-betwixt", "commons-betwixt", "jar", "0.8")).
