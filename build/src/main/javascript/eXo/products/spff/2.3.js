@@ -20,14 +20,13 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.6", {kernel : kernel, core : core}) ;    
   var eXoJcr = Module.GetModule("jcr/tags/1.10.3", {kernel : kernel, core : core, ws : ws}) ;
 
-  var webos = Module.GetModule("webos/tags/1.5", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
+  var webos = Module.GetModule("webos/tags/1.5.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var portal = Module.GetModule("portal/tags/2.5.3", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr}); 
   var dms = Module.GetModule("ecm/dms/tags/2.3.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var workflow = Module.GetModule("ecm/workflow/tags/1.0.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var cs = Module.GetModule("cs/tags/1.2.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var ks = Module.GetModule("ks/tags/1.1.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  //var liveroom = Module.GetModule("liveroom/tags/1.0-beta1-1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, ws : ws, portal : portal}) ;
-  var spff = Module.GetModule("spff/internet/branches/2.3", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var spff = Module.GetModule("spff/internet/branches/2.3", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
 
 
   // necessaire pour le batch de synchro ldap/DB  
@@ -63,13 +62,13 @@ function getProduct(version) {
   product.addDependencies(cs.eXoApplication.content) ;
 //  product.addDependencies(cs.eXoApplication.chat) ;
 
-  product.addDependencies(cs.web.webservice) ;
+// patched : product.addDependencies(cs.web.webservice) ;
   product.addDependencies(cs.web.csResources) ;
 
   
   // ecm
   product.addDependencies(dms.web.eXoDMSResources);
-  product.addDependencies(dms.portlet.dms);
+// patched : product.addDependencies(dms.portlet.dms);
   product.addDependencies(dms.portlet.jcr_console);
   product.addDependencies(dms.gadgets);
 
@@ -86,7 +85,14 @@ function getProduct(version) {
   product.addDependencies(spff.portlet.spffadmin) ;
   product.addDependencies(spff.web.spffResources) ;
   product.addDependencies(spff.web.spffportal) ;
- // product.addDependencies(spff.component.synchro) ;
+  
+  // patches are defined in the spff module.js file
+  product.addDependencies(spff.patch.dmsportlet);
+  product.addDependencies(spff.patch.chat) ;
+  product.addDependencies(spff.patch.cswebservice) ;
+  
+  
+  //product.addDependencies(spff.component.synchro) ;
   //product.addDependencies(spff.tool.migration) ;
   //product.addDependencies(spff.patch.loginmodule) ; // to use only with JBoss, not Tomcat
   //product.addDependencies(spff.patch.authenticator) ; 
