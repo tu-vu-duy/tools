@@ -21,7 +21,7 @@ function getModule(params) {
   module.portlet = {};
   
   module.portlet.webpresentation = 
-    new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.portlet.web-presentation", "exo-portlet", module.version).       
+    new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.portlet.presentation", "exo-portlet", module.version).       
     addDependency(new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.connector.fckeditor", "jar",  module.version)).
     addDependency(new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.component.wcm", "jar",  module.version)).
     addDependency(new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.webui.wcm", "jar",  module.version)).
@@ -32,7 +32,7 @@ function getModule(params) {
     addDependency(portal.webui.portal);
     
  module.portlet.websearches = 
-    new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.portlet.web-searches", "exo-portlet", module.version).    
+    new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.portlet.searches", "exo-portlet", module.version).    
     addDependency(new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.component.wcm", "jar",  module.version)).
     addDependency(new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.component.search", "jar",  module.version));
 
