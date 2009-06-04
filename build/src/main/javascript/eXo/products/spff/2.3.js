@@ -83,11 +83,14 @@ function getProduct(version) {
   // spff
   product.addDependencies(spff.portlet.web) ;
   product.addDependencies(spff.portlet.spffadmin) ;
+// with specific locales
+  product.addDependencies(spff.portlet.ecm) ;
+//
   product.addDependencies(spff.web.spffResources) ;
   product.addDependencies(spff.web.spffportal) ;
   
   // patches are defined in the spff module.js file
-  product.addDependencies(spff.patch.dmsportlet);
+// redefined in spff : product.addDependencies(spff.patch.dmsportlet);
   product.addDependencies(spff.patch.chat) ;
   product.addDependencies(spff.patch.cswebservice) ;
   

@@ -33,6 +33,23 @@ function getModule(params) {
     
   module.portlet.spffadmin = new Project("org.exoplatform.spff", "spff.portlet.spffadmin", "exo-portlet", module.version);
   module.portlet.spffadmin.deployName = "spffadmin" ;
+  
+  /** ECM portlet with SPFF's translated locales **/
+  module.portlet.ecm = new Project("org.exoplatform.spff", "spff.portlet.ecm", "exo-portlet", module.version).
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.cms", "jar",  dms.version)) .     
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.deployment", "jar",  dms.version)) .    
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.publication", "jar", dms.version)).
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.connector.fckeditor", "jar", dms.version)).
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.webui.dms", "jar", "2.3.1.SPFF_2")).
+    addDependency(new Project("rome", "rome", "jar", "0.8")) .
+    addDependency(new Project("com.totsp.feedpod", "itunes-com-podcast", "jar", "0.2")) .
+    addDependency(new Project("ical4j", "ical4j", "jar", "0.9.20")) .
+    addDependency(new Project("jdom", "jdom", "jar", "1.0")).
+    addDependency(new Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")).
+    addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")).
+    addDependency(new Project("pdfbox", "pdfbox", "jar", "0.7.2"));
+
+  module.portlet.ecm.deployName = "ecm" ;
 
   module.web = {}
   module.web.spffResources = new Project("org.exoplatform.spff", "spff.web.spffResources", "war", module.version);
