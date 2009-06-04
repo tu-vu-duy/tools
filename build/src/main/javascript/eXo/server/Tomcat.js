@@ -65,6 +65,8 @@ Tomcat.prototype.CleanTask = function() {
 }
 
 Tomcat.prototype.preDeploy = function(product) {
+	product.addDependencies(new Project("org.slf4j", "slf4j-api", "jar", "1.5.6")) ;
+	product.addDependencies(new Project("org.slf4j", "slf4j-jdk14", "jar", "1.5.6")) ;
 	product.addDependencies(new Project("commons-logging", "commons-logging", "jar", "1.0.4")) ;
   product.addDependencies(new Project("commons-pool", "commons-pool", "jar", "1.2")) ;
   product.addDependencies(new Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;
