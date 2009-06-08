@@ -74,6 +74,15 @@ JbossEar.prototype.preDeploy = function(product) {
   product.addDependencies(new Project("org.exoplatform.portal", "exo.portal.server.jboss.plugin", "jar", product.serverPluginVersion)) ;
   //product.removeDependency(new Project("quartz", "quartz", "jar", "1.5.0-RC2"));
 
+  var version = product.version;
+  if (version.indexOf("2.0") != 0 &&
+      version.indexOf("2.1") != 0 &&
+      version.indexOf("2.2") != 0 &&
+      version.indexOf("2.5") != 0) {
+	product.addDependencies(new Project("org.slf4j", "slf4j-api", "jar", "1.5.6")) ;
+	product.addDependencies(new Project("org.slf4j", "slf4j-log4j12", "jar", "1.5.6")) ;
+  }
+
   // Above 2.5 we don't bundle JOTM anymore  
   var version = product.version;
   if (version.indexOf("2.0") != 0 &&
