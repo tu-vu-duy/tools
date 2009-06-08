@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "eXoDMS" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "ecm/dms/tags" ;
+  product.codeRepo = "ecm/dms/tags/2.4rc1" ;
   product.useContentvalidation = true;
   product.contentvalidationVersion = "2.4rc1";
   product.workflowVersion = "1.0.1";
