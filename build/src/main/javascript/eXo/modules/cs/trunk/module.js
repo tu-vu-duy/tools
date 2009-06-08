@@ -58,10 +58,7 @@ function getModule(params) {
   	  addDependency(new Project("jabber.smack", "smackx", "jar", "3.0.4")).
   	  addDependency(new Project("org.jcrom", "jcrom", "jar", "1.2")).
       addDependency(new Project("commons-fileupload", "commons-fileupload", "jar", "1.0")).
-	  addDependency(new Project("commons-io", "commons-io", "jar", "1.3")).
-	  addDependency(new Project("log4j", "log4j", "jar", "1.2.12")).
-	  addDependency(new Project("org.slf4j", "slf4j-api", "jar", "1.4.3")).
-	  addDependency(new Project("org.slf4j", "slf4j-log4j12", "jar", "1.4.3"))
+	  addDependency(new Project("commons-io", "commons-io", "jar", "1.3"))
 		  	
   	);
   module.eXoApplication.chat.deployName = "chat";
