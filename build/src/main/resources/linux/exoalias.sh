@@ -1,4 +1,4 @@
-alias ls="ls --color"
+#alias ls="ls -G"
 alias cdhome="cd ~"
 alias cdwinhome="cd $USER_HOME"
 alias cdback='cd  $OLDPWD'
@@ -18,6 +18,8 @@ alias tomcatCleanRun="cd $EXO_WORKING_DIR/exo-tomcat/bin &&
                       rm -rf ../work/* &&
                       rm -rf ../logs/*  &&
                       chmod +x *.sh && ./eXo.sh run "
+
+alias openfireRun="cd $EXO_WORKING_DIR/exo-openfire/bin && chmod +x openfire && ./openfire start"
 
 alias exoproject="js.sh exoproject"
 
