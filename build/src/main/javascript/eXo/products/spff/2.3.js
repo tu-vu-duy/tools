@@ -26,13 +26,13 @@ function getProduct(version) {
   var workflow = Module.GetModule("ecm/workflow/tags/1.0.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var cs = Module.GetModule("cs/tags/1.2.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var ks = Module.GetModule("ks/tags/1.1.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var spff = Module.GetModule("spff/internet/branches/2.3", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
+  var spff = Module.GetModule("spff/internet/branches/2.3", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, workflow : workflow, cs : cs, ks : ks});
 
 
   // necessaire pour le batch de synchro ldap/DB  
   product.addDependencies(core.component.ldap);
 
-/* PORTAL dependencies */
+  /* PORTAL dependencies */
 
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
@@ -47,33 +47,33 @@ function getProduct(version) {
   product.addDependencies(portal.web.eXoVistaSkin);
 
   /* KS dependencies */
-            
-  product.addDependencies(ks.eXoApplication.forum) ;
-  product.addDependencies(ks.eXoApplication.faq) ;
+
+// redefined in spff with locales :  product.addDependencies(ks.eXoApplication.forum) ;
+// redefined in spff with locales :  product.addDependencies(ks.eXoApplication.faq) ;
   product.addDependencies(ks.eXoApplication.common) ;
   product.addDependencies(ks.web.webservice) ;
   product.addDependencies(ks.web.ksResources) ;
 
   /* CS dependencies */
   
-  product.addDependencies(cs.eXoApplication.mail) ;
-  product.addDependencies(cs.eXoApplication.calendar) ;
-  product.addDependencies(cs.eXoApplication.contact) ;
-  product.addDependencies(cs.eXoApplication.content) ;
-//  product.addDependencies(cs.eXoApplication.chat) ;
+// redefined in spff with locales :  product.addDependencies(cs.eXoApplication.mail) ;
+// redefined in spff with locales :  product.addDependencies(cs.eXoApplication.calendar) ;
+// redefined in spff with locales :  product.addDependencies(cs.eXoApplication.contact) ;
+// redefined in spff with locales :  product.addDependencies(cs.eXoApplication.content) ;
+// patched : product.addDependencies(cs.eXoApplication.chat) ;
 
 // patched : product.addDependencies(cs.web.webservice) ;
   product.addDependencies(cs.web.csResources) ;
 
   
-  // ecm
+  /* DMS dependencies */
   product.addDependencies(dms.web.eXoDMSResources);
 // patched : product.addDependencies(dms.portlet.dms);
   product.addDependencies(dms.portlet.jcr_console);
   product.addDependencies(dms.gadgets);
 
   product.addDependencies(workflow.web.eXoWorkflowResources);
-  product.addDependencies(workflow.portlet.workflow);
+// : redefined in spff with locales :  product.addDependencies(workflow.portlet.workflow);
 
   // liveroom
   //product.addDependencies(liveroom.eXoApplication.chat.webapp) ;
@@ -85,6 +85,13 @@ function getProduct(version) {
   product.addDependencies(spff.portlet.spffadmin) ;
 // with specific locales
   product.addDependencies(spff.portlet.ecm) ;
+  product.addDependencies(spff.portlet.workflow) ;
+  product.addDependencies(spff.portlet.calendar) ;
+  product.addDependencies(spff.portlet.contact) ;
+  product.addDependencies(spff.portlet.content) ;
+  product.addDependencies(spff.portlet.mail) ;
+  product.addDependencies(spff.portlet.faq) ;
+  product.addDependencies(spff.portlet.forum) ;
 //
   product.addDependencies(spff.web.spffResources) ;
   product.addDependencies(spff.web.spffportal) ;
@@ -100,7 +107,7 @@ function getProduct(version) {
   //product.addDependencies(spff.patch.loginmodule) ; // to use only with JBoss, not Tomcat
   //product.addDependencies(spff.patch.authenticator) ; 
   
-// webos
+  // webos
     product.addDependencies(webos.web.webosResources);
   
   // cleanup deploy
@@ -129,7 +136,6 @@ function getProduct(version) {
  
   product.module = spff ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, dms, cs, ks, webos, workflow];
-  /*liveroom*/
 
   return product ;
 }
