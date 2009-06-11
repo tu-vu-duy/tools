@@ -22,14 +22,8 @@ function getProduct(version) {
   var dms = Module.GetModule("ecm/dms/tags/2.3.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var wcm = Module.GetModule("ecm/wcm/tags/1.1rc3", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
   var cs = Module.GetModule("cs/tags/1.2.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var cp060508 = Module.GetModule("cp060508/branches/2.0", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var cp060508 = Module.GetModule("cp060508/branches/2.0", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, wcm : wcm});
 
-
-  /* CG95 modules */    
-  product.addDependencies(cp060508.web.portal) ; 
-  product.addDependencies(cp060508.web.eXoResources) ;
-  product.addDependencies(cp060508.portlet.web) ;
- 
   /* CS modules */
   product.addDependencies(cs.eXoApplication.mail) ;
   product.addDependencies(cs.eXoApplication.calendar) ;
@@ -41,7 +35,7 @@ function getProduct(version) {
   /* Portal modules */
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
-  product.addDependencies(portal.portlet.web) ;
+  //product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.portlet.dashboard) ;
   product.addDependencies(portal.eXoGadgetServer) ;
   product.addDependencies(portal.eXoGadgets) ;
@@ -58,10 +52,18 @@ function getProduct(version) {
   product.addDependencies(dms.gadgets);
 
   /* WCM modules */
-  product.addDependencies(wcm.portlet.webpresentation);
-  product.addDependencies(wcm.portlet.websearches);
+  //product.addDependencies(wcm.portlet.webpresentation);
+  //product.addDependencies(wcm.portlet.websearches);
   product.addDependencies(wcm.web.eXoWCMResources) ;
 
+ /* CG95 modules */    
+  product.addDependencies(cp060508.web.portal) ; 
+  product.addDependencies(cp060508.web.eXoResources) ;
+  product.addDependencies(cp060508.portlet.web) ;
+  product.addDependencies(cp060508.skin.web) ;
+  product.addDependencies(cp060508.skin.webpresentation) ;
+  product.addDependencies(cp060508.skin.websearches) ;
+  
   /* Server patches */
   product.addServerPatch("tomcat",  portal.server.tomcat.patch) ; 
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
