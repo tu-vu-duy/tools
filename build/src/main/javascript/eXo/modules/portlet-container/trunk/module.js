@@ -14,8 +14,13 @@ function getModule(params) {
   module.name = "pc" ;
 
   module.services = {} ;
+
+  module.services.common = 
+    new Project("org.exoplatform.portletcontainer", "exo.pc.component.common", "jar", module.version);
+
   module.services.core = 
     new Project("org.exoplatform.portletcontainer", "exo.pc.component.core", "jar", module.version).
+    addDependency(module.services.common).
     addDependency(kernel.container).
     addDependency(kernel.commons).
     addDependency(kernel.component.common).
