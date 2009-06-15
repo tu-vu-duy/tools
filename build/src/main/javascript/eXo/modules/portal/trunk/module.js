@@ -19,6 +19,9 @@ function getModule(params) {
   module.component.resources = 
     new Project("org.exoplatform.portal", "exo.portal.component.resources", "jar", module.version) ;
     
+  module.component.gifbackport = 
+    new Project("org.exoplatform.portal", "exo.portal.component.gifbackport", "jar", module.version) ;
+
   module.component.xmlParser = 
     new Project("org.exoplatform.portal", "exo.portal.component.xml-parser", "jar", module.version).
     addDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0")).
@@ -56,6 +59,7 @@ function getModule(params) {
   module.webui.portal = 
     new Project("org.exoplatform.portal", "exo.portal.webui.portal", "jar", module.version).
     addDependency(module.component.resources) .
+    addDependency(module.component.gifbackport) .
     addDependency(module.webui.eXo) .
     
     addDependency(kernel.container) .
@@ -71,8 +75,6 @@ function getModule(params) {
     addDependency(core.component.security.core) .
     addDependency(core.component.xmlProcessing) .
     addDependency(core.component.documents).
-    addDependency(core.component.resources).
-    addDependency(core.component.gifbackport).
 
 //  	addDependency(ws.frameworks.cometd).
 
