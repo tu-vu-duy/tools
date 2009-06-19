@@ -8,8 +8,8 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "ecm/wcm/trunk" ;
   product.useContentvalidation = true;
-  product.contentvalidationVersion = "2.3.1";
-  product.workflowVersion = "1.0.1" ;
+  product.contentvalidationVersion = "2.4rc1";
+  product.workflowVersion = "1.0.2" ;
   product.serverPluginVersion = "2.5.3" ;
   
   var tool = Module.GetModule("tools/trunk") ;
