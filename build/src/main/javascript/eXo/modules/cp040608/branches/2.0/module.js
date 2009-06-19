@@ -10,6 +10,7 @@ function getModule(params) {
   var portal = params.portal;
 	var ws = params.ws;
 	var ecm = params.ecm;
+	var cs = params.cs;
   var module = new Module();
 
   module.version = "2.0" ;
@@ -26,6 +27,10 @@ function getModule(params) {
   module.portlet.ecm = new Project("org.exoplatform.cp040608", "cp040608.portlet.ecm", "exo-portlet", module.version).
   		addDependency(ecm.portlet.dms);
   module.portlet.ecm.deployName = "ecm" ;
+  
+  module.portlet.calendar = new Project("org.exoplatform.cp040608", "cp040608.portlet.calendar", "exo-portlet", module.version).
+     	addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  cs.version)) ; 
+  module.portlet.calendar.deployName = "calendar" ;
   
   /*module.component = {} ;
   module.component.web=
