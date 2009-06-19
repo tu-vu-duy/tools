@@ -6,16 +6,16 @@ function getProduct(version) {
   
   product.name = "eXoPortal" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "portal/branches/2.5.x" ;
-  product.serverPluginVersion = "2.5.4-SNAPSHOT"
+  product.codeRepo = "portal/tags/2.5.4" ;
+  product.serverPluginVersion = "2.5.4"
 
   var tool = Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.7") ;
   var core = Module.GetModule("core/tags/2.1.5") ;
   var ws = Module.GetModule("ws/tags/1.3.3", {kernel : kernel, core : core});
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.6", {kernel : kernel, core : core}) ;    
-  var eXoJcr = Module.GetModule("jcr/tags/1.10.3", {kernel : kernel, core : core, ws : ws}) ;
-  var portal = Module.GetModule("portal/branches/2.5.x", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
+  var eXoJcr = Module.GetModule("jcr/tags/1.10.4", {kernel : kernel, core : core, ws : ws}) ;
+  var portal = Module.GetModule("portal/tags/2.5.4", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
 
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
@@ -30,8 +30,6 @@ function getProduct(version) {
 	product.addDependencies(portal.web.eXoVistaSkin);
 
   product.addDependencies(portal.web.portal) ;
-  
-  product.addDependencies(portal.sample.portlets) ;
 
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
