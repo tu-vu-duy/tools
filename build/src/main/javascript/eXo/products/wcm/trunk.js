@@ -35,6 +35,7 @@ function getProduct(version) {
   product.addDependencies(wcm.portlet.webpresentation);
   product.addDependencies(wcm.portlet.websearches); 
   product.addDependencies(wcm.portlet.newsletter); 
+  product.addDependencies(wcm.portlet.formgenerator);
   product.addDependencies(wcm.web.eXoWCMResources) ;
   product.addDependencies(dms.web.eXoDMSResources) ;
   product.addDependencies(wcm.web.wcmportal) ;        

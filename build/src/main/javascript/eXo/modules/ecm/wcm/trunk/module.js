@@ -40,6 +40,10 @@ function getModule(params) {
     new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.portlet.newsletter", "exo-portlet", module.version).
     addDependency(new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.component.newsletter", "jar",  module.version));    
 
+	module.portlet.formgenerator = 
+    new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.portlet.formgenerator", "exo-portlet", module.version).    
+    addDependency(new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.component.wcm", "jar",  module.version));
+
   module.web = {};
   module.web.eXoWCMResources = 
     new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.web.eXoWCMResources", "war", module.version).
