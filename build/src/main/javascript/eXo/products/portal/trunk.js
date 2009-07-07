@@ -10,10 +10,10 @@ function getProduct(version) {
   product.serverPluginVersion = "2.6-SNAPSHOT"
 
   var tool = Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/trunk") ;
-  var core = Module.GetModule("core/trunk") ;
-  var ws = Module.GetModule("ws/trunk", {kernel : kernel, core : core});
-  var eXoJcr = Module.GetModule("jcr/trunk", {kernel : kernel, core : core, ws : ws}) ;
+  var kernel = Module.GetModule("kernel/tags/2.1.2") ;
+  var core = Module.GetModule("core/tags/2.2.2") ;
+  var ws = Module.GetModule("ws/tags/2.0.2", {kernel : kernel, core : core});
+  var eXoJcr = Module.GetModule("jcr/tags/1.11.2", {kernel : kernel, core : core, ws : ws}) ;
   var eXoPortletContainer = Module.GetModule("portlet-container/trunk", {kernel : kernel, core : core, ws : ws}) ;    
   var portal = Module.GetModule("portal/trunk", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
 
