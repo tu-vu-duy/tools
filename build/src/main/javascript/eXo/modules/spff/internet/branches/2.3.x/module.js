@@ -15,9 +15,9 @@ function getModule(params) {
   var ks = params.ks;
 
   var module = new Module();
-  module.version = "2.3.x" ;
+  module.version = "2.3.0.1-SNAPSHOT" ;
   module.relativeMavenRepo = "org/exoplatform/spff" ;
-  module.relativeSRCRepo = "spff/internet/branches/2.3" ;
+  module.relativeSRCRepo = "spff/internet/branches/2.3.x" ;
   module.name = "spff" ;
   
   module.component = {};
@@ -185,6 +185,4 @@ function getModule(params) {
 
   return module;
 }
-
-
 
