@@ -6,7 +6,7 @@ function getProduct(version) {
 
   product.name = "spff" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "spff/internet/tags/2.3" ;
+  product.codeRepo = "spff/internet/branches/2.3.x" ;
   product.useWorkflow = true;
   product.useContentvalidation = true;
   product.contentvalidationVersion = "2.3.1";
@@ -26,7 +26,7 @@ function getProduct(version) {
   var workflow = Module.GetModule("ecm/workflow/tags/1.0.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var cs = Module.GetModule("cs/tags/1.2.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var ks = Module.GetModule("ks/tags/1.1.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var spff = Module.GetModule("spff/internet/tags/2.3", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, workflow : workflow, cs : cs, ks : ks});
+  var spff = Module.GetModule("spff/internet/branches/2.3.x", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, workflow : workflow, cs : cs, ks : ks});
 
 
   // necessaire pour le batch de synchro ldap/DB  
