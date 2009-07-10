@@ -125,8 +125,8 @@ function getProduct(version) {
  product.preDeploy = function() {
 	  eXo.System.info("INFO", "Product Pre Deploy phase in cs trunk");
 	  this.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
+	  this.removeDependency(new Project("ical4j", "ical4j", "jar", "0.9.20"));
   };
-
 
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
