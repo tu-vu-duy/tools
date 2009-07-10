@@ -137,5 +137,10 @@ function getProduct(version) {
   product.module = spff ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, dms, cs, ks, webos, workflow];
 
+  product.preDeploy = function() {
+	  eXo.System.info("INFO", "Product Pre Deploy phase in cs trunk");
+	  this.removeDependency(new Project("ical4j", "ical4j", "jar", "0.9.20"));
+  };
+
   return product ;
 }
