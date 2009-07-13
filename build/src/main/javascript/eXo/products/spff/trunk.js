@@ -68,6 +68,12 @@ function getProduct(version) {
   product.addServerPatch("jboss",  spff.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   product.addServerPatch("ear",  portal.server.websphere.patch) ;
+
+  product.preDeploy = function() {
+	  eXo.System.info("INFO", "Product Pre Deploy phase in cs trunk");
+	  this.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
+	  this.removeDependency(new Project("ical4j", "ical4j", "jar", "0.9.20"));
+  };
   
   product.module = spff ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, cs, ks, liveroom];
