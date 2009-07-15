@@ -20,7 +20,13 @@ function getModule(params) {
   
   module.portlet = {};
   module.portlet.strutsAlmerysPortlet = 
-    new Project("org.exoplatform.cp130709", "cp130709.portlet.strutsAlmerysPortlet", "exo-portlet", module.version);
+    new Project("org.exoplatform.cp130709", "cp130709.portlet.strutsAlmerysPortlet", "exo-portlet", module.version).
+	addDependency(new Project("org.exoplatform.portletcontainer", "exo.pc.util-bridge", "jar","2.0.6" )).
+	addDependency(new Project("struts", "struts", "jar", "1.2.9")).
+	addDependency(new Project("log4j", "log4j", "jar", "1.2.14")).
+	addDependency(new Project("commons-validator", "commons-validator", "jar", "1.3.1")).
+	addDependency(new Project("org.apache.portals.bridges", "portals-bridges-common", "jar", "1.0.4")).
+	addDependency(new Project("org.apache.portals.bridges", "portals-bridges-struts-1.2.7", "jar", "1.0.4"));
   
   module.web = {};
   module.web.resources = 
