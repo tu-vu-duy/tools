@@ -13,7 +13,7 @@ function getModule(params) {
   
   var module = new Module();
 
-  module.version = "trunk" ;
+  module.version = "0.1-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/cp130709" ;
   module.relativeSRCRepo =  "cp130709/trunk" ;
   module.name =  "cp130709" ;
