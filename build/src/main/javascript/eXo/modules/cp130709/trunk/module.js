@@ -26,7 +26,8 @@ function getModule(params) {
 	addDependency(new Project("log4j", "log4j", "jar", "1.2.14")).
 	addDependency(new Project("commons-validator", "commons-validator", "jar", "1.3.1")).
 	addDependency(new Project("org.apache.portals.bridges", "portals-bridges-common", "jar", "1.0.4")).
-	addDependency(new Project("org.apache.portals.bridges", "portals-bridges-struts-1.2.7", "jar", "1.0.4"));
+	addDependency(new Project("org.apache.portals.bridges", "portals-bridges-struts-1.2.7", "jar", "1.0.4")).
+	addDependency(new Project("oro", "oro", "jar", "2.0.8"));
   
   module.web = {};
   module.web.resources = 
