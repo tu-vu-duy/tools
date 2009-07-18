@@ -34,22 +34,22 @@ exoproject.prototype.QuickWarDeploy = function() {
   if(!dest.exists())  dest.mkdir() ;
   src = new java.io.File("target") ;
   var child =  src.listFiles();
-  for(i = 0; i < child.length; i++) {
+  for(var i = 0; i < child.length; i++) {
     var file =  child[i] ;
     if(file.getName().endsWith(".jar")) {
       eXo.System.info("COPY", file.getName() + " to " + server.deployLibDir) ;
       eXo.core.IOUtil.cp(file.getAbsolutePath(), "src/main/webapp/WEB-INF/lib/"  + file.getName()) ;
     } else if(file.getName().endsWith(".war")) {
-	  var jarDir = new java.io.File(file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - 4) + "/WEB-INF/lib") ;
-	  if(jarDir.exists()) {
-	    var jarChild =  jarDir.listFiles();
-	    for(i = 0; i < jarChild.length; i++) {
-		  var jarFile =  jarChild[i] ;
-    	  eXo.System.info("COPY", jarFile.getName() + " to " + server.deployLibDir) ;
-		  eXo.core.IOUtil.cp(jarFile.getAbsolutePath(), "src/main/webapp/WEB-INF/lib/"  + jarFile.getName()) ;
+		  var jarDir = new java.io.File(file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - 4) + "/WEB-INF/lib") ;
+		  if(jarDir.exists()) {
+		    var jarChild =  jarDir.listFiles();
+		    for(var j = 0; j < jarChild.length; j++) {
+				  var jarFile =  jarChild[j] ;
+		    	eXo.System.info("COPY", jarFile.getName() + " to " + server.deployLibDir) ;
+				  eXo.core.IOUtil.cp(jarFile.getAbsolutePath(), "src/main/webapp/WEB-INF/lib/"  + jarFile.getName()) ;
+				}
+		  }
 		}
-	  }
-	}
   }
 }
 
