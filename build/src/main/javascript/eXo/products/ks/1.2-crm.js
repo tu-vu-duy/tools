@@ -46,13 +46,13 @@ function getProduct(version) {
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   product.addServerPatch("ear",  portal.server.websphere.patch) ;
 
-  var chromeversion="1.0.0-beta1";
+  var chromeversion="1.0.0-SNAPSHOT";
   product.addDependencies(new Project("org.exoplatform.chrome", "core", "jar", chromeversion));
   product.addDependencies(new Project("org.exoplatform.chrome", "api", "jar", chromeversion));
   product.addDependencies(new Project("org.exoplatform.chrome", "spi", "jar", chromeversion));
   product.addDependencies(new Project("org.exoplatform.chrome", "common", "jar", chromeversion));
-  product.addDependencies(new Project("org.slf4j", "slf4j-api", "jar", "1.5.8"));
-  product.addDependencies(new Project("org.slf4j", "slf4j-log4j12", "jar", "1.5.8"));
+  //product.addDependencies(new Project("org.slf4j", "slf4j-api", "jar", "1.5.8"));
+  //product.addDependencies(new Project("org.slf4j", "slf4j-log4j12", "jar", "1.5.8"));
   product.addDependencies(new Project("org.exoplatform.chrome", "cglib", "jar", chromeversion));
   product.addDependencies(new Project("org.exoplatform.chrome", "exo", "jar", chromeversion));
   //product.addDependencies(new Project("cglib", "cglib", "jar", "2.1.3"));
@@ -68,8 +68,8 @@ function getProduct(version) {
 	/* cleanup duplicated lib */
   product.removeDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0"));
   product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "3.1"));
-  product.removeDependency(new Project("org.slf4j", "slf4j-api", "jar", "1.5.6"));
-  product.removeDependency(new Project("org.slf4j", "slf4j-jdk14", "jar", "1.5.6")); 
+  //product.removeDependency(new Project("org.slf4j", "slf4j-api", "jar", "1.5.6"));
+  //product.removeDependency(new Project("org.slf4j", "slf4j-jdk14", "jar", "1.5.6")); 
   
   
   
