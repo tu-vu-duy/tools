@@ -18,7 +18,7 @@ function getModule(params) {
   module.name =  "company" ;
   
   var ksversion = "1.1" ;
-  var dmsversion = "2.3" ;
+  var dmsversion = "2.3.2" ;
   var workflowversion = "1.0" ;
   var csversion = "1.2" ;
     
