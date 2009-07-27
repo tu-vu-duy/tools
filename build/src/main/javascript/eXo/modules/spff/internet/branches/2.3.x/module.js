@@ -147,7 +147,7 @@ function getModule(params) {
 //    module.patch = {};
     
     /** Chat **/
-    module.patch.chat = new Project("org.exoplatform.cs", "exo.cs.eXoApplication.chat.webapp", "war", "1.2.1.SPFF_2").
+    module.patch.chat = new Project("org.exoplatform.spff", "spff.portlet.chat", "war", module.version).
 	  addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.chat.service", "jar", "1.2.1.SPFF_2").
 	  addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.service", "jar", "1.2.1.SPFF_2")).
   addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.client.openfire", "jar", "1.2.1.SPFF_2")).
