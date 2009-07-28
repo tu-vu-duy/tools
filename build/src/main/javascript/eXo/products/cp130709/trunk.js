@@ -35,7 +35,9 @@ function getProduct(version) {
   product.addDependencies(cp130709.web.resources) ;
   product.addDependencies(cp130709.web.portal) ; 
   product.addDependencies(dms.web.eXoDMSResources) ;
- product.addDependencies(cp130709.portlet.strutsAlmerysPortlet) ;
+  product.addDependencies(cp130709.portlet.strutsAlmerysPortlet) ;
+  product.addDependencies(cp130709.webservice.WSIndividu) ;
+  product.addDependencies(cp130709.webservice.WSSection) ;
  
   product.addDependencies(wcm.portlet.webpresentation);
   product.addDependencies(wcm.portlet.websearches); 
