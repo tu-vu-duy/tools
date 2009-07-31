@@ -32,19 +32,8 @@ function getModule(params) {
 	addDependency(new Project("org.exoplatform.cp130709", "cp130709.webservice.WSSection", "jar", module.version));
 	
   module.portlet.comptePortlet = 
-    new Project("org.exoplatform.cp130709", "cp130709.portlet.comptePortlet", "exo-portlet", module.version);
-	
-  module.portlet.contratPortlet = 
-    new Project("org.exoplatform.cp130709", "cp130709.portlet.contratPortlet", "exo-portlet", module.version);
-	
-  module.portlet.decomptesPortlet = 
-    new Project("org.exoplatform.cp130709", "cp130709.portlet.decomptesPortlet", "exo-portlet", module.version);
-	
-  module.portlet.documentationPortlet = 
-    new Project("org.exoplatform.cp130709", "cp130709.portlet.documentationPortlet", "exo-portlet", module.version);
-	
-  module.portlet.informationPortlet = 
-    new Project("org.exoplatform.cp130709", "cp130709.portlet.informationPortlet", "exo-portlet", module.version);
+    new Project("org.exoplatform.cp130709", "cp130709.portlet.comptePortlet", "exo-portlet", module.version);	
+ 
 	
   module.web = {};
   module.web.resources = 
