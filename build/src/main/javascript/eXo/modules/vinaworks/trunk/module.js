@@ -9,7 +9,7 @@ function getModule(params) {
   module.version =  "trunk" ;
   module.relativeMavenRepo =  "org/exoplatform/vinaworks" ;
   module.relativeSRCRepo =  "vinaworks/trunk" ;
-  module.name =  "test" ;
+  module.name =  "vinaworks" ;
   
   module.web = {};
   module.web.portal = 

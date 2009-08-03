@@ -10,7 +10,7 @@ function getProduct(version) {
   product.serverPluginVersion = "2.5.2"
   product.useContentvalidation = true;
   product.contentvalidationVersion = "2.3";
-  product.workflowVersion = "1.0";
+  //product.workflowVersion = "1.0";
 
    var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.6") ;
@@ -21,7 +21,7 @@ function getProduct(version) {
   var portal = Module.GetModule("portal/tags/2.5.2", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var dms = Module.GetModule("ecm/dms/tags/2.3", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var cs = Module.GetModule("cs/tags/1.2RC1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var vinaworks = Module.GetModule("test/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var vinaworks = Module.GetModule("vinaworks/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
 
 
   product.addDependencies(portal.web.rest) ;
