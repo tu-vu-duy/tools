@@ -3,21 +3,21 @@ eXo.require("eXo.projects.Product") ;
 
 function getProduct(version) {
   var product = new Product();
-  
+
   product.name = "social" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "social/trunk" ;
   product.serverPluginVersion = "2.6-SNAPSHOT"
-  
+
   var tool = Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.1.2") ;
   var core = Module.GetModule("core/tags/2.2.2") ;
   var ws = Module.GetModule("ws/tags/2.0.2", {kernel : kernel, core : core});
   var eXoJcr = Module.GetModule("jcr/tags/1.11.2", {kernel : kernel, core : core, ws : ws}) ;
-  var eXoPortletContainer = Module.GetModule("portlet-container/trunk", {kernel : kernel, core : core, ws : ws}) ;    
+  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.1.2", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/trunk", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
   var social = Module.GetModule("social/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  
+
   product.addDependencies(social.web.portal) ;
   product.addDependencies(social.web.eXoResources) ;
   product.addDependencies(social.component.people) ;
@@ -27,7 +27,7 @@ function getProduct(version) {
   product.addDependencies(social.web.opensocial);
   product.addDependencies(social.component.opensocial);
   product.addDependencies(social.application.rest) ;
-    
+
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
@@ -35,7 +35,7 @@ function getProduct(version) {
   product.addDependencies(portal.eXoGadgetServer) ;
   product.addDependencies(portal.eXoGadgets) ;
   product.addDependencies(portal.webui.portal);
-  
+
   product.addDependencies(portal.web.eXoResources);
   product.addDependencies(portal.web.eXoMacSkin);
   product.addDependencies(portal.web.eXoVistaSkin);
@@ -45,7 +45,7 @@ function getProduct(version) {
 
 
 
-  //upgrade lib for opensocial 
+  //upgrade lib for opensocial
   product.removeDependency(new Project("commons-beanutils", "commons-beanutils", "jar", "1.6"));
   product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "2.1"));
   product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "3.1"));
@@ -60,12 +60,13 @@ function getProduct(version) {
 
   product.addDependencies(new Project("findbugs", "annotations", "jar", "1.0.0"));
 
-  
+
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   product.module = social ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal];
-    
+
   return product ;
 }
+
