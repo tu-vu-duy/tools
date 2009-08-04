@@ -9,7 +9,7 @@ function getModule(params) {
   
   module.version = "1.11.2" ;
   module.relativeMavenRepo =  "org/exoplatform/jcr" ;
-  module.relativeSRCRepo =  "jcr/tags" ;
+  module.relativeSRCRepo =  "jcr/tags/1.11.2" ;
   module.name =  "jcr" ;
     
   module.services = {}
