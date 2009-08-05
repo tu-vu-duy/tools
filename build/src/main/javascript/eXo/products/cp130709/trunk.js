@@ -39,6 +39,7 @@ function getProduct(version) {
   product.addDependencies(cp130709.portlet.comptePortlet) ;
   product.addDependencies(cp130709.webservice.WSIndividu) ;
   product.addDependencies(cp130709.webservice.WSSection) ;
+   product.addDependencies(cp130709.tools.joomla) ;
  
   product.addDependencies(wcm.portlet.webpresentation);
   product.addDependencies(wcm.portlet.websearches); 
