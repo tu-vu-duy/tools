@@ -53,7 +53,8 @@ function getModule(params) {
   module.webservice.WSSection = 
     new Project("org.exoplatform.cp130709", "cp130709.webservice.WSSection", "jar", module.version).
 	addDependency(new Project("axis", "axis", "jar", "1.4"));
-  module.tools.joomla = 
+ module.tools = {};
+ module.tools.joomla = 
     new Project("org.exoplatform.cp130709", "cp130709.tools.joomla", "jar","0.1-SNAPSHOT");
     
   return module;
