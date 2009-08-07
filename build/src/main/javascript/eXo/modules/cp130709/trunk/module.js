@@ -34,7 +34,8 @@ function getModule(params) {
 	
 	
   module.portlet.comptePortlet = 
-    new Project("org.exoplatform.cp130709", "cp130709.portlet.comptePortlet", "exo-portlet", module.version);	
+    new Project("org.exoplatform.cp130709", "cp130709.portlet.comptePortlet", "exo-portlet", module.version).
+	 addDependency(new Project("org.exoplatform.cp130709", "cp130709.tools.core", "jar","0.1-SNAPSHOT"));
  
 	
   module.web = {};
