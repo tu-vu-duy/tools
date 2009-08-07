@@ -30,6 +30,8 @@ function getModule(params) {
 	addDependency(new Project("oro", "oro", "jar", "2.0.8")).
 	addDependency(new Project("org.exoplatform.cp130709", "cp130709.webservice.WSIndividu", "jar", module.version)).
 	addDependency(new Project("org.exoplatform.cp130709", "cp130709.webservice.WSSection", "jar", module.version));
+	addDependency(new Project("org.exoplatform.cp130709", "cp130709.tools.core", "jar","0.1-SNAPSHOT"));
+	
 	
   module.portlet.comptePortlet = 
     new Project("org.exoplatform.cp130709", "cp130709.portlet.comptePortlet", "exo-portlet", module.version);	
@@ -56,6 +58,8 @@ function getModule(params) {
  module.tools = {};
  module.tools.joomla = 
     new Project("org.exoplatform.cp130709", "cp130709.tools.joomla", "jar","0.1-SNAPSHOT");
-    
-  return module;
+ module.tools.joomla = 
+    new Project("org.exoplatform.cp130709", "cp130709.tools.core", "jar","0.1-SNAPSHOT");
+ 
+ return module;
 }
