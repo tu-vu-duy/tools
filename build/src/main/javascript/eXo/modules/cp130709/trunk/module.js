@@ -58,7 +58,7 @@ function getModule(params) {
  module.tools = {};
  module.tools.joomla = 
     new Project("org.exoplatform.cp130709", "cp130709.tools.joomla", "jar","0.1-SNAPSHOT");
- module.tools.joomla = 
+ module.tools.core = 
     new Project("org.exoplatform.cp130709", "cp130709.tools.core", "jar","0.1-SNAPSHOT");
  
  return module;
