@@ -30,12 +30,12 @@ function getModule(params) {
 	addDependency(new Project("oro", "oro", "jar", "2.0.8")).
 	addDependency(new Project("org.exoplatform.cp130709", "cp130709.webservice.WSIndividu", "jar", module.version)).
 	addDependency(new Project("org.exoplatform.cp130709", "cp130709.webservice.WSSection", "jar", module.version)).
-	addDependency(new Project("org.exoplatform.cp130709", "cp130709.tools.core", "jar","0.1-SNAPSHOT"));
+	addDependency(new Project("org.exoplatform.cp130709", "cp130709.tools.core", "jar", module.version));
 	
 	
   module.portlet.comptePortlet = 
     new Project("org.exoplatform.cp130709", "cp130709.portlet.comptePortlet", "exo-portlet", module.version).
-	 addDependency(new Project("org.exoplatform.cp130709", "cp130709.tools.core", "jar","0.1-SNAPSHOT"));
+	 addDependency(new Project("org.exoplatform.cp130709", "cp130709.tools.core", "jar", module.version));
  
 	
   module.web = {};
@@ -58,9 +58,9 @@ function getModule(params) {
 	addDependency(new Project("axis", "axis", "jar", "1.4"));
  module.tools = {};
  module.tools.joomla = 
-    new Project("org.exoplatform.cp130709", "cp130709.tools.joomla", "jar","0.1-SNAPSHOT");
+    new Project("org.exoplatform.cp130709", "cp130709.tools.joomla", "jar", module.version);
  module.tools.core = 
-    new Project("org.exoplatform.cp130709", "cp130709.tools.core", "jar","0.1-SNAPSHOT");
+    new Project("org.exoplatform.cp130709", "cp130709.tools.core", "jar", module.version);
  
  return module;
 }
