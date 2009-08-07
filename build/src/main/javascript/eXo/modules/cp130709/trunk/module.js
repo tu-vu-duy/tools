@@ -29,7 +29,7 @@ function getModule(params) {
 	addDependency(new Project("org.apache.portals.bridges", "portals-bridges-struts-1.2.7", "jar", "1.0.4")).
 	addDependency(new Project("oro", "oro", "jar", "2.0.8")).
 	addDependency(new Project("org.exoplatform.cp130709", "cp130709.webservice.WSIndividu", "jar", module.version)).
-	addDependency(new Project("org.exoplatform.cp130709", "cp130709.webservice.WSSection", "jar", module.version));
+	addDependency(new Project("org.exoplatform.cp130709", "cp130709.webservice.WSSection", "jar", module.version)).
 	addDependency(new Project("org.exoplatform.cp130709", "cp130709.tools.core", "jar","0.1-SNAPSHOT"));
 	
 	
