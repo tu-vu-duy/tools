@@ -10,9 +10,9 @@ function getModule(params) {
   var ws = params.ws;
   var module = new Module();
 
-  module.version =  "2.6-SNAPSHOT" ;
+  module.version =  "2.6-dr1" ;
   module.relativeMavenRepo =  "org/exoplatform/portal" ;
-  module.relativeSRCRepo =  "portal/trunk" ;
+  module.relativeSRCRepo =  "portal/tags/2.6-dr1" ;
   module.name =  "portal" ;
      
   module.component = {}
@@ -99,7 +99,7 @@ function getModule(params) {
   module.sample.framework = 
     new Project("org.exoplatform.portal", "exo.portal.sample.framework", "war", module.version);
   module.sample.framework.deployName = "eXoSampleFramework" ;
-    
+  
   module.eXoGadgetServer = 
   	new Project("org.exoplatform.portal", "exo.portal.gadgets-server", "war", module.version).
 		addDependency(new Project("commons-io", "commons-io", "jar", "1.4")).
