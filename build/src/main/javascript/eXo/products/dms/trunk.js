@@ -8,7 +8,7 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "ecm/dms/trunk" ;
   product.useContentvalidation = true;
-  product.contentvalidationVersion = "2.5-SNAPSHOT";
+  product.contentvalidationVersion = "2.6-SNAPSHOT";
   product.workflowVersion = "1.0.2";
   product.serverPluginVersion = "2.5.5" ;
     
