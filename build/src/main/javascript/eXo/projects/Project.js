@@ -140,11 +140,15 @@ Project.prototype.deployTo = function(repository, server) {
           }
         }
       }
-      for(i = chunkCount; i < 60; i++) eXo.System.vprint(" ") ;
+      for(var j = chunkCount; j < 60; j++) eXo.System.vprint(" ") ;
       eXo.System.vprint("] " + totalRead/1024 + "kb\n");
       out.close();
       is.close() ;
-	  eXo.System.info("DEPLOY", fileName);      
+	  	eXo.System.info("DEPLOY", fileName);
+      if(i > 0) {
+		  	var mvnArgs = ["install:install-file", "-DgroupId=" + this.groupId, "-DartifactId=" + this.artifactId, "-Dversion=" + this.version, "-Dpackaging=" + this.extension, "-Dfile=" + fileName] ;
+	  		maven.MavenTask(eXo.env.currentDir, mvnArgs).execute() ;
+      } 
       return ;
     } catch(err) {
       eXo.System.info(err.message);
