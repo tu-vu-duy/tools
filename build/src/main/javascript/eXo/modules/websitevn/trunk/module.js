@@ -64,7 +64,7 @@ function getModule(params) {
   
   module.web = {}  
   module.web.websitevnResources = 
-    new Project("org.exoplatform.websitevn", "websitevn.web.eXoResourceswebsitevn", "exo-portal", module.version) ;    
+    new Project("org.exoplatform.websitevn", "websitevn.web.eXoResourcesCompany", "exo-portal", module.version) ;    
   module.web.portal = 
     new Project("org.exoplatform.websitevn", "websitevn.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
