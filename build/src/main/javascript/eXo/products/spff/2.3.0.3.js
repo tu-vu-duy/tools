@@ -102,6 +102,7 @@ function getProduct(version) {
 // redefined in spff : product.addDependencies(spff.patch.dmsportlet);
   product.addDependencies(spff.patch.chat) ;
   product.addDependencies(spff.patch.cswebservice) ;
+  product.addDependencies(spff.patch.jcr) ;
   
   
   //product.addDependencies(spff.component.synchro) ;
@@ -111,12 +112,16 @@ function getProduct(version) {
   
   // webos
     product.addDependencies(webos.web.webosResources);
+	
+	//product.addDependencies("exo.jcr.component.core");
   
   // cleanup deploy
   product.removeDependency(eXoPortletContainer.web.wsrp);
   product.removeDependency(eXoPortletContainer.services.wsrp1);
   product.removeDependency(eXoPortletContainer.services.wsrp2);
   product.removeDependencyById("exo.jcr.component.ftp");
+  product.removeDependency(eXoJcr.services.jcr);
+  
   
   // cleanup duplicated lib
   product.removeDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0"));
