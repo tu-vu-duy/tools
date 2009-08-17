@@ -21,7 +21,7 @@ function getModule(params) {
   module.name = "spff" ;
   
   module.component = {};
-  
+    
   module.component.synchro = 
   	new Project("org.exoplatform.spff", "spff.component.synchro", "jar", module.version).
   	addDependency(core.component.organization).
@@ -126,13 +126,16 @@ function getModule(params) {
     new Project("org.exoplatform.spff", "spff.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
     addDependency(portal.webui.portal). 
-    addDependency(jcr.frameworks.command) .
-    addDependency(jcr.frameworks.web) ;
-
+    addDependency(jcr.frameworks.command).	
+    addDependency(jcr.frameworks.web);
+	
+  
   module.patch = {}
   module.patch.loginmodule  = 
     new Project("org.exoplatform.spff", "spff.patch.loginmodule", "jar", module.version) ;
-
+	
+  module.patch.jcr=new Project("org.exoplatform.jcr", "exo.jcr.component.core", "jar", "1.10.3.SPFF_1");
+  
   module.server = {}
   
   module.server.tomcat = {}
