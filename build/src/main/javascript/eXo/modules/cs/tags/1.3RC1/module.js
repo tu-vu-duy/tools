@@ -11,9 +11,9 @@ function getModule(params) {
   var ws = params.ws;
   var module = new Module();
 
-  module.version =  "1.4-SNAPSHOT" ;
+  module.version =  "1.3-RC1" ;
   module.relativeMavenRepo =  "org/exoplatform/cs" ;
-  module.relativeSRCRepo =  "cs/trunk" ;
+  module.relativeSRCRepo =  "cs/tags/1.3RC1" ;
   module.name = "cs" ;
     
   module.eXoApplication = {};
@@ -26,8 +26,8 @@ function getModule(params) {
   module.eXoApplication.calendar = 
     new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.webapp", "war", module.version).
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  module.version)).
-	  //addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", 1.3)).
-	  //addDependency(ws.frameworks.cometd).
+	  addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.3")).
+	  addDependency(ws.frameworks.cometd).
 	  addDependency(new Project("rome", "rome", "jar", "0.8")).
 	  addDependency(new Project("jdom", "jdom", "jar", "1.0")).
       addDependency(new Project("ical4j", "ical4j", "jar", "1.0-beta5")) ;
@@ -51,8 +51,8 @@ function getModule(params) {
   	  //addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.webapp", "war", module.version)).
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.client.openfire", "jar", module.version)).
   	  //addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.organization.webapp", "war", module.version)).
-  	  addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.3")).
-  	  addDependency(ws.frameworks.cometd).
+  	  //addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.3")).
+  	  //addDependency(ws.frameworks.cometd).
   	  addDependency(new Project("org.exoplatform.portal", "exo.portal.web.rest", "war", "2.5.3")).
   	  addDependency(new Project("jabber.smack", "smack", "jar", "3.0.4")).
   	  addDependency(new Project("jabber.smack", "smackx", "jar", "3.0.4")).
@@ -162,28 +162,4 @@ function deployOpenfireServer(mainServer, module) {
 	}
 	return deployServerTask ;
 }
-
-/*function deployRed5Server(mainServer, module) {
-	var deployServerTask = new TaskDescriptor("Release Dependency Task", eXo.env.dependenciesDir) ;
-  var server = {};
-  server.name = "exo-red5";
-  server.cleanServer = "red5-0.7.0";
-  server.serverHome = eXo.env.workingDir + "/" + server.name;
-  server.deployWebappDir = server.serverHome + "/webapps";
-  deployServerTask.description = "Deploy " + server.name + " ";
-	deployServerTask.execute = function() {
-    eXo.System.info("DELETE", "Delete " + server.serverHome);
-    eXo.core.IOUtil.remove(server.serverHome);
-		eXo.System.info("COPY", "Copy a clean server " + server.name);
-		eXo.core.IOUtil.cp(eXo.env.dependenciesDir + "/" + server.cleanServer, server.serverHome);
-		eXo.System.info("eXo " + server.name + " applications file...");
-    var whiteboard = new Project("org.exoplatform.cs", "exo.liveroom.eXoApplication.whiteboard.service", "war", module.version);
-    whiteboard.deployName = "whiteboard";
-    whiteboard.deployTo(eXo.env.m2Repos, server);
-
-    var videoconf = new Project("org.exoplatform.cs", "exo.liveroom.eXoApplication.videoconf.service", "war", module.version);
-    videoconf.deployName = "videoconf";
-    videoconf.deployTo(eXo.env.m2Repos, server);
-	}
-	return deployServerTask ;
-}*/
+ 
