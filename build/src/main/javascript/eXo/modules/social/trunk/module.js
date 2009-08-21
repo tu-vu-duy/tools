@@ -15,26 +15,26 @@ function getModule(params) {
   module.relativeSRCRepo =  "social/trunk" ;
   module.name = "social" ;  
 	
-	module.component = {} ;
-	module.component.people = 
-		new Project("org.exoplatform.social", "exo.social.component.people","jar", module.version);
-	
-	module.component.space = 
-		new Project("org.exoplatform.social", "exo.social.component.space","jar", module.version);
+  module.component = {} ;
+  module.component.people = 
+	new Project("org.exoplatform.social", "exo.social.component.people","jar", module.version);
 
-	module.component.opensocial = 
-		new Project("org.exoplatform.social", "exo.social.component.opensocial","jar", module.version);
-	
-	module.web = {} ;
-  module.web.portal = 
+  module.component.space = 
+	new Project("org.exoplatform.social", "exo.social.component.space","jar", module.version);
+
+  module.component.opensocial = 
+	new Project("org.exoplatform.social", "exo.social.component.opensocial","jar", module.version);
+
+  module.web = {} ;
+  module.web.socialportal = 
     new Project("org.exoplatform.social", "exo.social.web.portal", "exo-portal", module.version).
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web);
 	
-	module.web.eXoResources = new Project("org.exoplatform.social", "exo.social.web.socialResources", "war", module.version);
+  module.web.eXoResources = new Project("org.exoplatform.social", "exo.social.web.socialResources", "war", module.version);
   module.web.eXoResources.deployName = "eXoResourcesSocial" ;
 	
-	module.portlet = {}
+  module.portlet = {}
   module.portlet.space = new Project("org.exoplatform.social", "exo.social.portlet.space", "exo-portlet", module.version);
   module.portlet.space.deployName = "space" ;
 
@@ -57,5 +57,5 @@ function getModule(params) {
 
   module.web.opensocial.deployName = "social" ;
 	
-	return module;
+  return module;
 }
