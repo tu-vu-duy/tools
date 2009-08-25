@@ -37,6 +37,8 @@ function getProduct(version) {
   product.addDependencies(dms.web.eXoDMSResources) ;
   product.addDependencies(cp130709.portlet.strutsAlmerysPortlet) ;
   product.addDependencies(cp130709.portlet.comptePortlet) ;
+  // -- contactPortlet
+  product.addDependencies(cp130709.portlet.contactPortlet) ;
   product.addDependencies(cp130709.webservice.WSIndividu) ;
   product.addDependencies(cp130709.webservice.WSSection) ;
   product.addDependencies(cp130709.tools.joomla) ;
