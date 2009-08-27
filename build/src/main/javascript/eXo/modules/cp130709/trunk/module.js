@@ -30,6 +30,9 @@ function getModule(params) {
 	addDependency(new Project("oro", "oro", "jar", "2.0.8")).
 	addDependency(new Project("org.exoplatform.cp130709", "cp130709.webservice.WSIndividu", "jar", module.version)).
 	addDependency(new Project("org.exoplatform.cp130709", "cp130709.webservice.WSSection", "jar", module.version)).
+	
+	
+	addDependency(new Project("com.almerys.exo", "exo-account-commons", "jar", "1.0.0.0.1")).
 	addDependency(new Project("com.almerys.portal", "portal-filters", "jar", "1.2.0.0.0")).
 	addDependency(new Project("com.almerys.emut.lmgv2", "lmgv2-portal-filters", "jar", "0.0.0.0.2")).
 	addDependency(new Project("com.almerys.emut.lmgv2", "lmgv2-adherent-common-model", "jar", "0.1.2.0.0")).
