@@ -22,7 +22,7 @@ function getModule(params) {
     addDependency(new Project("picocontainer", "picocontainer", "jar", "1.1")).
 //    addDependency(new Project("org.codehaus.groovy", "groovy-all", "jar", "1.5.6")).
     addDependency(new Project("commons-beanutils", "commons-beanutils", "jar", "1.6")).
-    addDependency(new Project("org.jibx", "jibx-run", "jar", "1.1.6a")).
+    addDependency(new Project("org.jibx", "jibx-run", "jar", "1.2.1")).
     addDependency(new Project("asm", "asm", "jar", "1.5.3")).
     addDependency(new Project("cglib", "cglib", "jar", "2.1_3"));
 
