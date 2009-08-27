@@ -37,6 +37,8 @@ function getProduct(version) {
   product.addDependencies(dms.web.eXoDMSResources) ;
   product.addDependencies(cp130709.portlet.strutsAlmerysPortlet) ;
   product.addDependencies(cp130709.portlet.comptePortlet) ;
+  product.addDependencies(cp130709.portlet.genericPortlet) ;
+
   // -- contactPortlet
   product.addDependencies(cp130709.portlet.contactPortlet) ;
   product.addDependencies(cp130709.webservice.WSIndividu) ;
