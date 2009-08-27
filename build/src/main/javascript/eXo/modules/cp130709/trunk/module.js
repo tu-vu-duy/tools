@@ -48,6 +48,10 @@ function getModule(params) {
  module.portlet.contactPortlet = 
     new Project("org.exoplatform.cp130709", "cp130709.portlet.contactPortlet", "exo-portlet", module.version).
 	 addDependency(new Project("org.exoplatform.cp130709", "cp130709.tools.core", "jar", module.version));
+	 
+ module.portlet.genericPortlet = 
+    new Project("org.exoplatform.cp130709", "cp130709.portlet.genericPortlet", "exo-portlet", module.version).
+	 addDependency(new Project("org.exoplatform.cp130709", "cp130709.tools.core", "jar", module.version));
 	
   module.web = {};
   module.web.resources = 
