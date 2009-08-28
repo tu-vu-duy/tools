@@ -45,6 +45,9 @@ print("Workflow.js: Configuring workflow version: " + this.version + "   name: "
 		product.addDependencies(new Project("org.ow2.novabpm", "novaBpmUtil", "jar", "1.0"));
 		product.addDependencies(new Project("org.jbpm", "pvm", "jar", "r2175"));
 		
+		//Remove duplicate ehcache from Portal
+		product.removeDependency(new Project("net.sf.ehcache", "ehcache", "jar", "1.4.1"));
+		
 		//Add external dependencies 
 		product.addDependencies(new Project("bsh", "bsh", "jar", "2.0b1"));
 		product.addDependencies(new Project("net.sf.ehcache", "ehcache", "jar", "1.5.0"));
@@ -60,7 +63,7 @@ Workflow.prototype.getPortlet = function() {
     return new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.portlet.workflow", "exo-portlet", this.version).
 	    addDependency(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.api", "jar", this.version)).
 	    addDependency(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.webui.workflow", "jar", this.version)).
-	    addDependency(new Project("rome", "rome", "jar", "0.8")).
+	    addDependency(new Project("rome", "rome", "jar", "0.9")).
 	    addDependency(new Project("com.totsp.feedpod", "itunes-com-podcast", "jar", "0.2")).
 	    addDependency(new Project("jdom", "jdom", "jar", "1.0")).
 	    addDependency(new Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")).
