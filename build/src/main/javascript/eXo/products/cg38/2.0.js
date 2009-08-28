@@ -50,6 +50,8 @@ function getProduct(version) {
   //product.addDependencies(cg38.component.search);
   //product.addDependencies(cg38.component.rss);
   
+  product.addDependencies(ws.frameworks.cometd);
+  
   product.removeDependency(eXoPortletContainer.web.wsrp);
   product.removeDependency(eXoPortletContainer.services.wsrp1);
   product.removeDependency(eXoPortletContainer.services.wsrp2);

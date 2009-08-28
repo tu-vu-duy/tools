@@ -11,6 +11,7 @@ function getModule(params) {
   var ecm = params.ecm;
   //var cs = params.cs;
   var wcm = params.wcm;
+  var ws = params.ws;
 
   var module = new Module();
 
@@ -33,7 +34,8 @@ function getModule(params) {
   module.portlet = {}
   module.portlet.web = new Project("org.exoplatform.cg38", "cg38.portlet.web", "exo-portlet", module.version).
   	addDependency(new Project("org.exoplatform.cg38", "cg38.component.rss", "jar",  module.version)).
-  	addDependency(new Project("org.exoplatform.cg38", "cg38.component.search", "jar",  module.version));
+  	addDependency(new Project("org.exoplatform.cg38", "cg38.component.search", "jar",  module.version)).
+  	addDependency(new Project("org.exoplatform.cg38", "taxonomy.cg38.component", "jar",  module.version));
   module.portlet.web.deployName = "cg38PortletWeb" ;
   
   module.web = {}
