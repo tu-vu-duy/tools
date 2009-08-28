@@ -6,10 +6,10 @@ function getProduct(version) {
   
   product.name = "company" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "company/trunk" ;
-  product.contentvalidationVersion = "2.3.2";
+  product.codeRepo = "company/tags/2.1.2" ;
+  product.contentvalidationVersion = "2.3";
   product.workflowVersion = "1.0";
-  product.serverPluginVersion = "2.5.3" ;
+  product.serverPluginVersion = "2.5.2" ;
   
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.7") ;
@@ -23,7 +23,7 @@ function getProduct(version) {
   var webos = Module.GetModule("webos/tags/1.5", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ks = Module.GetModule("ks/tags/1.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var workflow = Module.GetModule("ecm/workflow/tags/1.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
-  var company = Module.GetModule("company/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, ws : ws});
+  var company = Module.GetModule("company/tags/2.1.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, ws : ws});
 
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
