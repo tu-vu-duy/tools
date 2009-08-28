@@ -9,13 +9,17 @@ function getProduct(version) {
   product.codeRepo = "portal/branches/integration" ;
   product.serverPluginVersion = "2.6-int-SNAPSHOT"
 
-  var tool = Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/tags/2.1.2") ;
-  var core = Module.GetModule("core/tags/2.2.2") ;
-  var ws = Module.GetModule("ws/tags/2.0.2", {kernel : kernel, core : core});
-  var eXoJcr = Module.GetModule("jcr/tags/1.11.2", {kernel : kernel, core : core, ws : ws}) ;
+  var kernel = Module.GetModule("kernel/tags/2.2.Alpha3") ;
+  var core = Module.GetModule("core/tags/2.3.Alpha4") ;
+  var ws = Module.GetModule("ws/tags/2.1.Alpha4", {kernel : kernel, core : core});
+  var eXoJcr = Module.GetModule("jcr/tags/1.12.Alpha4", {kernel : kernel, core : core, ws : ws}) ;
+  
+//  var kernel = Module.GetModule("kernel/tags/2.1.2") ;
+//  var core = Module.GetModule("core/tags/2.2.2") ;
+//  var ws = Module.GetModule("ws/tags/2.0.2", {kernel : kernel, core : core});
+//  var eXoJcr = Module.GetModule("jcr/tags/1.11.2", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/branches/integration", {kernel : kernel, ws:ws, core : core, eXoJcr : eXoJcr});
-
+  
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
@@ -41,7 +45,7 @@ function getProduct(version) {
   product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "3.1"));
 
   product.module = portal ;
-  product.dependencyModule = [ tool, kernel, core, ws, eXoJcr];
+  product.dependencyModule = [ kernel, core, ws, eXoJcr];
 
   return product ;
 }
