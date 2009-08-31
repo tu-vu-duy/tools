@@ -29,13 +29,13 @@ function getModule(params) {
     addDependency(new Project("javax.portlet", "portlet-api", "jar", "2.0")).
     addDependency(new Project("javax.ccpp", "ccpp", "jar", "1.0")).
     addDependency(new Project("javax.xml.bind", "jaxb-api", "jar", "2.1")).
-    addDependency(new Project("org.gatein.pc", "pc-api", "jar", "3.0.0-SNAPSHOT")).
-    addDependency(new Project("org.gatein.pc", "pc-portlet", "jar", "3.0.0-SNAPSHOT")).
-    addDependency(new Project("org.gatein.pc", "pc-mc", "jar", "3.0.0-SNAPSHOT")).
-    addDependency(new Project("org.gatein.pc", "pc-controller", "jar", "3.0.0-SNAPSHOT")).
-    addDependency(new Project("org.gatein.pc", "pc-federation", "jar", "3.0.0-SNAPSHOT")).
-    addDependency(new Project("org.gatein.wci", "wci-wci", "jar", "3.0.0-SNAPSHOT")).
-    addDependency(new Project("org.gatein.common", "common-common", "jar", "3.0.0-SNAPSHOT")).
+    addDependency(new Project("org.gatein.pc", "pc-api", "jar", "2.1.0-SNAPSHOT")).
+    addDependency(new Project("org.gatein.pc", "pc-portlet", "jar", "2.1.0-SNAPSHOT")).
+    addDependency(new Project("org.gatein.pc", "pc-mc", "jar", "2.1.0-SNAPSHOT")).
+    addDependency(new Project("org.gatein.pc", "pc-controller", "jar", "2.1.0-SNAPSHOT")).
+    addDependency(new Project("org.gatein.pc", "pc-federation", "jar", "2.1.0-SNAPSHOT")).
+    addDependency(new Project("org.gatein.wci", "wci-wci", "jar", "2.0.0-SNAPSHOT")).
+    addDependency(new Project("org.gatein.common", "common-common", "jar", "2.0.0-SNAPSHOT")).
     addDependency(new Project("log4j", "log4j", "jar", "1.2.14")).
     addDependency(new Project("org.jboss", "jbossxb", "jar", "2.0.0.GA")).
     addDependency(new Project("org.jboss.logging", "jboss-logging-spi", "jar", "2.0.5.GA")).
@@ -58,9 +58,9 @@ function getModule(params) {
 
   module.component.portal  =
     new Project("org.exoplatform.portal", "exo.portal.component.portal", "jar", module.version).
-  	addDependency(new Project("org.gatein.mop", "mop.api", "jar", "1.0.0-Beta02")).
-  	addDependency(new Project("org.gatein.mop", "mop.spi", "jar", "1.0.0-Beta02")).
-  	addDependency(new Project("org.gatein.mop", "mop.core", "jar", "1.0.0-Beta02")).
+  	addDependency(new Project("org.gatein.mop", "mop-api", "jar", "1.0.0-Beta03")).
+  	addDependency(new Project("org.gatein.mop", "mop-spi", "jar", "1.0.0-Beta03")).
+  	addDependency(new Project("org.gatein.mop", "mop-core", "jar", "1.0.0-Beta03")).
   	addDependency(new Project("org.chromattic", "chromattic.api", "jar", "1.0.0-beta1")).
   	addDependency(new Project("org.chromattic", "chromattic.common", "jar", "1.0.0-beta1")).
   	addDependency(new Project("org.chromattic", "chromattic.spi", "jar", "1.0.0-beta1")).
