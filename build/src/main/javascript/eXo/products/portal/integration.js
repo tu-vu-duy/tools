@@ -9,10 +9,10 @@ function getProduct(version) {
   product.codeRepo = "portal/branches/integration" ;
   product.serverPluginVersion = "2.6-int-SNAPSHOT"
 
-  var kernel = Module.GetModule("kernel/tags/2.2.Alpha3") ;
-  var core = Module.GetModule("core/tags/2.3.Alpha4") ;
-  var ws = Module.GetModule("ws/tags/2.1.Alpha4", {kernel : kernel, core : core});
-  var eXoJcr = Module.GetModule("jcr/tags/1.12.Alpha4", {kernel : kernel, core : core, ws : ws}) ;
+  var kernel = Module.GetModule("kernel/tags/2.2.0-Beta01") ;
+  var core = Module.GetModule("core/tags/2.3.0-Beta01") ;
+  var ws = Module.GetModule("ws/tags/2.1.0-Beta01", {kernel : kernel, core : core});
+  var eXoJcr = Module.GetModule("jcr/tags/1.12.0-Beta01", {kernel : kernel, core : core, ws : ws}) ;
   
 //  var kernel = Module.GetModule("kernel/tags/2.1.2") ;
 //  var core = Module.GetModule("core/tags/2.2.2") ;
