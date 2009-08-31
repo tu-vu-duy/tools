@@ -4,6 +4,7 @@ eXo.require("eXo.server.ServerUtil") ;
 eXo.require("eXo.projects.Project");
 
 function Jboss(jbossHome) {
+  this.exoJBoss5 = false;
   this.runningInstance_ = null ;
   this.name = "jboss" ;
   this.serverHome = jbossHome ;
@@ -81,7 +82,16 @@ Jboss.prototype.preDeploy = function(product) {
     product.removeDependency(new Project("jotm", "jotm_jrmp_stubs", "jar", "2.0.10"));
     product.removeDependency(new Project("jotm", "jotm", "jar", "2.0.10"));
   }
-}
+
+   //Remove hibernate libs for JBoss AS5
+   if (this.exoJBoss5) {
+	  print("====================== JBOSS5 AS 5 ====================== ");
+      product.removeDependencyByGroupId("org.hibernate");
+      product.removeDependency(new Project("org.jboss", "jbossxb", "jar", "2.0.0.GA"));
+      product.removeDependency(new Project("org.jboss.logging", "jboss-logging-spi", "jar", "2.0.5.GA"));
+      product.removeDependency(new Project("org.jboss", "jboss-common-core", "jar", "2.2.9.GA"));
+   }
+};
 
 Jboss.prototype.onDeploy = function(project) { }
   

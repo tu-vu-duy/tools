@@ -109,6 +109,17 @@ Product.prototype.removeDependencyById = function(projectId) {
   }
 }
 
+Product.prototype.removeDependencyByGroupId = function(groupId) {
+ var dependencies = new java.util.ArrayList();
+ var arrDep = this.getDependencies().toArray();
+ for ( var i = 0; i < arrDep.length; i++) {
+  var project = arrDep[i];
+  if (project.groupId == groupId) {
+   this.removeDependency(project);
+  }
+ }
+};
+
 Product.prototype.hasDependencyModule = function(depName) {
 	var hasDep = false;
 	if (this.dependencyModule !== null) {
