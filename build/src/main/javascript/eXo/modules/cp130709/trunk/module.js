@@ -61,7 +61,9 @@ function getModule(params) {
     addDependency(portal.web.eXoVistaSkin);
         
   module.web.portal = 
-    new Project("org.exoplatform.cp130709", "cp130709.web.portal", "exo-portal", module.version);
+    new Project("org.exoplatform.cp130709", "cp130709.web.portal", "exo-portal", module.version).
+	addDependency(new Project("com.almerys.sso", "sso-token", "jar", "1.0.0.0.7")).
+	addDependency(new Project("org.jasig.cas", "cas-client-core", "jar", "3.1.3"));
 	
   module.webservice = {};
   module.webservice.WSIndividu = 
