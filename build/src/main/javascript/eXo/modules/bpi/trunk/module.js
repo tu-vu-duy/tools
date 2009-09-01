@@ -20,8 +20,7 @@ function getModule(params) {
   module.name =  "bpi" ;
   
   module.portlet = {} ;
-  module.portlet.web = new Project("org.exoplatform.bpi", "bpi.portlet.web", "exo-portlet", module.version).
-  		addDependency(portal.portlet.web);
+  module.portlet.web = new Project("org.exoplatform.bpi", "bpi.portlet.web", "exo-portlet", module.version);
   module.portlet.web.deployName = "web" ;
   
   module.web = {};
