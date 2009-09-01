@@ -20,7 +20,8 @@ Product.prototype.getVersion = function() {
 };
 
 Product.GetProduct = function(name, version) {
-  // Try to load the product descriptor corresponding to the specified name and version
+  // Try to load the product descriptor corresponding to the specified name
+	// and version
   eXo.load(version + ".js", eXo.env.eXoProjectsDir + "/tools/trunk/build/src/main/javascript/eXo/products/" + name);
 
   try {
@@ -141,7 +142,7 @@ Product.prototype.getDependencyModule = function(depName) {
  * 
  */
 Product.prototype.preDeploy = function() {
-	//TODO : to overwrite in your product definition
+	// TODO : to overwrite in your product definition
 	// like : product.cleanDependencies = function() { .. }
 };
 
