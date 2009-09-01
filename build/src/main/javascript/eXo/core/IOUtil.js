@@ -189,7 +189,7 @@ IOUtil.prototype.modifyJarEntry = function(moduleFile, configEntry, properties) 
  *           modify, and the value should be a java  byte array (byte[])  
  */
 IOUtil.prototype.modifyJar = function(fileName, mentries, mattrs) {
-  var file = new java.io.File(fileName); 
+  var file = new java.io.File(fileName);
   var jar = new java.util.jar.JarFile(fileName) ;
   var mf = jar.getManifest() ;
   if(mattrs != null) {
