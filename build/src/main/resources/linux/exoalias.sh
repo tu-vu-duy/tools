@@ -24,7 +24,6 @@ alias openfireRun="cd $EXO_WORKING_DIR/exo-openfire/bin && chmod +x openfire && 
 alias exoproject="js.sh exoproject"
 
 alias exobuild="js.sh exobuild"
-#alias exosvn="exobsh.sh exosvn"
 alias exosvn="js.sh exosvn"
 alias rmdb="rm -rf $EXO_WORKING_DIR/exo-tomcat/temp/data"
 

@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.exoplatform.tool</groupId>
   <artifactId>exo.tool.build</artifactId>
-  <name>eXo Bsh</name>
-  <version>2.0</version>
+  <name>eXo build</name>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 </project>
