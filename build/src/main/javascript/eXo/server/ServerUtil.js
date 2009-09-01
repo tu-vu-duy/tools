@@ -208,7 +208,9 @@ ServerUtil.prototype.addClasspathForWar = function(earPath) {
     if (file.getName().endsWith(".war")) {
       manifestAttributes = new java.util.HashMap() ;
       manifestAttributes.put("Class-Path", classpath) ;
-      eXo.core.IOUtil.modifyJar(file.getAbsolutePath(), null, manifestAttributes);
+      if (file.isFile()) {
+        eXo.core.IOUtil.modifyJar(file.getAbsolutePath(), null, manifestAttributes);
+      }
     }
   }
 }
