@@ -29,6 +29,11 @@ function getModule(params) {
     new Project("org.exoplatform.bpi", "bpi.web.BPIResources", "war", module.version);
 
 
+  module.application = {}
+  module.application.statsService = new Project("org.exoplatform.bpi", "bpi.service.stats","jar", module.version);
+  
+
+  // adding the portlet to the deployment profile
   module.web.content =
     new Project("org.exoplatform.bpi", "bpi.dms.content.portlets", "war", module.version);
   module.web.content.deployName = "bpi.dms.content.portlets" ;
