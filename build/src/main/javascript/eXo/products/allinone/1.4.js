@@ -6,7 +6,7 @@ function getProduct(version) {
 
   product.name = "eXoAllInOneProduct" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "allinone/branches/1.4" ;
+  product.codeRepo = "allinone/tags/1.4" ;
   product.useContentvalidation = true;
   product.contentvalidationVersion = "2.3.1";
   product.useWorkflow = true;
@@ -28,7 +28,7 @@ function getProduct(version) {
   var cs = Module.GetModule("cs/tags/1.2.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var ks = Module.GetModule("ks/tags/1.1.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var wcm = Module.GetModule("ecm/wcm/tags/1.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
-  var allinone = Module.GetModule("allinone/branches/1.4", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, cs: cs, ks: ks, dms : dms, wcm: wcm,workflow : workflow});
+  var allinone = Module.GetModule("allinone/tags/1.4", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, cs: cs, ks: ks, dms : dms, wcm: wcm,workflow : workflow});
   
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
