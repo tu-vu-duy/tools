@@ -58,7 +58,8 @@ function getModule(params) {
     addDependency(portal.web.eXoVistaSkin) .
     addDependency(portal.webui.portal) .
     addDependency(jcr.frameworks.command) .
-    addDependency(jcr.frameworks.web) ;   
+    addDependency(jcr.frameworks.web).  
+	addDependency(new Project("commons-validator", "commons-validator", "jar", "1.1.4")) ;   
   
   return module;
 }
