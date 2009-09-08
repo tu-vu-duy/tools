@@ -7,16 +7,20 @@ function getProduct(version) {
   product.name = "social" ;
   product.portalwar = "portal.war" ;
   product.codeRepo = "social/trunk" ;
-  product.serverPluginVersion = "2.6-SNAPSHOT"
-
+  product.serverPluginVersion = "3.0.0-Beta01"
+	  
   var tool = Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/tags/2.1.2") ;
-  var core = Module.GetModule("core/tags/2.2.2") ;
-  var ws = Module.GetModule("ws/tags/2.0.2", {kernel : kernel, core : core});
-  var eXoJcr = Module.GetModule("jcr/tags/1.11.2", {kernel : kernel, core : core, ws : ws}) ;
-  var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.1.2", {kernel : kernel, core : core, ws : ws}) ;
-  var portal = Module.GetModule("portal/trunk", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
-  var social = Module.GetModule("social/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var kernel = Module.GetModule("kernel/tags/2.2.Alpha3") ;
+  var core = Module.GetModule("core/tags/2.3.Alpha4") ;
+  var ws = Module.GetModule("ws/tags/2.1.Alpha4", {kernel : kernel, core : core});
+  var eXoJcr = Module.GetModule("jcr/tags/1.12.Alpha4", {kernel : kernel, core : core, ws : ws}) ;
+//  var kernel = Module.GetModule("kernel/tags/2.1.2") ;
+//  var core = Module.GetModule("core/tags/2.2.2") ;
+//  var ws = Module.GetModule("ws/tags/2.0.2", {kernel : kernel, core : core});
+//  var eXoJcr = Module.GetModule("jcr/tags/1.11.2", {kernel : kernel, core : core, ws : ws}) ;
+  //var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.1.2", {kernel : kernel, core : core, ws : ws}) ;
+  var portal = Module.GetModule("portal/tags/3.0.0-Beta01", {kernel : kernel, ws:ws, core : core, eXoJcr : eXoJcr});
+  var social = Module.GetModule("social/trunk", {kernel : kernel, core : core, eXoJcr : eXoJcr, portal : portal});
 
   product.addDependencies(social.web.socialportal) ;
   product.addDependencies(social.web.eXoResources) ;
@@ -40,7 +44,6 @@ function getProduct(version) {
   product.addDependencies(portal.web.eXoMacSkin);
   product.addDependencies(portal.web.eXoVistaSkin);
 
-  product.removeDependency(eXoPortletContainer.web.wsrp);
   product.removeDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.ftp", "jar", eXoJcr.version));
 
 
@@ -65,7 +68,7 @@ function getProduct(version) {
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   product.module = social ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal];
+  product.dependencyModule = [tool, kernel, core, ws, eXoJcr, portal];
 
   return product ;
 }
