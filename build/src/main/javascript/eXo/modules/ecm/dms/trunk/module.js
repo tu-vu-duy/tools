@@ -20,6 +20,7 @@ function getModule(params) {
   module.portlet.dms = 
     new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.portlet.ecm.core.web", "exo-portlet", module.version).
     addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.cms", "jar",  module.version)) .     
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.viewer.pdfviewer", "jar",  module.version)) .
     addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.deployment", "jar",  module.version)) .    
     addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.publication", "jar", module.version)).
     addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.connector.fckeditor", "jar", module.version)).
@@ -32,6 +33,8 @@ function getModule(params) {
     addDependency(new Project("jdom", "jdom", "jar", "1.0")).
     addDependency(new Project("org.apache.ws.commons", "ws-commons-util", "jar", "1.0.1")).
     addDependency(new Project("com.sun.xml.stream", "sjsxp", "jar", "1.0")).
+    addDependency(new Project("org.icepdf", "icepdf-core", "jar", "3.0")).
+    addDependency(new Project("org.icepdf", "icepdf-viewer", "jar", "3.0")).
     addDependency(new Project("pdfbox", "pdfbox", "jar", "0.7.2"));
     module.portlet.dms.deployName = "ecm";
   
