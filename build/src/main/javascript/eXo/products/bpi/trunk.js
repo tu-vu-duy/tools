@@ -40,6 +40,7 @@ function getProduct(version) {
   product.addDependencies(bpi.web.content); // add content portlet
 
   product.addDependencies(bpi.application.statsService); // add stat service jar
+  product.addDependencies(bpi.application.jcrActions); // add stat service jar
 
 
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
