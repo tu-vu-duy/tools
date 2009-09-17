@@ -38,8 +38,8 @@ function getModule(params) {
 	addDependency(new Project("com.almerys.emut.lmgv2", "lmgv2-adherent-common-model", "jar", "0.2.5.0.0")).
 	addDependency(new Project("com.almerys.emut.lmgv2", "lmgv2-contact-manager", "jar", "0.1.6.0.0")).	
 	addDependency(new Project("com.almerys.emut", "health-guarantee-description", "jar", "0.1.2.0.0")).
+	addDependency(new Project("com.almerys", "commun-agaps", "jar", "1.4.2.0.0")).	
 	addDependency(new Project("org.exoplatform.cp130709", "cp130709.tools.core", "jar", module.version));
-	
 	
   module.portlet.comptePortlet = 
     new Project("org.exoplatform.cp130709", "cp130709.portlet.comptePortlet", "exo-portlet", module.version).
