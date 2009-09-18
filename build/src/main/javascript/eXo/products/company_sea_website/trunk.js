@@ -4,9 +4,9 @@ eXo.require("eXo.projects.Product") ;
 function getProduct(version) {
   var product = new Product();
   
-  product.name = "company-sea-website" ;
+  product.name = "company_sea_website" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "company-sea-website/trunk" ;
+  product.codeRepo = "company_sea_website/trunk" ;
   product.contentvalidationVersion = "2.3";
   product.workflowVersion = "1.0";
   product.serverPluginVersion = "2.5.2" ;
@@ -49,30 +49,30 @@ var companysea_website = Module.GetModule("ecm/workflow/tags/1.0", {kernel : ker
 
   
   product.addDependencies(cs.eXoApplication.mail) ;
-  // replaced by "company-sea-website.eXoApplication.calendar"
+  // replaced by "company_sea_website.eXoApplication.calendar"
   //product.addDependencies(cs.eXoApplication.calendar) ;
   product.addDependencies(cs.eXoApplication.contact) ;
   product.addDependencies(cs.eXoApplication.content) ;
   product.addDependencies(cs.web.webservice) ;
   product.addDependencies(cs.web.csResources) ;
   
-  product.addDependencies(company-sea-website.eXoApplication.calendar) ;
+  product.addDependencies(company_sea_website.eXoApplication.calendar) ;
   
-  product.addDependencies(company-sea-website.portlet.dms) ;
-  product.addDependencies(company-sea-website.component.web) ;
-  product.addDependencies(company-sea-website.web.portal) ;
-  product.addDependencies(company-sea-website.web.company-sea-websiteResources) ;
-  product.addDependencies(company-sea-website.portlet.web) ;
-  product.addDependencies(company-sea-website.application.rest) ;
+  product.addDependencies(company_sea_website.portlet.dms) ;
+  product.addDependencies(company_sea_website.component.web) ;
+  product.addDependencies(company_sea_website.web.portal) ;
+  product.addDependencies(company_sea_website.web.company_sea_websiteResources) ;
+  product.addDependencies(company_sea_website.portlet.web) ;
+  product.addDependencies(company_sea_website.application.rest) ;
   
   product.addDependencies(workflow.web.eXoWorkflowResources);
   product.addDependencies(workflow.portlet.workflow);
   
-  product.addServerPatch("tomcat", company-sea-website.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", company_sea_website.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
-  product.module = company-sea-website ;
+  product.module = company_sea_website ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, dms, cs, ws];
   
   return product ;

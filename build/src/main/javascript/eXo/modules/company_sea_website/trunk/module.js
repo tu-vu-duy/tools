@@ -13,9 +13,9 @@ function getModule(params) {
   var module = new Module();
 
   module.version =  "2.1.2-SNAPSHOT" ;
-  module.relativeMavenRepo =  "org/exoplatform/company-sea-website" ;
-  module.relativeSRCRepo =  "company-sea-website/trunk" ;
-  module.name =  "company-sea-website" ;
+  module.relativeMavenRepo =  "org/exoplatform/company_sea_website" ;
+  module.relativeSRCRepo =  "company_sea_website/trunk" ;
+  module.name =  "company_sea_website" ;
   
   var ksversion = "1.1" ;
   var dmsversion = "2.3.2" ;
@@ -23,13 +23,13 @@ function getModule(params) {
   var csversion = "1.2" ;
     
   module.portlet = {}
-  module.portlet.web = new Project("org.exoplatform.company-sea-website", "company-sea-website.portlet.web", "exo-portlet", module.version);
-  module.portlet.web.deployName = "company-sea-websitePortletWeb" ;
+  module.portlet.web = new Project("org.exoplatform.company_sea_website", "company_sea_website.portlet.web", "exo-portlet", module.version);
+  module.portlet.web.deployName = "company_sea_websitePortletWeb" ;
 
   module.portlet.dms = 
-    new Project("org.exoplatform.company-sea-website", "company-sea-website.portlet.ecm", "exo-portlet", module.version).
-    addDependency(new Project("org.exoplatform.company-sea-website", "company-sea-website.component.cms", "jar",  module.version)) .      
-    addDependency(new Project("org.exoplatform.company-sea-website.bp", "exo.company-sea-website.bp.jbpm.contactus", "jar", module.version)) .
+    new Project("org.exoplatform.company_sea_website", "company_sea_website.portlet.ecm", "exo-portlet", module.version).
+    addDependency(new Project("org.exoplatform.company_sea_website", "company_sea_website.component.cms", "jar",  module.version)) .      
+    addDependency(new Project("org.exoplatform.company_sea_website.bp", "exo.company_sea_website.bp.jbpm.contactus", "jar", module.version)) .
     addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.cms", "jar",  dmsversion)) .     
     addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.deployment", "jar",  dmsversion)) .    
     addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.publication", "jar", dmsversion)).
@@ -59,14 +59,14 @@ function getModule(params) {
   
   module.component={}
   module.component.web=
-    new Project("org.exoplatform.company-sea-website", "company-sea-website.component.web", "jar", module.version).
+    new Project("org.exoplatform.company_sea_website", "company_sea_website.component.web", "jar", module.version).
     addDependency(portal.component.web);
   
   module.web = {}  
-  module.web.company-sea-websiteResources = 
-    new Project("org.exoplatform.company-sea-website", "company-sea-website.web.eXoResourcesCompany", "exo-portal", module.version) ;    
+  module.web.company_sea_websiteResources = 
+    new Project("org.exoplatform.company_sea_website", "company_sea_website.web.eXoResourcesCompany", "exo-portal", module.version) ;    
   module.web.portal = 
-    new Project("org.exoplatform.company-sea-website", "company-sea-website.web.portal", "exo-portal", module.version).
+    new Project("org.exoplatform.company_sea_website", "company_sea_website.web.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .
@@ -76,7 +76,7 @@ function getModule(params) {
 
   module.eXoApplication = {}  
   module.eXoApplication.calendar = 
-    new Project("org.exoplatform.company-sea-website", "exo.company-sea-website.cs.eXoApplication.calendar.webapp", "war", module.version).
+    new Project("org.exoplatform.company_sea_website", "exo.company_sea_website.cs.eXoApplication.calendar.webapp", "war", module.version).
       addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  csversion)).
 	  addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.2")).
 	  addDependency(ws.frameworks.cometd).
@@ -88,7 +88,7 @@ function getModule(params) {
   module.server = {}
   module.server.tomcat = {}
   module.server.tomcat.patch = 
-    new Project("org.exoplatform.company-sea-website", "company-sea-website.server.tomcat.patch", "jar", module.version);
+    new Project("org.exoplatform.company_sea_website", "company_sea_website.server.tomcat.patch", "jar", module.version);
 
   return module;
 }
