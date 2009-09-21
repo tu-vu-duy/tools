@@ -38,9 +38,13 @@ function getProduct(version) {
   product.addDependencies(bpi.web.BPIResources);
   product.addDependencies(bpi.portlet.web);
   product.addDependencies(bpi.web.content); // add content portlet
+  product.addDependencies(bpi.web.rssBpi); // add content portlet
+
+
 
   product.addDependencies(bpi.application.statsService); // add stat service jar
-  product.addDependencies(bpi.application.jcrActions); // add stat service jar
+  product.addDependencies(bpi.application.jcrActions); // add jcr service jar
+  product.addDependencies(bpi.application.ldapService); // add ldap synchronization service jar
 
 
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;

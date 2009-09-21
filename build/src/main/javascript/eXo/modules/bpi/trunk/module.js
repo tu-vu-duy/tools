@@ -32,12 +32,18 @@ function getModule(params) {
   module.application = {}
   module.application.statsService = new Project("org.exoplatform.bpi", "bpi.service.stats","jar", module.version);
   module.application.jcrActions = new Project("org.exoplatform.bpi", "bpi.service.actions","jar", module.version);
+  module.application.ldapService = new Project("org.exoplatform.bpi", "bpi.service.ldap","jar", module.version);
 
 
   // adding the portlet to the deployment profile
   module.web.content =
     new Project("org.exoplatform.bpi", "bpi.dms.content.portlets", "war", module.version);
   module.web.content.deployName = "bpi.dms.content.portlets" ;
+
+  // adding RSS Servlet application
+  module.web.rssBpi = new Project("org.exoplatform.bpi", "bpi.service.rss", "war", module.version);
+  module.web.rssBpi.deployName = "bpirss" ;
+
 
   module.web.portal = 
     new Project("org.exoplatform.bpi", "bpi.web.portal", "exo-portal", module.version).
