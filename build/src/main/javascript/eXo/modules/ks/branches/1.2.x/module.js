@@ -56,14 +56,14 @@ function getModule(params) {
       addDependency(jcr.frameworks.command) .
       addDependency(jcr.frameworks.web) ;
   
-		/*module.server = {}
+		module.server = {}
   module.server.tomcat = {}
   module.server.tomcat.patch = 
     new Project("org.exoplatform.ks", "exo.ks.server.tomcat.patch", "jar", module.version);
 
   module.server.jboss = {}
   module.server.jboss.patch = 
-	    new Project("org.exoplatform.ks", "exo.ks.server.jboss.patch", "jar", module.version);*/
+	    new Project("org.exoplatform.ks", "exo.ks.server.jboss.patch", "jar", module.version);
 		
   return module;
 }

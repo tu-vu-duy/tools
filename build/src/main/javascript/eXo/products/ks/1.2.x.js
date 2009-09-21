@@ -39,11 +39,11 @@ function getProduct(version) {
   product.addDependencies(ks.web.ksResources) ;
   //product.addDependencies(cs.eXoApplication.contact) ;
   
-	//product.addServerPatch("tomcat", ks.server.tomcat.patch) ;
-  //product.addServerPatch("jboss",  ks.server.jboss.patch) ;
-  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
-  product.addServerPatch("jboss",  portal.server.jboss.patch) ;
-  product.addServerPatch("jonas",  portal.server.jonas.patch) ;
+	product.addServerPatch("tomcat", ks.server.tomcat.patch) ;
+  product.addServerPatch("jboss",  ks.server.jboss.patch) ;
+  //product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+  //product.addServerPatch("jboss",  portal.server.jboss.patch) ;
+  //product.addServerPatch("jonas",  portal.server.jonas.patch) ;
     
   product.codeRepo = "ks/branches/1.2.x" ;
 
