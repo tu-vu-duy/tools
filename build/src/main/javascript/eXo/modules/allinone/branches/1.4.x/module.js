@@ -3,11 +3,21 @@ eXo.require("eXo.projects.Product") ;
 
 function getModule(params) {
 
+  var kernel = params.kernel;
+  var core = params.core;
+  var eXoPortletContainer = params.eXoPortletContainer;
   var jcr = params.eXoJcr;
   var portal = params.portal;
+  var webos = params.webos;
+  var dms = params.dms ;
+  var workflow = params.workflow ;
+  var wcm = params.wcm ;
+  var cs = params.cs ;
+  var ks = params.ks ;
+  var ws = params.ws;
   var module = new Module();
 
-  module.version = "1.4.x" ;
+  module.version = "1.4-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/allinone" ;
   module.relativeSRCRepo =  "allinone/branches/1.4.x" ;
   module.name =  "allinone" ;
