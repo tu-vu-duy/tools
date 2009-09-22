@@ -46,6 +46,7 @@ function getProduct(version) {
   product.addDependencies(bpi.application.jcrActions); // add jcr service jar
   product.addDependencies(bpi.application.ldapService); // add ldap synchronization service jar
   product.addDependencies(bpi.application.backupService); // add Backup service jar
+  product.addDependencies(bpi.application.publicationService); // add Publication service jar
 
 
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;

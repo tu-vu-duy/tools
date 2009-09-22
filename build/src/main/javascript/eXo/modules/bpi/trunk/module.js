@@ -34,6 +34,8 @@ function getModule(params) {
   module.application.jcrActions = new Project("org.exoplatform.bpi", "bpi.service.actions","jar", module.version);
   module.application.ldapService = new Project("org.exoplatform.bpi", "bpi.service.ldap","jar", module.version);
   module.application.backupService = new Project("org.exoplatform.bpi", "bpi.service.backup","jar", module.version);
+  module.application.publicationService = new Project("org.exoplatform.bpi", "bpi.service.publication.plugin","jar", module.version);
+
 
 
   // adding the portlet to the deployment profile
