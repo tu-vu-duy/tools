@@ -140,6 +140,7 @@ IOUtil.prototype.getJarEntryContent = function(fileName, entryName) {
     eXo.System.info("IO", "" + fileName + " file not found" ) ;
     return null;
   }
+  eXo.System.info("IO", "Opening " + file);
   var jar = new java.util.jar.JarFile(file) ;
   var entries = jar.entries() ;
   while(entries.hasMoreElements()) {

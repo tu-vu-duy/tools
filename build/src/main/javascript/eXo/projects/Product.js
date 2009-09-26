@@ -21,8 +21,16 @@ Product.prototype.getVersion = function() {
 
 Product.GetProduct = function(name, version) {
   // Try to load the product descriptor corresponding to the specified name
-	// and version
-  eXo.load(version + ".js", eXo.env.eXoProjectsDir + "/tools/trunk/build/src/main/javascript/eXo/products/" + name);
+  // and version
+  var srcConf = eXo.env.eXoProjectsDir + "/tools/trunk/build/src/main/javascript/eXo/products/" + name +"/";
+  var srcLoc = eXo.env.currentDir + "/products/" + name +"/" ;
+
+  print("Loading product: " +  srcLoc);
+  if (new java.io.File(srcLoc + version + ".js").exists()) {
+    eXo.load(version + ".js", srcLoc);
+  } else {
+    eXo.load(version + ".js", srcConf);
+  }
 
   try {
     // The function getProduct() is defined in the loaded product decriptor
@@ -30,8 +38,7 @@ Product.GetProduct = function(name, version) {
     
     // Set the version on the product
     product.version = version;
-    
-    //
+
     return product;
   } catch(error) {
     print(error);

@@ -10,8 +10,19 @@ function Module() {
 Module.GetModule = function(path, params) {
     // Try to load the module descriptor corresponding to the specified name and
     // version
-    print("Loading module: " + eXo.env.eXoProjectsDir + "/tools/trunk/build/src/main/javascript/eXo/modules/" + path);
-    eXo.load("module.js", eXo.env.eXoProjectsDir + "/tools/trunk/build/src/main/javascript/eXo/modules/" + path);
+    var srcPath = "/modules/" + path + "/";
+    var srcConf = eXo.env.eXoProjectsDir + "/tools/trunk/build/src/main/javascript/eXo" + srcPath;
+    var srcLoc = eXo.env.currentDir + srcPath;
+
+
+    print("Loading module: " + path);
+    if (new java.io.File(srcLoc+"module.js").exists()) {
+      // Local
+      eXo.load("module.js", srcLoc);
+    } else {
+      // Sinon configuration
+      eXo.load("module.js", srcConf);
+    }
 
     try {
         // The function getModule() is defined in the loaded module descriptor
