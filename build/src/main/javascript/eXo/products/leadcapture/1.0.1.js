@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "eXoLeadCapture";
   product.portalwar = "portal.war";
-  product.codeRepo = "exo-int/delivery/lead-capture/tags/1.0";
+  product.codeRepo = "exo-int/delivery/lead-capture/tags/1.0.1";
   product.useContentvalidation = true;
   product.serverPluginVersion = "2.5.3";
     
