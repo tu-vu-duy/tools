@@ -17,7 +17,7 @@ function getModule(params) {
   var ws = params.ws;
   var module = new Module();
 
-  module.version = "2.5-SNAPSHOT" ;
+  module.version = "1.5-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/allinone" ;
   module.relativeSRCRepo =  "allinone/branches/2.5.x" ;
   module.name =  "allinone" ;
@@ -32,6 +32,11 @@ function getModule(params) {
     addDependency(jcr.frameworks.command).
     addDependency(jcr.frameworks.web).
     addDependency(portal.web.rest);
+
+  module.tomcat = {}
+  module.tomcat.patch =
+    new Project("org.exoplatform.allinone", "aio-tomcat-patch", "jar", module.version);
+
   
   return module;
 }

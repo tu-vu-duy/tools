@@ -25,7 +25,7 @@ function getProduct(version) {
   var dms = Module.GetModule("ecm/dms/tags/2.5.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   
 /*  var workflow = Module.GetModule("ecm/workflow/tags/1.0.3", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal}); */
-  var cs = Module.GetModule("cs/tags/1.3", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var cs = Module.GetModule("cs/tags/1.3.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var ks = Module.GetModule("ks/tags/1.1.2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var wcm = Module.GetModule("ecm/wcm/tags/1.2", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
   
@@ -56,7 +56,7 @@ function getProduct(version) {
   product.addDependencies(cs.eXoApplication.calendar) ;
   product.addDependencies(cs.eXoApplication.contact) ;
   product.addDependencies(cs.eXoApplication.content) ;
-  product.addDependencies(cs.eXoApplication.chatbar) ;
+//  product.addDependencies(cs.eXoApplication.chatbar) ;
   /* CS
   product.addDependencies(cs.eXoApplication.chat) ;
   
@@ -94,7 +94,7 @@ function getProduct(version) {
   product.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
    
   
-  product.addServerPatch("tomcat", cs.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", allinone.tomcat.patch) ;
   product.addServerPatch("jboss",  cs.server.jboss.patch) ;
   product.addServerPatch("jbossear",  portal.server.jbossear.patch) ;  
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
