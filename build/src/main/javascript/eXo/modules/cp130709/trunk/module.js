@@ -31,8 +31,8 @@ function getModule(params) {
 	addDependency(new Project("org.exoplatform.cp130709", "cp130709.webservice.WSIndividu", "jar", module.version)).
 	addDependency(new Project("org.exoplatform.cp130709", "cp130709.webservice.WSSection", "jar", module.version)).
 	addDependency(new Project("com.almerys.exo", "exo-account-commons", "jar", "1.0.0.0.1")).
-	addDependency(new Project("com.almerys.lmg", "lmg-individu", "jar", "0.0.3.0.7")).
-	addDependency(new Project("com.almerys.lmg", "lmg-individu-ws-client", "jar", "0.0.3.0.7")).
+	addDependency(new Project("com.almerys.lmg", "lmg-individu", "jar", "0.0.5.0.0")).
+	addDependency(new Project("com.almerys.lmg", "lmg-individu-ws-client", "jar", "0.0.4.0.0")).
 	addDependency(new Project("javax.xml.ws", "jaxws-api", "jar", "2.1")).
 	addDependency(new Project("javax.xml.soap", "saaj-api", "jar", "1.3")).
 	addDependency(new Project("javax.jws", "jsr181-api", "jar", "1.0-MR1")).
