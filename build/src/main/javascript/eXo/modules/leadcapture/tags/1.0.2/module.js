@@ -12,9 +12,9 @@ function getModule(params) {
   var ws = params.ws;
   var module = new Module();
 
-  module.version =  "1.0.2-SNAPSHOT" ;
+  module.version =  "1.0.2" ;
   module.relativeMavenRepo =  "org/exoplatform/leadcapture" ;
-  module.relativeSRCRepo =  "exo-int/delivery/lead-capture/trunk" ;
+  module.relativeSRCRepo =  "exo-int/delivery/lead-capture/tags/1.0.2" ;
   module.name =  "leadcapture" ;
   
   var dmsversion = "2.3.2" ;
