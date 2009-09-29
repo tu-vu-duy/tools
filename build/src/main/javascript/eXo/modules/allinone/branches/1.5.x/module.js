@@ -19,7 +19,7 @@ function getModule(params) {
 
   module.version = "1.5-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/allinone" ;
-  module.relativeSRCRepo =  "allinone/branches/2.5.x" ;
+  module.relativeSRCRepo =  "allinone/branches/1.5.x" ;
   module.name =  "allinone" ;
        
   module.web = {}
