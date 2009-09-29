@@ -35,6 +35,7 @@ function getModule(params) {
   module.application.ldapService = new Project("org.exoplatform.bpi", "bpi.service.ldap","jar", module.version);
   module.application.backupService = new Project("org.exoplatform.bpi", "bpi.service.backup","jar", module.version);
   module.application.publicationService = new Project("org.exoplatform.bpi", "bpi.service.publication.plugin","jar", module.version);
+  module.application.fckeditor = new Project("org.exoplatform.bpi", "bpi.service.fckeditor","jar", module.version);
 
 
 
