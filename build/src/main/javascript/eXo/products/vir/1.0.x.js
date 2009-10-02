@@ -6,7 +6,7 @@ function getProduct(version) {
   
   product.name = "VIR" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "vir/source/trunk" ;
+  product.codeRepo = "vir/source/branches/1.0.x" ;
   product.useContentvalidation = true;
   product.contentvalidationVersion = "2.3.1";
   product.workflowVersion = "1.0.1" ;
@@ -21,7 +21,7 @@ function getProduct(version) {
   var portal = Module.GetModule("portal/tags/2.5.3", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});         
   var dms = Module.GetModule("ecm/dms/tags/2.3.1", {kernel : kernel, core : core,ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr , portal : portal});
   var wcm = Module.GetModule("ecm/wcm/tags/1.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
-  var vir = Module.GetModule("vir/trunk", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, wcm : wcm});
+  var vir = Module.GetModule("vir/branches/1.0.x", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, wcm : wcm});
     
   product.addDependencies(portal.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;

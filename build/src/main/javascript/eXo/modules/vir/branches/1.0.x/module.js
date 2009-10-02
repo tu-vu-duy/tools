@@ -14,9 +14,9 @@ function getModule(params) {
   
   var module = new Module();
 
-  module.version = "trunk" ;
+  module.version = "1.0.x" ;
   module.relativeMavenRepo =  "org/exoplatform/vir" ;
-  module.relativeSRCRepo =  "vir/source/trunk" ;
+  module.relativeSRCRepo =  "vir/source/branches/1.0.x" ;
   module.name =  "vir" ;
 
   module.component = {};
