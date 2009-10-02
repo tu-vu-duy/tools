@@ -40,7 +40,7 @@ function getModule(params) {
 	addDependency(new Project("com.sun.xml.ws", "jaxws-tools", "jar", "2.1.5")).
 	addDependency(new Project("com.almerys.portal", "portal-filters", "jar", "1.2.0.0.0")).
 	addDependency(new Project("com.almerys.emut.lmgv2", "lmgv2-portal-filters", "jar", "0.2.1.0.0")).
-	addDependency(new Project("com.almerys.emut.lmgv2", "lmgv2-adherent-common-model", "jar", "0.3.0.0.0")).
+	addDependency(new Project("com.almerys.emut.lmgv2", "lmgv2-adherent-common-model", "jar", "0.3.1.0.0")).
 	addDependency(new Project("com.almerys.emut.lmgv2", "lmgv2-contact-manager", "jar", "0.1.6.0.0")).	
 	addDependency(new Project("com.almerys.emut", "health-guarantee-description", "jar", "0.1.2.0.0")).
 	addDependency(new Project("com.almerys", "commun-agaps", "jar", "1.4.2.0.0")).	
