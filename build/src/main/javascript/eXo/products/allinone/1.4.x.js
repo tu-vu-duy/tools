@@ -76,7 +76,7 @@ function getProduct(version) {
 
   product.addDependencies(allinone.web.allinoneportal) ;
 
-  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+  product.addServerPatch("tomcat", allinone.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
