@@ -114,6 +114,9 @@ function getModule(params) {
   
   module.portlet = {};
   
+  module.portlet.report = 
+    new Project("org.exoplatform.vir", "vir.portlet.report", "exo-portlet", module.version);
+  
   module.portlet.webpresentation = 
     new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.portlet.web-presentation", "exo-portlet", "1.1.0.VIR_x").       
     addDependency(new Project("org.exoplatform.ecm.wcm", "exo.ecm.wcm.connector.fckeditor", "jar",  wcm.version)).

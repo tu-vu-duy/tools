@@ -41,6 +41,7 @@ function getProduct(version) {
   product.addDependencies(vir.portlet.websearches) ;
   product.addDependencies(vir.web.eXoWCMResources) ;
   product.addDependencies(vir.portlet.dms) ;
+  product.addDependencies(vir.portlet.report) ;
        
   product.addDependencies(vir.web.portal) ;     
   product.addDependencies(vir.web.VIRResources) ;
