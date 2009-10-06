@@ -33,8 +33,6 @@ function getModule(params) {
 	addDependency(new Project("com.almerys.exo", "exo-account-commons", "jar", "1.0.0.0.1")).
 	addDependency(new Project("com.almerys.lmg", "lmg-individu", "jar", "0.0.5.0.0")).
 	addDependency(new Project("com.almerys.lmg", "lmg-individu-ws-client", "jar", "0.0.4.0.0")).
-	addDependency(new Project("javax.xml.soap", "saaj-api", "jar", "1.3")).
-	addDependency(new Project("javax.jws", "jsr181-api", "jar", "1.0-MR1")).
 	addDependency(new Project("com.almerys.portal", "portal-filters", "jar", "1.2.0.0.0")).
 	addDependency(new Project("com.almerys.emut.lmgv2", "lmgv2-portal-filters", "jar", "0.2.1.0.0")).
 	addDependency(new Project("com.almerys.emut.lmgv2", "lmgv2-adherent-common-model", "jar", "0.3.1.0.0")).
