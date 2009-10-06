@@ -19,6 +19,22 @@ function getModule(params) {
   module.relativeSRCRepo =  "vir/source/branches/1.0.x" ;
   module.name =  "vir" ;
 
+  module.services = {};
+  module.services.jcr = 
+    new Project("org.exoplatform.jcr", "exo.jcr.component.core", "jar", "1.10.3.SPFF_1").
+    addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.ext", "jar", "1.10.3")).
+    addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.webdav", "jar", "1.10.3")).
+    addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.ftp", "jar", "1.10.3")) .
+    addDependency(core.component.documents) .
+    addDependency(new Project("jcr", "jcr", "jar", "1.0")).
+    addDependency(new Project("concurrent", "concurrent", "jar", "1.3.4")).
+    addDependency(new Project("javagroups", "jgroups-all", "jar", "2.5.2")).
+    addDependency(new Project("stax", "stax-api", "jar", "1.0")).
+	addDependency(new Project("org.apache.ws.commons","ws-commons-util","jar","1.0.1")).		
+    addDependency(new Project("org.apache.lucene", "lucene-core", "jar", "2.2.0")).
+    addDependency(new Project("org.apache.lucene", "lucene-spellchecker", "jar", "2.2.0")).
+    addDependency(new Project("org.apache.lucene", "lucene-memory", "jar", "2.2.0"));
+  
   module.component = {};
   
   module.component.resources = 
@@ -77,7 +93,7 @@ function getModule(params) {
     addDependency(core.component.documents).
     addDependency(core.component.resources).
     addDependency(core.component.gifbackport).
-    addDependency(jcr.services.jcr).
+    addDependency(module.services.jcr).
     addDependency(eXoPortletContainer.services.jsr168jsr286).
     addDependency(eXoPortletContainer.web.wsrp) ;
   
