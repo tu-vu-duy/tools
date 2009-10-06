@@ -33,8 +33,8 @@ function getModule(params) {
 
   module.services.axis = 
     new Project("axis", "axis", "jar", "1.4-0231").
-    addDependency(new Project("axis", "axis-jaxrpc", "jar", "1.4")).
-    addDependency(new Project("axis", "axis-saaj", "jar", "1.4")).
+    addDependency(new Project("org.apache.axis", "axis-jaxrpc", "jar", "1.4")).
+    addDependency(new Project("org.apache.axis", "axis-saaj", "jar", "1.4")).
     addDependency(new Project("axis", "axis-wsdl4j", "jar", "1.5.1")).
     addDependency(new Project("commons-discovery", "commons-discovery", "jar", "0.2"));
     //.addDependency(new Project("jtidy", "jtidy", "jar", "4aug2000r7-dev"));
