@@ -2,9 +2,23 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.exoplatform</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.1.1</version>
+  </parent>
+
   <groupId>org.exoplatform.tool</groupId>
   <artifactId>exo.tool.verificationResources</artifactId>
   <name>eXo tools Shared Verification Resources</name>
   <packaging>jar</packaging>
-  <version>trunk</version>
+  <version>1.0</version>
+
+  <scm>
+    <connection>scm:svn:http://svn.exoplatform.org/projects/tools/checkstyle/trunk</connection>
+    <developerConnection>scm:svn:http://svn.exoplatform.org/projects/tools/checkstyle/trunk</developerConnection>
+    <url>http://fisheye.exoplatform.org/browse/projects/tools/checkstyle/trunk/</url>
+  </scm>
+
+
 </project>
