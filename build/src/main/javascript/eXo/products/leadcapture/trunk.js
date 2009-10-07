@@ -25,6 +25,8 @@ function getProduct(version) {
   
   product.addDependencies(leadcapture.web.portal) ;
   product.addDependencies(leadcapture.component.client) ;
+  product.addDependencies(leadcapture.component.common) ;
+  product.addDependencies(leadcapture.component.server) ;
   
   product.addDependencies(dms.web.eXoDMSResources);
   product.addDependencies(portal.portlet.exoadmin);
