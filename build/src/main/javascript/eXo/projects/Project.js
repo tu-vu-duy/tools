@@ -58,7 +58,7 @@ Project.prototype.hasDependency = function() {
 
 Project.prototype.extractTo = function(repository, dir, ignore) {
     for ( var i = 0; i < repository.length; i++) {
-        try {
+    try {
             var surl = repository[i] + "/" + this.relativePath;
             var url = new java.net.URL(surl);
             eXo.System.info("PATCH", "Fetching patch at " + repository[i] + "/" + this.relativePath);
@@ -90,9 +90,17 @@ Project.prototype.extractTo = function(repository, dir, ignore) {
             is.close();
             return;
         } catch (err) {
-            eXo.System.info(err.message);
-            if (i < (repository.length - 1))
+            //eXo.System.info(err.message);
+            if (i==0) {
+              //Generate expected dependency declaration
+              java.lang.System.err.println("<dependency><groupId>" + this.groupId + "</groupId><artifactId>" + this.artifactId + "</artifactId><version>${" + this.groupId +".version}</version><type>" + this.extension + "</type></dependency><!-- " + this.version + "-->") ;
+            }
+
+            if (i < (repository.length - 1)){
                 eXo.System.info("Trying to download from the repo : " + repository[i + 1]);
+            } else {
+                throw ("Not found dependency:" + this.groupId + ":" + this.artifactId + ":" + this.type);
+            }
         }
 
     }
@@ -136,6 +144,7 @@ Project.prototype.deployTo = function(repository, server) {
             var out = new java.io.FileOutputStream(file);
 
             var is = url.openStream();
+            eXo.System.info("DEPLOY", fileName);
 
             eXo.System.vprintIndentation();
             eXo.System.vprint("[");
@@ -155,17 +164,25 @@ Project.prototype.deployTo = function(repository, server) {
                     }
                 }
             }
-            for (i = chunkCount; i < 60; i++)
-                eXo.System.vprint(" ");
-            eXo.System.vprint("] " + totalRead / 1024 + "kb\n");
+            //for (i = chunkCount; i < 60; i++)
+            //    eXo.System.vprint(".");
+            eXo.System.vprint("] " + totalRead / 1024 / 1024 + " Mo \n");
             out.close();
             is.close();
-            eXo.System.info("DEPLOY", fileName);
             return;
         } catch (err) {
             eXo.System.info(err.message);
-            if (i < (repository.length - 1))
-                eXo.System.info("Trying to download from the repo : " + repository[i + 1]);
+            if (i==0) {
+              //Generate expected dependency declaration
+              java.lang.System.err.println("<dependency><groupId>" + this.groupId + "</groupId><artifactId>" + this.artifactId + "</artifactId><version>${" + this.groupId +".version}</version><type>" + this.extension + "</type></dependency><!-- " + this.version + "-->") ;
+            }
+            
+            if (i < (repository.length - 1)){
+                eXo.System.info("* Checking on M2_REMOTE_REPO : " + repository[i + 1]);
+            } else {
+                //Block the packaging if not found
+                throw ("Not found dependency:" + this.groupId + ":" + this.artifactId + ":" + this.type);
+            }
         }
     }
     throw ("Error while deploying the project : " + this.relativePath);
