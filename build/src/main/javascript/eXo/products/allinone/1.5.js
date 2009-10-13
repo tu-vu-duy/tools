@@ -59,11 +59,10 @@ function getProduct(version) {
   product.addDependencies(cs.eXoApplication.content) ;
 //  product.addDependencies(cs.eXoApplication.chatbar) ;
   /* CS
-  product.addDependencies(cs.eXoApplication.chat) ;
+   * product.addDependencies(cs.eXoApplication.chat) ;
+   */
   
   product.addDependencies(cs.web.webservice) ;
-  */
-
   product.addDependencies(cs.web.csResources) ;
   
   /* KS */  
