@@ -6,9 +6,9 @@ function getProduct(version) {
   
   product.name = "eXoWorkflow" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "ecm/workflow/branches/1.0.x" ;
+  product.codeRepo = "ecm/workflow/tags/1.0.4" ;
   product.useWorkflow = true;
-  product.workflowVersion = "1.0.4-SNAPSHOT" ;
+  product.workflowVersion = "1.0.4" ;
   product.serverPluginVersion = "2.5.6" ;
     
   var tool =  Module.GetModule("tools/trunk") ;

@@ -4,11 +4,12 @@ eXo.require("eXo.projects.Product") ;
 function getProduct(version) {
   var product = new Product();
   
-  product.name = "eXoWorkflow" ;
+  product.name = "eXoDMS" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "ecm/workflow/branches/1.0.x" ;
-  product.useWorkflow = true;
-  product.workflowVersion = "1.0.4-SNAPSHOT" ;
+  product.codeRepo = "ecm/dms/tags/2.5.2" ;
+  product.useContentvalidation = true;
+  product.contentvalidationVersion = "2.5.2";
+  product.workflowVersion = "1.0.4";
   product.serverPluginVersion = "2.5.6" ;
     
   var tool =  Module.GetModule("tools/trunk") ;
@@ -18,17 +19,19 @@ function getProduct(version) {
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.7", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.10.5", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.5.6", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
-  var workflow = Module.GetModule("ecm/workflow/branches/1.0.x", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
+  var dms = Module.GetModule("ecm/dms/tags/2.5.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
     
   product.addDependencies(portal.web.rest);
-  product.addDependencies(workflow.web.portal);
-  product.addDependencies(workflow.web.eXoWorkflowResources);
+  product.addDependencies(dms.web.dmsportal);
+  product.addDependencies(dms.web.eXoDMSResources);
   product.addDependencies(portal.portlet.exoadmin);
   product.addDependencies(portal.portlet.web);
   product.addDependencies(portal.portlet.dashboard);
 	product.addDependencies(portal.eXoGadgetServer);
 	product.addDependencies(portal.eXoGadgets);  
-  product.addDependencies(workflow.portlet.workflow);
+  product.addDependencies(dms.portlet.dms);
+  product.addDependencies(dms.portlet.jcr_console);
+  product.addDependencies(dms.gadgets);
     
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
@@ -36,7 +39,7 @@ function getProduct(version) {
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   product.addServerPatch("ear",  portal.server.websphere.patch) ;
 
-  product.module = workflow ;
+  product.module = dms ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal];
 
   return product ;
