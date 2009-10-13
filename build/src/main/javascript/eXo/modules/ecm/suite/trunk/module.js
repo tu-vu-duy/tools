@@ -14,7 +14,7 @@ function getModule(params) {
   var ws = params.ws;
   var module = new Module();
 
-  module.version = "1.0-SNAPSHOT" ;
+  module.version = "1.0.1-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/ecm/suite" ;
   module.relativeSRCRepo =  "suite/trunk" ;
   module.name =  "ecm-suite" ;
