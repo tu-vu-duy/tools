@@ -8,15 +8,15 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "webos/branches/1.5.x" ;
   product.useWorkflow = false;
-  product.serverPluginVersion = "2.5.5" ;
+  product.serverPluginVersion = "2.5.6" ;
 
   var tool = Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/tags/2.0.7") ;
-  var core = Module.GetModule("core/tags/2.1.5") ;
-  var ws = Module.GetModule("ws/tags/1.3.3");
+  var kernel = Module.GetModule("kernel/tags/2.0.8") ;
+  var core = Module.GetModule("core/tags/2.1.6") ;
+  var ws = Module.GetModule("ws/tags/1.3.4");
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.7", {kernel : kernel, core : core}) ;
-  var eXoJcr = Module.GetModule("jcr/tags/1.10.4", {kernel : kernel, core : core, ws : ws}) ;
-  var portal = Module.GetModule("portal/tags/2.5.5", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
+  var eXoJcr = Module.GetModule("jcr/tags/1.10.5", {kernel : kernel, core : core, ws : ws}) ;
+  var portal = Module.GetModule("portal/tags/2.5.6", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
   var webos = Module.GetModule("webos/branches/1.5.x", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
 
   product.addDependencies(portal.web.rest) ;
