@@ -30,7 +30,7 @@ function getProduct(version) {
 	product.addDependencies(portal.eXoGadgets);  
 
   product.addDependencies(dms.web.eXoDMSResources);
-  product.addDependencies(dms.portlet.dms);
+  //product.addDependencies(dms.portlet.dms);
   product.addDependencies(dms.portlet.jcr_console);
   product.addDependencies(dms.gadgets);
     
@@ -39,7 +39,7 @@ function getProduct(version) {
   product.addDependencies(bpi.portlet.web);
   product.addDependencies(bpi.web.content); // add content portlet
   product.addDependencies(bpi.web.rssBpi); // add content portlet
-
+product.addDependencies(bpi.portlet.ecm);
 
 
   product.addDependencies(bpi.application.statsService); // add stat service jar

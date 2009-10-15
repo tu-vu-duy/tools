@@ -23,6 +23,8 @@ function getModule(params) {
   module.portlet.web = new Project("org.exoplatform.bpi", "bpi.portlet.web", "exo-portlet", module.version);
   module.portlet.web.deployName = "web" ;
 
+  module.portlet.ecm = new Project("org.exoplatform.bpi", "bpi.portlet.ecm", "exo-portlet", module.version);
+  module.portlet.ecm.deployName = "ecm" ;
 
   module.web = {};
   module.web.BPIResources = 
