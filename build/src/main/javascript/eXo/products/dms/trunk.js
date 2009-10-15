@@ -11,7 +11,8 @@ function getProduct(version) {
   product.contentvalidationVersion = "2.6-SNAPSHOT";
   product.workflowVersion = "1.0.3";
   product.serverPluginVersion = "2.5.6" ;
-    
+  product.workflowBonitaVersion = "4.1";
+  
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.8") ;
   var core = Module.GetModule("core/tags/2.1.6") ;

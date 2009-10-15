@@ -10,10 +10,11 @@ function getProduct(version) {
   product.useWorkflow = true;
   product.workflowVersion = "1.1-SNAPSHOT" ;
   product.serverPluginVersion = "2.5.6" ;
-    
+  product.workflowBonitaVersion = "4.1";
+  
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.8") ;
-  var core = Module.GetModule("core/tags/2.1.6") ;
+  var core = Module.GetModule("core/tags/2.1.6");
   var ws = Module.GetModule("ws/tags/1.3.4");
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.7", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.10.5", {kernel : kernel, core : core, ws : ws}) ;

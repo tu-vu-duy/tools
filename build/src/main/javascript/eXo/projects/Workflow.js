@@ -15,7 +15,7 @@ Workflow.prototype.configWorkflow = function(product) {
     if (this.name == "jbpm") {
         print("Workflow.js: adding dependencies for jbpm");
         product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.facade", "jar", this.version));
-        product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.engine", "jar", "3.0"));
+        product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.engine", "jar", product.workflowJbpmVersion));
         product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.payraise", "jar", this.version));
         product.addDependencies(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.holiday", "jar", this.version));
         if (product.useContentvalidation) {
@@ -38,13 +38,27 @@ Workflow.prototype.configWorkflow = function(product) {
             product.addDependencies(new Project("org.exoplatform.ecm.dms.ext.contentvalidation.bp", "exo.ecm.dms.ext.contentvalidation.bp.bonita.content-publishing", "jar", product.contentvalidationVersion));
             product.addDependencies(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.webui", "jar", product.contentvalidationVersion));
         }
-
-        product.addDependencies(new Project("org.ow2.bonita", "bonita-api", "jar", "4.0"));
-        product.addDependencies(new Project("org.ow2.bonita", "bonita-core", "jar", "4.0"));
-        product.addDependencies(new Project("org.ow2.novabpm", "novaBpmIdentity", "jar", "1.0"));
-        product.addDependencies(new Project("org.ow2.novabpm", "novaBpmUtil", "jar", "1.0"));
-        product.addDependencies(new Project("org.jbpm", "pvm", "jar", "r2175"));
-
+        if (product.workflowBonitaVersion == "4.1") {
+        	product.addDependencies(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.server.bonita-server-env", "jar", this.version));
+	        product.addDependencies(new Project("org.ow2.bonita", "bonita-api", "jar", product.workflowBonitaVersion));
+	        product.addDependencies(new Project("org.ow2.bonita", "bonita-api-accessor", "jar", product.workflowBonitaVersion));
+	        product.addDependencies(new Project("org.ow2.bonita", "bonita-api-obj", "jar", product.workflowBonitaVersion));
+	        product.addDependencies(new Project("org.ow2.bonita", "bonita-utils", "jar", product.workflowBonitaVersion));
+	        product.addDependencies(new Project("org.ow2.bonita", "bonita-util-common", "jar", product.workflowBonitaVersion));
+	        product.addDependencies(new Project("org.ow2.bonita", "bonita-identity", "jar", product.workflowBonitaVersion));
+	        product.addDependencies(new Project("org.ow2.bonita", "bonita-pvm", "jar", product.workflowBonitaVersion));
+	        product.addDependencies(new Project("org.ow2.bonita", "bonita-engine", "jar", product.workflowBonitaVersion));
+	        product.addDependencies(new Project("org.ow2.bonita", "bonita-server", "jar", product.workflowBonitaVersion));
+			product.addDependencies(new Project("org.ow2.bonita", "bonita-server-env", "jar", product.workflowBonitaVersion));
+			product.addDependencies(new Project("org.ow2.bonita", "bonita-hibernate", "jar", product.workflowBonitaVersion));
+        } else if (product.workflowBonitaVersion == "4.0") {
+        	product.addDependencies(new Project("org.ow2.bonita", "bonita-api", "jar", product.workflowBonitaVersion));
+            product.addDependencies(new Project("org.ow2.bonita", "bonita-core", "jar", product.workflowBonitaVersion));
+            product.addDependencies(new Project("org.ow2.novabpm", "novaBpmIdentity", "jar", "1.0"));
+            product.addDependencies(new Project("org.ow2.novabpm", "novaBpmUtil", "jar", "1.0"));
+            product.addDependencies(new Project("org.jbpm", "pvm", "jar", "r2175"));
+        }
+        
         // Remove duplicate ehcache from Portal
         product.removeDependency(new Project("net.sf.ehcache", "ehcache", "jar", "1.4.1"));
 

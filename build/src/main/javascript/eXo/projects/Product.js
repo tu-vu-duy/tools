@@ -12,6 +12,8 @@ function Product() {
   this.useContentValidation = false;
   this.dependencyModule = null ;
   this.serverPluginVersion = "trunk" ;
+  this.workflowBonitaVersion = "4.0";
+  this.workflowJbpmVersion = "3.0";
 }
 
 Product.prototype.getVersion = function() {
