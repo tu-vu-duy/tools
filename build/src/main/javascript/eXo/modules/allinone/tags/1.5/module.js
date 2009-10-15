@@ -33,6 +33,9 @@ function getModule(params) {
     addDependency(jcr.frameworks.web).
     addDependency(portal.web.rest);
 
+  module.webservices =
+    new Project("org.exoplatform.allinone", "exo.aio.web.webservices", "jar", module.version);
+
   module.tomcat = {}
   module.tomcat.patch =
     new Project("org.exoplatform.allinone", "aio-tomcat-patch", "jar", module.version);

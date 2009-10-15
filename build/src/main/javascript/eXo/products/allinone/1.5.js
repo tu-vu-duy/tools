@@ -57,12 +57,17 @@ function getProduct(version) {
   product.addDependencies(cs.eXoApplication.calendar) ;
   product.addDependencies(cs.eXoApplication.contact) ;
   product.addDependencies(cs.eXoApplication.content) ;
-//  product.addDependencies(cs.eXoApplication.chatbar) ;
-  /* CS
+  /*
    * product.addDependencies(cs.eXoApplication.chat) ;
+   * product.addDependencies(cs.eXoApplication.chatbar) ;
    */
   
-  product.addDependencies(cs.web.webservice) ;
+  /*
+   * product.addDependencies(cs.web.webservice) ;
+   * We deploy specific webservice instead of CS ones because they are responsible for http://jira.exoplatform.org/browse/ALL-79
+   * The specific jar contains only the MailWebservice that fixes http://jira.exoplatform.org/browse/ALL-67
+   */
+  product.addDependencies(allinone.webservices) ;
   product.addDependencies(cs.web.csResources) ;
   
   /* KS */  
