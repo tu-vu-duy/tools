@@ -30,6 +30,10 @@ function getModule(params) {
     addDependency(jcr.frameworks.web).
     addDependency(portal.web.rest);
   module.web.ecmsuiteportal.deployName = "portal" ;
+
+  module.tomcat = {}
+  module.tomcat.patch =
+    new Project("org.exoplatform.ecm.suite", "ecm-suite-tomcat-patch", "jar", module.version);
   
   return module;
 }
