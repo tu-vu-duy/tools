@@ -9,7 +9,7 @@ function getProduct(version) {
   product.codeRepo = "ecm/dms/branches/2.5.x" ;
   product.useContentvalidation = true;
   product.contentvalidationVersion = "2.5.3-SNAPSHOT";
-  product.workflowVersion = "1.0.4";
+  product.workflowVersion = "1.0.3";
   product.serverPluginVersion = "2.5.6.1" ;
     
   var tool =  Module.GetModule("tools/trunk") ;

@@ -9,7 +9,7 @@ function getProduct(version) {
   product.codeRepo = "ecm/dms/trunk" ;
   product.useContentvalidation = true;
   product.contentvalidationVersion = "2.6-SNAPSHOT";
-  product.workflowVersion = "1.0.4";
+  product.workflowVersion = "1.0.3";
   product.serverPluginVersion = "2.5.6.1" ;
   product.workflowBonitaVersion = "4.1";
   
