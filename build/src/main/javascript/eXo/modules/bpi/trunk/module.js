@@ -23,7 +23,14 @@ function getModule(params) {
   module.portlet.web = new Project("org.exoplatform.bpi", "bpi.portlet.web", "exo-portlet", module.version);
   module.portlet.web.deployName = "web" ;
 
-  module.portlet.ecm = new Project("org.exoplatform.bpi", "bpi.portlet.ecm", "exo-portlet", module.version);
+  module.portlet.ecm = new Project("org.exoplatform.bpi", "bpi.portlet.ecm", "exo-portlet", module.version).
+		addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.cms", "jar",  dms.version)) .     
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.deployment", "jar",  dms.version)) .    
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.component.publication", "jar", dms.version)).
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.connector.fckeditor", "jar", dms.version)).
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.webui.dms", "jar", dms.version)).
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.webui.ext", "jar", dms.version)).
+    addDependency(new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.portlet.ecm.ext.config", "jar", dms.version));
   module.portlet.ecm.deployName = "ecm" ;
 
   module.web = {};
