@@ -38,6 +38,10 @@ function getModule(params) {
   	addDependency(new Project("org.exoplatform.cg38", "taxonomy.cg38.component", "jar",  module.version));
   module.portlet.web.deployName = "cg38PortletWeb" ;
   
+  module.portlet.ecm = new Project("org.exoplatform.cg38", "cg38.portlet.ecm", "exo-portlet", module.version).
+	addDependency(new Project("org.exoplatform.ecm", "exo.ecm.component.cms", "jar",  "2.2.0.CG38_2"));
+  module.portlet.ecm.deployName = "ecm" ;
+  
   module.web = {}
   module.web.cg38Resources = new Project("org.exoplatform.cg38", "cg38.web.cg38Resources", "war", module.version);
   module.web.cg38Resources.deployName = "eXoResourcesCG38" ;
