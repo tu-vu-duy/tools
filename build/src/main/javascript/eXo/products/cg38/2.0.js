@@ -47,6 +47,7 @@ function getProduct(version) {
   product.addDependencies(cg38.component.jcraction);
   product.addDependencies(cg38.component.cg38CategoriesService);
   product.addDependencies(cg38.component.cg38Indexation);
+  product.addDependencies(cg38.portlet.ecm) ;
   //product.addDependencies(cg38.component.search);
   //product.addDependencies(cg38.component.rss);
   
@@ -62,6 +63,8 @@ function getProduct(version) {
 
   product.module = cg38 ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, wcm, cs];
+  
+  product.removeDependencyById("exo.ecm.component.cms");
     
   return product ;
 }
