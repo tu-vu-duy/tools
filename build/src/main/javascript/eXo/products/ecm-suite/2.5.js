@@ -6,7 +6,7 @@ function getProduct(version) {
 
   product.name = "ecmsuite" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "ecm/suite/tags/1.0.1" ;
+  product.codeRepo = "ecm/suite/tags/2.5" ;
   product.useContentvalidation = true;
   product.contentvalidationVersion = "2.5.1";
   product.workflowVersion = "1.0.2" ;
@@ -25,7 +25,7 @@ function getProduct(version) {
   
   var workflow = Module.GetModule("ecm/workflow/tags/1.0.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var wcm = Module.GetModule("ecm/wcm/tags/1.2", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
-  var ecmsuite = Module.GetModule("ecm/suite/tags/1.0.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, wcm: wcm,workflow : workflow});
+  var ecmsuite = Module.GetModule("ecm/suite/tags/2.5", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, wcm: wcm,workflow : workflow});
   
   product.addDependencies(portal.web.rest);
   product.addDependencies(portal.portlet.exoadmin) ;
