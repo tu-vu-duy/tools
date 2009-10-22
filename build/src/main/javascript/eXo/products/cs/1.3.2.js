@@ -6,7 +6,7 @@ function getProduct(version) {
   var product = new Product();
   product.name = "eXoCS" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "cs/branches/1.3.x" ;
+  product.codeRepo = "cs/tags/1.3.2" ;
   product.serverPluginVersion = "2.5.6.1" ;
 
   var tool =  Module.GetModule("tools/trunk") ;
@@ -17,7 +17,7 @@ function getProduct(version) {
   var eXoJcr = Module.GetModule("jcr/tags/1.10.5", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.5.6.1", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr}); 
   var webos = Module.GetModule("webos/tags/1.5.3", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
-  var cs = Module.GetModule("cs/branches/1.3.x", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var cs = Module.GetModule("cs/tags/1.3.2", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
 
   product.addDependencies(cs.eXoApplication.mail) ;
   product.addDependencies(cs.eXoApplication.calendar) ;
