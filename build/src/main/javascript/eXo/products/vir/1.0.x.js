@@ -20,6 +20,7 @@ function getProduct(version) {
   var eXoJcr = Module.GetModule("jcr/tags/1.10.3", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.5.3", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});         
   var dms = Module.GetModule("ecm/dms/tags/2.3.1", {kernel : kernel, core : core,ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr , portal : portal});
+	var cs = Module.GetModule("cs/tags/1.2.2", {kernel : kernel, core : core,ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr , portal : portal});
   var wcm = Module.GetModule("ecm/wcm/tags/1.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
   var vir = Module.GetModule("vir/branches/1.0.x", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, wcm : wcm});
     
@@ -32,6 +33,8 @@ function getProduct(version) {
 	
 //  product.addDependencies(dms.portlet.dms);
   product.addDependencies(dms.web.eXoDMSResources) ;
+	
+	product.addDependencies(cs.eXoApplication.content);
   		 
 //  product.addDependencies(wcm.portlet.webpresentation);
 //  product.addDependencies(wcm.portlet.websearches); 
