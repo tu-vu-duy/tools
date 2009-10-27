@@ -21,7 +21,7 @@ function getModule(params) {
 
   module.services = {};
   module.services.jcr = 
-    new Project("org.exoplatform.jcr", "exo.jcr.component.core", "jar", "1.10.3.SPFF_1").
+    new Project("org.exoplatform.jcr", "exo.jcr.component.core", "jar", "1.10.3.VIR_x").
     addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.ext", "jar", "1.10.3")).
     addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.webdav", "jar", "1.10.3")).
     addDependency(new Project("org.exoplatform.jcr", "exo.jcr.component.ftp", "jar", "1.10.3")) .
