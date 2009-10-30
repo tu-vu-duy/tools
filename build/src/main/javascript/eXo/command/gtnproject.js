@@ -105,3 +105,6 @@ for(var i = 0; i < args.length; i++) {
     gtnproject.QuickWarDeploy() ;
   }
 }
+
+//Ensure the JVM exits
+java.lang.System.exit(0);
