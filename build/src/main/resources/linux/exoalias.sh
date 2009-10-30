@@ -22,6 +22,7 @@ alias tomcatCleanRun="cd $EXO_WORKING_DIR/exo-tomcat/bin &&
 alias openfireRun="cd $EXO_WORKING_DIR/exo-openfire/bin && chmod +x openfire && ./openfire start"
 
 alias exoproject="js.sh exoproject"
+alias gtnproject="js.sh gtnproject"
 
 alias exobuild="js.sh exobuild"
 alias exosvn="js.sh exosvn"
