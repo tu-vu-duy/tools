@@ -6,24 +6,43 @@ function getModule(params) {
   var kernel = params.kernel;
   var core = params.core;
   var eXoPortletContainer = params.eXoPortletContainer;
+  var ws = params.ws;
   var jcr = params.eXoJcr;
   var portal = params.portal;
-  var ecm = params.ecm ;
   var module = new Module();
 
-  module.version = "trunk" ;
+  module.version = "2.0-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/intranet" ;
   module.relativeSRCRepo =  "intranet/trunk" ;
   module.name =  "intranet" ;
+  
+  var workflowversion = "1.0.4" ;
        
-  module.portlet = {}
+  //module.portlet = {};
+  /*
   module.portlet.web = new Project("org.exoplatform.intranet", "intranet.portlet.web", "exo-portlet", module.version);
   module.portlet.web.deployName = "intranetPortletWeb" ;
-  
+  */
   module.web = {} ;
-  module.web.eXoResources = new Project("org.exoplatform.intranet", "intranet.web.intranetResources", "war", module.version);
-  module.web.eXoResources.deployName = "eXoResourcesIntranet" ;
+  module.web.resources = 
+	  new Project("org.exoplatform.intranet", "intranet.web.resources", "war", module.version).
+	  	addDependency(new Project("org.exoplatform.webos", "exo.webos.web.webosResources", "war", "1.5.2"));
+  //module.web.eXoResources.deployName = "eXoResourcesIntranet" ;
+  module.web.portal = 
+	  new Project("org.exoplatform.intranet", "intranet.web.portal", "exo-portal", module.version).   
+	    addDependency(portal.web.eXoResources) .
+	    addDependency(portal.web.eXoMacSkin) .
+	    addDependency(portal.web.eXoVistaSkin) .
+	    addDependency(portal.webui.portal) .
+	    addDependency(jcr.frameworks.command) .
+	    addDependency(jcr.frameworks.web).
+	    addDependency(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.facade", "jar", workflowversion)).
+	    addDependency(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.engine", "jar", "3.0")).
+	    addDependency(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.api", "jar", workflowversion)).
+	    addDependency(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.payraise", "jar", workflowversion)).
+	    addDependency(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.holiday", "jar", workflowversion));
   
+/*  
   module.zoho = new Project("org.exoplatform.intranet", "zoho.webapp", "war", module.version).
   		addDependency(new Project("commons-fileupload", "commons-fileupload", "jar", "1.1")).
   		addDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0")).
@@ -36,17 +55,8 @@ function getModule(params) {
   module.server.tomcat.patch = 
     new Project("org.exoplatform.intranet", "intranet.server.tomcat.patch", "jar", module.version);
 
-  module.web.portal = 
-    new Project("org.exoplatform.intranet", "exo.intranet.web.portal", "exo-portal", module.version).   
-    addDependency(portal.web.eXoResources) .
-    addDependency(portal.web.eXoMacSkin) .
-    addDependency(portal.web.eXoVistaSkin) .
-    addDependency(portal.webui.portal) .
-
-    addDependency(jcr.frameworks.command) .
-    addDependency(jcr.frameworks.web).
-    addDependency(ecm.web.rest);
+  
     
-
+*/
   return module;
 }
