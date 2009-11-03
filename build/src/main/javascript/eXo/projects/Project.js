@@ -181,10 +181,10 @@ Project.prototype.deployTo = function(repository, server) {
                 eXo.System.info("* Checking on M2_REMOTE_REPO : " + repository[i + 1]);
             } else {
                 //Block the packaging if not found
-                throw ("Not found dependency:" + this.groupId + ":" + this.artifactId + ":" + this.type);
+                //throw ("Not found dependency:" + this.groupId + ":" + this.artifactId + ":" + this.type);
             }
         }
     }
-    throw ("Error while deploying the project : " + this.relativePath);
+   // throw ("Error while deploying the project : " + this.relativePath);
 }
 eXo.projects.Project = Project.prototype.constructor;
