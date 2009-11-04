@@ -8,17 +8,14 @@ function getModule(params) {
   var eXoPortletContainer = params.eXoPortletContainer;
   var jcr = params.eXoJcr;
   var portal = params.portal;
-  var dms = params.dms;
   var ws = params.ws;
   var module = new Module();
 
-  module.version =  "1.0.4-SNAPSHOT" ;
+  module.version =  "2.0-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/leadcapture" ;
   module.relativeSRCRepo =  "exo-int/delivery/lead-capture/trunk" ;
   module.name =  "leadcapture" ;
   
-  var dmsversion = "2.3.2" ;
-    
   module.component={}
   module.component.common = 
 	new Project("org.exoplatform.leadcapture", "exo.leadcapture.common", "jar", module.version);
@@ -32,16 +29,24 @@ function getModule(params) {
     addDependency(module.component.common);
   
   module.web = {}  
-  module.web.portal = 
-    new Project("org.exoplatform.leadcapture", "exo.leadcapture.web.portal", "exo-portal", module.version).
+  module.web.clientportal = 
+    new Project("org.exoplatform.leadcapture", "exo.leadcapture.web.client.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .
     addDependency(portal.web.eXoMacSkin) .
     addDependency(portal.web.eXoVistaSkin) .
     addDependency(portal.webui.portal). 
     addDependency(jcr.frameworks.command) .
-    addDependency(jcr.frameworks.web) .
-    addDependency(module.component.server);
+    addDependency(jcr.frameworks.web);
 
+  module.web.serverportal = 
+    new Project("org.exoplatform.leadcapture", "exo.leadcapture.web.server.portal", "exo-portal", module.version).
+    addDependency(portal.web.eXoResources) .
+    addDependency(portal.web.eXoMacSkin) .
+    addDependency(portal.web.eXoVistaSkin) .
+    addDependency(portal.webui.portal). 
+    addDependency(jcr.frameworks.command) .
+    addDependency(jcr.frameworks.web);
+	
   module.server = {}
   module.server.tomcat = {}
   module.server.tomcat.patch = 
