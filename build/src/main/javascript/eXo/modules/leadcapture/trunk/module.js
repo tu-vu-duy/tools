@@ -36,7 +36,8 @@ function getModule(params) {
     addDependency(portal.web.eXoVistaSkin) .
     addDependency(portal.webui.portal). 
     addDependency(jcr.frameworks.command) .
-    addDependency(jcr.frameworks.web);
+    addDependency(jcr.frameworks.web) .
+    addDependency(new Project("commons-codec", "commons-codec", "jar", "1.3"));
 
   module.web.serverportal = 
     new Project("org.exoplatform.leadcapture", "exo.leadcapture.web.server.portal", "exo-portal", module.version).
@@ -45,7 +46,8 @@ function getModule(params) {
     addDependency(portal.web.eXoVistaSkin) .
     addDependency(portal.webui.portal). 
     addDependency(jcr.frameworks.command) .
-    addDependency(jcr.frameworks.web);
+    addDependency(jcr.frameworks.web) .
+    addDependency(new Project("commons-codec", "commons-codec", "jar", "1.3"));
 	
   module.server = {}
   module.server.tomcat = {}
