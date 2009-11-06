@@ -33,8 +33,11 @@ function getModule(params) {
     addDependency(jcr.frameworks.web).
     addDependency(portal.web.rest);
 
-  module.tomcat = {}
-  module.tomcat.patch =
+  module.patches = {}
+  module.patches.chatbar =
+     new Project("org.exoplatform.allinone", "exo.allinone.webapp.chatbar", "war", module.version);
+
+  module.patches.tomcat =
     new Project("org.exoplatform.allinone", "aio-tomcat-patch", "jar", module.version);
 
   
