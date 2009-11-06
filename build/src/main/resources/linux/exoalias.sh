@@ -13,6 +13,7 @@ alias tomcatClean="cd $EXO_WORKING_DIR/exo-tomcat/bin &&
                    rm -rf ../logs/* "
    
 alias tomcatRun="cd $EXO_WORKING_DIR/exo-tomcat/bin && chmod +x *.sh && ./eXo.sh run"
+alias gtnRun="$EXO_WORKING_DIR/tomcat/bin/gatein-dev.sh run"
 alias tomcatCleanRun="cd $EXO_WORKING_DIR/exo-tomcat/bin &&
 		                  rm -rf ../temp/* &&
                       rm -rf ../work/* &&
