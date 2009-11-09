@@ -13,9 +13,9 @@ function getModule(params) {
   
   var module = new Module();
 
-  module.version = "0.10-SNAPSHOT" ;
+  module.version = "0.9" ;
   module.relativeMavenRepo =  "org/exoplatform/cp130709" ;
-  module.relativeSRCRepo =  "cp130709/trunk" ;
+  module.relativeSRCRepo =  "cp130709/tags/0.9" ;
   module.name =  "cp130709" ;
   
   module.portlet = {};
