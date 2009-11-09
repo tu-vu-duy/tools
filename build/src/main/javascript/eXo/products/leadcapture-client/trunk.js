@@ -35,7 +35,8 @@ function getProduct(version) {
   product.addDependencies(leadcapture.component.client) ;
   product.addDependencies(leadcapture.component.common) ;
   
-  product.addServerPatch("tomcat", leadcapture.server.tomcat.patch);
+  product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
+  product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   
   product.removeDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0"));
   product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "3.1"));
