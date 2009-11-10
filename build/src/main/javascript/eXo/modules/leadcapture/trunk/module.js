@@ -39,6 +39,10 @@ function getModule(params) {
     addDependency(jcr.frameworks.web) .
     addDependency(new Project("commons-codec", "commons-codec", "jar", "1.3"));
 
+	module.web.capture = 
+    new Project("org.exoplatform.leadcapture", "exo.leadcapture.web.client.application", "war", module.version);
+	module.web.capture.deployName = "capture";
+	
   module.web.serverportal = 
     new Project("org.exoplatform.leadcapture", "exo.leadcapture.web.server.portal", "exo-portal", module.version).
     addDependency(portal.web.eXoResources) .

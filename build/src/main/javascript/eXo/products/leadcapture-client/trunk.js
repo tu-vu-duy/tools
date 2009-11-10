@@ -34,6 +34,7 @@ function getProduct(version) {
   product.addDependencies(leadcapture.web.clientportal) ;
   product.addDependencies(leadcapture.component.client) ;
   product.addDependencies(leadcapture.component.common) ;
+  product.addDependencies(leadcapture.web.capture) ;
   
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
