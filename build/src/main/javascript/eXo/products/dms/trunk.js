@@ -9,8 +9,8 @@ function getProduct(version) {
   product.codeRepo = "ecm/dms/trunk" ;
   product.useContentvalidation = true;
   product.contentvalidationVersion = "2.6-SNAPSHOT";
-  product.workflowVersion = "1.0.3";
-  product.serverPluginVersion = "2.5.6.1" ;
+  product.workflowVersion = "1.0.4.1";
+  product.serverPluginVersion = "2.5.6.2" ;
   product.workflowBonitaVersion = "4.0";
   
   var tool =  Module.GetModule("tools/trunk") ;
@@ -18,8 +18,8 @@ function getProduct(version) {
   var core = Module.GetModule("core/tags/2.1.6") ;
   var ws = Module.GetModule("ws/tags/1.3.4");
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.7", {kernel : kernel, core : core}) ;
-  var eXoJcr = Module.GetModule("jcr/tags/1.10.5", {kernel : kernel, core : core, ws : ws}) ;
-  var portal = Module.GetModule("portal/tags/2.5.6.1", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
+  var eXoJcr = Module.GetModule("jcr/tags/1.10.5.1", {kernel : kernel, core : core, ws : ws}) ;
+  var portal = Module.GetModule("portal/tags/2.5.6.2", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var dms = Module.GetModule("ecm/dms/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
     
   product.addDependencies(portal.web.rest);
