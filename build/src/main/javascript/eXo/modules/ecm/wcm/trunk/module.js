@@ -26,14 +26,14 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.wcm.component.wcm", "jar",  module.version)).
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.wcm.webui.wcm", "jar",  module.version)).
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.wcm.component.publication", "jar",  module.version)).    
+    addDependency(new Project("org.exoplatform.ecm", "exo.ecm.wcm.ext.publication", "jar",  module.version)).
     addDependency(ws.frameworks.json) .
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web).
     addDependency(portal.webui.portal);
     
  module.portlet.websearches = 
-    new Project("org.exoplatform.ecm", "exo.ecm.wcm.portlet.searches", "exo-portlet", module.version).    
-    addDependency(new Project("org.exoplatform.ecm", "exo.ecm.wcm.component.wcm", "jar",  module.version)).
+    new Project("org.exoplatform.ecm", "exo.ecm.wcm.portlet.searches", "exo-portlet", module.version).
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.wcm.component.search", "jar",  module.version));
 
 	module.portlet.newsletter = 
@@ -41,8 +41,7 @@ function getModule(params) {
     addDependency(new Project("org.exoplatform.ecm", "exo.ecm.wcm.component.newsletter", "jar",  module.version));    
 
 	module.portlet.formgenerator = 
-    new Project("org.exoplatform.ecm", "exo.ecm.wcm.portlet.formgenerator", "exo-portlet", module.version).    
-    addDependency(new Project("org.exoplatform.ecm", "exo.ecm.wcm.component.wcm", "jar",  module.version));
+    new Project("org.exoplatform.ecm", "exo.ecm.wcm.portlet.formgenerator", "exo-portlet", module.version);
 
   module.web = {};
   module.web.eXoWCMResources = 
