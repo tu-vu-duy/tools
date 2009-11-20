@@ -13,7 +13,7 @@ function getModule(params) {
   
   var module = new Module();
 
-  module.version = "1.2.x" ;
+  module.version = "1.2.2-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/ecm/wcm" ;
   module.relativeSRCRepo =  "ecm/wcm/branches/1.2.x" ;
   module.name =  "wcm" ;
