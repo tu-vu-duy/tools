@@ -24,9 +24,10 @@ function getProduct(version) {
   var dms = Module.GetModule("ecm/dms/tags/2.5.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var intranet = Module.GetModule("intranet/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   
-  product.addDependencies(intranet.web.resources) ;
-  product.addDependencies(intranet.web.portal) ; 
-  product.addDependencies(intranet.component.ldap) ; 
+  product.addDependencies(intranet.web.resources) 
+  product.addDependencies(intranet.web.portal) ;
+  product.addDependencies(intranet.component.ldap) ;
+  product.addDependencies(intranet.component.organization) ;
 
   product.addDependencies(portal.web.rest);
   product.addDependencies(dms.web.dmsportal);
@@ -35,7 +36,7 @@ function getProduct(version) {
   product.addDependencies(portal.portlet.web);
   product.addDependencies(portal.portlet.dashboard);
   product.addDependencies(portal.eXoGadgetServer);
-  product.addDependencies(portal.eXoGadgets);  
+  product.addDependencies(portal.eXoGadgets);
   product.addDependencies(dms.portlet.dms);
   product.addDependencies(dms.portlet.jcr_console);
   product.addDependencies(dms.gadgets);
@@ -45,7 +46,7 @@ function getProduct(version) {
     
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
-  product.addServerPatch("jbossear",  portal.server.jbossear.patch) ;  
+  product.addServerPatch("jbossear",  portal.server.jbossear.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
   product.addServerPatch("ear",  portal.server.websphere.patch) ;
 

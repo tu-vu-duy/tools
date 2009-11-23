@@ -47,6 +47,9 @@ function getModule(params) {
 	  new Project("org.exoplatform.intranet", "intranet.component.ldap", "jar", module.version).
 	    addDependency(new Project("commons-codec", "commons-codec", "jar", "1.3"));
   
+  module.component.organization= 
+	  new Project("org.exoplatform.intranet", "intranet.component.organization.initializer", "jar", module.version);
+  
 /*  
   module.zoho = new Project("org.exoplatform.intranet", "zoho.webapp", "war", module.version).
   		addDependency(new Project("commons-fileupload", "commons-fileupload", "jar", "1.1")).
