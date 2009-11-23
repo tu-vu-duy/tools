@@ -26,6 +26,7 @@ function getProduct(version) {
   
   product.addDependencies(intranet.web.resources) ;
   product.addDependencies(intranet.web.portal) ; 
+  product.addDependencies(intranet.component.ldap) ; 
 
   product.addDependencies(portal.web.rest);
   product.addDependencies(dms.web.dmsportal);
