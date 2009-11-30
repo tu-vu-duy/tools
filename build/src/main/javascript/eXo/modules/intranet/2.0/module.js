@@ -11,9 +11,9 @@ function getModule(params) {
   var portal = params.portal;
   var module = new Module();
 
-  module.version = "2.1-SNAPSHOT" ;
+  module.version = "2.0" ;
   module.relativeMavenRepo =  "org/exoplatform/intranet" ;
-  module.relativeSRCRepo =  "intranet/trunk" ;
+  module.relativeSRCRepo =  "intranet/tags/2.0" ;
   module.name =  "intranet" ;
   
   var workflowversion = "1.0.4" ;
