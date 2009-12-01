@@ -11,7 +11,7 @@ function getProduct(version) {
   product.contentvalidationVersion = "2.5.2.1";
   product.useWorkflow = false;
   product.workflowVersion = "1.0.4.1" ;
-  product.serverPluginVersion = "2.5.6.1" ;
+  product.serverPluginVersion = "2.5.6.2" ;
   
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.8") ;
@@ -20,7 +20,7 @@ function getProduct(version) {
 
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.7", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.10.5.1", {kernel : kernel, core : core, ws : ws}) ;
-  var portal = Module.GetModule("portal/tags/2.5.6.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, ws : ws });  
+  var portal = Module.GetModule("portal/tags/2.5.6.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, ws : ws });  
   
   var dms = Module.GetModule("ecm/dms/tags/2.5.2.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   
