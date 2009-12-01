@@ -27,12 +27,12 @@ function getProduct(version) {
   var leadcapture = Module.GetModule("leadcapture/tags/1.0.4", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, ws : ws});
 
   product.addDependencies(portal.web.rest) ;
-  product.addDependencies(portal.portlet.exoadmin) ;
+  product.addDependencies(company.portlet.exoadmin) ;
   product.addDependencies(portal.portlet.web) ;
   product.addDependencies(portal.portlet.dashboard) ;
   product.addDependencies(portal.eXoGadgetServer) ;
   product.addDependencies(portal.eXoGadgets) ;
-  
+    
   product.addDependencies(portal.web.eXoResources);
   product.addDependencies(portal.web.eXoMacSkin);
   product.addDependencies(portal.web.eXoVistaSkin);
@@ -65,12 +65,14 @@ function getProduct(version) {
   product.addDependencies(company.web.companyResources) ;
   product.addDependencies(company.portlet.web) ;
   product.addDependencies(company.application.rest) ;
+  product.addDependencies(company.webui.eXo) ;
   
   product.addDependencies(workflow.web.eXoWorkflowResources);
   product.addDependencies(workflow.portlet.workflow);
   
   product.addDependencies(leadcapture.component.common) ;
   product.addDependencies(leadcapture.component.server) ;
+  product.removeDependency(portal.webui.eXo);
   
   product.addServerPatch("tomcat", company.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
