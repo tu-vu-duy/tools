@@ -37,9 +37,9 @@ function getModule(params) {
 	addDependency(new Project("javax.xml.soap", "saaj-api", "jar", "1.3")).
 	addDependency(new Project("javax.jws", "jsr181-api", "jar", "1.0-MR1")).
 	addDependency(new Project("com.almerys.emut.lmgv2", "lmgv2-portal-filters", "jar", "0.3.0.0.0")).
-	addDependency(new Project("com.almerys.emut.lmgv2", "lmgv2-adherent-common-model", "jar", "0.4.5.0.0")).
+	addDependency(new Project("com.almerys.emut.lmgv2", "lmgv2-adherent-common-model", "jar", "0.4.6.0.0")).
 	addDependency(new Project("com.almerys.emut.lmgv2", "lmgv2-contact-manager", "jar", "0.1.6.0.0")).	
-	addDependency(new Project("com.almerys.emut", "health-guarantee-description", "jar", "0.1.2.0.0")).
+	addDependency(new Project("com.almerys.emut", "health-guarantee-description", "jar", "0.1.3.0.0")).
 	addDependency(new Project("com.almerys", "commun-agaps", "jar", "1.4.2.0.0")).	
 	addDependency(new Project("com.almerys.lmg","AlmerysHeader", "war", "1.0.0.0.0")).
 	addDependency(new Project("com.almerys.lmg","LMGv2AccountManagerWeb", "war", "1.0.0.0.0")).	
