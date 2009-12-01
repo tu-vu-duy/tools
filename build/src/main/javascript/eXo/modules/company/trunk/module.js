@@ -23,8 +23,10 @@ function getModule(params) {
   var csversion = "1.2" ;
     
   module.portlet = {}
-  module.portlet.web = new Project("org.exoplatform.company", "company.portlet.web", "exo-portlet", module.version);
+  module.portlet.web = new Project("org.exoplatform.company", "company.portlet.web", "exo-portlet", module.version);  
   module.portlet.web.deployName = "companyPortletWeb" ;
+  module.portlet.exoadmin = new Project("org.exoplatform.portal", "exo.portal.portlet.exoadmin", "war", "2.5.3.CWI_1");
+  module.portlet.exoadmin.deployName = "exoadmin" ;
 
   module.portlet.dms = 
     new Project("org.exoplatform.company", "company.portlet.ecm", "exo-portlet", module.version).
@@ -61,7 +63,9 @@ function getModule(params) {
   module.component.web=
     new Project("org.exoplatform.company", "company.component.web", "jar", module.version).
     addDependency(portal.component.web);
-  
+  module.webui = {}
+  module.webui.eXo = new Project("org.exoplatform.portal", "exo.portal.webui.eXo", "jar", "2.5.3.CWI_1");
+  //module.webui.eXo.deployName = "exoadmin" ;
   module.web = {}  
   module.web.companyResources = 
     new Project("org.exoplatform.company", "company.web.eXoResourcesCompany", "exo-portal", module.version) ;    
