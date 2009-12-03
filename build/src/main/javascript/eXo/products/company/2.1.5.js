@@ -50,7 +50,7 @@ function getProduct(version) {
 
   
   product.addDependencies(cs.eXoApplication.mail) ;
-   replaced by "company.eXoApplication.calendar"
+  // replaced by "company.eXoApplication.calendar"
   product.addDependencies(cs.eXoApplication.calendar) ;
   product.addDependencies(cs.eXoApplication.contact) ;
   product.addDependencies(cs.eXoApplication.content) ;

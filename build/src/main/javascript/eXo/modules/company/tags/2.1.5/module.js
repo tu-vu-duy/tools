@@ -12,7 +12,7 @@ function getModule(params) {
   var ws = params.ws;
   var module = new Module();
 
-  module.version =  "2.1.5" ;
+  module.version =  "2.1.5";
   module.relativeMavenRepo =  "org/exoplatform/company" ;
   module.relativeSRCRepo =  "company/tags/2.1.5" ;
   module.name =  "company" ;
