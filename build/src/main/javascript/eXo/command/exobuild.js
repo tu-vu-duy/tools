@@ -1,6 +1,7 @@
 eXo.require("eXo.server.Tomcat");
 eXo.require("eXo.server.Jboss");
 eXo.require("eXo.server.JbossEar");
+eXo.require("eXo.server.WASEar");
 eXo.require("eXo.server.Ear");
 eXo.require("eXo.server.Jonas");
 eXo.require("eXo.server.Database");
@@ -30,6 +31,7 @@ serverMap.put("tomcat", new Tomcat(eXo.env.workingDir + "/exo-tomcat"));
 serverMap.put("jboss", new Jboss(eXo.env.workingDir + "/exo-jboss"));
 serverMap.put("jbossear", new JbossEar(eXo.env.workingDir + "/exo-jboss"));
 serverMap.put("jonas", new Jonas(eXo.env.workingDir + "/exo-jonas"));
+serverMap.put("wasear", new WASEar(eXo.env.workingDir + "/exo-ear"));
 serverMap.put("ear", new Ear(eXo.env.workingDir + "/exo-ear"));
 
 var modules = ["all","pc", "jcr", "ws", "tools", "ecm", "cs", "ks", "portal", "liveroom", "dms", "workflow"];
