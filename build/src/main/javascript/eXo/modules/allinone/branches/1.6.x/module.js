@@ -40,6 +40,9 @@ function getModule(params) {
   module.patches.tomcat =
     new Project("org.exoplatform.allinone", "aio-tomcat-patch", "jar", module.version);
 
-  
+  module.patches.jboss =
+    new Project("org.exoplatform.allinone", "aio-jboss-patch", "jar", module.version);
+ 
+ 
   return module;
 }

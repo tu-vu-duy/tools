@@ -8,10 +8,10 @@ function getProduct(version) {
   product.portalwar = "portal.war" ;
   product.codeRepo = "allinone/branches/1.6.x" ;
   product.useContentvalidation = true;
-  product.contentvalidationVersion = "2.5.2.1";
-  product.useWorkflow = false;
-  product.workflowVersion = "1.0.4.1" ;
-  product.serverPluginVersion = "2.5.6.2" ;
+  product.contentvalidationVersion = "2.5.3-SNAPSHOT";
+  product.useWorkflow = true;
+  product.workflowVersion = "1.0.5-SNAPSHOT" ;
+  product.serverPluginVersion = "2.5.7-SNAPSHOT" ;
   
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.8") ;
@@ -20,16 +20,16 @@ function getProduct(version) {
 
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.7", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.10.5.1", {kernel : kernel, core : core, ws : ws}) ;
-  var portal = Module.GetModule("portal/tags/2.5.6.2", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, ws : ws });  
+  var portal = Module.GetModule("portal/branches/2.5.x", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, ws : ws });  
   
-  var dms = Module.GetModule("ecm/dms/tags/2.5.2.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
+  var dms = Module.GetModule("ecm/dms/branches/2.5.x", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   
-/*  var workflow = Module.GetModule("ecm/workflow/tags/1.0.4.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal}); */
-  var cs = Module.GetModule("cs/tags/1.3.2.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var ks = Module.GetModule("ks/tags/1.2.1.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var wcm = Module.GetModule("ecm/wcm/tags/1.2.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
+  var workflow = Module.GetModule("ecm/workflow/branches/1.0.x", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
+  var cs = Module.GetModule("cs/branches/1.3.x", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var ks = Module.GetModule("ks/branches/1.2.x", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var wcm = Module.GetModule("ecm/wcm/branches/1.2.x", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
   
-  var webos = Module.GetModule("webos/tags/1.5.3.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
+  var webos = Module.GetModule("webos/branches/1.5.x", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var allinone = Module.GetModule("allinone/branches/1.6.x", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, cs: cs, ks: ks, dms : dms, wcm: wcm,workflow : workflow});
   
   product.addDependencies(portal.portlet.exoadmin) ;
@@ -74,6 +74,10 @@ function getProduct(version) {
   
   /* WEBOS */
   product.addDependencies(webos.web.webosResources);
+
+  /* WORKFLOW */
+  product.addDependencies(workflow.portlet.workflow);
+  product.addDependencies(workflow.web.eXoWorkflowResources);
   
   
   /* cleanup duplicated lib*/
@@ -88,12 +92,13 @@ function getProduct(version) {
    
   product.addServerPatch("tomcat", cs.server.tomcat.patch) ; 
   product.addServerPatch("tomcat", allinone.patches.tomcat) ;
-  product.addServerPatch("jboss",  cs.server.jboss.patch) ;
-  product.addServerPatch("jbossear",  portal.server.jbossear.patch) ;  
-  product.addServerPatch("jonas",  portal.server.jonas.patch) ;
-  product.addServerPatch("ear",  portal.server.websphere.patch) ;
+  product.addServerPatch("jbossear",  cs.server.jboss.patch) ;
+  product.addServerPatch("jbossear",  allinone.patches.jboss) ;
+//  product.addServerPatch("jbossear",  portal.server.jbossear.patch) ;  
+//  product.addServerPatch("jonas",  portal.server.jonas.patch) ;
+//  product.addServerPatch("ear",  portal.server.websphere.patch) ;
 
   product.module = allinone ;
-  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, dms, cs, ks, wcm, webos];
+  product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, dms, cs, ks, wcm, webos, workflow];
   return product;
 }
