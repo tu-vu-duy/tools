@@ -34,8 +34,8 @@ serverMap.put("jonas", new Jonas(eXo.env.workingDir + "/exo-jonas"));
 serverMap.put("wasear", new WASEar(eXo.env.workingDir + "/exo-ear"));
 serverMap.put("ear", new Ear(eXo.env.workingDir + "/exo-ear"));
 
-var modules = ["all","pc", "jcr", "ws", "tools", "ecm", "cs", "ks", "portal", "liveroom", "dms", "workflow"];
-var products = ["cs", "ks", "ecm", "portal", "ultimate", "wcm", "webos", "liveroom", "dms", "workflow"];
+var modules = ["all","pc", "jcr", "ws", "tools", "ecm", "cs", "ks", "portal", "liveroom", "dms", "workflow", "simplewebapp"];
+var products = ["cs", "ks", "ecm", "portal", "ultimate", "wcm", "webos", "liveroom", "dms", "workflow", "simplewebapp"];
 
 function exobuildInstructions() {
   print(
