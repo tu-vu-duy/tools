@@ -21,7 +21,9 @@ function getModule(params) {
   module.portlet = {} ;
   module.portlet.web = new Project("org.exoplatform.cp040608", "cp040608.portlet.web", "exo-portlet", module.version).
   		addDependency(new Project("org.exoplatform.cp040608", "cp040608.component.rest", "jar",  module.version)).
-  		addDependency(new Project("org.exoplatform.cp040608", "cp040608.component.services", "jar",  module.version));
+  		addDependency(new Project("org.exoplatform.cp040608", "cp040608.component.services", "jar",  module.version)).
+  		addDependency(new Project("org.sc.dao", "sc_dao", "jar",  "1.0"));
+  		
   module.portlet.web.deployName = "cp040608PortletWeb" ;
   
   module.portlet.ecm = new Project("org.exoplatform.cp040608", "cp040608.portlet.ecm", "exo-portlet", module.version).

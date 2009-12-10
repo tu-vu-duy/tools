@@ -15,7 +15,7 @@ EXO_BASE_DIRECTORY=$PWD
 #cd $OLDPWD
 JAVA_HOME=$EXO_BASE_DIRECTORY/jdk1.5
 
-M2_REMOTE_REPOS="http://vnserver.exoplatform.org/maven2, http://192.168.1.10:9999/repository/"
+M2_REMOTE_REPOS="http://192.168.1.10/archiva"
 
 ##################################################################################
 USER_HOME='/cygdrive/c/Documents\ and\ Settings/$USERNAME'
