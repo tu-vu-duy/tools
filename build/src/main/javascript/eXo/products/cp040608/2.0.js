@@ -59,7 +59,6 @@ function getProduct(version) {
   product.addDependencies(cp040608.web.eXoResources) ;
   product.addDependencies(cp040608.portlet.web) ;
   product.addDependencies(cp040608.portlet.ecm) ;
-
   // */
   
   product.removeDependency(eXoPortletContainer.web.wsrp);
@@ -68,6 +67,10 @@ function getProduct(version) {
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
 
+  product.removeDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0"));
+  product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "3.1"));
+  product.removeDependency(new Project("rome", "rome", "jar", "0.8"));
+  
   product.module = cp040608 ;
   product.dependencyModule = [tool, kernel, core, eXoPortletContainer, ws, eXoJcr, portal, ecm, workflow, ks];
   
