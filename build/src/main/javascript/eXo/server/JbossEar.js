@@ -43,14 +43,9 @@ JbossEar.prototype.CleanTask = function() {
   return descriptor ;
 }
 
-JbossEar.prototype.preDeploy = function(product) {   
-  product.removeDependency(new Project("xerces", "xercesImpl", "jar", "2.9.1"));
-  product.removeDependency(new Project("xml-apis", "xml-apis", "jar", "1.3.04"));
-  product.addDependencies(new Project("javax.xml", "jaxp-api", "jar", "1.4.2")) ;
-  product.addDependencies(new Project("com.sun.xml.parsers", "jaxp-ri", "jar", "1.4.2")) ;
-  
+JbossEar.prototype.preDeploy = function(product) {  
   product.addDependencies(new Project("commons-pool", "commons-pool", "jar", "1.2")) ;
-  product.addDependencies(new Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ; 
+  product.addDependencies(new Project("commons-dbcp", "commons-dbcp", "jar", "1.2.1")) ;	 
 }
 
 JbossEar.prototype.onDeploy = function(project) { }
