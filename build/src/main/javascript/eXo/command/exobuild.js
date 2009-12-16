@@ -168,6 +168,32 @@ function EarTask(server, product, version) {
   return descriptor ;
 }
 
+function JbossTask(server, product, version) {
+  var descriptor = new TaskDescriptor("Ear Task", server.serverHome) ;
+  descriptor.execute = function() {
+    var versionInfo = "unknown";
+    if(!noInternet && "trunk" == version) {
+      var commands = ["svn", "info", eXo.env.eXoProjectsDir + "/" + product.codeRepo] ;
+      eXo.System.info("EAR", "Getting product revision from SVN.");
+      var result = eXo.System.run(commands) ;
+      var line = result.split("\n") ;
+      for(var i = 0; i < line.length; i++) {
+        if(line[i].match("vision")) {
+         eXo.System.info("EAR", line[i]);
+         versionInfo = "r" + line[i].substring(line[i].lastIndexOf(":")+1, line[i].length()).trim() ;
+       }
+      } 
+    } else {
+      versionInfo = version ;
+    }
+    var earName = product.name + "-" + versionInfo;
+    var dest = eXo.env.workingDir + "/" + "exo-jboss/server/default/deploy/exoplatform.ear"; // = server.earFile;
+    eXo.System.info("EAR", "Building ear: " + dest);
+    eXo.core.IOUtil.ear(server.serverHome, dest) ;
+    //eXo.core.IOUtil.remove(server.serverHome) ;
+  }
+  return descriptor ;
+}
 
 var build_ = false ;
 var update_ = false ;
@@ -346,6 +372,10 @@ if (deployServers != null && !deployServers.isEmpty()) {
     }
     if (server.name == "ear") {
       tasks.add(EarTask(server, product, version));
+    }
+    
+    if (server.name == "jboss") {
+      tasks.add(JbossTask(server + "/server/default/deploy/exoplatform.ear", product, version));
     }
     
     if (release_)
