@@ -13,7 +13,7 @@ function getModule(params) {
 
   module.version = "1.1.2.SC_x-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/ks" ;
-  module.relativeSRCRepo =  "patches/secours-catholique/ks/branches/1.1.2.SC_x" ;
+  module.relativeSRCRepo =  "patches/secours-catholique/ks/branches/KS.1.1.2.SC_x" ;
   module.name = "ks" ;  
   
   module.eXoApplication = {};
