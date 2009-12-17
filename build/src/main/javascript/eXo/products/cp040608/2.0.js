@@ -11,7 +11,7 @@ function getProduct(version) {
   product.useContentvalidation = true;
   product.contentvalidationVersion = "2.3";
   product.workflowVersion = "1.0" ;
-  product.serverPluginVersion = "2.5.2" ;
+  product.serverPluginVersion = "2.5.2.SC_x-SNAPSHOT" ;
   
   var tool =  Module.GetModule("tools/trunk") ;
   var kernel = Module.GetModule("kernel/tags/2.0.8") ;
