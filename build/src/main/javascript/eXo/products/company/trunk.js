@@ -24,7 +24,7 @@ function getProduct(version) {
   var ks = Module.GetModule("ks/tags/1.1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var workflow = Module.GetModule("ecm/workflow/tags/1.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var company = Module.GetModule("company/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, ws : ws});
-  var leadcapture = Module.GetModule("leadcapture/tags/2.0.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, ws : ws});
+  var leadcapture = Module.GetModule("leadcapture/tags/2.1.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, ws : ws});
 
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(company.portlet.exoadmin) ;
@@ -74,6 +74,12 @@ function getProduct(version) {
   product.addDependencies(leadcapture.component.server) ;
   product.removeDependency(portal.webui.eXo);
   
+    product.removeDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0"));
+    product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "3.1"));
+    product.removeDependency(new Project("rome", "rome", "jar", "0.8"));
+    product.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
+    product.removeDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.1"));
+  
   product.addServerPatch("tomcat", company.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
@@ -83,3 +89,5 @@ function getProduct(version) {
   
   return product ;
 }
+
+
