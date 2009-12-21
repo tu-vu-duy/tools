@@ -7,7 +7,7 @@ function getModule(params) {
   var core = params.core;
 
   var module = new Module();
-  module.version = "2.0.4.SC_x-SNAPSHOT" ;
+  module.version = "2.0.4.SC_3-SNAPSHOT" ;
   module.relativeMavenRepo = "org/exoplatform/portletcontainer" ;
   module.relativeSRCRepo = "patches/secours-catholique/portlet-container/branches/2.0.4.SC_x" ;
   module.name = "pc" ;
