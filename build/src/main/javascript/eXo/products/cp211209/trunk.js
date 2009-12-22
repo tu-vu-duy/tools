@@ -80,8 +80,8 @@ function getProduct(version) {
 	product.removeDependency(new Project("rome", "rome", "jar", "0.8"));
 	product.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
 	
-	product.addServerPatch("tomcat", cs.server.tomcat.patch) ;
-	product.addServerPatch("tomcat", allinone.patches.tomcat) ;
+	//product.addServerPatch("tomcat", cs.server.tomcat.patch) ;
+	//product.addServerPatch("tomcat", allinone.patches.tomcat) ;
 	product.addServerPatch("tomcat", cp211209.server.tomcat.patch) ;
 	product.addServerPatch("jboss",  cs.server.jboss.patch) ;
 	product.addServerPatch("jbossear", portal.server.jbossear.patch);
