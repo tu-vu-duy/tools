@@ -24,13 +24,16 @@ function getModule(params) {
 	
 	module.web={};
 
-	module.web.portal=
+	module.web.portal =
 		new Project("org.exoplatform.cp211209", "cp211209.web.portal", "exo-portal", module.version).
 			addDependency(portal.web.eXoResources).
 		    addDependency(portal.webui.portal).
 		    addDependency(jcr.frameworks.command).
 		    addDependency(jcr.frameworks.web).
 		    addDependency(portal.web.rest);
+	
+	module.web.bfpmeResources =
+		new Project("org.exoplatform.cp211209", "cp211209.web.bfpmeResources", "war", module.version);
 
 	module.exoconf = 
 		new Project("org.exoplatform.cp211209", "cp211209.exo-conf", "jar", module.version);
