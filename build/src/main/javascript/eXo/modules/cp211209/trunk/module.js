@@ -22,7 +22,7 @@ function getModule(params) {
 	module.relativeSRCRepo = "cp211209/trunk";
 	module.name = "cp211209";
 	
-	module.web={};
+	module.web = {};
 
 	module.web.portal =
 		new Project("org.exoplatform.cp211209", "cp211209.web.portal", "exo-portal", module.version).
@@ -32,8 +32,10 @@ function getModule(params) {
 		    addDependency(jcr.frameworks.web).
 		    addDependency(portal.web.rest);
 	
-	module.web.bfpmeResources =
-		new Project("org.exoplatform.cp211209", "cp211209.web.bfpmeResources", "war", module.version);
+	module.portlet = {};
+	
+	module.portlet.bfpmePortlet =
+		new Project("org.exoplatform.cp211209", "cp211209.portlet.bfpmePortlet", "war", module.version);
 
 	module.exoconf = 
 		new Project("org.exoplatform.cp211209", "cp211209.exo-conf", "jar", module.version);
