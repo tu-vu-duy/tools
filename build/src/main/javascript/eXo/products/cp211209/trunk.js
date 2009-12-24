@@ -48,7 +48,7 @@ function getProduct(version) {
 	product.addDependencies(wcm.web.eXoWCMResources);
 	product.addDependencies(dms.web.eXoDMSResources) ;
 	product.addDependencies(cp211209.web.portal) ;
-	product.addDependencies(cp211209.web.bfpmeResources) ;
+	product.addDependencies(cp211209.portlet.bfpmePortlet) ;
 	product.addDependencies(cp211209.exoconf) ;
 	
 	product.addDependencies(cs.eXoApplication.mail) ;
