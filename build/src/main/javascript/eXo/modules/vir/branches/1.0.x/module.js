@@ -98,11 +98,10 @@ function getModule(params) {
     addDependency(eXoPortletContainer.web.wsrp) ;
   
   module.web = {};
-  
   module.web.VIRResources = 
     new Project("org.exoplatform.vir", "vir.web.VIRResources", "war", module.version).
-    addDependency(portal.web.eXoResources) .
-    addDependency(portal.web.eXoMacSkin) .
+    addDependency(new Project("org.exoplatform.portal", "exo.portal.web.eXoResources", "war", "2.5.3.VIR_x")).
+    addDependency(portal.web.eXoMacSkin).
     addDependency(portal.web.eXoVistaSkin);
            
   module.web.portal = 
