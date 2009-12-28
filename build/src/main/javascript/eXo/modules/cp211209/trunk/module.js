@@ -30,7 +30,8 @@ function getModule(params) {
 		    addDependency(portal.webui.portal).
 		    addDependency(jcr.frameworks.command).
 		    addDependency(jcr.frameworks.web).
-		    addDependency(portal.web.rest);
+		    addDependency(portal.web.rest).
+		    addDependency(new Project("org.postgresql", "postgresql-jdbc3", "jar", "8.2-505"));
 	
 	module.portlet = {};
 	
