@@ -374,9 +374,9 @@ if (deployServers != null && !deployServers.isEmpty()) {
       tasks.add(EarTask(server, product, version));
     }
     
-    if (server.name == "jboss") {
-      tasks.add(JbossTask(server + "/server/default/deploy/exoplatform.ear", product, version));
-    }
+    //if (server.name == "jboss") {
+    //  tasks.add(JbossTask(server + "/server/default/deploy/exoplatform.ear", product, version));
+    //}
     
     if (release_)
       tasks.add(ReleaseTask(server, product, version));
