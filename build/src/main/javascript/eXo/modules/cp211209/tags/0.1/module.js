@@ -17,9 +17,9 @@ function getModule(params) {
 	var allinone = params.allinone;
 	var module = new Module();
 
-	module.version = "0.2-SNAPSHOT";
+	module.version = "0.1";
 	module.relativeMavenRepo = "org/exoplatform/cp211209";
-	module.relativeSRCRepo = "cp211209/trunk";
+	module.relativeSRCRepo = "cp211209/tags/0.1";
 	module.name = "cp211209";
 	
 	module.web = {};
