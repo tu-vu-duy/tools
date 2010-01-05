@@ -34,13 +34,14 @@ function getProduct(version) {
 	product.addDependencies(intranet.web.portal) ;
 	product.addDependencies(intranet.exoconf) ;
 	product.addDependencies(intranet.component.ldap) ;
+	product.addDependencies(intranet.component.webui.portal);
 
 	product.addDependencies(portal.portlet.exoadmin);
 	product.addDependencies(portal.portlet.web);
 	product.addDependencies(portal.portlet.dashboard);
 	product.addDependencies(portal.eXoGadgetServer);
 	product.addDependencies(portal.eXoGadgets);
-	product.addDependencies(portal.webui.portal);
+//	product.addDependencies(portal.webui.portal);
 	product.addDependencies(portal.web.eXoResources);
 	
 	product.addDependencies(dms.portlet.dms);
@@ -85,6 +86,8 @@ function getProduct(version) {
 	product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "3.1"));
 	product.removeDependency(new Project("rome", "rome", "jar", "0.8"));
 	product.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
+	
+	product.removeDependency(new Project("org.exoplatform.portal", "exo.portal.webui.portal", "jar", "2.5.6.2"));
     
 	//product.addServerPatch("tomcat", cs.server.tomcat.patch) ;
 	//product.addServerPatch("tomcat", allinone.patches.tomcat) ;
