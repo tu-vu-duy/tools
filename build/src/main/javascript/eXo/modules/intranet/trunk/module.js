@@ -42,7 +42,12 @@ function getModule(params) {
 	module.component.ldap = 
 		new Project("org.exoplatform.intranet", "intranet.component.ldap", "jar", module.version).
 			addDependency(new Project("commons-codec", "commons-codec", "jar", "1.3"));
-  
+	
+	module.component.webui = {};
+	module.component.webui.portal= 
+		new Project("org.exoplatform.intranet", "intranet.component.webui.portal", "jar", module.version).
+			addDependency(new Project("org.exoplatform.intranet", "intranet.component.ldap", "jar", module.version));
+	
 	module.server = {};
 	module.server.tomcat = {};
 	module.server.tomcat.patch = 
