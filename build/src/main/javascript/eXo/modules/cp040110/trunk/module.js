@@ -35,7 +35,7 @@ function getModule(params) {
 		    addDependency(jcr.frameworks.web).
 		    addDependency(portal.web.rest).
 		    addDependency(new Project("org.postgresql", "postgresql-jdbc3", "jar", "8.2-505"));
-	
+	module.web.AladinngResources = new Project("org.exoplatform.cp040110", "cp040110.web.AladinngResources", "war", module.version)
 	module.portlet = {};
 	
 	module.portlet.MesInfosPortlets =
