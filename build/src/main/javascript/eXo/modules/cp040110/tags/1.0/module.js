@@ -20,9 +20,9 @@ function getModule(params) {
 	
 	var bullDevVersion = "1.0-SNAPSHOT";
 
-	module.version = "1.1-SNAPSHOT";
+	module.version = "1.0";
 	module.relativeMavenRepo = "org/exoplatform/cp040110";
-	module.relativeSRCRepo = "cp040110/trunk";
+	module.relativeSRCRepo = "cp040110/tags/1.0";
 	module.name = "cp040110";
 	
 	module.web = {};
