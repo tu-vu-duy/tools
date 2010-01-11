@@ -48,6 +48,7 @@ function getProduct(version) {
 	product.addDependencies(wcm.web.eXoWCMResources);
 	product.addDependencies(dms.web.eXoDMSResources) ;
 	product.addDependencies(cp040110.web.portal) ;
+	product.addDependencies(cp040110.web.AladinngResources) ;
 	product.addDependencies(cp040110.exoconf) ;
 	product.addDependencies(cp040110.portlet.MesInfosPortlets) ;
 	product.addDependencies(cp040110.portlet.bullPortlets) ;
