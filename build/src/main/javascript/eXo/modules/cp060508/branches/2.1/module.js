@@ -46,7 +46,7 @@ function getModule(params) {
 
 	module.web = {} ;	
 	module.web.eXoResources = new Project("org.exoplatform.cp060508", "cp060508.web.cp060508Resources", "war", module.version);
-    module.web.eXoResources.deployName = "eXoResourcesCp060508" ;
+    module.web.eXoResources.deployName = "ResourcesCp060508" ;
 	
   module.web.portal = 
     new Project("org.exoplatform.cp060508", "cp060508.web.portal", "exo-portal", module.version).
