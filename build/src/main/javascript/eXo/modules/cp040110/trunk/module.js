@@ -62,7 +62,7 @@ function getModule(params) {
 
 		
 	module.portlet.bullPortlets =
-		new Project("org.exoplatform.cp040110", "cp040110.portlet.bullPortlets", "war", bullDevVersion).
+		new Project("org.exoplatform.cp040110", "cp040110.portlet.bullPortlets", "war","1.1-SNAPSHOT").
 			addDependency(new Project("fr.bull.aladinng.dev-bull", "common", "jar", bullDevVersion)).
 			addDependency(new Project("fr.bull.aladinng.dev-bull.services.startup", "content-publication-initialization-service", "jar", bullDevVersion)).
 			addDependency(new Project("fr.bull.aladinng.dev-bull.event-listeners", "groups-listeners", "jar", bullDevVersion)).
