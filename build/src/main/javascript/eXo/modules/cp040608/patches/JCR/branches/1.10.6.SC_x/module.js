@@ -7,9 +7,9 @@ function getModule(params) {
 
   var module = {} ;
   
-  module.version = "1.10.6.SC_1" ;
+  module.version = "1.10.6.SC_x-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/jcr" ;
-  module.relativeSRCRepo =  "patches/secours-catholique/jcr/tags/1.10.6.SC_1" ;
+  module.relativeSRCRepo =  "patches/secours-catholique/jcr/branches/1.10.6.SC_x-SNAPSHOT" ;
   module.name =  "jcr" ;
     
   module.services = {}
