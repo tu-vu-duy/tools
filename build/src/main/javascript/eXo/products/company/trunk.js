@@ -75,6 +75,8 @@ function getProduct(version) {
     product.removeDependency(new Project("rome", "rome", "jar", "0.8"));
     product.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
     product.removeDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.1"));
+    product.removeDependency(eXoPortletContainer.services.wsrp1);
+    product.removeDependency(eXoPortletContainer.services.wsrp2);
   
   product.addServerPatch("tomcat", company.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
