@@ -78,17 +78,6 @@ function getModule(params) {
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web) ;
 
-  module.eXoApplication = {}  
-  module.eXoApplication.calendar = 
-    new Project("org.exoplatform.company", "exo.company.cs.eXoApplication.calendar.webapp", "war", module.version).
-      addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  csversion)).
-	  addDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.2")).
-	  addDependency(ws.frameworks.cometd).
-	  addDependency(new Project("rome", "rome", "jar", "0.8")).
-	  addDependency(new Project("jdom", "jdom", "jar", "1.0")).
-      addDependency(new Project("ical4j", "ical4j", "jar", "1.0-beta5")) ;
-  module.eXoApplication.calendar.deployName = "calendar";
-
   module.server = {}
   module.server.tomcat = {}
   module.server.tomcat.patch = 
