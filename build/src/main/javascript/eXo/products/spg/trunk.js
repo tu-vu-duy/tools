@@ -25,18 +25,20 @@ function getProduct(version) {
   product.addDependencies(portal.web.rest);
   product.addDependencies(portal.portlet.exoadmin);
   product.addDependencies(portal.portlet.web);
-  product.addDependencies(portal.portlet.dashboard);
+  //product.addDependencies(portal.portlet.dashboard);
 	product.addDependencies(portal.eXoGadgetServer);
 	product.addDependencies(portal.eXoGadgets);  
 
   product.addDependencies(dms.web.eXoDMSResources);
-  product.addDependencies(dms.portlet.dms);
+  //product.addDependencies(dms.portlet.dms);
   product.addDependencies(dms.portlet.jcr_console);
   product.addDependencies(dms.gadgets);
     
   //product.addDependencies(pagesjaunes.portlet.web);
   product.addDependencies(spg.web.portal);
   product.addDependencies(spg.web.SPGResources);
+  product.addDependencies(spg.portlet.dashboard);
+  product.addDependencies(spg.portlet.dms);
 
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
