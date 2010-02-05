@@ -29,8 +29,13 @@ function getModule(params) {
     new Project("org.exoplatform.spg", "spg.web.SPGResources", "war", module.version);
   
   module.portlet = {};
-  module.portlet.dashboard = new Project("org.exoplatform.spg", "spg.portlet.dashboard", "war", module.version).
-  addDependency(new Project("org.exoplatform.portal", "exo.portal.component.dashboard", "jar", "2.5.5"));
+  
+  module.portlet.exoadmin = 
+    new Project("org.exoplatform.portal", "exo.portal.portlet.exoadmin", "exo-portlet", "2.5.5.SPG_x");
+
+  module.portlet.dashboard = 
+  	new Project("org.exoplatform.spg", "spg.portlet.dashboard", "war", module.version).
+  	addDependency(new Project("org.exoplatform.portal", "exo.portal.component.dashboard", "jar", portal.version));
   
   module.portlet.dms = 
     new Project("org.exoplatform.ecm.dms.core", "exo.ecm.dms.core.portlet.ecm.core.web", "war", "2.5.1.SPG_x").

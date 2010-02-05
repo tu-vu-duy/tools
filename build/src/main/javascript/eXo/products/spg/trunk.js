@@ -23,7 +23,7 @@ function getProduct(version) {
   var spg = Module.GetModule("spg/trunk", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms});
     
   product.addDependencies(portal.web.rest);
-  product.addDependencies(portal.portlet.exoadmin);
+  //product.addDependencies(portal.portlet.exoadmin);
   product.addDependencies(portal.portlet.web);
   //product.addDependencies(portal.portlet.dashboard);
 	product.addDependencies(portal.eXoGadgetServer);
@@ -38,6 +38,7 @@ function getProduct(version) {
   product.addDependencies(spg.web.portal);
   product.addDependencies(spg.web.SPGResources);
   product.addDependencies(spg.portlet.dashboard);
+  product.addDependencies(spg.portlet.exoadmin);
   product.addDependencies(spg.portlet.dms);
 
   product.addServerPatch("tomcat", portal.server.tomcat.patch) ;
