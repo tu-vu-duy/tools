@@ -6,15 +6,15 @@ function getProduct(version) {
   
   product.name = "company" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "company/trunk" ;
+  product.codeRepo = "company/tags/2.1.5" ;
   product.contentvalidationVersion = "2.3.2.CWI_1";
   product.workflowVersion = "1.0";
-  product.serverPluginVersion = "2.5.3.CWI_1" ;
+  product.serverPluginVersion = "2.5.3" ;
   
   var tool =  Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/tags/2.0.7") ;
-  var core = Module.GetModule("core/tags/2.1.5") ;
-  var ws = Module.GetModule("ws/tags/1.3.3", {kernel : kernel, core : core});
+  var kernel = Module.GetModule("kernel/tags/2.0.9") ;
+  var core = Module.GetModule("core/tags/2.1.7") ;
+  var ws = Module.GetModule("ws/tags/1.3.5", {kernel : kernel, core : core});
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.6", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("jcr/tags/1.10.6.CWI_1", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.5.3", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});
@@ -23,8 +23,8 @@ function getProduct(version) {
   var webos = Module.GetModule("webos/tags/1.5", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
   var ks = Module.GetModule("ks/tags/1.1.CWI_1", {kernel : kernel, core : core, ws : ws, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var workflow = Module.GetModule("ecm/workflow/tags/1.0", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
-  var company = Module.GetModule("company/trunk", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, ws : ws});
-  var leadcapture = Module.GetModule("leadcapture/tags/2.1.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, ws : ws});
+  var company = Module.GetModule("company/tags/2.1.5.1", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, ws : ws});
+  var leadcapture = Module.GetModule("leadcapture/tags/1.0.4", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, dms : dms, ws : ws});
 
   product.addDependencies(portal.web.rest) ;
   product.addDependencies(company.portlet.exoadmin) ;
@@ -50,10 +50,14 @@ function getProduct(version) {
 
   
   product.addDependencies(cs.eXoApplication.mail) ;
+  // replaced by "company.eXoApplication.calendar"
+  // product.addDependencies(cs.eXoApplication.calendar) ;
   product.addDependencies(cs.eXoApplication.contact) ;
   product.addDependencies(cs.eXoApplication.content) ;
   product.addDependencies(cs.web.webservice) ;
   product.addDependencies(cs.web.csResources) ;
+  
+  product.addDependencies(company.eXoApplication.calendar) ;
   
   product.addDependencies(company.portlet.dms) ;
   product.addDependencies(company.component.web) ;
@@ -70,14 +74,6 @@ function getProduct(version) {
   product.addDependencies(leadcapture.component.server) ;
   product.removeDependency(portal.webui.eXo);
   
-    product.removeDependency(new Project("commons-httpclient", "commons-httpclient", "jar", "3.0"));
-    product.removeDependency(new Project("commons-collections", "commons-collections", "jar", "3.1"));
-    product.removeDependency(new Project("rome", "rome", "jar", "0.8"));
-    product.removeDependency(new Project("javax.mail", "mail", "jar", "1.4"));
-    product.removeDependency(new Project("org.exoplatform.ws", "exo.ws.frameworks.json", "jar", "1.3.1"));
-    product.removeDependency(eXoPortletContainer.services.wsrp1);
-    product.removeDependency(eXoPortletContainer.services.wsrp2);
-  
   product.addServerPatch("tomcat", company.server.tomcat.patch) ;
   product.addServerPatch("jboss",  portal.server.jboss.patch) ;
   product.addServerPatch("jonas",  portal.server.jonas.patch) ;
@@ -87,5 +83,3 @@ function getProduct(version) {
   
   return product ;
 }
-
-
