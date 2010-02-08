@@ -17,8 +17,8 @@ function getModule(params) {
   module.relativeSRCRepo =  "company/trunk" ;
   module.name =  "company" ;
   
-  var ksversion = "1.1" ;
-  var dmsversion = "2.3.2" ;
+  var ksversion = "1.1.CWI_1" ;
+  var dmsversion = "2.3.2.CWI_1" ;
   var workflowversion = "1.0" ;
   var csversion = "1.2" ;
     
