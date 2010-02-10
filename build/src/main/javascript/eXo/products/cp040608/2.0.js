@@ -14,9 +14,9 @@ function getProduct(version) {
   product.serverPluginVersion = "2.5.2.SC_x-SNAPSHOT" ;
   
   var tool =  Module.GetModule("tools/trunk") ;
-  var kernel = Module.GetModule("kernel/tags/2.0.8") ;
-  var core = Module.GetModule("core/tags/2.1.6") ;
-  var ws = Module.GetModule("ws/tags/1.3.4");
+  var kernel = Module.GetModule("kernel/tags/2.0.9") ;
+  var core = Module.GetModule("core/tags/2.1.7") ;
+  var ws = Module.GetModule("ws/tags/1.3.5");
   var eXoPortletContainer = Module.GetModule("cp040608/patches/portlet-container/branches/2.0.4.SC_x", {kernel : kernel, core : core}) ;
   var eXoJcr = Module.GetModule("cp040608/patches/JCR/branches/1.10.6.SC_x", {kernel : kernel, core : core, ws : ws}) ;
     var webos = Module.GetModule("webos/tags/1.5", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr });
