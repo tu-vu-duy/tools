@@ -22,7 +22,9 @@ function getModule(params) {
   module.portlet.web = new Project("org.exoplatform.cp040608", "cp040608.portlet.web", "exo-portlet", module.version).
   		addDependency(new Project("org.exoplatform.cp040608", "cp040608.component.rest", "jar",  module.version)).
   		addDependency(new Project("org.exoplatform.cp040608", "cp040608.component.services", "jar",  module.version)).
-  		addDependency(new Project("org.sc.dao", "sc_dao", "jar",  "1.0"));
+  		addDependency(new Project("org.sc.dao", "sc_dao", "jar",  "1.0")).
+		addDependency(new Project("org.exoplatform.cp040608.config.ext.contentvalidation.bp", "cp040608.ext.contentvalidation.bp.jbpm.content.validation", "jar", module.version)).
+		addDependency(new Project("org.exoplatform.cp040608.config.ext.contentvalidation", "cp040608.ext.contentvalidation.component.workflowValidation", "jar", module.version));
   		
   module.portlet.web.deployName = "cp040608PortletWeb" ;
   
@@ -38,7 +40,7 @@ function getModule(params) {
 	addDependency(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.plugin", "jar", ecm.version)).
     addDependency(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.workflowPublication", "jar", ecm.version)).
     addDependency(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.webui", "jar", ecm.version));
-
+	
   module.portlet.ecm.deployName = "ecm" ;
   
   /*module.component = {} ;
@@ -58,6 +60,7 @@ function getModule(params) {
     addDependency(portal.webui.portal) .
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web);
-
+	
+	module.ext = {} ;
   return module;
 }
