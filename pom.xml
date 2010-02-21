@@ -1,23 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.exoplatform.tool</groupId>
   <artifactId>config</artifactId>
-  <name>eXo Tool Config</name>
   <version>trunk</version>
   <packaging>pom</packaging>
-
-  <modules>
-    <!--<module>config</module>-->
-    <module>build</module>
-    <module>webunit</module>
-    <module>framework/junit</module>
-    <module>plugin/pc</module>
-    <module>verificationResources</module>
-    <module>eXoParentPom</module>
-    <!-- module>productChecker</module -->
-    
-  </modules>
-
+  <name>eXo Tool Config</name>
+  <!-- module>productChecker</module -->
   <build>
     <resources>
       <resource>
@@ -41,7 +30,11 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <configuration> <source>1.5</source><target>1.5</target><optimize>true</optimize></configuration>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+          <optimize>true</optimize>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -49,7 +42,8 @@
         <configuration>
           <skip>${test.skip}</skip>
           <useFile>false</useFile>
-          <forkMode>pertest</forkMode><!-- once , pertest -->
+          <forkMode>pertest</forkMode>
+          <!-- once , pertest -->
           <testFailureIgnore>false</testFailureIgnore>
           <includes>
             <include implementation="java.lang.String">**/${test.classes}*.java</include>
@@ -58,12 +52,13 @@
       </plugin>
     </plugins>
   </build>
-
   <profiles>
     <profile>
       <id>default</id>
       <activation>
-        <property><name>default</name></property>
+        <property>
+          <name>default</name>
+        </property>
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
@@ -73,4 +68,13 @@
       </properties>
     </profile>
   </profiles>
+  <modules>
+    <!--<module>config</module>-->
+    <module>build</module>
+    <module>webunit</module>
+    <module>framework/junit</module>
+    <module>plugin/pc</module>
+    <module>verificationResources</module>
+    <module>eXoParentPom</module>
+  </modules>
 </project>
