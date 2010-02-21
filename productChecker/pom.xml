@@ -1,13 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project>
-
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.exoplatform.config</groupId>
   <artifactId>exo.product.checker</artifactId>
-  <packaging>jar</packaging>
   <version>trunk</version>
+  <packaging>jar</packaging>
   <name>eXo Tools Product Checker</name>
   <url>http://www.exoplatform.org</url>
-
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -16,7 +15,6 @@
       <scope>compile</scope>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -28,7 +26,6 @@
           <optimize>true</optimize>
         </configuration>
       </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -46,10 +43,10 @@
               <name>emma.coverage.out.file</name>
               <value>target/emma/coverage.ec</value>
             </property>
-<!--            <property>-->
-<!--              <name>exo.projects.directory.src</name>-->
-<!--              <value>${exo.projects.directory.src}</value>-->
-<!--            </property>-->
+            <!--            <property>-->
+            <!--              <name>exo.projects.directory.src</name>-->
+            <!--              <value>${exo.projects.directory.src}</value>-->
+            <!--            </property>-->
             <property>
               <name>exo.product.checker.productname</name>
               <value>${exo.product.checker.productname}</value>
@@ -60,7 +57,7 @@
             </property>
             <property>
               <name>exo.product.checker.log</name>
-<!--              <value>true</value>-->
+              <!--              <value>true</value>-->
               <value>${exo.product.checker.log}</value>
             </property>
           </systemProperties>
@@ -68,7 +65,6 @@
       </plugin>
     </plugins>
   </build>
-
   <profiles>
     <profile>
       <id>default</id>
@@ -78,8 +74,7 @@
         </property>
         <activeByDefault>true</activeByDefault>
       </activation>
-      <properties></properties>
+      <properties/>
     </profile>
   </profiles>
-  
 </project>
