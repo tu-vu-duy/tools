@@ -11,9 +11,9 @@ function getModule(params) {
   var portal = params.portal;  
   var module = new Module();
   
-  module.version = "2.3" ;
+  module.version = "2.3.0.SC_18" ;
   module.relativeMavenRepo =  "org/exoplatform/ecm/dms" ;
-  module.relativeSRCRepo =  "ecm/dms/tags/2.3" ;
+  module.relativeSRCRepo =  "patches/secours-catholique/ecm/dms/tags/2.3.0.SC_18" ;
   module.name =  "dms" ;
     
   module.portlet = {}
