@@ -11,7 +11,7 @@ function getModule(params) {
   var ws = params.ws;
   var module = new Module();
 
-  module.version = "KS.1.1.2.SC_11" ;
+  module.version = "1.1.2.SC_11" ;
   module.relativeMavenRepo =  "org/exoplatform/ks" ;
   module.relativeSRCRepo =  "patches/secours-catholique/ks/branches/KS.1.1.2.SC_11" ;
   module.name = "ks" ;  
