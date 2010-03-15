@@ -6,7 +6,7 @@ function getProduct(version) {
 
   product.name = "eXocp040608Product" ;
   product.portalwar = "portal.war" ;
-  product.codeRepo = "cp040608/tag/2.0.6" ;
+  product.codeRepo = "cp040608/tags/2.0.6" ;
   product.useWorkflow = true;
   product.useContentvalidation = true;
   product.contentvalidationVersion = "2.3";
