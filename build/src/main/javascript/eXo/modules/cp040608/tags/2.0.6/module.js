@@ -10,7 +10,7 @@ function getModule(params) {
   var portal = params.portal;
 	var ws = params.ws;
 	var ecm = params.ecm;
-	var cs = params.cs;
+	var workflow = params.workflow;
   var module = new Module();
 
   module.version = "2.0.6" ;
@@ -29,12 +29,19 @@ function getModule(params) {
   module.portlet.web.deployName = "cp040608PortletWeb" ;
   
   module.portlet.ecm = new Project("org.exoplatform.cp040608", "cp040608.portlet.ecm", "exo-portlet", module.version).
-  		addDependency(ecm.portlet.dms);
+  	addDependency(ecm.portlet.dms).
+	addDependency(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.facade", "jar", workflow.version)).
+	addDependency(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.impl.jbpm.engine", "jar", "3.0")).
+	addDependency(new Project("org.exoplatform.ecm.workflow", "exo.ecm.workflow.component.workflow.api", "jar", workflow.version)).
+	addDependency(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.payraise", "jar", workflow.version)).
+	addDependency(new Project("org.exoplatform.ecm.workflow.bp", "exo.ecm.workflow.bp.jbpm.holiday", "jar", workflow.version)).
+	addDependency(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.jbpmconfig", "jar", ecm.version)).
+	addDependency(new Project("org.exoplatform.ecm.dms.ext.contentvalidation.bp", "exo.ecm.dms.ext.contentvalidation.bp.jbpm.content.publishing", "jar", ecm.version)).
+	addDependency(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.plugin", "jar", ecm.version)).
+    addDependency(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.workflowPublication", "jar", ecm.version)).
+    addDependency(new Project("org.exoplatform.ecm.dms.ext.contentvalidation", "exo.ecm.dms.ext.contentvalidation.component.webui", "jar", ecm.version));
+	
   module.portlet.ecm.deployName = "ecm" ;
-  
-  module.portlet.calendar = new Project("org.exoplatform.cp040608", "cp040608.portlet.calendar", "exo-portlet", module.version).
-     	addDependency(new Project("org.exoplatform.cs", "exo.cs.eXoApplication.calendar.service", "jar",  cs.version)) ; 
-  module.portlet.calendar.deployName = "calendar" ;
   
   /*module.component = {} ;
   module.component.web=
@@ -53,6 +60,7 @@ function getModule(params) {
     addDependency(portal.webui.portal) .
     addDependency(jcr.frameworks.command) .
     addDependency(jcr.frameworks.web);
-
+	
+	module.ext = {} ;
   return module;
 }
