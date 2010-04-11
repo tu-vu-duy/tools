@@ -13,7 +13,7 @@ function getModule(params) {
 	var workflow = params.workflow;
   var module = new Module();
 
-  module.version = "2.0.2-SNAPSHOT" ;
+  module.version = "2.0.7-SNAPSHOT" ;
   module.relativeMavenRepo =  "org/exoplatform/cp040608" ;
   module.relativeSRCRepo =  "cp040608/branches/2.0" ;
   module.name =  "cp040608" ;
