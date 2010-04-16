@@ -12,9 +12,9 @@ function getProduct(version) {
   var core = Module.GetModule("core/tags/2.1.7") ;
   var ws = Module.GetModule("ws/tags/1.3.5", {kernel : kernel, core : core});
   var eXoPortletContainer = Module.GetModule("portlet-container/tags/2.0.4", {kernel : kernel, core : core}) ;    
-  var eXoJcr = Module.GetModule("jcr/tags/1.10.6", {kernel : kernel, core : core, ws : ws}) ;
+  var eXoJcr = Module.GetModule("jcr/branches/1.10.6.COMPANYFORUM_x", {kernel : kernel, core : core, ws : ws}) ;
   var portal = Module.GetModule("portal/tags/2.5.3", {kernel : kernel, ws:ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr});  
-  var ks = Module.GetModule("ks/tags/1.1", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
+  var ks = Module.GetModule("ks/branches/1.1.COMPANYFORUM_x", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
   var CompanyForum = Module.GetModule("company-forum/trunk", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ks : ks});
 
   product.addDependencies(portal.web.rest) ;
