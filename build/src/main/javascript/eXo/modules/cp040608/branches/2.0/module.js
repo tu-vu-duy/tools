@@ -24,7 +24,9 @@ function getModule(params) {
   		addDependency(new Project("org.exoplatform.cp040608", "cp040608.component.services", "jar",  module.version)).
   		addDependency(new Project("org.sc.dao", "sc_dao", "jar",  "1.1")).
 		addDependency(new Project("org.exoplatform.cp040608.config.ext.contentvalidation.bp", "cp040608.ext.contentvalidation.bp.jbpm.content.validation", "jar", module.version)).
-		addDependency(new Project("org.exoplatform.cp040608.config.ext.contentvalidation", "cp040608.ext.contentvalidation.component.workflowValidation", "jar", module.version));
+		addDependency(new Project("org.exoplatform.cp040608.config.ext.contentvalidation", "cp040608.ext.contentvalidation.component.workflowValidation", "jar", module.version)).
+	addDependency(new Project("org.exoplatform.cp040608.config.ext.contentvalidation.bp", "cp040608.ext.contentvalidation.bp.jbpm.content.backup", "jar", module.version)).
+	addDependency(new Project("org.exoplatform.cp040608.config.ext.contentvalidation", "cp040608.ext.contentvalidation.component.workflowBackup", "jar", module.version));
   		
   module.portlet.web.deployName = "cp040608PortletWeb" ;
   
