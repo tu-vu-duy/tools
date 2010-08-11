@@ -24,7 +24,7 @@ function getProduct(version) {
   var ecm = Module.GetModule("cp040608/patches/ecm/dms/tags/2.3.0.SC_24", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var workflow = Module.GetModule("ecm/workflow/tags/1.0.6", {kernel : kernel, core : core, eXoPortletContainer : eXoPortletContainer, ws : ws, eXoJcr : eXoJcr, portal : portal});
   var ks = Module.GetModule("cp040608/patches/ks/tags/KS.1.1.2.SC_13", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal});
-  var cp040608 = Module.GetModule("cp040608/tags/2.0.11", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm, workflow : workflow});
+  var cp040608 = Module.GetModule("cp040608/tags/2.0.12", {kernel : kernel, ws : ws, core : core, eXoPortletContainer : eXoPortletContainer, eXoJcr : eXoJcr, portal : portal, ecm : ecm, workflow : workflow});
     
   /* Portal dependencies */
 
