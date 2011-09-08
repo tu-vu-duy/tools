@@ -10,7 +10,7 @@ maven.prototype.MavenTask = function(projectDir, args) {
   descriptor.mavenArgs = args;
 
   descriptor.execute = function() {
-    var m2Home= eXo.env.baseDir + "/maven2" ;
+    var m2Home= eXo.env.baseDir + "/maven2.2.1" ;
     java.lang.System.setProperty("maven.home", m2Home) ;
     java.lang.System.setProperty("classworlds.conf", m2Home + "/bin/m2.conf") ;
 
