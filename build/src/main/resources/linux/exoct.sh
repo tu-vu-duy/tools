@@ -1,22 +1,22 @@
 #!/bin/bash
-echo
-echo "Command working for eXo Collaboration."
-echo
-echo "Feature : "
-echo
-echo "Goto projects: "
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
-echo
 
+function helpAll() {
+  echo
+  echo "Wellcome command working for eXo Collaboration."
+  echo
+  echo "Feature : "
+  echo
+  echo "+ Goto projects: (We can use command for quick goto project)"
+  echo " * ks22x ks21x ks12x kst ks2.1.x ... same for cs projects"
+  echo "+ Run tomcat:  "
+  echo " * tcrun (or runtc): help you can quick run tomcat in project you doing"
+  echo " * runtomcat (options): help you run tomcat via options is name of project ex: runtomcat --ks21x, runtomcat --ks22x v.v..."
+  echo " If you not use options, the command will run same tcrun (or runtc)."
+  echo
+  echo
+}
+
+helpAll
 CM_DIR=$EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux
 EXO_KS=$EXO_PROJECTS_SRC/ks
 EXO_KS_TRUNK=$EXO_KS/trunk
@@ -61,7 +61,8 @@ function runtomcat() {
         SRC="$PWD" 
       fi
   else 
-      project="${project/--/}" 
+      project="${project/--/}"
+      project="${project/-/}" 
       project="${project//./}"
       eval "$project"
       SRC=$PWD
