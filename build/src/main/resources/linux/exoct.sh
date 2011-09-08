@@ -80,6 +80,7 @@ alias udcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && s
 alias mdfsetting="gedit $JAVA_DIR/maven2.2.1/conf/settings.xml &"
 alias mdfalias="gedit $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux/exoalias.sh &"
 alias cdtomcat="cd $EXO_TOMCAT_DIR"
+alias cdcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux"
 alias optomcat="nautilus $EXO_TOMCAT_DIR"
 
 alias tomcatClean="cd $EXO_TOMCAT_DIR/ &&
@@ -325,6 +326,7 @@ function  ct() {
   isHelp=true;
   newrepo="";
   eclipse=" ";
+  debug="";
 	for arg	in "$@" 
 		do
 			 isHelp=false
@@ -372,7 +374,9 @@ function  ct() {
 			elif [ "$arg" == "--install" ]; then 
 				typecm="mvn clean install"
 			elif [ "$arg" == "--test" ]; then 
-				typecm="mvn clean test -Dmaven.surefire.debug=true"
+				typecm="mvn clean test"
+			elif [ "$arg" == "--debug" ]; then 
+				debug="-Dmaven.surefire.debug=true"
 			elif [	${#arg} -gt 	17 ]; then
 				tcdir="${arg/-tomcatdir/Dgatein.working.dir}"
         tomcatdir="${arg/--tomcatdir=/}"
@@ -436,14 +440,14 @@ function  ct() {
 			fi
 
 		 if [ $istomcat == true ]; then
-			 INFO "Run command: $typecm $newrepo $istest $tcdir"
+			 INFO "Run command: $typecm $newrepo $istest $debug $tcdir"
 			 if [ "$tcdir" != " " ]; then 
 					eval "mkdir -p -m 777 $tomcatdir"
 			 fi
-			 eval "$typecm $newrepo $istest $tcdir"
+			 eval "$typecm $newrepo $istest $debug $tcdir"
 		 else
-			 INFO "Run command: $typecm $newrepo $istest"
-			 eval "$typecm $newrepo $istest"
+			 INFO "Run command: $typecm $newrepo $debug $istest"
+			 eval "$typecm $newrepo $istest $debug"
 		 fi
 	fi
 
