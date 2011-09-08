@@ -45,7 +45,7 @@ alias cs22x="cd $EXO_CS_22X && export CRPRJ=$EXO_CS_22X"
 
 alias crash="cp $EXO_WORKING_DIR/crsh.war $EXO_WORKING_DIR/tomcat/webapps/ && sleep 10s && telnet localhost 5000"
 alias eclipse="$JAVA_DIR/eclipse/eclipse &"
-alias mdfcm="gedit $CM_DIR/command.sh &"
+alias mdfcm="gedit $CM_DIR/exoct.sh &"
 
 alias runtc="runtomcat"
 alias tcrun="runtomcat"
