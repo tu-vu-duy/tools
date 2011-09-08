@@ -1,22 +1,51 @@
 #!/bin/bash
 
-function helpAll() {
+function npatchhelp() {
+      echo "Usage the npatch command:"
+      echo "       npatch [--issue] [--patchdir]"
+      echo 
+      echo "Options: "
+      echo 
+      echo "*--issue       is optional. It is issue for create patch, if not, it is ramdom"
+      echo "*--patchdir    is optional. It is dir of folder storage patch, if not --> current dir"
+      echo 
+}
+
+function gotohelp() {
+  echo "+ Goto projects: (We can use command for quick goto project)"
+  echo " * ks22x ks21x ks12x kst ks2.1.x ... same for cs projects"
+}
+
+function tomcatHelp() {
+  echo "+ Run tomcat:  "
+  echo "        runtomcat [--version or --wk]"
+  echo " * tcrun (or runtc): help you can quick run tomcat in project you doing"
+  echo " * runtomcat (options): help you run tomcat via options is name of project ex: runtomcat --ks21x, runtomcat --ks22x v.v..."
+  echo " If you not use options, the command will run same tcrun (or runtc)."
+}
+
+function qmhelp() {
+  echo "+ Quickwar and Module"
+  echo "* ctmodule : apply for build service of produce (build create a *.jar file). It will build produce --> replate new jar in lib/ of tomcat"
+  echo "* ctquickwar : apply for build webapp of produce (build create a *.war file). It will build --> replate new war and remove old folder + old war in tomcat/webapps"
+}
+
+function cthelp() {
   echo
   echo "Wellcome command working for eXo Collaboration."
   echo
   echo "Feature : "
   echo
-  echo "+ Goto projects: (We can use command for quick goto project)"
-  echo " * ks22x ks21x ks12x kst ks2.1.x ... same for cs projects"
-  echo "+ Run tomcat:  "
-  echo " * tcrun (or runtc): help you can quick run tomcat in project you doing"
-  echo " * runtomcat (options): help you run tomcat via options is name of project ex: runtomcat --ks21x, runtomcat --ks22x v.v..."
-  echo " If you not use options, the command will run same tcrun (or runtc)."
+  gotohelp
   echo
+  tomcatHelp
   echo
+  qmhelp
+  echo 
+  npatchhelp
+  echo "==========Using command cthelp for display this help.==========="
 }
-
-helpAll
+cthelp
 CM_DIR=$EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux
 EXO_KS=$EXO_PROJECTS_SRC/ks
 EXO_KS_TRUNK=$EXO_KS/trunk
@@ -30,6 +59,7 @@ EXO_CS_22X=$EXO_CS/branches/2.2.x
 EXO_CS_21X=$EXO_CS/branches/2.1.x
 EXO_CS_13X=$EXO_CS/branches/1.3.x
 CRPRJ=""
+EXO_TOMCAT_DIR=$EXO_WORKING_DIR/tomcat
 
 alias ks="CD $EXO_KS"
 alias kst="cd $EXO_KS_TRUNK && export CRPRJ=$EXO_KS_TRUNK"
@@ -43,52 +73,35 @@ alias cs13x="cd $EXO_CS_13X && export CRPRJ=$EXO_CS_13X"
 alias cs21x="cd $EXO_CS_21X && export CRPRJ=$EXO_CS_21X"
 alias cs22x="cd $EXO_CS_22X && export CRPRJ=$EXO_CS_22X"
 
-alias crash="cp $EXO_WORKING_DIR/crsh.war $EXO_WORKING_DIR/tomcat/webapps/ && sleep 10s && telnet localhost 5000"
+alias crash="getCrsh && sleep 10s && telnet localhost 5000"
 alias eclipse="$JAVA_DIR/eclipse/eclipse &"
 alias mdfcm="gedit $CM_DIR/exoct.sh &"
+alias udcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && svn up && cdback"
+alias mdfsetting="gedit $JAVA_DIR/maven2.2.1/conf/settings.xml &"
+alias mdfalias="gedit $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux/exoalias.sh &"
+alias cdtomcat="cd $EXO_TOMCAT_DIR"
+alias optomcat="nautilus $EXO_TOMCAT_DIR"
 
+alias tomcatClean="cd $EXO_TOMCAT_DIR/ &&
+                                 rm -rf temp &&
+		                             rm -rf gatein/data &&
+                                 rm -rf gatein/logs &&
+                                 rm -rf work &&
+                                 rm -rf logs && cdback"
+alias tomcatCleanRun="tomcatClean && runtomcat"
 alias runtc="runtomcat"
 alias tcrun="runtomcat"
 
-function runtomcat() {
-  project=$1
-  SRC=""
-  oldprj="$CRPRJ"
-  if [  "$project" == "" ]; then
-      if [ "$CRPRJ" != "" ]; then
-         SRC="$CRPRJ"
-      else 
-        SRC="$PWD" 
-      fi
-  else 
-      project="${project/--/}"
-      project="${project/-/}" 
-      project="${project//./}"
-      eval "$project"
-      SRC=$PWD
-      CRPRJ=$oldprj
-      cdback 
-  fi
-  eval "runTC $SRC"
-}
-
-function runTC() {
- DIR=$1;
- TDIR=""
- ODIR=$PWD
-  if [  -e "$DIR/packaging/pkg/target/tomcat/bin/gatein-dev.sh" ]; then
-           eval "INFO 'runtomcat in project: $DIR' && $DIR/packaging/pkg/target/tomcat/bin/gatein-dev.sh run"
+function getCrsh() {
+ if [  -e "$JAVA_DIR/exo-dependencies/crsh.war" ]; then
+     chmod +x  $JAVA_DIR/exo-dependencies/crsh.war
+     cp $JAVA_DIR/exo-dependencies/crsh.war $EXO_TOMCAT_DIR/webapps/
+     return
   else
-      TDIR=${DIR/$EXO_PROJECTS_SRC/}
-       cd $DIR && cd ../
-       DIR=$PWD
-       cd $ODIR
-      if [ ${#TDIR} -gt 	9 ]; then
-         eval "runTC $DIR "
-      else
-       echo   "Can not get tomcat dir. You must use command for goto project for set tomcat dir, Ex: ks22x."
-       echo   "Or use command runtomcat --project+version, Ex: runtomcat --ks22x"
-      fi
+     cd $JAVA_DIR/exo-dependencies/
+     wget http://storage.exoplatform.vn/ct/tu_vu_duy/crsh.war --http-user=tu_vu_duy --http-password=yentu08
+     sleep 7s 
+     getCrsh
   fi
 }
 
@@ -96,9 +109,23 @@ function INFO() {
  echo "[INFO] [$1]"
 }
 
-function getSources() {
-srt="abc"
-expr index  "abc cong hoa xa hoi chu nghia viet nam  xxx" "$str"
+function getCrproject() {
+ DIR=$1;
+ TDIR=""
+ ODIR=$PWD
+  if [  -e "$DIR/packaging/pom.xml" ]; then
+      CRPRJ=$DIR
+  else
+      TDIR=${DIR/$EXO_PROJECTS_SRC/}
+       cd $DIR && cd ../
+       DIR=$PWD
+       cd $ODIR
+      if [ ${#TDIR} -gt 	9 ]; then
+         eval "getCrproject $DIR "
+      else
+         INFO "Can not get project dir. You must use command for goto project, Ex: ks22x."
+      fi
+  fi
 }
 
 function CD() {
@@ -115,28 +142,69 @@ src=""
   done 
 }
 
-function npatch() {
-patchdir=$PWD
-issue="$(date -u +%h%M)"
-for arg	in "$@" 
-	do
-		if [ ${#arg} -gt 	20  ]; then 
-      patchdir="${arg/--patchdir=/}"
-    elif [	${#arg} -gt 	8 ]; then
-      issue="${arg/--issue=/}"
-    elif [	 "$arg" == "--help" ]; then
-      echo "Usage the npatch command:"
-      echo "       npatch [--issue] [--patchdir]"
-      echo 
-      echo "Options: "
-      echo 
-      echo "*--issue       is optional. It is issue for create patch, if not, it is ramdom"
-      echo "*--patchdir    is optional. It is dir of folder storage patch, if not --> current dir"
-      echo 
+function runtomcat() {
+  project=$1
+  SRC=""
+  oldprj="$CRPRJ"
+  if [  "$project" == "" ]; then
+     eval "runByOtherDir $PWD"
+     return
+  elif [	 "$project" == "--wk" ]; then
+      eval "tcstart $EXO_WORKING_DIR"
       return
-    fi 
-	done
+  else 
+      eval "runByParam $project"
+  fi
+}
 
+function runByOtherDir() {
+  DIR=$1;
+  oldprj="$CRPRJ"
+  eval "getCrproject $DIR"
+  DIR="$CRPRJ"
+  CRPRJ=$oldprj
+  eval "tcstart $DIR/packaging/pkg/target"
+}
+
+function runByParam() {
+  project=$1;
+  project="${project/--/}"
+  project="${project/-/}" 
+  project="${project//./}"
+  oldprj=$CRPRJ
+  olddir=$PWD
+  eval "$project"
+  SRC=$PWD
+  CRPRJ=$oldprj
+  cd $olddir 
+  eval "tcstart $SRC/packaging/pkg/target"
+}
+
+function tcstart() {
+  SRC=$1
+  if [  -e "$SRC/tomcat/bin/gatein-dev.sh" ]; then
+     EXO_TOMCAT_DIR=$SRC/tomcat
+     eval   "INFO 'Run tomcat in $SRC' && $SRC/tomcat/bin/gatein-dev.sh run" 
+  else
+       INFO   "Can not get tomcat dir. You must use command for goto project for set tomcat dir, Ex: ks22x... and run again this command"
+       INFO   "Or use command runtomcat --project+version, Ex: runtomcat --ks22x or runtomcat -wk for run tomcat in exo-working"
+  fi
+}
+
+function npatch() {
+  patchdir=$PWD
+  issue="$(date -u +%h%M)"
+  for arg	in "$@" 
+	  do
+		  if [ ${#arg} -gt 	20  ]; then 
+        patchdir="${arg/--patchdir=/}"
+      elif [	${#arg} -gt 	8 ]; then
+        issue="${arg/--issue=/}"
+      elif [	 "$arg" == "--help" ]; then
+        npatchhelp
+        return
+      fi 
+	  done
   INFO "Create new patch for issue: $issue (file name: $(date -u +%Y-%m-%d)-$issue.patch) And save into folder : $patchdir"
   svn diff > $patchdir/$(date -u +%Y-%m-%d)-$issue.patch
   return
@@ -166,14 +234,6 @@ src=""
  return
 }
 
-function runCt() {
-  src="$1"
-  src="${src/--/}" 
-  src="${src//./}"
-  eval "$src" &&
-  echo "[INFO] [Run tomcat in project $PWD]" && ./packaging/pkg/target/tomcat/bin/gatein-dev.sh run 
-}
-
 function builds() {
 src=""
  for arg	in "$@" 
@@ -181,31 +241,46 @@ src=""
     src="${arg/--/}" 
     src="${src//./}"
     eval "$src" &&
-    INFO "Updating now $PWD" &&  mvn clean install && cdback
+    INFO "Building now $PWD" &&  mvn clean install && cdback
 	done
  return
 }
 
-function deployModule () {
-  gtnproject --deploy=module
-  cd $EXO_WORKING_DIR/tomcat/lib
-  find -depth -name *sources.jar -exec rm -rf {} \; 
-  cdback
+function ctmodule () {
+   help=$1
+   if [ "$help" == "--help" ]; then 
+      qmhelp
+   fi
+    INFO "Building project $PWD"
+    mvn clean install
+    eval "getCrproject $PWD"
+    tomcatdir=$CRPRJ/packaging/pkg/target/tomcat
+    INFO "Copy file jar into $tomcatdir/lib"
+    cp target/*.jar tomcatdir/lib
+    cd tomcatdir/tomcat/lib
+    find -depth -name *sources.jar -exec rm -rf {} \; 
+    cdback
 }
 
 
-function deployQuickwar () {
+function ctquickwar () {
+   help=$1
+   if [ "$help" == "--help" ]; then 
+      qmhelp
+   fi
+   nowDir=$PWD
+   INFO "Building project $PWD"
    mvn clean install
-   cp target/*.war $EXO_WORKING_DIR/tomcat/webapps
-   cd $EXO_WORKING_DIR/tomcat/webapps
-   mkdir -p ../../temp 
-   chmod +x ../../temp -R
-   cp -rf examples host-manager integration manager ROOT zzzstarter ../../temp
-   find -depth -maxdepth 1 -mindepth 1 -type d -exec rm -rf {} \; 
-   cp -rf ../../temp/* ../webapps
-   rm -rf ../../temp 
-   chmod +x * -R
-   cdback
+   eval "getCrproject $PWD"
+   tomcatdir=$CRPRJ/packaging/pkg/target/tomcat
+   temp=$(find -depth -name *.war)
+   temp="${temp/.\/target\//}"
+   temp="${temp/.war/}"
+   INFO "Copy file $temp.war into $tomcatdir/webapps"
+   cp target/$temp.war $tomcatdir/webapps
+   chmod +x  $tomcatdir/webapps/* -R
+   INFO "Remove old folder $temp"
+   rm -rf $tomcatdir/webapps/$temp/
 }
 
 function ctHelp () {
@@ -233,25 +308,8 @@ function ctHelp () {
   echo "  ct  --ks -12x (go to ks/branches/1.2.x)"
   echo "  ct  --ks -12x --update --build (go to ks/branches/1.2.x and update and build and create exo-tomcat in pkg/target)"
   echo 
-  echo "Extension: ct --module and ct --quickwar "
-  echo "Note: only apply when you storage tomcat in ...java/exo-working and apply for vesion 2.0 and more"
-  echo "If you want create  tomcat in this folder, you can edit maven/conf/setting.xml."
-  echo 
-  echo "* --module : apply for build service of produce (build create a *.jar file). It will build produce --> replate new jar in lib/ of tomcat"
-  echo "* --quickwar : apply for build webapp of produce (build create a *.war file). It will build --> replate new war and remove old folder + old war in tomcat/webapps"
   echo " Luck for you ^^ Contac for me via duytucntt@gmail.com "
   echo 
-}
-
-function ctStart() {
-  eclipse
-  firefox
-  /usr/bin/chromium-browser %U
-  updates --ks21x --ks22x --cs21x --cs22x
-  cs22x
-  ct --buildnottc
-  ct --ks --22x --buildnottc
-  return
 }
 
 function  ct() {
@@ -343,10 +401,10 @@ function  ct() {
 				eclipse="mvn eclipse:eclipse"
 
 			elif [ "$arg" == "--module" ]; then 
-				deployModule
+				ctmodule
         return
 			elif [ "$arg" == "--quickwar" ]; then 
-				deployQuickwar
+				ctquickwar
         return
 			fi 
 	done
