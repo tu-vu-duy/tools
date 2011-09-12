@@ -99,7 +99,7 @@ function crash() {
     CD $vs
   fi
   eval "getCrproject $PWD"
-  EXO_TOMCAT_DIR="$CRPRJ/packaging/pkg/target/tomcat"
+  export EXO_TOMCAT_DIR="$CRPRJ/packaging/pkg/target/tomcat"
   cdback
   if [  -e "$EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war" ]; then 
       INFO "Run crash version 1.0.0-beta17"
@@ -136,7 +136,7 @@ function getCrproject() {
  TDIR=""
  ODIR=$PWD
   if [  -e "$DIR/packaging/pom.xml" ]; then
-      CRPRJ=$DIR
+      export CRPRJ=$DIR
   else
       TDIR=${DIR/$EXO_PROJECTS_SRC/}
        cd $DIR && cd ../
@@ -205,7 +205,7 @@ function runByParam() {
 function tcstart() {
   SRC=$1
   if [  -e "$SRC/tomcat/bin/gatein-dev.sh" ]; then
-     EXO_TOMCAT_DIR=$SRC/tomcat
+     export EXO_TOMCAT_DIR=$SRC/tomcat
      export EXO_WORKING_DIR=$SRC
      eval   "INFO 'Run tomcat in $SRC' && $SRC/tomcat/bin/gatein-dev.sh run" 
   else
