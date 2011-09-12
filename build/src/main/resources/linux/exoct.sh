@@ -45,7 +45,7 @@ function cthelp() {
   npatchhelp
   echo "==========Using command cthelp for display this help.==========="
 }
-cthelp
+
 CM_DIR=$EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux
 EXO_KS=$EXO_PROJECTS_SRC/ks
 EXO_KS_TRUNK=$EXO_KS/trunk
@@ -185,6 +185,7 @@ function tcstart() {
   SRC=$1
   if [  -e "$SRC/tomcat/bin/gatein-dev.sh" ]; then
      EXO_TOMCAT_DIR=$SRC/tomcat
+     export EXO_WORKING_DIR=$SRC
      eval   "INFO 'Run tomcat in $SRC' && $SRC/tomcat/bin/gatein-dev.sh run" 
   else
        INFO   "Can not get tomcat dir. You must use command for goto project for set tomcat dir, Ex: ks22x... and run again this command"
