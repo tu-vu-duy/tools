@@ -73,10 +73,10 @@ alias cs13x="cd $EXO_CS_13X && export CRPRJ=$EXO_CS_13X"
 alias cs21x="cd $EXO_CS_21X && export CRPRJ=$EXO_CS_21X"
 alias cs22x="cd $EXO_CS_22X && export CRPRJ=$EXO_CS_22X"
 
-alias crash="getCrsh && sleep 10s && telnet localhost 5000"
 alias eclipse="$JAVA_DIR/eclipse/eclipse &"
 alias mdfcm="gedit $CM_DIR/exoct.sh &"
 alias udcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && svn up && cdback"
+alias cicm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && eval 'svn ci -m \"Update tools collaboration\"' && cdback"
 alias mdfsetting="gedit $JAVA_DIR/maven2.2.1/conf/settings.xml &"
 alias mdfalias="gedit $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux/exoalias.sh &"
 alias cdtomcat="cd $EXO_TOMCAT_DIR"
@@ -93,17 +93,38 @@ alias tomcatCleanRun="tomcatClean && runtomcat"
 alias runtc="runtomcat"
 alias tcrun="runtomcat"
 
-function getCrsh() {
- if [  -e "$JAVA_DIR/exo-dependencies/crsh.war" ]; then
-     chmod +x  $JAVA_DIR/exo-dependencies/crsh.war
-     cp $JAVA_DIR/exo-dependencies/crsh.war $EXO_TOMCAT_DIR/webapps/
-     return
-  else
-     cd $JAVA_DIR/exo-dependencies/
-     wget http://storage.exoplatform.vn/ct/tu_vu_duy/crsh.war --http-user=tu_vu_duy --http-password=yentu08
-     sleep 7s 
-     getCrsh
+function crash() {
+  vs=$1
+  if [ "$vs" != "" ]; then 
+    CD $vs
   fi
+  eval "getCrproject $PWD"
+  EXO_TOMCAT_DIR="$CRPRJ/packaging/pkg/target/tomcat"
+  cdback
+  if [  -e "$EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war" ]; then 
+      INFO "Run crash version 1.0.0-beta17"
+     else
+      getCrsh
+  fi
+  sleep 10s 
+  eval "telnet localhost 5000"
+}
+
+function getCrsh() {
+   crdir="$JAVA_DIR/exo-dependencies/repository/org/crsh/crsh.shell.jcr/1.0.0-beta17"
+   if [  -e "$crdir/crsh.shell.jcr-1.0.0-beta17.war" ]; then
+     cp $crdir/crsh.shell.jcr-1.0.0-beta17.war $EXO_TOMCAT_DIR/webapps/
+     chmod +x  $EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war
+     INFO "Run crash version 1.0.0-beta17"
+     return
+   else
+     eval "mkdir -p -m 777 $crdir"
+     cd $crdir
+     wget "http://repository.exoplatform.org/service/local/repositories/crsh-releases/content/org/crsh/crsh.shell.jcr/1.0.0-beta17/crsh.shell.jcr-1.0.0-beta17.war"
+     cdback
+     sleep 5s 
+     getCrsh
+   fi
 }
 
 function INFO() {
