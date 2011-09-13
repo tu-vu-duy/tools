@@ -137,6 +137,16 @@ function getCrproject() {
  ODIR=$PWD
   if [  -e "$DIR/packaging/pom.xml" ]; then
       export CRPRJ=$DIR
+      if [  -e "$DIR/packaging/pkg/target/tomcat" ]; then
+        export EXO_WORKING_DIR=$DIR/packaging/pkg/target
+        export EXO_TOMCAT_DIR=$EXO_WORKING_DIR/tomcat
+      elif [  -e "$DIR/packaging/pkg/target/exo-tomcat" ]; then
+        export EXO_WORKING_DIR=$DIR/packaging/pkg/target
+        export EXO_TOMCAT_DIR=$EXO_WORKING_DIR/exo-tomcat
+      else 
+        export EXO_WORKING_DIR=$EXO_PROJECTS_SRC/exo-working
+        export EXO_TOMCAT_DIR=$EXO_WORKING_DIR/tomcat
+      fi
   else
       TDIR=${DIR/$EXO_PROJECTS_SRC/}
        cd $DIR && cd ../
@@ -208,6 +218,10 @@ function tcstart() {
      export EXO_TOMCAT_DIR=$SRC/tomcat
      export EXO_WORKING_DIR=$SRC
      eval   "INFO 'Run tomcat in $SRC' && $SRC/tomcat/bin/gatein-dev.sh run" 
+  elif [  -e "$SRC/exo-tomcat/bin/eXo.sh" ]; then
+     export EXO_WORKING_DIR=$SRC
+     export EXO_TOMCAT_DIR=$EXO_WORKING_DIR/exo-tomcat/
+     eval   "INFO 'Run tomcat in $SRC' && $SRC/exo-tomcat/bin/eXo-dev.sh run" 
   else
        INFO   "Can not get tomcat dir. You must use command for goto project for set tomcat dir, Ex: ks22x... and run again this command"
        INFO   "Or use command runtomcat --project+version, Ex: runtomcat --ks22x or runtomcat -wk for run tomcat in exo-working"
