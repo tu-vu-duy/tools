@@ -60,7 +60,8 @@ EXO_CS_22X=$EXO_CS/branches/2.2.x
 EXO_CS_21X=$EXO_CS/branches/2.1.x
 EXO_CS_13X=$EXO_CS/branches/1.3.x
 CRPRJ=""
-EXO_TOMCAT_DIR=$EXO_WORKING_DIR/tomcat
+EXO_WK_DIR=$EXO_WORKING_DIR
+EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
 EXO_PROJECTS=(portal gatein social ks cs plaform webos ecm/dms)
 
 alias ks="CD $EXO_KS"
@@ -167,14 +168,14 @@ function getCrproject() {
   if [  -e "$DIR/packaging/pom.xml" ]; then
       export CRPRJ=$DIR
       if [  -e "$DIR/packaging/pkg/target/tomcat" ]; then
-        export EXO_WORKING_DIR=$DIR/packaging/pkg/target
-        export EXO_TOMCAT_DIR=$EXO_WORKING_DIR/tomcat
+        export EXO_WK_DIR=$DIR/packaging/pkg/target
+        export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
       elif [  -e "$DIR/packaging/pkg/target/exo-tomcat" ]; then
-        export EXO_WORKING_DIR=$DIR/packaging/pkg/target
-        export EXO_TOMCAT_DIR=$EXO_WORKING_DIR/exo-tomcat
+        export EXO_WK_DIR=$DIR/packaging/pkg/target
+        export EXO_TOMCAT_DIR=$EXO_WK_DIR/exo-tomcat
       else 
-        export EXO_WORKING_DIR=$EXO_PROJECTS_SRC/exo-working
-        export EXO_TOMCAT_DIR=$EXO_WORKING_DIR/tomcat
+        export EXO_WK_DIR=$EXO_PROJECTS_SRC/exo-working
+        export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
       fi
   else
       TDIR=${DIR/$EXO_PROJECTS_SRC/}
@@ -260,7 +261,7 @@ function runtomcat() {
      eval "runByOtherDir $PWD"
      return
   elif [	 "$project" == "--wk" ]; then
-      eval "tcstart $EXO_WORKING_DIR"
+      eval "tcstart $EXO_WK_DIR"
       return
   else 
       eval "runByParam $project"
@@ -299,11 +300,11 @@ function tcstart() {
   SRC=$1
   if [  -e "$SRC/tomcat/bin/gatein-dev.sh" ]; then
      export EXO_TOMCAT_DIR=$SRC/tomcat
-     export EXO_WORKING_DIR=$SRC
+     export EXO_WK_DIR=$SRC
      eval   "INFO 'Run tomcat in $SRC' && $SRC/tomcat/bin/gatein-dev.sh run" 
   elif [  -e "$SRC/exo-tomcat/bin/eXo.sh" ]; then
-     export EXO_WORKING_DIR=$SRC
-     export EXO_TOMCAT_DIR=$EXO_WORKING_DIR/exo-tomcat/
+     export EXO_WK_DIR=$SRC
+     export EXO_TOMCAT_DIR=$EXO_WK_DIR/exo-tomcat/
      eval   "INFO 'Run tomcat in $SRC' && $SRC/exo-tomcat/bin/eXo-dev.sh run" 
   else
        INFO   "Can not get tomcat dir. You must use command for goto project for set tomcat dir, Ex: ks22x... and run again this command"
@@ -336,7 +337,11 @@ src=""
 	do
     src="${arg/--/}"
     src="${src//./}"
-    eval "$src" &&
+    if [ $(hasfc $src) == "Found" ]; then
+       eval "$src"
+    else 
+       eval "cdSource $src"
+    fi
     INFO "Updating now $PWD" && svn up &&  mvn clean install && cdback
 	done
  return
@@ -348,7 +353,11 @@ src=""
 	do
     src="${arg/--/}" 
     src="${src//./}"
-    eval "$src" &&
+    if [ $(hasfc $src) == "Found" ]; then
+        eval "$src"
+    else 
+        eval "cdSource $src"
+    fi
     INFO "Updating now $PWD" &&  svn up && cdback
 	done
  return
@@ -360,7 +369,11 @@ src=""
 	do
     src="${arg/--/}" 
     src="${src//./}"
-    eval "$src" &&
+    if [ $(hasfc $src) == "Found" ]; then
+        eval "$src"
+    else 
+       eval "cdSource $src"
+    fi
     INFO "Building now $PWD" &&  mvn clean install && cdback
 	done
  return
@@ -371,15 +384,16 @@ function ctmodule () {
    if [ "$help" == "--help" ]; then 
       qmhelp
    fi
+    OPWD=$PWD
     INFO "Building project $PWD"
     mvn clean install
     eval "getCrproject $PWD"
     tomcatdir=$CRPRJ/packaging/pkg/target/tomcat
     INFO "Copy file jar into $tomcatdir/lib"
-    cp target/*.jar tomcatdir/lib
-    cd tomcatdir/tomcat/lib
+    cp target/*.jar $tomcatdir/lib
+    cd $tomcatdir/lib
     find -depth -name *sources.jar -exec rm -rf {} \; 
-    cdback
+    cd $OPWD
 }
 
 
@@ -401,6 +415,7 @@ function ctquickwar () {
    chmod +x  $tomcatdir/webapps/* -R
    INFO "Remove old folder $temp"
    rm -rf $tomcatdir/webapps/$temp/
+   cd $nowDir
 }
 
 function getProject() {
