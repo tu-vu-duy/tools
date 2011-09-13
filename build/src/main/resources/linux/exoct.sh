@@ -47,6 +47,7 @@ function cthelp() {
 }
 
 CM_DIR=$EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux
+
 EXO_KS=$EXO_PROJECTS_SRC/ks
 EXO_KS_TRUNK=$EXO_KS/trunk
 EXO_KS_22X=$EXO_KS/branches/2.2.x
@@ -60,6 +61,7 @@ EXO_CS_21X=$EXO_CS/branches/2.1.x
 EXO_CS_13X=$EXO_CS/branches/1.3.x
 CRPRJ=""
 EXO_TOMCAT_DIR=$EXO_WORKING_DIR/tomcat
+EXO_PROJECTS=(portal gatein social ks cs plaform webos ecm/dms)
 
 alias ks="CD $EXO_KS"
 alias kst="cd $EXO_KS_TRUNK && export CRPRJ=$EXO_KS_TRUNK"
@@ -73,16 +75,19 @@ alias cs13x="cd $EXO_CS_13X && export CRPRJ=$EXO_CS_13X"
 alias cs21x="cd $EXO_CS_21X && export CRPRJ=$EXO_CS_21X"
 alias cs22x="cd $EXO_CS_22X && export CRPRJ=$EXO_CS_22X"
 
+alias firefox="firefox http://localhost:8080/"
 alias eclipse="$JAVA_DIR/eclipse/eclipse &"
+
 alias mdfcm="gedit $CM_DIR/exoct.sh &"
 alias udcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && svn up && cdback"
 alias cicm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && eval 'svn ci -m \"Update tools collaboration\" exoct.sh' && cdback"
+
 alias mdfsetting="gedit $JAVA_DIR/maven2.2.1/conf/settings.xml &"
 alias mdfalias="gedit $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux/exoalias.sh &"
+
 alias cdtomcat="cd $EXO_TOMCAT_DIR"
 alias cdcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux"
 alias optomcat="nautilus $EXO_TOMCAT_DIR"
-
 alias tomcatClean="cd $EXO_TOMCAT_DIR/ &&
                                  rm -rf temp &&
 		                             rm -rf gatein/data &&
@@ -92,6 +97,30 @@ alias tomcatClean="cd $EXO_TOMCAT_DIR/ &&
 alias tomcatCleanRun="tomcatClean && runtomcat"
 alias runtc="runtomcat"
 alias tcrun="runtomcat"
+
+alias svnst="svn st"
+alias svnup="svn up"
+alias svnrmall="exosvn rm"
+alias svnaddall="exosvn add"
+alias svnrvall="svn revert -R \"\""
+alias svndiff="svn diff"
+
+# has function or alias: use hasfc functionname. Ex: hasfs kst
+function hasfc() {
+  command -v $1 >/dev/null && echo "Found" || echo "NotFound"
+}
+
+ # has parameters: use  hasparam param. Ex: hasparam EXO_KS
+function hasparam() {
+abc="\$$1"
+eval "abc=$abc"
+  if [ -n "$abc" ]; then
+      echo "Found"
+  else
+      echo "NotFound"
+  fi 
+}
+
 
 function crash() {
   vs=$1
@@ -160,6 +189,51 @@ function getCrproject() {
   fi
 }
 
+function cdSource() {
+    inFo=$1
+    prj=""
+    vs=""
+    sb=""
+
+ for X in ${EXO_PROJECTS[@]}
+    do
+      sb="${inFo/$X/}"
+      if [ ${#sb}  != ${#inFo} ]; then 
+        prj="$X"
+        vs="$sb"
+      fi
+ done
+
+ if [ -e "$EXO_PROJECTS_SRC/$prj" ]; then 
+    INFO "Goto project $EXO_PROJECTS_SRC/$prj"
+    cd $EXO_PROJECTS_SRC/$prj
+ fi
+
+
+ if [ $vs != "trunk" ]; then
+    vs="${vs//./}"
+    X=0
+    VS=""
+    le=${#vs} 
+    if [ $le -gt 0 ]; then 
+      while [ $X -le $le ]
+      do
+        VS="$VS${vs:$X:1}"
+         if [ $X -le $((le-2)) ]; then
+          VS="$VS."
+         fi
+	      X=$((X+1))
+      done
+    fi
+    vs="branches/$VS"
+  fi
+
+  if [ -e "$EXO_PROJECTS_SRC/$prj/$vs" ]; then
+    INFO "Goto version $vs"
+    cd $vs
+  fi
+}
+
 function CD() {
 src=""
   for arg	in "$@"
@@ -169,7 +243,11 @@ src=""
      else
           src="${arg/--/}" 
           src="${src//./}"
-          eval "$src"
+          if [ $(hasfc $src) == "Found" ]; then
+             eval "$src"
+         else 
+            eval "cdSource $src"
+         fi
       fi
   done 
 }
@@ -200,12 +278,17 @@ function runByOtherDir() {
 
 function runByParam() {
   project=$1;
-  project="${project/--/}"
-  project="${project/-/}" 
+  project="${project//-/}" 
   project="${project//./}"
   oldprj=$CRPRJ
   olddir=$PWD
-  eval "$project"
+
+   if [ $(hasfc $project) == "Found" ]; then
+       eval "$project"
+   else 
+      eval "cdSource $project"
+   fi
+
   SRC=$PWD
   CRPRJ=$oldprj
   cd $olddir 
@@ -320,6 +403,33 @@ function ctquickwar () {
    rm -rf $tomcatdir/webapps/$temp/
 }
 
+function getProject() {
+    arg="$1"
+    arg="${arg//-/}"
+    src=$EXO_PROJECTS_SRC/$arg
+    ret=""
+    if [ -e "$src" ]; then 
+        ret=$src
+    fi
+    echo "$ret"
+}
+
+function getVersion() {
+    arg="$1"
+    prj="$2"
+    arg="${arg//-/}"
+    ret=" "
+    if [ "$arg" == "trunk" ]; then 
+        ret=$arg
+    else 
+           src=$prj/branches/$arg
+           if [ -e "$src" ]; then 
+                ret="branches/$arg"
+           fi
+    fi
+    echo  "$ret"
+}
+
 function ctHelp () {
   echo "Usage the ct command: "
   echo 
@@ -384,6 +494,8 @@ function  ct() {
 			elif [ "$arg" == "--12x" ]; then 
 				isOldvs=true
 				version="branches/1.2.x"
+			elif [ "$arg" == "--11x" ]; then 
+				version="branches/1.1.x"
 			elif [ "$arg" == "--13x" ]; then 
 				isOldvs=true
 				version="branches/1.3.x"
@@ -446,6 +558,19 @@ function  ct() {
 			elif [ "$arg" == "--quickwar" ]; then 
 				ctquickwar
         return
+      else
+         pr=$(getProject $arg)
+         if [ "$pr" != "" ]; then 
+             project="$pr"
+         fi
+         vs=$(getVersion $arg $project)
+         if [ "$vs" != " " ]; then 
+             version="$vs"
+         fi
+         cm="${arg//-/}"
+         if [ $(hasfc $cm) == "Found" ]; then
+             eval $cm
+         fi
 			fi 
 	done
 
@@ -455,7 +580,12 @@ function  ct() {
 	fi
 
 	if [ "$project" != " " ]; then
-		INFO "go to project: $project"
+    if [ $isOldvs == true ]; then 
+        if [ "$project" != "ks" &&  "$project" != "cs" ]; then
+            isOldvs=false
+        fi
+    fi
+		INFO "go to project: $project $isOldvs"
 		cd $project
 	fi
 
@@ -494,4 +624,3 @@ function  ct() {
   
 	return
 }
-
