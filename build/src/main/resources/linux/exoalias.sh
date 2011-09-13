@@ -28,6 +28,13 @@ alias rmdb="rm -rf $EXO_WORKING_DIR/exo-tomcat/temp/data"
 
 alias jbossRun="cd $EXO_WORKING_DIR/exo-jboss/bin && chmod +x *.sh && ./eXo.sh run"
 
+alias haiBuild="cd $EXO_PROJECTS_SRC/bookstore && 
+                rm -r $EXO_PROJECTS_SRC/GateIn/gatein/portal/tags/3.0.0-Beta02/packaging/pkg/target/tomcat/webapps/bookstore* && 
+                mvn clean install && 
+                cp webapp/target/bookstore.war $EXO_PROJECTS_SRC/GateIn/gatein/portal/tags/3.0.0-Beta02/packaging/pkg/target/tomcat/webapps && cdback"
+
+
+
 alias gtnrun="$EXO_WORKING_DIR/tomcat/bin/gatein-dev.sh run"
 alias gtncleanrun="cd $EXO_WORKING_DIR/tomcat &&
                    rm -rf temp/* work/* logs/* gatein/data &&
@@ -57,12 +64,8 @@ alias war12x="mvn clean install &&
 
 alias cdprs="cd $EXO_PROJECTS_SRC"
 
-alias cdfml="cd $EXO_PROJECTS_SRC/hongxanh/myfamily/trunk"
-alias cdhx="cd $EXO_PROJECTS_SRC/hongxanh"
-
 
 alias mdfalias="gedit $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux/exoalias.sh &"
-alias mdfnote="gedit $EXO_PROJECTS_SRC/Dropbox/Public/Notes.txt &"
 
 
 alias mvnclin="mvn clean install"
@@ -74,26 +77,9 @@ alias mvntest="mvn clean test"
 alias mvneclipse="mvn eclipse:eclipse"
 alias mvnclean="mvn eclipse:clean"
 
-alias cdpathfile="cd $PATCH_FILES/"
-alias crpatch='if [ $JIRA_NUMBER == "TEMP" ]; then export JIRA_NUMBER="$(date -u +%h%M)"; fi &&
-               echo "Tao file diff cho issue: $JIRA_NUMBER Va save xuong thu muc: $PATCH_FILES" &&
-	       svn diff > $PATCH_FILES/$(date -u +%Y-%m-%d)-$JIRA_NUMBER.patch'
-
-alias crnowpatch='if [ $JIRA_NUMBER == "TEMP" ]; then echo "Ban chua nhap ten issue, nhap = lenh export JIRA_NUMBER=ten issue, hien tai issue la ngau nhien"; fi &&
-		  if [ $JIRA_NUMBER == "TEMP" ]; then export JIRA_NUMBER="$(date -u +%h%M)"; fi &&
-                  echo "Tao file diff cho issue: $JIRA_NUMBER (name file: $(date -u +%Y-%m-%d)-$JIRA_NUMBER.patch)Va save xuong thu muc: $PWD" && 
-                  svn diff > $PWD/$(date -u +%Y-%m-%d)-$JIRA_NUMBER.patch'
-
-alias mdfpath='if [ $JIRA_NUMBER == "$(date -u +%h%M)" ]; then gedit $JIRA_NUMBER.patch; fi && 
-      if [ $JIRA_NUMBER != "$(date -u +%h%M)" ]; then gedit $PATCH_FILES/$(date -u +%Y-%m-%d)-$JIRA_NUMBER.patch; fi'
-
 alias opsrc="nautilus $EXO_PROJECTS_SRC"
 alias opwkd="nautilus $EXO_WORKING_DIR"
 alias opjava="nautilus $JAVA_DIR"
-
-
-alias savealias="cp $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux/exoalias.sh $EXO_PROJECTS_SRC/Dropbox/NotesFiles/exoalias.sh"
-alias udalias="cp $EXO_PROJECTS_SRC/Dropbox/NotesFiles/exoalias.sh $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux/exoalias.sh"
 
 alias dlloging="cp $EXO_WORKING_DIR/logging.properties $EXO_WORKING_DIR/tomcat/conf/logging.properties"
 
