@@ -350,9 +350,9 @@ function runByParam() {
 function tcstart() {
   SRC=$1
   debug=$2
-  isdb="has dubug=false"
+  isdb="has debug=false"
   if [ -n "$debug" ]; then
-       isdb="has dubug=true"
+       isdb="has debug=true"
        debug="-dev"
    else 
        debug=""
