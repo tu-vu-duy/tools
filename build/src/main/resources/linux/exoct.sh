@@ -55,7 +55,9 @@ EXO_SOCIAL=$EXO_PROJECTS_SRC/social
 CRPRJ=""
 EXO_WK_DIR=$EXO_WORKING_DIR
 EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
-EXO_PROJECTS=(portal gatein social ks cs platform webos ecm/dms)
+EXO_PROJECTS=(portal gatein social ks cs platform webos ecm/dms commons)
+
+
 
 # aliass extendsion: we can define quick goto project via use function cdSource with param = {projectname}{version}
 alias ks="CD $EXO_KS"
@@ -81,19 +83,11 @@ alias eclipse="$JAVA_DIR/eclipse/eclipse &"
 alias mdfcm="gedit $CM_DIR/exoct.sh &"
 alias udcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && svn up && cdback"
 alias cicm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && eval 'svn ci -m \"Update tools collaboration\" exoct.sh' && cdback"
+alias cdcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux"
 
 alias mdfsetting="gedit $JAVA_DIR/maven2.2.1/conf/settings.xml &"
 alias mdfalias="gedit $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux/exoalias.sh &"
 
-alias cdtomcat="cd $EXO_TOMCAT_DIR"
-alias cdcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux"
-alias optomcat="nautilus $EXO_TOMCAT_DIR"
-alias tomcatClean="cd $EXO_TOMCAT_DIR/ &&
-                                 rm -rf temp &&
-		                             rm -rf gatein/data &&
-                                 rm -rf gatein/logs &&
-                                 rm -rf work &&
-                                 rm -rf logs && cdback"
 alias tomcatCleanRun="tomcatClean && runtomcat"
 alias runtc="runtomcat"
 alias tcrun="runtomcat"
@@ -161,9 +155,13 @@ function INFO() {
 }
 
 function getCrproject() {
- DIR=$1;
- TDIR=""
- ODIR=$PWD
+   if [ -n "$1" ]; then 
+      DIR=$1
+   else 
+      DIR=$PWD
+   fi
+   TDIR=""
+   ODIR=$PWD
   if [  -e "$DIR/packaging/pom.xml" ]; then
       export CRPRJ=$DIR
       if [  -e "$DIR/packaging/pkg/target/tomcat" ]; then
@@ -188,6 +186,46 @@ function getCrproject() {
       fi
   fi
 }
+
+function cdtomcat() {
+  dirS=$1
+  if [ -n "$dirS" ]; then 
+      dirS="${dirS/--/}" 
+      eval "cdSource $dirS"
+  fi
+  getCrproject
+  INFO "Goto folder: $EXO_TOMCAT_DIR"
+  cd $EXO_TOMCAT_DIR
+}
+
+function optomcat() {
+   Opwd=$PWD
+   dirS=$1
+  if [ -n "$dirS" ]; then 
+      dirS="${dirS/--/}" 
+      eval "cdSource $dirS"
+  fi
+  getCrproject
+  cd $Opwd
+  INFO "Open folder: $EXO_TOMCAT_DIR"
+  nautilus $EXO_TOMCAT_DIR
+}
+
+function tomcatClean() {
+   Opwd=$PWD
+   dirS=$1
+   if [ -n "$dirS" ]; then 
+   echo $dirS
+      dirS="${dirS/--/}" 
+      eval "cdSource $dirS"
+   fi
+   getCrproject
+   cd $EXO_TOMCAT_DIR
+   rm -rf temp work logs gatein/data gatein/logs
+  cd $Opwd
+}
+                                 
+
 
 function cdSource() {
     inFo=$1
@@ -490,86 +528,80 @@ function  ct() {
 	for arg	in "$@" 
 		do
 			 isHelp=false
-			if [ "$arg" == "--start" ]; then
+
+       arg="${arg//-/}"
+       arg="${arg//./}"
+
+			if [ "$arg" == "start" ]; then
 				ctStart
         return
 
-			elif [ "$arg" == "--ks" ]; then
+			elif [ "$arg" == "ks" ]; then
 				project="$EXO_KS"
-			elif [ "$arg" == "--cs" ]; then
+			elif [ "$arg" == "cs" ]; then
 				project="$EXO_CS"
 
-			elif [ "$arg" == "--help" ]; then
+			elif [ "$arg" == "help" ]; then
 				ctHelp
 				return;
 
-			elif [ "$arg" == "--trunk" ]; then 
+			elif [ "$arg" == "trunk" ]; then 
 				version="trunk"
-			elif [ "$arg" == "--12x" ]; then 
+			elif [ "$arg" == "12x" ]; then 
 				isOldvs=true
 				version="branches/1.2.x"
-			elif [ "$arg" == "--11x" ]; then 
+			elif [ "$arg" == "11x" ]; then 
 				version="branches/1.1.x"
-			elif [ "$arg" == "--13x" ]; then 
+			elif [ "$arg" == "13x" ]; then 
 				isOldvs=true
 				version="branches/1.3.x"
-			elif [ "$arg" == "--21x" ]; then 
+			elif [ "$arg" == "21x" ]; then 
 				version="branches/2.1.x"
-			elif [ "$arg" == "--22x" ]; then 
-				version="branches/2.2.x"
-			elif [ "$arg" == "--1.2.x" ]; then 
-				version="branches/1.2.x"
-			elif [ "$arg" == "--1.3.x" ]; then 
-				version="branches/1.3.x"
-			elif [ "$arg" == "--2.1.x" ]; then 
-				version="branches/2.1.x"
-			elif [ "$arg" == "--2.2.x" ]; then 
+			elif [ "$arg" == "22x" ]; then 
 				version="branches/2.2.x"
 
-			elif [ "$arg" == "--up" ]; then 
+			elif [ "$arg" == "up" ]; then 
 				update="svn up"
-			elif [ "$arg" == "--update" ]; then 
+			elif [ "$arg" == "update" ]; then 
 				update="svn up"
 
-			elif [ "$arg" == "--build" ]; then 
+			elif [ "$arg" == "build" ]; then 
 				typecm="mvn clean install"
-			elif [ "$arg" == "--install" ]; then 
+			elif [ "$arg" == "install" ]; then 
 				typecm="mvn clean install"
-			elif [ "$arg" == "--test" ]; then 
+			elif [ "$arg" == "test" ]; then 
 				typecm="mvn clean test"
-			elif [ "$arg" == "--debug" ]; then 
+			elif [ "$arg" == "debug" ]; then 
 				debug="-Dmaven.surefire.debug=true"
 			elif [	${#arg} -gt 	17 ]; then
-				tcdir="${arg/-tomcatdir/Dgatein.working.dir}"
-        tomcatdir="${arg/--tomcatdir=/}"
-			elif [ "$arg" == "--buildnottc" ]; then 
+				tcdir="${arg/tomcatdir/-Dgatein.working.dir}"
+        tomcatdir="${arg/tomcatdir=/}"
+			elif [ "$arg" == "buildnottc" ]; then 
 				typecm="mvn clean install -P !pkg-tomcat"
 				istomcat=false
-      elif [ "$arg" == "--tomcat=false" ]; then 
+      elif [ "$arg" == "tomcat=false" ]; then 
 				typecm="$typecm -P !pkg-tomcat"
         istomcat=false
-			elif [ "$arg" == "--onlytomcat" ]; then 
+			elif [ "$arg" == "onlytomcat" ]; then 
 				typecm="cd packaging/pkg/ && mvn clean install"
 
-			elif [ "$arg" == "--test=true" ]; then 
+			elif [ "$arg" == "test=true" ]; then 
 				istest="-Dmaven.test.skip=false"
-			elif [ "$arg" == "--test=false" ]; then 
+			elif [ "$arg" == "test=false" ]; then 
 				istest="-Dmaven.test.skip=true"
 
-			elif [ "$arg" == "--newrepo=true" ]; then 
+			elif [ "$arg" == "newrepo=true" ]; then 
 				newrepo="-U"
-			elif [ "$arg" == "--U" ]; then 
-				newrepo="-U"
-			elif [ "$arg" == "-U" ]; then 
+			elif [ "$arg" == "U" ]; then 
 				newrepo="-U"
 
-			elif [ "$arg" == "--eclipse" ]; then 
+			elif [ "$arg" == "eclipse" ]; then 
 				eclipse="mvn eclipse:eclipse"
 
-			elif [ "$arg" == "--module" ]; then 
+			elif [ "$arg" == "module" ]; then 
 				ctmodule
         return
-			elif [ "$arg" == "--quickwar" ]; then 
+			elif [ "$arg" == "quickwar" ]; then 
 				ctquickwar
         return
       else
