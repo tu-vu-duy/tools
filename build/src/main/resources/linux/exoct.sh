@@ -115,7 +115,6 @@ eval "abc=$abc"
   fi 
 }
 
-
 function crash() {
   vs=$1
   if [ "$vs" != "" ]; then 
@@ -416,42 +415,43 @@ src=""
  return
 }
 
-function ctmodule () {
-   par=""
-   help=$1
-   if [ -n "$help" ]; then
-       help="${help//-/}" 
-       if [ "$help" == "help" ]; then 
-          qmhelp
-       fi
-       if [ "$help" == "test=false" ]; then 
-          par="-Dmaven.test.skip=true"
-       fi
-       if [ "$help" == "test=true" ]; then 
-          par="-Dmaven.test.skip=false"
-       fi
-   fi
+function ctbuild() {
+    par=""
+    help=$1
+    if [ -n "$help" ]; then
+         help="${help//-/}" 
+         if [ "$help" == "help" ]; then 
+            qmhelp
+         fi
+         if [ "$help" == "test=false" ]; then 
+            par="-Dmaven.test.skip=true"
+         fi
+         if [ "$help" == "test=true" ]; then 
+            par="-Dmaven.test.skip=false"
+         fi
+     fi
     OPWD=$PWD
     INFO "Building project $PWD"
     INFO "Command: mvn clean install $par"
     eval "mvn clean install $par"
-    eval "getCrproject $PWD"
-    tomcatdir=$CRPRJ/packaging/pkg/target/tomcat
-    INFO "Copy file jar into $tomcatdir/lib"
-    cp target/*.jar $tomcatdir/lib
-    cd $tomcatdir/lib
-    find -depth -name *sources.jar -exec rm -rf {} \; 
-    cd $OPWD
 }
 
 
+function ctmodule () {
+    eval "ctbuild $1" &&
+    if [ -e "$PWD/target" ]; then
+        eval "getCrproject $PWD"
+        tomcatdir=$CRPRJ/packaging/pkg/target/tomcat
+        INFO "Copy file jar into $tomcatdir/lib"
+        cp target/*.jar $tomcatdir/lib
+        cd $tomcatdir/lib
+        find -depth -name *sources.jar -exec rm -rf {} \; 
+        cd $OPWD
+    fi
+}
+
 function ctquickwar () {
-   help=$1
-   if [ "$help" == "--help" ]; then 
-      qmhelp
-   fi
-   INFO "Building project $PWD"
-   mvn clean install
+   eval "ctbuild $1" &&
    if [ -e "$PWD/target" ]; then
      nowDir=$PWD
      eval "getCrproject $PWD"
