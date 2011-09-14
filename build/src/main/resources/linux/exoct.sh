@@ -417,13 +417,24 @@ src=""
 }
 
 function ctmodule () {
+   par=""
    help=$1
-   if [ "$help" == "--help" ]; then 
-      qmhelp
+   if [ -n "$help" ]; then
+       help="${help//-/}" 
+       if [ "$help" == "help" ]; then 
+          qmhelp
+       fi
+       if [ "$help" == "test=false" ]; then 
+          par="-Dmaven.test.skip=true"
+       fi
+       if [ "$help" == "test=true" ]; then 
+          par="-Dmaven.test.skip=false"
+       fi
    fi
     OPWD=$PWD
     INFO "Building project $PWD"
-    mvn clean install
+    INFO "Command: mvn clean install $par"
+    eval "mvn clean install $par"
     eval "getCrproject $PWD"
     tomcatdir=$CRPRJ/packaging/pkg/target/tomcat
     INFO "Copy file jar into $tomcatdir/lib"
@@ -439,20 +450,24 @@ function ctquickwar () {
    if [ "$help" == "--help" ]; then 
       qmhelp
    fi
-   nowDir=$PWD
    INFO "Building project $PWD"
    mvn clean install
-   eval "getCrproject $PWD"
-   tomcatdir=$CRPRJ/packaging/pkg/target/tomcat
-   temp=$(find -depth -name *.war)
-   temp="${temp/.\/target\//}"
-   temp="${temp/.war/}"
-   INFO "Copy file $temp.war into $tomcatdir/webapps"
-   cp target/$temp.war $tomcatdir/webapps
-   chmod +x  $tomcatdir/webapps/* -R
-   INFO "Remove old folder $temp"
-   rm -rf $tomcatdir/webapps/$temp/
-   cd $nowDir
+   if [ -e "$PWD/target" ]; then
+     nowDir=$PWD
+     eval "getCrproject $PWD"
+     tomcatdir=$CRPRJ/packaging/pkg/target/tomcat
+     temp=$(find -depth -name *.war)
+     temp="${temp/.\/target\//}"
+     temp="${temp/.war/}"
+     if [ -e "$PWD/target/$temp.war" ]; then
+       INFO "Copy file $temp.war into $tomcatdir/webapps"
+       cp target/$temp.war $tomcatdir/webapps
+       chmod +x  $tomcatdir/webapps/* -R
+       INFO "Remove old folder $temp"
+       rm -rf $tomcatdir/webapps/$temp/
+     fi
+     cd $nowDir
+   fi
 }
 
 function getProject() {
