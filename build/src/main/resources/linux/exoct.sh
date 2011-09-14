@@ -272,7 +272,7 @@ function cdSource() {
 }
 
 function CD() {
-src=""
+  src=""
   for arg	in "$@"
     do
       if [  -e "$arg" ]; then
@@ -290,31 +290,46 @@ src=""
 }
 
 function runtomcat() {
-  project=$1
+   debug="debug=true"
+   project=""
+  for arg	in "$@" 
+	  do
+      arg="${arg//-/}" 
+		  if [ "$arg" == "debug=false" ]; then
+          debug=""
+     elif [ "$arg" == "debug=true" ]; then
+          debug="$arg"
+      else 
+          project=$arg
+      fi 
+	done
+  
   SRC=""
   oldprj="$CRPRJ"
   if [  "$project" == "" ]; then
-     eval "runByOtherDir $PWD"
+     eval "runByOtherDir $PWD $debug"
      return
   elif [	 "$project" == "--wk" ]; then
-      eval "tcstart $EXO_WK_DIR"
+      eval "tcstart $EXO_WK_DIR $debug"
       return
   else 
-      eval "runByParam $project"
+      eval "runByParam $project $debug"
   fi
 }
 
 function runByOtherDir() {
   DIR=$1;
+  debug=$2
   oldprj="$CRPRJ"
   eval "getCrproject $DIR"
   DIR="$CRPRJ"
   CRPRJ=$oldprj
-  eval "tcstart $DIR/packaging/pkg/target"
+  eval "tcstart $DIR/packaging/pkg/target $debug"
 }
 
 function runByParam() {
   project=$1;
+  debug=$2
   project="${project//-/}" 
   project="${project//./}"
   oldprj=$CRPRJ
@@ -329,19 +344,28 @@ function runByParam() {
   SRC=$PWD
   CRPRJ=$oldprj
   cd $olddir 
-  eval "tcstart $SRC/packaging/pkg/target"
+  eval "tcstart $SRC/packaging/pkg/target $debug"
 }
 
 function tcstart() {
   SRC=$1
-  if [  -e "$SRC/tomcat/bin/gatein-dev.sh" ]; then
+  debug=$2
+  isdb="has dubug=false"
+  if [ -n "$debug" ]; then
+       isdb="has dubug=true"
+       debug="-dev"
+   else 
+       debug=""
+  fi
+
+  if [  -e "$SRC/tomcat/bin/gatein.sh" ]; then
      export EXO_TOMCAT_DIR=$SRC/tomcat
      export EXO_WK_DIR=$SRC
-     eval   "INFO 'Run tomcat in $SRC' && $SRC/tomcat/bin/gatein-dev.sh run" 
+     eval   "INFO 'Run tomcat $isdb in $SRC'  && $SRC/tomcat/bin/gatein$debug.sh run" 
   elif [  -e "$SRC/exo-tomcat/bin/eXo.sh" ]; then
      export EXO_WK_DIR=$SRC
      export EXO_TOMCAT_DIR=$EXO_WK_DIR/exo-tomcat/
-     eval   "INFO 'Run tomcat in $SRC' && $SRC/exo-tomcat/bin/eXo-dev.sh run" 
+     eval   "INFO 'Run tomcat in $SRC' && $SRC/exo-tomcat/bin/eXo$debug.sh run" 
   else
        INFO   "Can not get tomcat dir. You must use command for goto project for set tomcat dir, Ex: ks22x... and run again this command"
        INFO   "Or use command runtomcat --project+version, Ex: runtomcat --ks22x or runtomcat -wk for run tomcat in exo-working"
@@ -387,7 +411,7 @@ function updates() {
 src=""
  for arg	in "$@" 
 	do
-    src="${arg/--/}" 
+    src="${arg//-/}" 
     src="${src//./}"
     if [ $(hasfc $src) == "Found" ]; then
         eval "$src"
