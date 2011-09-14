@@ -55,7 +55,7 @@ EXO_SOCIAL=$EXO_PROJECTS_SRC/social
 CRPRJ=""
 EXO_WK_DIR=$EXO_WORKING_DIR
 EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
-EXO_PROJECTS=(portal gatein social ks cs plaform webos ecm/dms)
+EXO_PROJECTS=(portal gatein social ks cs platform webos ecm/dms)
 
 # aliass extendsion: we can define quick goto project via use function cdSource with param = {projectname}{version}
 alias ks="CD $EXO_KS"
