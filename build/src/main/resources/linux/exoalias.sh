@@ -5,17 +5,6 @@ alias cdback='cd  $OLDPWD'
 
 alias mvnrepoclean="rm -rf $M2_REPO/org/exoplatform/* $M2_REPO/javax/portlet/*"
 source exoct.sh
-alias cdtomcat="cd $EXO_WORKING_DIR/tomcat"
-alias cdtomcatbin="cd $EXO_WORKING_DIR/tomcat/bin"
-alias tomcatClean="cd $EXO_WORKING_DIR/tomcat/ &&
-                   rm -rf temp &&
-		               rm -rf gatein/data &&
-                   rm -rf gatein/logs &&
-                   rm -rf work &&
-                   rm -rf logs && cdback"
-   
-alias tomcatRun="$EXO_WORKING_DIR/tomcat/bin/gatein.sh run"
-alias tomcatCleanRun="tomcatClean && gtnrun"
 
 alias openfireRun="cd $EXO_WORKING_DIR/exo-openfire/bin && chmod +x openfire && ./openfire start"
 
