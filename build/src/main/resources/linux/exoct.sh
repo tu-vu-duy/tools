@@ -49,32 +49,31 @@ function cthelp() {
 CM_DIR=$EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux
 
 EXO_KS=$EXO_PROJECTS_SRC/ks
-EXO_KS_TRUNK=$EXO_KS/trunk
-EXO_KS_22X=$EXO_KS/branches/2.2.x
-EXO_KS_21X=$EXO_KS/branches/2.1.x
-EXO_KS_12X=$EXO_KS/branches/1.2.x
-
 EXO_CS=$EXO_PROJECTS_SRC/cs
-EXO_CS_TRUNK=$EXO_CS/trunk
-EXO_CS_22X=$EXO_CS/branches/2.2.x
-EXO_CS_21X=$EXO_CS/branches/2.1.x
-EXO_CS_13X=$EXO_CS/branches/1.3.x
+EXO_SOCIAL=$EXO_PROJECTS_SRC/social
+
 CRPRJ=""
 EXO_WK_DIR=$EXO_WORKING_DIR
 EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
 EXO_PROJECTS=(portal gatein social ks cs plaform webos ecm/dms)
 
+# aliass extendsion: we can define quick goto project via use function cdSource with param = {projectname}{version}
 alias ks="CD $EXO_KS"
-alias kst="cd $EXO_KS_TRUNK && export CRPRJ=$EXO_KS_TRUNK"
-alias ks12x="cd $EXO_KS_12X  && export CRPRJ=$EXO_KS_12X"
-alias ks21x="cd $EXO_KS_21X && export CRPRJ=$EXO_KS_21X"
-alias ks22x="cd $EXO_KS_22X && export CRPRJ=$EXO_KS_22X"
+alias kst="cdSource kstrunk"
+alias ks12x="cdSource ks12x"
+alias ks21x="cdSource ks21x"
+alias ks22x="cdSource ks22x"
 
-alias cs="cd $EXO_CS && export CRPRJ=$EXO_CS"
-alias cst="cd $EXO_CS_TRUNK && export CRPRJ=$EXO_CS_TRUNK"
-alias cs13x="cd $EXO_CS_13X && export CRPRJ=$EXO_CS_13X"
-alias cs21x="cd $EXO_CS_21X && export CRPRJ=$EXO_CS_21X"
-alias cs22x="cd $EXO_CS_22X && export CRPRJ=$EXO_CS_22X"
+alias cs="cd $EXO_CS"
+alias cst="cdSource cstrunk"
+alias cs13x="cdSource cs13x"
+alias cs21x="cdSource cs21x"
+alias cs22x="cdSource cs22x"
+
+alias social="CD $EXO_SOCIAL"
+alias social12x="cdSource social12x"
+alias social11x="cdSource social11x"
+alias socialt="cdSource socialtrunk"
 
 alias firefox="firefox http://localhost:8080/"
 alias eclipse="$JAVA_DIR/eclipse/eclipse &"
@@ -596,11 +595,14 @@ function  ct() {
 
 	if [ "$project" != " " ]; then
     if [ $isOldvs == true ]; then 
-        if [ "$project" != "ks" &&  "$project" != "cs" ]; then
+        if [ "$project" != "ks" ]; then
+            isOldvs=false
+        fi
+        if [ "$project" != "cs" ]; then
             isOldvs=false
         fi
     fi
-		INFO "go to project: $project $isOldvs"
+		INFO "go to project: $project"
 		cd $project
 	fi
 
@@ -616,6 +618,7 @@ function  ct() {
 
 	if [ "$typecm" != " " ]; then
 			if [ $isOldvs == true ]; then
+          INFO "Run command: $typecm $istest -Ppkg-tomcat=tomcat"
 					eval "$typecm $istest -Ppkg-tomcat=tomcat"
 					return
 			fi
@@ -638,4 +641,43 @@ function  ct() {
 	fi
   
 	return
+}
+
+function exosvnco() {
+  prj=$1
+  prj="${prj//-/}"
+  vs=$2
+  vs="${vs//-/}"
+  vs="${vs//./}"
+  isTag=$3
+  
+  tp="trunk"
+  if [ $vs != "trunk" ]; then
+    vs="${vs//./}"
+    X=0
+    VS=""
+    le=${#vs} 
+    if [ $le -gt 0 ]; then 
+      while [ $X -le $le ]
+      do
+        VS="$VS${vs:$X:1}"
+         if [ $X -le $((le-2)) ]; then
+          VS="$VS."
+         fi
+	      X=$((X+1))
+      done
+    fi
+  
+    if [ -n "$isTag" ]; then 
+        tp="tags"
+    else
+        tp="branches"
+    fi
+    vs="$tp/$VS"
+    eval "mkdir -p -m 777 $EXO_PROJECTS_SRC/$prj/$tp"
+  fi
+  cd $EXO_PROJECTS_SRC/$prj
+  INFO "Check out project $prj with version $vs"
+  eval "svn co http://svn.exoplatform.org/projects/$prj/$vs $vs"
+  cdback
 }
