@@ -533,6 +533,7 @@ function ctbuild() {
 function ctmodule () {
     eval "ctbuild $1 $2" &&
     if [ -e "$PWD/target" ]; then
+        OPWD=$PWD
         eval "getCrproject $PWD"
         tomcatdir=$CRPRJ/packaging/pkg/target/tomcat
         INFO "Copy file jar into $tomcatdir/lib"
