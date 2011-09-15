@@ -771,14 +771,11 @@ function exosvnco() {
     fi
     vs=$(cvVersion $vs $isTag)
     if [ -n "$vs" ]; then
-        #eval "mkdir -p -m 777 $EXO_PROJECTS_SRC/$prj$tp"
-        #cd $EXO_PROJECTS_SRC/$prj
+        eval "mkdir -p -m 777 $EXO_PROJECTS_SRC/$prj$tp"
+        cd $EXO_PROJECTS_SRC/$prj
         INFO "Check out project $prj with version $vs: $EXO_PROJECTS_SRC/$prj/$vs"
-        #eval "svn co http://svn.exoplatform.org/projects/$prj/$vs $vs"
-        #cdback
+        eval "svn co http://svn.exoplatform.org/projects/$prj/$vs $vs"
+        cdback
     fi
   fi
-
-
-
 }
