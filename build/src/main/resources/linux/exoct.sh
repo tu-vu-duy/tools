@@ -115,6 +115,41 @@ eval "abc=$abc"
   fi 
 }
 
+# convert version
+function cvVersion() {
+  vs=$1
+  vs="${vs//-/}"
+  vs="${vs//./}"
+  isTag=$2
+  
+  tp="trunk"
+  if [ -n "$vs" ]; then
+    if [ $vs != "trunk" ]; then
+      X=0
+      VS=""
+      le=${#vs} 
+      if [ $le -gt 0 ]; then 
+        while [ $X -le $le ]
+        do
+          VS="$VS${vs:$X:1}"
+           if [ $X -le $((le-2)) ]; then
+            VS="$VS."
+           fi
+          X=$((X+1))
+        done
+      fi
+    
+      if [ -n "$isTag" ]; then 
+          tp="tags"
+      else
+          tp="branches"
+      fi
+      vs="$tp/$VS"
+    fi
+  fi
+  echo "$vs"
+}
+
 function crash() {
   vs=$1
   if [ "$vs" != "" ]; then 
@@ -231,44 +266,27 @@ function cdSource() {
     prj=""
     vs=""
     sb=""
-
- for X in ${EXO_PROJECTS[@]}
-    do
-      sb="${inFo/$X/}"
-      if [ ${#sb}  != ${#inFo} ]; then 
-        prj="$X"
-        vs="$sb"
-      fi
- done
-
- if [ -e "$EXO_PROJECTS_SRC/$prj" ]; then 
-    INFO "Goto project $EXO_PROJECTS_SRC/$prj"
-    cd $EXO_PROJECTS_SRC/$prj
- fi
-
-
- if [ $vs != "trunk" ]; then
-    vs="${vs//./}"
-    X=0
-    VS=""
-    le=${#vs} 
-    if [ $le -gt 0 ]; then 
-      while [ $X -le $le ]
+   for X in ${EXO_PROJECTS[@]}
       do
-        VS="$VS${vs:$X:1}"
-         if [ $X -le $((le-2)) ]; then
-          VS="$VS."
-         fi
-	      X=$((X+1))
-      done
+        sb="${inFo/$X/}"
+        if [ ${#sb}  != ${#inFo} ]; then 
+          prj="$X"
+          vs="$sb"
+        fi
+   done
+   if [ -n "$prj" ]; then
+     if [ -e "$EXO_PROJECTS_SRC/$prj" ]; then 
+        INFO "Goto project $EXO_PROJECTS_SRC/$prj"
+        cd $EXO_PROJECTS_SRC/$prj
+     fi
+   fi
+   vs=$(cvVersion $vs)
+    if [ -n "$vs" ]; then
+      if [ -e "$EXO_PROJECTS_SRC/$prj/$vs" ]; then
+        INFO "Goto version $vs"
+        cd $vs
+      fi
     fi
-    vs="branches/$VS"
-  fi
-
-  if [ -e "$EXO_PROJECTS_SRC/$prj/$vs" ]; then
-    INFO "Goto version $vs"
-    cd $vs
-  fi
 }
 
 function CD() {
@@ -439,6 +457,37 @@ src=""
  return
 }
 
+function getparam() {
+  arrays=()
+  idx=0
+  for arg	in "$@" 
+	  do
+      arg="${arg/--/}" 
+      arg="${arg//./}"
+      if [  "$src" == "test=false" ]; then
+          arrays[$idx]="-Dmaven.test.skip=true"
+      elif [ "$arg" == "up" ]; then 
+				  arrays[$idx]="svn up"
+			elif [ "$arg" == "update" ]; then 
+				  arrays[$idx]="svn up"
+			elif [ "$arg" == "build" ]; then 
+				  arrays[$idx]="mvn clean install"
+			elif [ "$arg" == "install" ]; then 
+				  arrays[$idx]="mvn clean install"
+			elif [ "$arg" == "debug" ]; then 
+				  arrays[$idx]="-Dmaven.surefire.debug=true"
+      elif [ "$arg" == "tomcat=false" ]; then 
+				  arrays[$idx]="-P !pkg-tomcat"
+      elif [ "$arg" == "eclipse" ]; then 
+				  arrays[$idx]="mvn eclipse:eclipse"
+      else 
+          arrays[$idx]="$arg"
+      fi
+      ((idx++))
+	 done
+
+}
+
 function ctbuild() {
     par=""
     help=$1
@@ -454,7 +503,6 @@ function ctbuild() {
             par="-Dmaven.test.skip=false"
          fi
      fi
-    OPWD=$PWD
     INFO "Building project $PWD"
     INFO "Command: mvn clean install $par"
     eval "mvn clean install $par"
@@ -508,15 +556,11 @@ function getProject() {
 function getVersion() {
     arg="$1"
     prj="$2"
-    arg="${arg//-/}"
     ret=" "
-    if [ "$arg" == "trunk" ]; then 
-        ret=$arg
-    else 
-           src=$prj/branches/$arg
-           if [ -e "$src" ]; then 
-                ret="branches/$arg"
-           fi
+    arg=$(cvVersion $arg)
+    src="$prj/$arg"
+    if [ -e "$src" ]; then 
+        ret="$arg"
     fi
     echo  "$ret"
 }
@@ -718,37 +762,23 @@ function exosvnco() {
   prj=$1
   prj="${prj//-/}"
   vs=$2
-  vs="${vs//-/}"
-  vs="${vs//./}"
   isTag=$3
-  
-  tp="trunk"
-  if [ $vs != "trunk" ]; then
-    vs="${vs//./}"
-    X=0
-    VS=""
-    le=${#vs} 
-    if [ $le -gt 0 ]; then 
-      while [ $X -le $le ]
-      do
-        VS="$VS${vs:$X:1}"
-         if [ $X -le $((le-2)) ]; then
-          VS="$VS."
-         fi
-	      X=$((X+1))
-      done
+
+  if [ -n "$vs" ]; then
+    tp=""
+    if [ "$vs" != "trunk" ];then
+        tp="/branches"
     fi
-  
-    if [ -n "$isTag" ]; then 
-        tp="tags"
-    else
-        tp="branches"
+    vs=$(cvVersion $vs $isTag)
+    if [ -n "$vs" ]; then
+        #eval "mkdir -p -m 777 $EXO_PROJECTS_SRC/$prj$tp"
+        #cd $EXO_PROJECTS_SRC/$prj
+        INFO "Check out project $prj with version $vs: $EXO_PROJECTS_SRC/$prj/$vs"
+        #eval "svn co http://svn.exoplatform.org/projects/$prj/$vs $vs"
+        #cdback
     fi
-    vs="$tp/$VS"
-    eval "mkdir -p -m 777 $EXO_PROJECTS_SRC/$prj/$tp"
   fi
-  cd $EXO_PROJECTS_SRC/$prj
-  INFO "Check out project $prj with version $vs"
-  eval "svn co http://svn.exoplatform.org/projects/$prj/$vs $vs"
-  cdback
+
+
+
 }
