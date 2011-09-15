@@ -14,18 +14,27 @@ function npatchhelp() {
 function gotohelp() {
   echo "+ Goto projects: (We can use command for quick goto project)"
   echo " * ks22x ks21x ks12x kst ks2.1.x ... same for cs projects"
+  echo " We can add new alias for other project by step: "
+  echo " 1. Using command: cmdalias (open file exoalias.sh)"
+  echo " 2. Add new alias by: alias aliasname=\"cdSource {projectname}{version}\". Ex: alias plf3.0.x=\"cdSource platform30x\" "
 }
 
 function tomcatHelp() {
   echo "+ Run tomcat:  "
-  echo "        runtomcat [--version or --wk]"
-  echo " * tcrun (or runtc): help you can quick run tomcat in project you doing"
+  echo "        runtomcat [--version or --wk] [--debug=true/false]"
+  echo " * tcrun (or runtc): help you can quick run tomcat in project you doing (current dir)"
   echo " * runtomcat (options): help you run tomcat via options is name of project ex: runtomcat --ks21x, runtomcat --ks22x v.v..."
+  echo " And help you run tomcat by debug or not. If debug=true/(not this option), tomcat will run with command: 'gatein-dev.sh run' and with debug=false, command: 'gatein.sh run'"
   echo " If you not use options, the command will run same tcrun (or runtc)."
+  echo
+  echo "       cdtomcat/optomcat [--version]"
+  echo "* cdtomcat: goto folder tomcat"
+  echo "* optomcat: open folder tomcat"
 }
 
 function qmhelp() {
   echo "+ Quickwar and Module"
+  echo "        ctmodule/ctquickwar [--test=true/false]  (if no option, test=true)"
   echo "* ctmodule : apply for build service of produce (build create a *.jar file). It will build produce --> replate new jar in lib/ of tomcat"
   echo "* ctquickwar : apply for build webapp of produce (build create a *.war file). It will build --> replate new war and remove old folder + old war in tomcat/webapps"
 }
@@ -77,7 +86,7 @@ alias social12x="cdSource social12x"
 alias social11x="cdSource social11x"
 alias socialt="cdSource socialtrunk"
 
-alias firefox="firefox http://localhost:8080/"
+alias firefox="firefox http://localhost:8080/ &"
 alias eclipse="$JAVA_DIR/eclipse/eclipse &"
 
 alias mdfcm="gedit $CM_DIR/exoct.sh &"
@@ -571,7 +580,7 @@ function getVersion() {
     echo  "$ret"
 }
 
-function cthelp () {
+function ctHelp () {
   echo "Usage the ct command: "
   echo 
   echo "  ct [--product-name] [--version]  [--update]  [--build] [--install] [--buildnottc] [--test] [--test=true/false] [--tomcatdir=target]"
@@ -587,14 +596,23 @@ function cthelp () {
   echo "  * --test             is optional. If you add this option, the exobuild will only run exo webunit test framework"
   echo "  * --test=true/false  is optional. If you add this option, the exobuild produce but you can choise is run test or not"
   echo "  * --tomcatdir        is optional. If you add this option, you can set tomcat dir, if not add tomcat dir default is /pkg/target dir. Only use for 2.0 and more"
+  echo "  * --U  is optional. If you add this option when you build project, it will update new repositories"
+  echo "  * --module/quickwar is optional. same when use ctquickwar/ctmodule but not param "
+  echo "  * --eclipse is optional. If you add this option, mvn will build for command: mvn eclipse:eclipse"
+  echo 
+  echo " Extension: "
+  echo "     ct [ ... all options support by ct command]  [ other command]"
+  echo " If you want add new command when finish run all options of ct command, you can add it is last option. If it has space ' ', you must add it in \"\""
+  echo " Ex1: ct --ks --22x --buid --runtomcat"
+  echo " Ex2: ct --cs --22x --update --buid \"runtomcat --ks22x\""
   echo 
   echo "Example: "
   echo "  ct  --ks --2.2.x --update --buildnottc --test=false"
   echo "  ct  --update --install --test=true --tomcatdir=/home/exo/java/exo-working (run in current dir)"
   echo "  ct  --update (run mvn clean install in current dir)"
   echo "  ct  --buildnottc (run mvn clean install -P !pkg-tomcat in current dir)"
-  echo "  ct  --ks -12x (go to ks/branches/1.2.x)"
-  echo "  ct  --ks -12x --update --build (go to ks/branches/1.2.x and update and build and create exo-tomcat in pkg/target)"
+  echo "  ct  --ks --12x (go to ks/branches/1.2.x)"
+  echo "  ct  --ks --12x --update --build (go to ks/branches/1.2.x and update and build and create exo-tomcat in pkg/target)"
   echo 
   echo " Luck for you ^^ Contac for me via duytucntt@gmail.com "
   echo 
@@ -614,6 +632,7 @@ function  ct() {
   newrepo="";
   eclipse=" ";
   debug="";
+  lastCm=""
 	for arg	in "$@" 
 		do
 			 isHelp=false
@@ -703,13 +722,13 @@ function  ct() {
              version="$vs"
          fi
          if [ $(hasfc $arg) == "Found" ]; then
-             eval "$arg"
+             lastCm="$arg"
          fi
 			fi 
 	done
 
 	if [ $isHelp == true ]; then 
-		cthelp
+		ctHelp
 		return
 	fi
 
@@ -759,8 +778,11 @@ function  ct() {
 		INFO "eclipse:eclipse	$PWD"
 		 eval "$eclipse"
 	fi
-  
-	return
+	if [ -n "$lastCm" ]; then
+		INFO "Running extension: $lastCm"
+		 eval "$lastCm"
+	fi
+	exit
 }
 
 function exosvnco() {
@@ -783,4 +805,8 @@ function exosvnco() {
         cdback
     fi
   fi
+}
+
+function helpall() {
+   eval "echo && cthelp && echo && ctHelp";
 }
