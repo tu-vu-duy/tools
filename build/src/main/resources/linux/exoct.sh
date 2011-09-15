@@ -788,7 +788,6 @@ function  ct() {
 		INFO "Running extension: $lastCm"
 		 eval "$lastCm"
 	fi
-	exit
 }
 
 function exosvnco() {
