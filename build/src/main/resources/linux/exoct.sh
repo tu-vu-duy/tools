@@ -521,7 +521,7 @@ function ctbuild() {
        fi
        tt=`expr index "$arg" 'D'`
        if [ $tt -gt 0 ]; then 
-          Dtest="$arg"
+          Dtest="$Dtest $arg"
        fi
 	 done
     INFO "Building project $PWD"
