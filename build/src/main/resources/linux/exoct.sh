@@ -502,30 +502,36 @@ function getparam() {
 	 done
 
 }
-
+#-Dtest=classname
 function ctbuild() {
     par=""
-    help=$1
-    if [ -n "$help" ]; then
-         help="${help//-/}" 
-         if [ "$help" == "help" ]; then 
-            qmhelp
-         fi
-         if [ "$help" == "test=false" ]; then 
-            par="-Dmaven.test.skip=true"
-         fi
-         if [ "$help" == "test=true" ]; then 
-            par="-Dmaven.test.skip=false"
-         fi
-     fi
+    Dtest=""
+  for arg	in "$@" 
+	  do
+       arg="${arg/--/}" 
+       if [ "$arg" == "help" ]; then 
+          qmhelp
+          return
+       fi
+       if [ "$arg" == "test=false" ]; then 
+          par="-Dmaven.test.skip=true"
+       fi
+       if [ "$arg" == "test=true" ]; then 
+          par="-Dmaven.test.skip=false"
+       fi
+       tt=`expr index "$arg" 'D'`
+       if [ $tt -gt 0 ]; then 
+          Dtest="$arg"
+       fi
+	 done
     INFO "Building project $PWD"
-    INFO "Command: mvn clean install $par"
-    eval "mvn clean install $par"
+    INFO "Command: mvn clean install $par $Dtest"
+    eval "mvn clean install $par $Dtest"
 }
 
 
 function ctmodule () {
-    eval "ctbuild $1" &&
+    eval "ctbuild $1 $2" &&
     if [ -e "$PWD/target" ]; then
         eval "getCrproject $PWD"
         tomcatdir=$CRPRJ/packaging/pkg/target/tomcat
@@ -538,7 +544,7 @@ function ctmodule () {
 }
 
 function ctquickwar () {
-   eval "ctbuild $1" &&
+   eval "ctbuild $1 $2" &&
    if [ -e "$PWD/target" ]; then
      nowDir=$PWD
      eval "getCrproject $PWD"
