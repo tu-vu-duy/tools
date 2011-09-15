@@ -104,7 +104,7 @@ function hasfc() {
   command -v $1 >/dev/null && echo "Found" || echo "NotFound"
 }
 
- # has parameters: use  hasparam param. Ex: hasparam EXO_KS
+ # check existing . Ex: hasparam EXO_KS
 function hasparam() {
 abc="\$$1"
 eval "abc=$abc"
@@ -115,30 +115,35 @@ eval "abc=$abc"
   fi 
 }
 
-# convert version
+# convert version: 
+# in 12x ou branches/1.2.x, in 21x ou branches/2.1.x, in trunk ou trunk, in 2.0 tags out tags/2.0, in 20 tags out tags/2.0, in 2.2-GA tags out tags/2.2-GA
 function cvVersion() {
   vs=$1
-  vs="${vs//-/}"
+  vs="${vs/--/}"
   vs="${vs//./}"
   isTag=$2
-  
   tp="trunk"
   if [ -n "$vs" ]; then
     if [ $vs != "trunk" ]; then
       X=0
       VS=""
       le=${#vs} 
+      sr=`expr index "$vs" '-'`
       if [ $le -gt 0 ]; then 
         while [ $X -le $le ]
         do
-          VS="$VS${vs:$X:1}"
-           if [ $X -le $((le-2)) ]; then
-            VS="$VS."
-           fi
-          X=$((X+1))
+          if [ $sr == 0 ]  || [ $X -le $((sr-3)) ]; then
+            VS="$VS${vs:$X:1}"
+             if [ $X -le $((le-2)) ]; then
+              VS="$VS."
+             fi
+            X=$((X+1))
+          else 
+            VS="$VS${vs:$X}"  
+            X=$((le+1))
+          fi
         done
       fi
-    
       if [ -n "$isTag" ]; then 
           tp="tags"
       else
@@ -187,7 +192,8 @@ function getCrsh() {
 function INFO() {
  echo "[INFO] [$1]"
 }
-
+# get current project: in {projectname}{version} ex: ks22x, platform30x, platformtrunk... out export info about project
+# if param is null, return info about project via current dir.
 function getCrproject() {
    if [ -n "$1" ]; then 
       DIR=$1
@@ -565,7 +571,7 @@ function getVersion() {
     echo  "$ret"
 }
 
-function ctHelp () {
+function cthelp () {
   echo "Usage the ct command: "
   echo 
   echo "  ct [--product-name] [--version]  [--update]  [--build] [--install] [--buildnottc] [--test] [--test=true/false] [--tomcatdir=target]"
@@ -612,7 +618,7 @@ function  ct() {
 		do
 			 isHelp=false
 
-       arg="${arg//-/}"
+       arg="${arg/--/}"
        arg="${arg//./}"
 
 			if [ "$arg" == "start" ]; then
@@ -696,15 +702,14 @@ function  ct() {
          if [ "$vs" != " " ]; then 
              version="$vs"
          fi
-         cm="${arg//-/}"
-         if [ $(hasfc $cm) == "Found" ]; then
-             eval $cm
+         if [ $(hasfc $arg) == "Found" ]; then
+             eval "$arg"
          fi
 			fi 
 	done
 
 	if [ $isHelp == true ]; then 
-		ctHelp
+		cthelp
 		return
 	fi
 
@@ -773,7 +778,7 @@ function exosvnco() {
     if [ -n "$vs" ]; then
         eval "mkdir -p -m 777 $EXO_PROJECTS_SRC/$prj$tp"
         cd $EXO_PROJECTS_SRC/$prj
-        INFO "Check out project $prj with version $vs: $EXO_PROJECTS_SRC/$prj/$vs"
+        INFO "Check out project $prj with version $vs"
         eval "svn co http://svn.exoplatform.org/projects/$prj/$vs $vs"
         cdback
     fi
