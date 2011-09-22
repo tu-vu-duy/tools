@@ -336,14 +336,13 @@ function runtomcat() {
           project=$arg
       fi 
 	done
-  
   SRC=""
   oldprj="$CRPRJ"
   if [  "$project" == "" ]; then
      eval "runByOtherDir $PWD $debug"
      return
-  elif [	 "$project" == "--wk" ]; then
-      eval "tcstart $EXO_WK_DIR $debug"
+  elif [	 "$project" == "wk" ]; then
+      eval "tcstart $EXO_WORKING_DIR $debug"
       return
   else 
       eval "runByParam $project $debug"
