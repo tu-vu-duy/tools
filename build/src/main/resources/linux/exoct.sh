@@ -86,7 +86,7 @@ alias social12x="cdSource social12x"
 alias social11x="cdSource social11x"
 alias socialt="cdSource socialtrunk"
 
-alias firefox="firefox http://localhost:8080/ &"
+alias firefoxs="firefox http://localhost:8080/ &"
 alias eclipse="$JAVA_DIR/eclipse/eclipse &"
 
 alias mdfcm="gedit $CM_DIR/exoct.sh &"
@@ -323,7 +323,7 @@ function CD() {
 }
 
 function runtomcat() {
-   debug="debug=true"
+   debug=""
    project=""
   for arg	in "$@" 
 	  do
