@@ -64,7 +64,7 @@ EXO_SOCIAL=$EXO_PROJECTS_SRC/social
 CRPRJ=""
 EXO_WK_DIR=$EXO_WORKING_DIR
 EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
-EXO_PROJECTS=(portal gatein social ks cs platform webos ecm/dms commons)
+EXO_PROJECTS=(tools portal gatein social ks cs platform webos ecm/dms commons)
 
 
 
@@ -806,12 +806,103 @@ function exosvnco() {
         eval "mkdir -p -m 777 $EXO_PROJECTS_SRC/$prj$tp"
         cd $EXO_PROJECTS_SRC/$prj
         INFO "Check out project $prj with version $vs"
-        eval "svn co http://svn.exoplatform.org/projects/$prj/$vs $vs"
+        if [ -n "$USER" ] && [ -n "$PASS" ]; then 
+           eval "svn co --username=$USER --password=$PASS http://svn.exoplatform.org/projects/$prj/$vs $vs"
+        else
+           eval "svn co http://svn.exoplatform.org/projects/$prj/$vs $vs"
+        fi
         cdback
     fi
+  fi
+}
+
+function mvst() {
+  USER="$1"
+  PASS="$2"
+  if [ -n "$USER" ] && [ -n "$PASS" ]; then
+     eval "cd $BSH_EXO_BASE_DIRECTORY/maven3.0.3/conf && mv settings.xml settings_b.xml && wget --http-user=$USER  --http-password=$PASS http://storage.exoplatform.vn/ct/tu_vu_duy/settings.xml && find -depth -name settings.xml | xargs sed -i -e 's/USERID/$USER/g' && find -depth -name settings.xml | xargs sed -i -e 's/PASS/$PASS/g' && find -depth -name settings.xml | xargs sed -i -e 's/JAVADIR/${BSH_EXO_BASE_DIRECTORY//\//\\/}/g'"
+  fi
+}
+
+
+function unzipmv3() {
+   if [ $(hasfc "unzip") == "Found" ]; then
+       echo "UnZip to  $PWD/maven3.0.3..."
+       eval "unzip apache-maven-3.0.3-bin.zip && mv apache-maven-3.0.3 maven3.0.3"
+   else 
+      eval "sudo apt-get install unzip && unzipmv3"
+   fi
+}
+
+function umaven2() {
+   M2_HOME=$BSH_EXO_BASE_DIRECTORY/maven2.2.1
+   PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games;
+   PATH=/usr/local/bin:$JAVA_HOME/bin:$PATH:$M2_HOME/bin:$EXO_SH_SCRIPT;
+}
+
+function umaven3(){
+   M2_HOME=$BSH_EXO_BASE_DIRECTORY/maven3.0.3 
+   PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games;
+   PATH=/usr/local/bin:$JAVA_HOME/bin:$PATH:$M2_HOME/bin:$EXO_SH_SCRIPT;
+}
+
+function installmv3() {
+  USER="$1"
+  USER="${USER/--username=/}"
+  PASS="$2"
+  PASS="${PASS/--pass=/}"
+
+  if [ -n "$USER" ]; then 
+      eval "cd $BSH_EXO_BASE_DIRECTORY"
+      echo "download maven 3 in to  $PWD"
+      eval "wget http://mirror-fpt-telecom.fpt.net/apache//maven/binaries/apache-maven-3.0.3-bin.zip && unzipmv3 && mvst $USER $PASS"
+      echo  " Note: "
+      echo "If you want to user maven3, plesase type command: umaven3. The default system user maven2.2.1. "
+      echo "If you want to user maven2.2.1, plesase type command: umaven2."
+      echo
+  else 
+      echo "----------------------------- HELP -------------------------------"
+      echo "Please input the user info of eXo (info about svn accout). Syntax: installmv3 --username=USERID  --pass=PASS"      
+      echo "If you have not it, you can user Syntax: installmv3 no"
+      echo  
+  fi
+}
+
+
+function exoinitallHelp() {
+  echo "Syntax:"
+  echo "   exoinitall --username=USERID  --pass=PASS --javahome=dir --projects=p1/vs,p2/vs...."
+  echo 
+  echo "Options: "
+  echo "  *  --username and --pass: Provide by ExoPlatform company"
+  echo " "
+  echo "  If you have not it. You can ignored."
+  echo
+  echo " If you want to set the java home, you must set param: "
+}
+
+function exoinitall() {
+  javahome=""
+	for arg	in "$@" 
+		do
+       arg="${arg/-/}"
+			if [ "$arg" == "start" ]; then
+        echo
+	    fi 
+	done
+
+  eval "cd $javahome";
+  eval "mkdir -p -m 777 java/eXoProjects"
+  eval "mkdir -p -m 777 java/exo-dependencies/repository"
+  eval "mkdir -p -m 777 java/exo-working"
+  eval "cd java"
+   if [ -n "$USER" ] && [ -n "$PASS" ]; then 
+echo 
   fi
 }
 
 function helpall() {
    eval "echo && cthelp && echo && ctHelp";
 }
+
+
