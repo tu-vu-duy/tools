@@ -836,13 +836,13 @@ function unzipmv3() {
 
 function umaven2() {
    M2_HOME=$BSH_EXO_BASE_DIRECTORY/maven2.2.1
-   PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games;
+   PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PORTABLE_DIR/bin;
    PATH=/usr/local/bin:$JAVA_HOME/bin:$PATH:$M2_HOME/bin:$EXO_SH_SCRIPT;
 }
 
 function umaven3(){
    M2_HOME=$BSH_EXO_BASE_DIRECTORY/maven3.0.3 
-   PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games;
+   PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PORTABLE_DIR/bin;
    PATH=/usr/local/bin:$JAVA_HOME/bin:$PATH:$M2_HOME/bin:$EXO_SH_SCRIPT;
 }
 
