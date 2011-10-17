@@ -64,7 +64,7 @@ EXO_SOCIAL=$EXO_PROJECTS_SRC/social
 CRPRJ=""
 EXO_WK_DIR=$EXO_WORKING_DIR
 EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
-EXO_PROJECTS=(tools portal gatein social ks cs platform webos ecm/dms commons)
+EXO_PROJECTS=(tools portal gatein social ks cs platform webos ecm/dms commons integration)
 
 
 
