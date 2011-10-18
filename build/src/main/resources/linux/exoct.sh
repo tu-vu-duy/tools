@@ -1,4 +1,24 @@
 #!/bin/bash
+function isWindow() {
+  isW="true"
+  if [  -e "/etc/kernel" ]; then
+    isW="false"
+  fi
+
+  if [  "$isW" == "true" ]; then
+     function nautilus() { 
+         if [ -n "$1" ]; then 
+            explorer.exe "$1"; 
+         fi
+      } 
+     function gedit() { 
+         if [ -n "$1" ]; then 
+            notepad.exe "$1"; 
+         fi
+     } 
+  fi
+}
+isWindow;
 
 function npatchhelp() {
       echo "Usage the npatch command:"
