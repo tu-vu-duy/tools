@@ -376,7 +376,13 @@ function runByOtherDir() {
   eval "getCrproject $DIR"
   DIR="$CRPRJ"
   CRPRJ=$oldprj
-  eval "tcstart $DIR/packaging/pkg/target $debug"
+  pkg=""
+  if [ -e "$DIR/packaging/pkg/target" ];then
+    pkg="$DIR/packaging/pkg/target"
+  elif [ -e "$DIR/packaging/tomcat/target" ];then
+    pkg="$DIR/packaging/tomcat/target"
+  fi
+  eval "tcstart $pkg $debug"
 }
 
 function runByParam() {
@@ -395,8 +401,14 @@ function runByParam() {
 
   SRC=$PWD
   CRPRJ=$oldprj
-  cd $olddir 
-  eval "tcstart $SRC/packaging/pkg/target $debug"
+  cd $olddir
+  pkg=""
+  if [ -e "$DIR/packaging/pkg/target" ];then
+    pkg="$DIR/packaging/pkg/target"
+  elif [ -e "$DIR/packaging/tomcat/target" ];then
+    pkg="$DIR/packaging/tomcat/target"
+  fi
+  eval "tcstart $pkg $debug"
 }
 
 function tcstart() {
