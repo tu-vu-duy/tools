@@ -1,4 +1,6 @@
 #!/bin/bash
+MV3=""
+
 function isWindow() {
   isW="true"
   if [  -e "/etc/kernel" ]; then
@@ -16,6 +18,12 @@ function isWindow() {
             notepad.exe "$1"; 
          fi
      } 
+  fi
+
+  if [ "$M2_HOME" == "$BSH_EXO_BASE_DIRECTORY/maven3.0.3" ]; then 
+      MV3="-T2C";
+  else 
+      MV3="";
   fi
 }
 isWindow;
@@ -466,7 +474,7 @@ src=""
     else 
        eval "cdSource $src"
     fi
-    INFO "Updating now $PWD" && svn up &&  mvn clean install && cdback
+    INFO "Updating now $PWD" && svn up &&  mvn clean install $MV3 && cdback
 	done
  return
 }
@@ -498,7 +506,7 @@ src=""
     else 
        eval "cdSource $src"
     fi
-    INFO "Building now $PWD" &&  mvn clean install && cdback
+    INFO "Building now $PWD" &&  mvn clean install $MV3 && cdback
 	done
  return
 }
@@ -517,9 +525,9 @@ function getparam() {
 			elif [ "$arg" == "update" ]; then 
 				  arrays[$idx]="svn up"
 			elif [ "$arg" == "build" ]; then 
-				  arrays[$idx]="mvn clean install"
+				  arrays[$idx]="mvn clean install $MV3"
 			elif [ "$arg" == "install" ]; then 
-				  arrays[$idx]="mvn clean install"
+				  arrays[$idx]="mvn clean install $MV3"
 			elif [ "$arg" == "debug" ]; then 
 				  arrays[$idx]="-Dmaven.surefire.debug=true"
       elif [ "$arg" == "tomcat=false" ]; then 
@@ -556,8 +564,8 @@ function ctbuild() {
        fi
 	 done
     INFO "Building project $PWD"
-    INFO "Command: mvn clean install $par $Dtest"
-    eval "mvn clean install $par $Dtest"
+    INFO "Command: mvn clean install $MV3 $par $Dtest"
+    eval "mvn clean install $MV3 $par $Dtest"
 }
 
 
@@ -712,7 +720,7 @@ function  ct() {
 				update="svn up"
 
 			elif [ "$arg" == "build" ]; then 
-				typecm="mvn clean install"
+				typecm="mvn clean install "
 			elif [ "$arg" == "install" ]; then 
 				typecm="mvn clean install"
 			elif [ "$arg" == "test" ]; then 
@@ -801,14 +809,14 @@ function  ct() {
 			fi
 
 		 if [ $istomcat == true ]; then
-			 INFO "Run command: $typecm $newrepo $istest $debug $tcdir"
+			 INFO "Run command: $typecm $MV3 $newrepo $istest $debug $tcdir"
 			 if [ "$tcdir" != " " ]; then 
 					eval "mkdir -p -m 777 $tomcatdir"
 			 fi
-			 eval "$typecm $newrepo $istest $debug $tcdir"
+			 eval "$typecm $MV3 $newrepo $istest $debug $tcdir"
 		 else
-			 INFO "Run command: $typecm $newrepo $debug $istest"
-			 eval "$typecm $newrepo $istest $debug"
+			 INFO "Run command: $typecm $MV3 $newrepo $debug $istest"
+			 eval "$typecm $MV3 $newrepo $istest $debug"
 		 fi
 	fi
 
@@ -870,12 +878,14 @@ function umaven2() {
    M2_HOME=$BSH_EXO_BASE_DIRECTORY/maven2.2.1
    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PORTABLE_DIR/bin;
    PATH=/usr/local/bin:$JAVA_HOME/bin:$PATH:$M2_HOME/bin:$EXO_SH_SCRIPT;
+   MV3="";
 }
 
 function umaven3(){
    M2_HOME=$BSH_EXO_BASE_DIRECTORY/maven3.0.3 
    PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PORTABLE_DIR/bin;
    PATH=/usr/local/bin:$JAVA_HOME/bin:$PATH:$M2_HOME/bin:$EXO_SH_SCRIPT;
+   MV3="-T2C";
 }
 
 function installmv3() {
