@@ -247,6 +247,9 @@ function getCrproject() {
       elif [  -e "$DIR/packaging/pkg/target/exo-tomcat" ]; then
         export EXO_WK_DIR=$DIR/packaging/pkg/target
         export EXO_TOMCAT_DIR=$EXO_WK_DIR/exo-tomcat
+      elif [ -e "$DIR/packaging/tomcat/target/tomcat" ];then
+        export EXO_WK_DIR=$DIR/packaging/tomcat/target
+        export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
       else 
         export EXO_WK_DIR=$EXO_PROJECTS_SRC/exo-working
         export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
