@@ -577,10 +577,9 @@ function ctmodule () {
     if [ -e "$PWD/target" ]; then
         OPWD=$PWD
         eval "getCrproject $PWD"
-        tomcatdir=$CRPRJ/packaging/pkg/target/tomcat
-        INFO "Copy file jar into $tomcatdir/lib"
-        cp target/*.jar $tomcatdir/lib
-        cd $tomcatdir/lib
+        INFO "Copy file jar into $EXO_TOMCAT_DIR/lib"
+        cp target/*.jar $EXO_TOMCAT_DIR/lib
+        cd $EXO_TOMCAT_DIR/lib
         find -depth -name *sources.jar -exec rm -rf {} \; 
         cd $OPWD
     fi
