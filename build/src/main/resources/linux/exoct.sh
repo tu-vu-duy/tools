@@ -587,20 +587,19 @@ function ctmodule () {
 }
 
 function ctquickwar () {
-   eval "ctbuild $1 $2" &&
+   eval "ctbuild $1 $2"
    if [ -e "$PWD/target" ]; then
      nowDir=$PWD
      eval "getCrproject $PWD"
-     tomcatdir=$CRPRJ/packaging/pkg/target/tomcat
-     temp=$(find -depth -name *.war)
+     temp=$(find -maxdepth 2 -name *.war)
      temp="${temp/.\/target\//}"
      temp="${temp/.war/}"
      if [ -e "$PWD/target/$temp.war" ]; then
-       INFO "Copy file $temp.war into $tomcatdir/webapps"
-       cp target/$temp.war $tomcatdir/webapps
-       chmod +x  $tomcatdir/webapps/* -R
+       INFO "Copy file $temp.war into $EXO_TOMCAT_DIR/webapps"
+       cp target/$temp.war $EXO_TOMCAT_DIR/webapps
+       chmod +x  $EXO_TOMCAT_DIR/webapps/* -R
        INFO "Remove old folder $temp"
-       rm -rf $tomcatdir/webapps/$temp/
+       rm -rf $EXO_TOMCAT_DIR/webapps/$temp/
      fi
      cd $nowDir
    fi
