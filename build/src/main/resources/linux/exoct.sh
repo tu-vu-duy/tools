@@ -194,14 +194,14 @@ function cvVersion() {
 
 function crash() {
   vs=$1
-  if [ "$vs" != "" ]; then 
+  if [ -n "$vs" ]; then 
     CD $vs
   fi
+  oldP="$PWD"
   eval "getCrproject $PWD"
-  export EXO_TOMCAT_DIR="$CRPRJ/packaging/pkg/target/tomcat"
-  cdback
+  cd "$oldP"
   if [  -e "$EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war" ]; then 
-      INFO "Run crash version 1.0.0-beta17"
+      INFO "crash: Run crash $EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war"
      else
       getCrsh
   fi
@@ -214,8 +214,7 @@ function getCrsh() {
    if [  -e "$crdir/crsh.shell.jcr-1.0.0-beta17.war" ]; then
      cp $crdir/crsh.shell.jcr-1.0.0-beta17.war $EXO_TOMCAT_DIR/webapps/
      chmod +x  $EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war
-     INFO "Run crash version 1.0.0-beta17"
-     return
+     INFO "getCrsh: Run crash version 1.0.0-beta17"
    else
      eval "mkdir -p -m 777 $crdir"
      cd $crdir
@@ -367,7 +366,7 @@ function runtomcat() {
           project=$arg
       fi 
 	done
-  SRC=""
+  OPWD="$PWD"
   oldprj="$CRPRJ"
   if [  "$project" == "" ]; then
      eval "runByOtherDir $PWD $debug"
@@ -401,25 +400,13 @@ function runByParam() {
   debug=$2
   project="${project//-/}" 
   project="${project//./}"
-  oldprj=$CRPRJ
-  olddir=$PWD
 
    if [ $(hasfc $project) == "Found" ]; then
        eval "$project"
    else 
       eval "cdSource $project"
    fi
-
-  SRC=$PWD
-  CRPRJ=$oldprj
-  cd $olddir
-  pkg=""
-  if [ -e "$DIR/packaging/pkg/target" ];then
-    pkg="$DIR/packaging/pkg/target"
-  elif [ -e "$DIR/packaging/tomcat/target" ];then
-    pkg="$DIR/packaging/tomcat/target"
-  fi
-  eval "tcstart $pkg $debug"
+   eval "runByOtherDir  $PWD $debug"
 }
 
 function tcstart() {
@@ -431,6 +418,10 @@ function tcstart() {
        debug="-dev"
    else 
        debug=""
+  fi
+
+  if [ -e "$OPWD" ]; then
+		 cd "$OPWD";
   fi
 
   if [  -e "$SRC/tomcat/bin/gatein.sh" ]; then
