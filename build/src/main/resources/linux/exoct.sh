@@ -3,7 +3,7 @@ MV3=""
 
 function isWindow() {
   isW="true"
-  if [  -e "/etc/kernel" ]; then
+  if [  -e "/media" ]; then
     isW="false"
   fi
 
