@@ -3,11 +3,16 @@ MV3=""
 
 function isWindow() {
   isW="true"
-  if [  -e "/media" ]; then
+# check linux os
+  if [ "`uname`" == "Linux" ]; then
+    isW="false"
+  fi
+# check mac os
+  if [ `uname` == "Darwin" ]; then
     isW="false"
   fi
 
-  if [  "$isW" == "true" ]; then
+  if [ "$isW" == "true" ]; then
      function nautilus() { 
          if [ -n "$1" ]; then 
             explorer.exe "$1"; 
@@ -15,7 +20,7 @@ function isWindow() {
       } 
      function gedit() { 
          if [ -n "$1" ]; then 
-            notepad.exe "$1"; 
+            eval "notepad.exe $1"; 
          fi
      } 
   fi
@@ -30,10 +35,12 @@ isWindow;
 
 function npatchhelp() {
       echo "Usage the npatch command:"
-      echo "       npatch [--issue] [--patchdir]"
+      echo "       npatch [DIR] [--issue] [--patchdir]"
+      echo " Expand command: svn diff DIR > patchdir/yeah-month-day-issueNumber.patch"
       echo 
       echo "Options: "
       echo 
+      echo "DIR            is optional. If is empty, DIR = current dir"
       echo "*--issue       is optional. It is issue for create patch, if not, it is ramdom"
       echo "*--patchdir    is optional. It is dir of folder storage patch, if not --> current dir"
       echo 
@@ -200,7 +207,7 @@ function crash() {
   oldP="$PWD"
   eval "getCrproject $PWD"
   cd "$oldP"
-  if [  -e "$EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war" ]; then 
+  if [ -e "$EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war" ]; then 
       INFO "crash: Run crash $EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war"
      else
       getCrsh
@@ -211,7 +218,7 @@ function crash() {
 
 function getCrsh() {
    crdir="$JAVA_DIR/exo-dependencies/repository/org/crsh/crsh.shell.jcr/1.0.0-beta17"
-   if [  -e "$crdir/crsh.shell.jcr-1.0.0-beta17.war" ]; then
+   if [ -e "$crdir/crsh.shell.jcr-1.0.0-beta17.war" ]; then
      cp $crdir/crsh.shell.jcr-1.0.0-beta17.war $EXO_TOMCAT_DIR/webapps/
      chmod +x  $EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war
      INFO "getCrsh: Run crash version 1.0.0-beta17"
@@ -238,12 +245,12 @@ function getCrproject() {
    fi
    TDIR=""
    ODIR=$PWD
-  if [  -e "$DIR/packaging/pom.xml" ]; then
+  if [ -e "$DIR/packaging/pom.xml" ]; then
       export CRPRJ=$DIR
-      if [  -e "$DIR/packaging/pkg/target/tomcat" ]; then
+      if [ -e "$DIR/packaging/pkg/target/tomcat" ]; then
         export EXO_WK_DIR=$DIR/packaging/pkg/target
         export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
-      elif [  -e "$DIR/packaging/pkg/target/exo-tomcat" ]; then
+      elif [ -e "$DIR/packaging/pkg/target/exo-tomcat" ]; then
         export EXO_WK_DIR=$DIR/packaging/pkg/target
         export EXO_TOMCAT_DIR=$EXO_WK_DIR/exo-tomcat
       elif [ -e "$DIR/packaging/tomcat/target/tomcat" ];then
@@ -338,7 +345,7 @@ function CD() {
   src=""
   for arg	in "$@"
     do
-      if [  -e "$arg" ]; then
+      if [ -e "$arg" ]; then
           cd "$arg"
      else
           src="${arg/--/}" 
@@ -368,7 +375,7 @@ function runtomcat() {
 	done
   OPWD="$PWD"
   oldprj="$CRPRJ"
-  if [  "$project" == "" ]; then
+  if [ "$project" == "" ]; then
      eval "runByOtherDir $PWD $debug"
      return
   elif [	 "$project" == "wk" ]; then
@@ -424,11 +431,11 @@ function tcstart() {
 		 cd "$OPWD";
   fi
 
-  if [  -e "$SRC/tomcat/bin/gatein.sh" ]; then
+  if [ -e "$SRC/tomcat/bin/gatein.sh" ]; then
      export EXO_TOMCAT_DIR=$SRC/tomcat
      export EXO_WK_DIR=$SRC
      eval   "INFO 'Run tomcat $isdb in $SRC'  && $SRC/tomcat/bin/gatein$debug.sh run" 
-  elif [  -e "$SRC/exo-tomcat/bin/eXo.sh" ]; then
+  elif [ -e "$SRC/exo-tomcat/bin/eXo.sh" ]; then
      export EXO_WK_DIR=$SRC
      export EXO_TOMCAT_DIR=$EXO_WK_DIR/exo-tomcat/
      eval   "INFO 'Run tomcat in $SRC' && $SRC/exo-tomcat/bin/eXo$debug.sh run" 
@@ -439,21 +446,25 @@ function tcstart() {
 }
 
 function npatch() {
-  patchdir=$PWD
-  issue="$(date -u +%h%M)"
+  patchdir=$PWD;
+  issue="$(date -u +%h%M)";
+  DIR="";
   for arg	in "$@" 
 	  do
-		  if [ ${#arg} -gt 	20  ]; then 
-        patchdir="${arg/--patchdir=/}"
-      elif [	${#arg} -gt 	8 ]; then
-        issue="${arg/--issue=/}"
-      elif [	 "$arg" == "--help" ]; then
-        npatchhelp
+      arg="${arg/--/}" 
+		  if [ $(expr match $arg "patchdir=") -gt 0 ]; then 
+        patchdir="${arg/patchdir=/}";
+      elif [ $(expr match $arg "issue=") -gt 0 ]; then
+        issue="${arg/issue=/}";
+      elif [ $(expr match $arg "help") -gt 0 ]; then
+        npatchhelp;
         return
+      elif [ -e "$PWD/$arg" ]; then 
+        DIR="$arg";
       fi 
 	  done
   INFO "Create new patch for issue: $issue (file name: $(date -u +%Y-%m-%d)-$issue.patch) And save into folder : $patchdir"
-  svn diff > $patchdir/$(date -u +%Y-%m-%d)-$issue.patch
+  svn diff $DIR > $patchdir/$(date -u +%Y-%m-%d)-$issue.patch
   return
 }
 
@@ -512,7 +523,7 @@ function getparam() {
 	  do
       arg="${arg/--/}" 
       arg="${arg//./}"
-      if [  "$src" == "test=false" ]; then
+      if [ "$src" == "test=false" ]; then
           arrays[$idx]="-Dmaven.test.skip=true"
       elif [ "$arg" == "up" ]; then 
 				  arrays[$idx]="svn up"
