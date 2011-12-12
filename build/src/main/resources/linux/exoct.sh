@@ -1,18 +1,18 @@
 #!/bin/bash
 MV3=""
+cygwin=false
+os400=false
+darwin=false
+linux=false
+case "`uname`" in
+CYGWIN*) cygwin=true;;
+OS400*) os400=true;;
+Darwin*) darwin=true;;
+Linux*) linux=true;;
+esac
 
 function isWindow() {
-  isW="true"
-# check linux os
-  if [ "`uname`" == "Linux" ]; then
-    isW="false"
-  fi
-# check mac os
-  if [ `uname` == "Darwin" ]; then
-    isW="false"
-  fi
-
-  if [ "$isW" == "true" ]; then
+  if [ "$cygwin" == "true" ]; then
      function nautilus() { 
          if [ -n "$1" ]; then 
             explorer.exe "$1"; 
