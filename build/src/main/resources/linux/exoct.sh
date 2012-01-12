@@ -547,6 +547,7 @@ function getparam() {
 
 }
 #-Dtest=classname
+#-Dmaven.surefire.debug=true
 function ctbuild() {
     par=""
     Dtest=""
@@ -604,6 +605,62 @@ function ctquickwar () {
      fi
      cd $nowDir
    fi
+}
+
+function sendtotomcat() {
+   tcDir="$1";
+   INFO "Find all file *.war";
+   wars=$(find -name *.war)
+   temp="";
+   for X in ${wars[@]}
+     do
+     temp="${X/.*target\//}";
+     y="$(expr match "$temp" '.*\(/\)')";
+     if [ "$y" == "" ]; then
+       folder="${temp/.war/}"
+       INFO "Copy file $temp into $tcDir/webapps"
+       cp $X $tcDir/webapps
+       INFO "Remove old folder $folder"
+       rm -rf $tcDir/webapps/$folder/
+     fi
+   done
+   INFO "Find all file *.jar";
+   jars=$(find -name *.jar)
+   for X in ${jars[@]}
+     do
+     temp="${X/.*target\//}";
+     t="$(expr match "$temp" '.*\(sources\)')";
+     y="$(expr match "$temp" '.*\(lib\)')";
+    if [ "$t" == "" ] && [ "$y" == "" ]; then
+      INFO "Copy file $temp into $tcDir/lib"
+      cp $X $tcDir/lib
+    fi
+   done
+}
+
+function toplftrunk() {
+  eval "totomcat platformtrunk"
+}
+
+function totomcat() {
+  OD="$PWD";
+  dirS=$1
+  if [ -n "$dirS" ]; then 
+      dirS="${dirS/--/}" ;
+      eval "cdSource $dirS";
+  fi
+  getCrproject;
+  tcDir="$EXO_TOMCAT_DIR";
+  cd $OD;
+  getCrproject;
+  eval "sendtotomcat $tcDir";
+}
+
+function buildtotomcat() {
+  eval "ctbuild $1 $2";
+  eval "getCrproject $PWD";
+  eval "$EXO_TOMCAT_DIR/bin/shutdown.sh";
+  eval "totomcat && runtomcat";
 }
 
 function getProject() {
@@ -950,4 +1007,16 @@ function helpall() {
    eval "echo && cthelp && echo && ctHelp";
 }
 
+
+######
+# Extension 
+
+function gpatch() {
+  file="$(date -u +%Y-%m-%d).patch";
+  svn diff > $file;
+  sleep 1s;
+  eval "gedit $file &";
+  sleep 1s;
+  rm $file;
+}
 
