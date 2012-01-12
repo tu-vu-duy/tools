@@ -576,7 +576,26 @@ function ctbuild() {
 
 
 function ctmodule () {
-    eval "ctbuild $1 $2" &&
+  DB="";
+  TE="";
+  ET="";
+  TC="";
+  for arg	in "$@" 
+  	do
+      src="${arg/--/}" 
+      if [ $src == "debug=true" ]; then
+          DB="$src";
+      elif [ $src == "test=true" ]; then
+          TE="$src";
+      elif [ $src == "tomcatstart=false" ]; then
+          TC="$src";
+      else 
+          ET="$src";
+      fi
+      INFO "Updating now $PWD" &&  svn up && cdback
+	done
+
+  eval "ctbuild $TE $ET" && 
     if [ -e "$PWD/target" ]; then
         OPWD=$PWD
         eval "getCrproject $PWD"
@@ -585,11 +604,34 @@ function ctmodule () {
         cd $EXO_TOMCAT_DIR/lib
         find -depth -name *sources.jar -exec rm -rf {} \; 
         cd $OPWD
+        if [ -n "$TC" ]; then
+          sleep 1s;
+          eval "runtomcat $DB";
+        fi
     fi
 }
 
 function ctquickwar () {
-   eval "ctbuild $1 $2"
+  DB="";
+  TE="";
+  ET="";
+  TC="";
+  for arg	in "$@" 
+  	do
+      src="${arg/--/}" 
+      if [ $src == "debug=true" ]; then
+          DB="$src";
+      elif [ $src == "test=true" ]; then
+          TE="$src";
+      elif [ $src == "tomcatstart=false" ]; then
+          TC="$src";
+      else 
+          ET="$src";
+      fi
+      INFO "Updating now $PWD" &&  svn up && cdback
+	done
+
+  eval "ctbuild $TE $ET" && 
    if [ -e "$PWD/target" ]; then
      nowDir=$PWD
      eval "getCrproject $PWD"
@@ -597,11 +639,16 @@ function ctquickwar () {
      temp="${temp/.\/target\//}"
      temp="${temp/.war/}"
      if [ -e "$PWD/target/$temp.war" ]; then
+       eval "$EXO_TOMCAT_DIR/bin/shutdown.sh";
        INFO "Copy file $temp.war into $EXO_TOMCAT_DIR/webapps"
        cp target/$temp.war $EXO_TOMCAT_DIR/webapps
        chmod +x  $EXO_TOMCAT_DIR/webapps/* -R
        INFO "Remove old folder $temp"
        rm -rf $EXO_TOMCAT_DIR/webapps/$temp/
+       if [ -n "$TC" ]; then
+         sleep 1s;
+         eval "runtomcat $DB";
+       fi
      fi
      cd $nowDir
    fi
@@ -651,16 +698,39 @@ function totomcat() {
   fi
   getCrproject;
   tcDir="$EXO_TOMCAT_DIR";
+  eval "$EXO_TOMCAT_DIR/bin/shutdown.sh";
   cd $OD;
   getCrproject;
   eval "sendtotomcat $tcDir";
 }
 
 function buildtotomcat() {
-  eval "ctbuild $1 $2";
-  eval "getCrproject $PWD";
-  eval "$EXO_TOMCAT_DIR/bin/shutdown.sh";
-  eval "totomcat && runtomcat";
+  DB="";
+  TE="";
+  ET="";
+  TC="";
+  for arg	in "$@" 
+  	do
+      src="${arg/--/}" 
+      if [ $src == "debug=true" ]; then
+          DB="$src";
+      elif [ $src == "test=true" ]; then
+          TE="$src";
+      elif [ $src == "tomcatstart=false" ]; then
+          TC="$src";
+      else 
+          ET="$src";
+      fi
+      INFO "Updating now $PWD" &&  svn up && cdback
+	done
+
+  eval "ctbuild $TE $ET" && 
+  eval "getCrproject $PWD" && 
+  eval "totomcat";
+  if [ -n "$TC" ]; then
+    sleep 1s;
+    eval "runtomcat $DB";
+  fi
 }
 
 function getProject() {
