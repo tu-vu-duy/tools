@@ -579,56 +579,56 @@ function ctmodule () {
   DB="";
   TE="";
   ET="";
-  TC="";
+  TC="tomcatstart=true";
   for arg	in "$@" 
   	do
       src="${arg/--/}" 
-      if [ $src == "debug=true" ]; then
+      if [ $(expr match $arg "debug=") -gt 0 ]; then
           DB="$src";
-      elif [ $src == "test=true" ]; then
+      elif [ $(expr match $arg "test=") -gt 0 ]; then
           TE="$src";
-      elif [ $src == "tomcatstart=false" ]; then
+      elif [ $(expr match $arg "tomcatstart=") -gt 0 ]; then
           TC="$src";
       else 
           ET="$src";
       fi
-      INFO "Updating now $PWD" &&  svn up && cdback
 	done
 
   eval "ctbuild $TE $ET" && 
-    if [ -e "$PWD/target" ]; then
-        OPWD=$PWD
-        eval "getCrproject $PWD"
-        INFO "Copy file jar into $EXO_TOMCAT_DIR/lib"
-        cp target/*.jar $EXO_TOMCAT_DIR/lib
-        cd $EXO_TOMCAT_DIR/lib
-        find -depth -name *sources.jar -exec rm -rf {} \; 
-        cd $OPWD
-        if [ -n "$TC" ]; then
-          sleep 1s;
-          eval "runtomcat $DB";
-        fi
-    fi
+  if [ -e "$PWD/target" ]; then
+      OPWD=$PWD
+      eval "getCrproject $PWD"
+      INFO "Stop the tomcat in $EXO_TOMCAT_DIR";
+      eval "$EXO_TOMCAT_DIR/bin/shutdown.sh";
+      INFO "Copy file jar into $EXO_TOMCAT_DIR/lib"
+      cp target/*.jar $EXO_TOMCAT_DIR/lib
+      cd $EXO_TOMCAT_DIR/lib
+      find -depth -name *sources.jar -exec rm -rf {} \; 
+      cd $OPWD
+      if [ "$TC" == "tomcatstart=true" ]; then
+        sleep 1s;
+        eval "runtomcat $DB";
+      fi
+  fi
 }
 
 function ctquickwar () {
   DB="";
   TE="";
   ET="";
-  TC="";
+  TC="tomcatstart=true";
   for arg	in "$@" 
   	do
       src="${arg/--/}" 
-      if [ $src == "debug=true" ]; then
+      if [ $(expr match $arg "debug=") -gt 0 ]; then
           DB="$src";
-      elif [ $src == "test=true" ]; then
+      elif [ $(expr match $arg "test=") -gt 0 ]; then
           TE="$src";
-      elif [ $src == "tomcatstart=false" ]; then
+      elif [ $(expr match $arg "tomcatstart=") -gt 0 ]; then
           TC="$src";
       else 
           ET="$src";
       fi
-      INFO "Updating now $PWD" &&  svn up && cdback
 	done
 
   eval "ctbuild $TE $ET" && 
@@ -639,13 +639,14 @@ function ctquickwar () {
      temp="${temp/.\/target\//}"
      temp="${temp/.war/}"
      if [ -e "$PWD/target/$temp.war" ]; then
+       INFO "Stop the tomcat in $EXO_TOMCAT_DIR";
        eval "$EXO_TOMCAT_DIR/bin/shutdown.sh";
        INFO "Copy file $temp.war into $EXO_TOMCAT_DIR/webapps"
        cp target/$temp.war $EXO_TOMCAT_DIR/webapps
        chmod +x  $EXO_TOMCAT_DIR/webapps/* -R
        INFO "Remove old folder $temp"
        rm -rf $EXO_TOMCAT_DIR/webapps/$temp/
-       if [ -n "$TC" ]; then
+       if [ "$TC" == "tomcatstart=true" ]; then
          sleep 1s;
          eval "runtomcat $DB";
        fi
@@ -698,6 +699,7 @@ function totomcat() {
   fi
   getCrproject;
   tcDir="$EXO_TOMCAT_DIR";
+  INFO "Stop the tomcat in $EXO_TOMCAT_DIR";
   eval "$EXO_TOMCAT_DIR/bin/shutdown.sh";
   cd $OD;
   getCrproject;
@@ -708,26 +710,25 @@ function buildtotomcat() {
   DB="";
   TE="";
   ET="";
-  TC="";
+  TC="tomcatstart=true";
   for arg	in "$@" 
   	do
       src="${arg/--/}" 
-      if [ $src == "debug=true" ]; then
+      if [ $(expr match $arg "debug=") -gt 0 ]; then
           DB="$src";
-      elif [ $src == "test=true" ]; then
+      elif [ $(expr match $arg "test=") -gt 0 ]; then
           TE="$src";
-      elif [ $src == "tomcatstart=false" ]; then
+      elif [ $(expr match $arg "tomcatstart=") -gt 0 ]; then
           TC="$src";
       else 
           ET="$src";
       fi
-      INFO "Updating now $PWD" &&  svn up && cdback
 	done
 
   eval "ctbuild $TE $ET" && 
   eval "getCrproject $PWD" && 
   eval "totomcat";
-  if [ -n "$TC" ]; then
+  if [ "$TC" == "tomcatstart=true" ]; then
     sleep 1s;
     eval "runtomcat $DB";
   fi
