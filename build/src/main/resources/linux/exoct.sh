@@ -14,14 +14,15 @@ esac
 function isWindow() {
   if [ "$cygwin" == "true" ]; then
      function nautilus() { 
-         if [ -n "$1" ]; then 
-            explorer.exe "$1"; 
-         fi
-      } 
+        now=$1;
+        now=${now//\/cygdrive\/d/D:}
+        now=${now//\//\\}
+        eval "explorer.exe \"$now\" &"; 
+     } 
      function gedit() { 
-         if [ -n "$1" ]; then 
-            eval "notepad.exe $1"; 
-         fi
+       if [ -n "$1" ]; then 
+          eval "notepad.exe $1"; 
+       fi
      } 
   fi
 
@@ -129,7 +130,7 @@ alias udcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && s
 alias cicm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && eval 'svn ci -m \"Update tools collaboration\" exoct.sh' && cdback"
 alias cdcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux"
 
-alias mdfsetting="gedit $JAVA_DIR/maven2.2.1/conf/settings.xml &"
+alias mdfsetting="gedit $M2_HOME/conf/settings.xml &"
 alias mdfalias="gedit $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux/exoalias.sh &"
 
 alias tomcatCleanRun="tomcatClean && runtomcat"
@@ -582,12 +583,12 @@ function ctmodule () {
   TC="tomcatstart=true";
   for arg	in "$@" 
   	do
-      src="${arg/--/}" 
-      if [ $(expr match $arg "debug=") -gt 0 ]; then
+      src="${arg//--/}" 
+      if [ $(expr match $src "debug=") -gt 0 ]; then
           DB="$src";
-      elif [ $(expr match $arg "test=") -gt 0 ]; then
+      elif [ $(expr match $src "test=") -gt 0 ]; then
           TE="$src";
-      elif [ $(expr match $arg "tomcatstart=") -gt 0 ]; then
+      elif [ $(expr match $src "tomcatstart=") -gt 0 ]; then
           TC="$src";
       else 
           ET="$src";
@@ -604,7 +605,7 @@ function ctmodule () {
       cp target/*.jar $EXO_TOMCAT_DIR/lib
       cd $EXO_TOMCAT_DIR/lib
       find -depth -name *sources.jar -exec rm -rf {} \; 
-      cd $OPWD
+      cd $OPWD &&
       if [ "$TC" == "tomcatstart=true" ]; then
         sleep 1s;
         eval "runtomcat $DB";
@@ -619,12 +620,12 @@ function ctquickwar () {
   TC="tomcatstart=true";
   for arg	in "$@" 
   	do
-      src="${arg/--/}" 
-      if [ $(expr match $arg "debug=") -gt 0 ]; then
+      src="${arg//--/}" 
+      if [ $(expr match $src "debug=") -gt 0 ]; then
           DB="$src";
-      elif [ $(expr match $arg "test=") -gt 0 ]; then
+      elif [ $(expr match $src "test=") -gt 0 ]; then
           TE="$src";
-      elif [ $(expr match $arg "tomcatstart=") -gt 0 ]; then
+      elif [ $(expr match $src "tomcatstart=") -gt 0 ]; then
           TC="$src";
       else 
           ET="$src";
@@ -645,13 +646,15 @@ function ctquickwar () {
        cp target/$temp.war $EXO_TOMCAT_DIR/webapps
        chmod +x  $EXO_TOMCAT_DIR/webapps/* -R
        INFO "Remove old folder $temp"
-       rm -rf $EXO_TOMCAT_DIR/webapps/$temp/
+       rm -rf $EXO_TOMCAT_DIR/webapps/$temp/;
+       cd $nowDir &&
        if [ "$TC" == "tomcatstart=true" ]; then
          sleep 1s;
          eval "runtomcat $DB";
+       else 
+         echo "";
        fi
      fi
-     cd $nowDir
    fi
 }
 
@@ -713,24 +716,28 @@ function buildtotomcat() {
   TC="tomcatstart=true";
   for arg	in "$@" 
   	do
-      src="${arg/--/}" 
-      if [ $(expr match $arg "debug=") -gt 0 ]; then
+      src="${arg//--/}" 
+      if [ $(expr match $src "debug=") -gt 0 ]; then
           DB="$src";
-      elif [ $(expr match $arg "test=") -gt 0 ]; then
+      elif [ $(expr match $src "test=") -gt 0 ]; then
           TE="$src";
-      elif [ $(expr match $arg "tomcatstart=") -gt 0 ]; then
+      elif [ $(expr match $src "tomcatstart=") -gt 0 ]; then
           TC="$src";
       else 
           ET="$src";
       fi
 	done
 
+echo "$DB $TE $TC $ET";
+
   eval "ctbuild $TE $ET" && 
   eval "getCrproject $PWD" && 
-  eval "totomcat";
+  eval "totomcat" &&
   if [ "$TC" == "tomcatstart=true" ]; then
     sleep 1s;
     eval "runtomcat $DB";
+  else
+    echo "";
   fi
 }
 
