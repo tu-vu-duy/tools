@@ -11,6 +11,15 @@ Darwin*) darwin=true;;
 Linux*) linux=true;;
 esac
 
+alias mdfcm="gedit $CM_DIR/exoct.sh &"
+alias udcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && svn up && cdback"
+alias cicm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && eval 'svn ci -m \"Update tools collaboration\" exoct.sh' && cdback"
+alias cdcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux"
+
+function INFO() {
+ echo "[INFO] [$1]";
+}
+
 function isWindow() {
   if [ "$cygwin" == "true" ]; then
      function nautilus() { 
@@ -23,7 +32,7 @@ function isWindow() {
        if [ -n "$1" ]; then 
           eval "notepad.exe $1"; 
        fi
-     } 
+     }     
   fi
 
   if [ "$M2_HOME" == "$BSH_EXO_BASE_DIRECTORY/maven3.0.3" ]; then 
@@ -31,7 +40,30 @@ function isWindow() {
   else 
       MV3="";
   fi
+
+  D=$(date -u +%d);
+
+  local ud="";
+  if [ ! -e $HOME/.extc ]; then 
+   ud="true";
+  fi
+  if [ "$ud" == "" ] && [ "$((D%13))" == 0 ]; then
+     local cont=$(cat $HOME/.extc);
+     if [ "$cont" == "" ]; then 
+       ud="true";
+     fi
+  fi
+
+  if [ -n "$ud" ]; then 
+    INFO "Auto update exotc.sh....";
+    eval "udcm";
+    cp $HOME/.bashrc $HOME/.extc;
+    echo "Updated" > $HOME/.extc;
+  elif [ "$((D%5))" != 0 ]; then 
+    echo "" > $HOME/.extc;
+  fi
 }
+
 isWindow;
 
 function npatchhelp() {
@@ -124,11 +156,6 @@ alias socialt="cdSource socialtrunk"
 
 alias firefoxs="firefox http://localhost:8080/ &"
 alias eclipse="$JAVA_DIR/eclipse/eclipse &"
-
-alias mdfcm="gedit $CM_DIR/exoct.sh &"
-alias udcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && svn up && cdback"
-alias cicm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && eval 'svn ci -m \"Update tools collaboration\" exoct.sh' && cdback"
-alias cdcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux"
 
 alias mdfsetting="gedit $M2_HOME/conf/settings.xml &"
 alias mdfalias="gedit $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux/exoalias.sh &"
@@ -233,9 +260,6 @@ function getCrsh() {
    fi
 }
 
-function INFO() {
- echo "[INFO] [$1]"
-}
 # get current project: in {projectname}{version} ex: ks22x, platform30x, platformtrunk... out export info about project
 # if param is null, return info about project via current dir.
 function getCrproject() {
