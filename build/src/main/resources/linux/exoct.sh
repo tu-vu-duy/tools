@@ -11,6 +11,7 @@ Darwin*) darwin=true;;
 Linux*) linux=true;;
 esac
 
+CM_DIR="$EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux"
 alias mdfcm="gedit $CM_DIR/exoct.sh &"
 alias udcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && svn up && cdback"
 alias cicm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && eval 'svn ci -m \"Update tools collaboration\" exoct.sh' && cdback"
@@ -122,8 +123,6 @@ function cthelp() {
   npatchhelp
   echo "==========Using command cthelp for display this help.==========="
 }
-
-CM_DIR=$EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux
 
 EXO_KS=$EXO_PROJECTS_SRC/ks
 EXO_CS=$EXO_PROJECTS_SRC/cs
