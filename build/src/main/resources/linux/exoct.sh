@@ -60,7 +60,7 @@ function isWindow() {
     eval "udcm";
     cp $HOME/.bashrc $HOME/.extc;
     echo "Updated" > $HOME/.extc;
-  elif [ "$((D%5))" != 0 ]; then 
+  elif [ "$((D%13))" != 0 ]; then 
     echo "" > $HOME/.extc;
   fi
 }
