@@ -24,7 +24,7 @@ function INFO() {
 function isWindow() {
   if [ "$cygwin" == "true" ]; then
      function nautilus() { 
-        now=$1;
+        local now=$1;
         now=${now//\/cygdrive\/d/D:}
         now=${now//\//\\}
         eval "explorer.exe \"$now\" &"; 
@@ -42,7 +42,7 @@ function isWindow() {
       MV3="";
   fi
 
-  D=$(date -u +%d);
+  local D=$(date -u +%d);
 
   local ud="";
   if [ ! -e $HOME/.extc ]; then 
@@ -1058,7 +1058,7 @@ function installmv3() {
   if [ -n "$USER" ]; then 
       eval "cd $BSH_EXO_BASE_DIRECTORY"
       echo "download maven 3 in to  $PWD"
-      eval "wget http://mirror-fpt-telecom.fpt.net/apache//maven/binaries/apache-maven-3.0.3-bin.zip && unzipmv3 && mvst $USER $PASS"
+      eval "wget wget --http-user=$USER  --http-password=$PASS http://storage.exoplatform.vn/ct/tu_vu_duy/apache-maven-3.0.3-bin.zip && unzipmv3 && mvst $USER $PASS"
       echo  " Note: "
       echo "If you want to user maven3, plesase type command: umaven3. The default system user maven2.2.1. "
       echo "If you want to user maven2.2.1, plesase type command: umaven2."
