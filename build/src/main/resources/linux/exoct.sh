@@ -11,11 +11,15 @@ Darwin*) darwin=true;;
 Linux*) linux=true;;
 esac
 
-CM_DIR="$EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux"
-alias mdfcm="gedit $CM_DIR/exoct.sh &"
-alias udcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && svn up && cdback"
-alias cicm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux && eval 'svn ci -m \"Update tools collaboration\" exoct.sh' && cdback"
-alias cdcm="cd $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux"
+alias mdfcm="gedit $EXO_SH_SCRIPT/exoct.sh &"
+alias udcm="cd $EXO_SH_SCRIPT && svn up && cdback"
+alias cdcm="cd $EXO_SH_SCRIPT"
+
+function cicm() {
+  cd $EXO_SH_SCRIPT;
+  eval "svn ci -m \"$1\" exoct.sh"
+  cdback;
+}
 
 function INFO() {
  echo "[INFO] [$1]";
@@ -158,7 +162,7 @@ alias eclipse="$JAVA_DIR/eclipse/eclipse &"
 
 alias mdfsetting="gedit $M2_HOME/conf/settings.xml &"
 alias mdfalias="gedit $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux/exoalias.sh &"
-
+alias cicmd="cicm 'Update tools of collaboration'"
 alias tomcatCleanRun="tomcatClean && runtomcat"
 alias runtc="runtomcat"
 alias tcrun="runtomcat"
@@ -1036,16 +1040,14 @@ function unzipmv3() {
 }
 
 function umaven2() {
-   M2_HOME=$BSH_EXO_BASE_DIRECTORY/maven2.2.1
-   PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PORTABLE_DIR/bin;
-   PATH=/usr/local/bin:$JAVA_HOME/bin:$PATH:$M2_HOME/bin:$EXO_SH_SCRIPT;
+   M2_HOME=$BSH_EXO_BASE_DIRECTORY/maven2.2.1;
+   PATH=${PATH//maven3.0.3/maven2.2.1};
    MV3="";
 }
 
 function umaven3(){
-   M2_HOME=$BSH_EXO_BASE_DIRECTORY/maven3.0.3 
-   PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:$PORTABLE_DIR/bin;
-   PATH=/usr/local/bin:$JAVA_HOME/bin:$PATH:$M2_HOME/bin:$EXO_SH_SCRIPT;
+   M2_HOME=$BSH_EXO_BASE_DIRECTORY/maven3.0.3 ;
+   PATH=${PATH//maven2.2.1/maven3.0.3};
    MV3="-T2C";
 }
 
