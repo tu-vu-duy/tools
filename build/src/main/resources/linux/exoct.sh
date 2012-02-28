@@ -388,17 +388,20 @@ function CD() {
 }
 
 function runtomcat() {
-   debug=""
-   project=""
+   debug="";
+   project="";
+   profile_="";
   for arg	in "$@" 
 	  do
       arg="${arg//-/}" 
 		  if [ "$arg" == "debug=false" ]; then
           debug=""
-     elif [ "$arg" == "debug=true" ]; then
+      elif [ "$arg" == "debug=true" ]; then
           debug="$arg"
+      elif [ $(expr match $arg "profile=") -gt 0 ]; then
+          profile_="${arg/profile=/}";
       else 
-          project=$arg
+          project=$arg          
       fi 
 	done
   OPWD="$PWD"
@@ -435,7 +438,6 @@ function runByParam() {
   debug=$2
   project="${project//-/}" 
   project="${project//./}"
-
    if [ $(hasfc $project) == "Found" ]; then
        eval "$project"
    else 
@@ -463,6 +465,13 @@ function tcstart() {
      export EXO_TOMCAT_DIR=$SRC/tomcat
      export EXO_WK_DIR=$SRC
      eval   "INFO 'Run tomcat $isdb in $SRC'  && $SRC/tomcat/bin/gatein$debug.sh run" 
+  elif [ -e "$SRC/tomcat/start_eXo.sh" ]; then
+     export EXO_WK_DIR=$SRC
+     export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
+     local X=" $profile_";
+     profile_="";
+     sed -i -e 's/\".\/bin\/catalina.sh/\/\"bin\/catalina.sh/g' $SRC/tomcat/start_eXo.sh;
+     eval   "INFO 'Run tomcat platform$X in $SRC' && $SRC/tomcat/start_eXo.sh$X" 
   elif [ -e "$SRC/exo-tomcat/bin/eXo.sh" ]; then
      export EXO_WK_DIR=$SRC
      export EXO_TOMCAT_DIR=$EXO_WK_DIR/exo-tomcat/
