@@ -1069,7 +1069,7 @@ function installmv3() {
   if [ -n "$USER" ]; then 
       eval "cd $BSH_EXO_BASE_DIRECTORY"
       echo "download maven 3 in to  $PWD"
-      eval "wget wget --http-user=$USER  --http-password=$PASS http://storage.exoplatform.vn/ct/tu_vu_duy/apache-maven-3.0.3-bin.zip && unzipmv3 && mvst $USER $PASS"
+      eval "wget --http-user=$USER  --http-password=$PASS http://storage.exoplatform.vn/ct/tu_vu_duy/apache-maven-3.0.3-bin.zip && unzipmv3 && mvst $USER $PASS"
       echo  " Note: "
       echo "If you want to user maven3, plesase type command: umaven3. The default system user maven2.2.1. "
       echo "If you want to user maven2.2.1, plesase type command: umaven2."
