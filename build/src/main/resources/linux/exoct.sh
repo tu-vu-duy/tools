@@ -47,7 +47,9 @@ function isWindow() {
   fi
 
   local D=$(date -u +%d);
-
+  if [ $(expr match "$D" "0") -gt 0 ]; then 
+    D=${D/0/};
+  fi
   local ud="";
   if [ ! -e $HOME/.extc ]; then 
    ud="true";
