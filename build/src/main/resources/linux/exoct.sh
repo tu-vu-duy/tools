@@ -182,7 +182,7 @@ alias svnaddall="exosvn add"
 alias svnrvall="svn revert -R \"\""
 alias svndiff="svn diff"
 
-ALISAS_SOURCE="cst cs13x cs21x cs22x ks12x ks21x ks22x social12x social11x socialt help";
+ALISAS_SOURCE="cst cs13x cs21x cs22x ks12x ks21x ks22x social12x social11x socialt platformtrunk help";
 # has function or alias: use hasfc functionname. Ex: hasfs kst
 function hasfc() {
   command -v $1 >/dev/null && echo "Found" || echo "NotFound"
