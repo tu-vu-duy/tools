@@ -1126,7 +1126,25 @@ echo
 }
 
 function helpall() {
-   eval "echo && cthelp && echo && ctHelp";
+  INFO "All function support:";
+  INFO "npatch: Create file patch";
+  INFO "gpatch: Read new file patch crated.";
+  INFO "runtomcat: run the tomcat by produce.";
+  INFO "builds: Build all product by option";
+  INFO "updates: Update all product by option";
+  INFO "updatebuilds: Update and build all produce by option";
+  INFO "cdSource: Go to dir by option";
+  INFO "ctbuild: Build project by option";
+  INFO "ctmodule: Build service and copy jar to tomcat by option";
+  INFO "ctquickwar: Build webapp and copy war to tomcat by option";
+  INFO "buildtotomcat: Build webapp & service and copy war/jar to tomcat by option";
+  INFO "totomcat: Copy war/jar to tomcat by option";
+  INFO "toplftrunk: Copy war/jar to tomcat of platform trunk by option";
+  INFO "umaven2: Use maven version 2.2.1";
+  INFO "umaven3: Use maven version 3.0.3";
+  INFO "ct: The function with general option";
+  INFO "exosvnco: Check out product by option";
+  eval "echo && cthelp && echo && ctHelp";
 }
 
 
@@ -1185,7 +1203,9 @@ _ctsource ()
 }
 
 complete -F "_ctsource" -o "default" "cdSource"
-
+complete -F "_ctsource" -o "default" "updatebuilds"
+complete -F "_ctsource" -o "default" "builds"
+complete -F "_ctsource" -o "default" "updates"
 
 _npatch ()  
 {             
