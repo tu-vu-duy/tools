@@ -1203,7 +1203,7 @@ _ct ()
 
   local cur="${COMP_WORDS[COMP_CWORD]}"
   # The params
-  local opts="$EXO_PROJECTS up update build install debug test= tomcat= U eclipse module quickwar 12x 11x 21x 22x trunk tomcatdir= onlytomcat buildnottc help"
+  local opts="${EXO_PROJECTS[@]} up update build install debug test= tomcat= U eclipse module quickwar 12x 11x 21x 22x trunk tomcatdir= onlytomcat buildnottc help"
   # Array variable storing the possible completions.
   COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
 }
@@ -1214,7 +1214,7 @@ _exosvnco ()
 
   local cur="${COMP_WORDS[COMP_CWORD]}"
   # The params
-  local opts="$EXO_PROJECTS 12x 11x 21x 22x trunk tag 121-GA 220-GA 211-GA"
+  local opts="${EXO_PROJECTS[@]} 12x 11x 21x 22x trunk tag 121-GA 220-GA 211-GA"
   # Array variable storing the possible completions.
   COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
 }
