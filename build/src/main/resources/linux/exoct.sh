@@ -25,27 +25,7 @@ function INFO() {
  echo "[INFO] [$1]";
 }
 
-function isWindow() {
-  if [ "$cygwin" == "true" ]; then
-     function nautilus() { 
-        local now=$1;
-        now=${now//\/cygdrive\/d/D:}
-        now=${now//\//\\}
-        eval "explorer.exe \"$now\" &"; 
-     } 
-     function gedit() { 
-       if [ -n "$1" ]; then 
-          eval "notepad.exe $1"; 
-       fi
-     }     
-  fi
-
-  if [ "$M2_HOME" == "$BSH_EXO_BASE_DIRECTORY/maven3.0.3" ]; then 
-      MV3="-T2C";
-  else 
-      MV3="";
-  fi
-
+function autoUpdate() {
   local D=$(date -u +%d);
   if [ $(expr match "$D" "0") -gt 0 ]; then 
     D=${D/0/};
@@ -69,6 +49,33 @@ function isWindow() {
   elif [ "$((D%13))" != 0 ]; then 
     echo "" > $HOME/.extc;
   fi
+}
+
+function isWindow() {
+  if [ "$cygwin" == "true" ]; then
+     function nautilus() { 
+        local now=$1;
+        now=${now//\/cygdrive\/d/D:}
+        now=${now//\//\\}
+        eval "explorer.exe \"$now\" &"; 
+     } 
+     function gedit() { 
+       if [ -n "$1" ]; then 
+          eval "notepad.exe $1"; 
+       fi
+     }     
+  fi
+
+  if [ "$M2_HOME" == "$BSH_EXO_BASE_DIRECTORY/maven3.0.3" ]; then 
+      MV3="-T2C";
+  else 
+      MV3="";
+  fi
+
+  if [ "$linux" == "true" ] || [  "$cygwin" == "true" ]; then 
+    autoUpdate;
+  fi
+  
 }
 
 isWindow;
@@ -162,7 +169,6 @@ alias socialt="cdSource socialtrunk"
 alias firefoxs="firefox http://localhost:8080/ &"
 alias eclipse="$JAVA_DIR/eclipse/eclipse &"
 
-alias mdfsetting="gedit $M2_HOME/conf/settings.xml &"
 alias mdfalias="gedit $EXO_PROJECTS_SRC/tools/trunk/build/src/main/resources/linux/exoalias.sh &"
 alias cicmd="cicm 'Update tools of collaboration'"
 alias tomcatCleanRun="tomcatClean && runtomcat"
@@ -176,6 +182,7 @@ alias svnaddall="exosvn add"
 alias svnrvall="svn revert -R \"\""
 alias svndiff="svn diff"
 
+ALISAS_SOURCE="cst cs13x cs21x cs22x ks12x ks21x ks22x social12x social11x socialt help";
 # has function or alias: use hasfc functionname. Ex: hasfs kst
 function hasfc() {
   command -v $1 >/dev/null && echo "Found" || echo "NotFound"
@@ -766,8 +773,6 @@ function buildtotomcat() {
       fi
 	done
 
-echo "$DB $TE $TC $ET";
-
   eval "ctbuild $TE $ET" && 
   eval "getCrproject $PWD" && 
   eval "totomcat" &&
@@ -1040,6 +1045,9 @@ function mvst() {
   fi
 }
 
+function mdfsetting() { 
+  gedit "$M2_HOME/conf/settings.xml";
+}
 
 function unzipmv3() {
    if [ $(hasfc "unzip") == "Found" ]; then
@@ -1134,3 +1142,81 @@ function gpatch() {
   rm $file;
 }
 
+
+# auto complete
+_runtomcat ()  
+{             
+
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  # The params
+  local opts="$ALISAS_SOURCE debug=true profile="
+  # Array variable storing the possible completions.
+  COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+}
+
+complete -F "_runtomcat" -o "default" "runtomcat"
+
+_ctbuild ()  
+{             
+
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  # The params
+  local opts="debug=false test=false tomcatstart=false"
+  # Array variable storing the possible completions.
+  COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+}
+
+
+complete -F "_ctbuild" -o "default" "ctbuild"
+
+complete -F "_ctbuild" -o "default" "ctmodule"
+complete -F "_ctbuild" -o "default" "ctquickwar"
+complete -F "_ctbuild" -o "default" "buildtotomcat"
+
+
+_ctsource ()  
+{             
+
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  # The params
+  local opts="$ALISAS_SOURCE"
+  # Array variable storing the possible completions.
+  COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+}
+
+complete -F "_ctsource" -o "default" "cdSource"
+
+
+_npatch ()  
+{             
+
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  # The params
+  local opts="issue= patchdir= help"
+  # Array variable storing the possible completions.
+  COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+}
+complete -F "_npatch" -o "default" "npatch"
+
+_ct ()  
+{             
+
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  # The params
+  local opts="$EXO_PROJECTS up update build install debug test= tomcat= U eclipse module quickwar 12x 11x 21x 22x trunk tomcatdir= onlytomcat buildnottc help"
+  # Array variable storing the possible completions.
+  COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+}
+complete -F "_ct" -o "default" "ct"
+
+_exosvnco ()  
+{             
+
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  # The params
+  local opts="$EXO_PROJECTS 12x 11x 21x 22x trunk tag 121-GA 220-GA 211-GA"
+  # Array variable storing the possible completions.
+  COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+}
+
+complete -F "_exosvnco" -o "default" "exosvnco"
