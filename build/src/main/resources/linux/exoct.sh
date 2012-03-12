@@ -1179,7 +1179,7 @@ _ctbuild ()
 
   local cur="${COMP_WORDS[COMP_CWORD]}"
   # The params
-  local opts="debug=false test=false tomcatstart=false"
+  local opts="debug=true test=false tomcatstart=false"
   # Array variable storing the possible completions.
   COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
 }
