@@ -572,7 +572,7 @@ function getparam() {
   eclipse="";
   debug="";
   bdebug="";
-  tomcatstart="tomcatstart=true";
+  tomcatstart="tomcatstart=false";
   Dtest="";
   other="";
   OLPWD="$PWD";
@@ -1034,6 +1034,45 @@ function mvn3() {
   fi
 }
 
+function mvnoption() {
+#Xms512m -Xmx1536m -XX:MaxPermSize
+#-XX:MaxPermSize=256m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
+Xms="512m";
+Xmx="1536m";
+MaxPermSize="256m";
+Xdebug="false";
+Exten="";
+ for arg  in "$@" 
+  do
+    if [ $(expr match $arg "Xms=") -gt 0 ]; then
+          Xms="${arg/Xms=/}";
+    elif [ $(expr match $arg "Xmx=") -gt 0 ]; then
+          Xmx="${arg/Xmx=/}";
+    elif [ $(expr match $arg "MaxPermSize=") -gt 0 ]; then
+          MaxPermSize="${arg/MaxPermSize=/}";
+    elif [ $(expr match $arg "Xms=") -gt 0 ]; then
+          Xms="${arg/Xms=/}";
+    elif [ $(expr match $arg "Xdebug=true") -gt 0 ]; then
+          Xdebug="${arg/Xdebug=/}";
+    else 
+         Exten="$arg $Exten";
+    fi
+  done
+  OPS="-Xshare:auto -Xms$Xms -Xmx$Xmx -XX:MaxPermSize=$MaxPermSize";
+  if [ "$Xdebug" == "true" ]; then
+    OPS="$OPS -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005";
+  fi
+  MAVEN_OPTS="$OPS";
+  export MAVEN_OPTS;
+}
+_mvnoption() {
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  # The params
+  local opts="Xms=512m Xms=1536m MaxPermSize=256m Xdebug=true";
+  # Array variable storing the possible completions.
+  COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+}
+complete -F "_mvnoption" -o "default" "mvnoption"
 ######
 # Extension 
 
@@ -1064,7 +1103,7 @@ _ctbuild ()
 
   local cur="${COMP_WORDS[COMP_CWORD]}"
   # The params
-  local opts="debug=true test=false tomcatstart=false"
+  local opts="debug=true test=false tomcatstart=true"
   # Array variable storing the possible completions.
   COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
 }
