@@ -1068,7 +1068,7 @@ Exten="";
 _mvnoption() {
   local cur="${COMP_WORDS[COMP_CWORD]}"
   # The params
-  local opts="Xms=512m Xms=1536m MaxPermSize=256m Xdebug=true";
+  local opts="Xms=512m Xmx=1536m MaxPermSize=256m Xdebug=true";
   # Array variable storing the possible completions.
   COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
 }
