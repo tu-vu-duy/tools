@@ -22,7 +22,7 @@ function cicm() {
 }
 
 function INFO() {
- echo "[INFO] [$1]";
+  echo "[INFO] [$1]";
 }
 
 function autoUpdate() {
@@ -32,13 +32,13 @@ function autoUpdate() {
   fi
   local ud="";
   if [ ! -e $HOME/.extc ]; then 
-   ud="true";
+    ud="true";
   fi
   if [ "$ud" == "" ] && [ "$((D%13))" == 0 ]; then
-     local cont=$(cat $HOME/.extc);
-     if [ "$cont" == "" ]; then 
-       ud="true";
-     fi
+    local cont=$(cat $HOME/.extc);
+    if [ "$cont" == "" ]; then 
+     ud="true";
+    fi
   fi
 
   if [ -n "$ud" ]; then 
@@ -53,26 +53,33 @@ function autoUpdate() {
 
 function isWindow() {
   if [ "$cygwin" == "true" ]; then
-     function nautilus() { 
-        local now=$1;
+    function nautilus() { 
+      local now=$1;
+      now=${now//\/cygdrive\/d/D:}
+      now=${now//\//\\}
+      eval "explorer.exe \"$now\" &"; 
+    } 
+    function gedit() { 
+      if [ -n "$1" ]; then 
+        local now=$PWD;
         now=${now//\/cygdrive\/d/D:}
         now=${now//\//\\}
-        eval "explorer.exe \"$now\" &"; 
-     } 
-     function gedit() { 
-       if [ -n "$1" ]; then 
-          eval "notepad.exe $1"; 
-       fi
-     }     
+        eval "notepad.exe $now/$1"; 
+      fi
+    }
+  elif [ "$linux" == "true" ]; then
+    function gedit() { 
+      eval "command gedit $* &";
+    }    
   fi
 
   if [ "$M2_HOME" == "$BSH_EXO_BASE_DIRECTORY/maven3.0.3" ]; then 
-      MV3="-T2C";
+     MV3="-T2C";
   else 
-      MV3="";
+     MV3="";
   fi
 
-  if [ "$linux" == "true" ] || [  "$cygwin" == "true" ]; then 
+  if [ "$linux" == "true" ] || [ "$cygwin" == "true" ]; then 
     autoUpdate;
   fi
   
@@ -81,16 +88,16 @@ function isWindow() {
 isWindow;
 
 function npatchhelp() {
-      echo "Usage the npatch command:"
-      echo "       npatch [DIR] [--issue] [--patchdir]"
-      echo " Expand command: svn diff DIR > patchdir/yeah-month-day-issueNumber.patch"
-      echo 
-      echo "Options: "
-      echo 
-      echo "DIR            is optional. If is empty, DIR = current dir"
-      echo "*--issue       is optional. It is issue for create patch, if not, it is ramdom"
-      echo "*--patchdir    is optional. It is dir of folder storage patch, if not --> current dir"
-      echo 
+     echo "Usage the npatch command:"
+     echo "      npatch [DIR] [--issue] [--patchdir]"
+     echo " Expand command: svn diff DIR > patchdir/yeah-month-day-issueNumber.patch"
+     echo 
+     echo "Options: "
+     echo 
+     echo "DIR          is optional. If is empty, DIR = current dir"
+     echo "*--issue      is optional. It is issue for create patch, if not, it is ramdom"
+     echo "*--patchdir    is optional. It is dir of folder storage patch, if not --> current dir"
+     echo 
 }
 
 function gotohelp() {
@@ -103,20 +110,20 @@ function gotohelp() {
 
 function tomcatHelp() {
   echo "+ Run tomcat:  "
-  echo "        runtomcat [--version or --wk] [--debug=true/false]"
+  echo "       runtomcat [--version or --wk] [--debug=true/false]"
   echo " * tcrun (or runtc): help you can quick run tomcat in project you doing (current dir)"
   echo " * runtomcat (options): help you run tomcat via options is name of project ex: runtomcat --ks21x, runtomcat --ks22x v.v..."
   echo " And help you run tomcat by debug or not. If debug=true/(not this option), tomcat will run with command: 'gatein-dev.sh run' and with debug=false, command: 'gatein.sh run'"
   echo " If you not use options, the command will run same tcrun (or runtc)."
   echo
-  echo "       cdtomcat/optomcat [--version]"
+  echo "      cdtomcat/optomcat [--version]"
   echo "* cdtomcat: goto folder tomcat"
   echo "* optomcat: open folder tomcat"
 }
 
 function qmhelp() {
   echo "+ Quickwar and Module"
-  echo "        ctmodule/ctquickwar [--test=true/false]  (if no option, test=true)"
+  echo "       ctmodule/ctquickwar [--test=true/false]  (if no option, test=true)"
   echo "* ctmodule : apply for build service of produce (build create a *.jar file). It will build produce --> replate new jar in lib/ of tomcat"
   echo "* ctquickwar : apply for build webapp of produce (build create a *.war file). It will build --> replate new war and remove old folder + old war in tomcat/webapps"
 }
@@ -190,12 +197,12 @@ function hasfc() {
 
  # check existing . Ex: hasparam EXO_KS
 function hasparam() {
-abc="\$$1"
-eval "abc=$abc"
+  abc="\$$1"
+  eval "abc=$abc"
   if [ -n "$abc" ]; then
-      echo "Found"
+     echo "Found"
   else
-      echo "NotFound"
+     echo "NotFound"
   fi 
 }
 
@@ -209,31 +216,31 @@ function cvVersion() {
   tp="trunk"
   if [ -n "$vs" ]; then
     if [ $vs != "trunk" ]; then
-      X=0
-      VS=""
-      le=${#vs} 
-      sr=`expr index "$vs" '-'`
-      if [ $le -gt 0 ]; then 
-        while [ $X -le $le ]
-        do
-          if [ $sr == 0 ]  || [ $X -le $((sr-3)) ]; then
-            VS="$VS${vs:$X:1}"
-             if [ $X -le $((le-2)) ]; then
-              VS="$VS."
-             fi
-            X=$((X+1))
-          else 
-            VS="$VS${vs:$X}"  
-            X=$((le+1))
+     X=0
+     VS=""
+     le=${#vs} 
+     sr=`expr index "$vs" '-'`
+     if [ $le -gt 0 ]; then 
+       while [ $X -le $le ]
+       do
+        if [ $sr == 0 ]  || [ $X -le $((sr-3)) ]; then
+          VS="$VS${vs:$X:1}"
+          if [ $X -le $((le-2)) ]; then
+            VS="$VS."
           fi
-        done
-      fi
-      if [ -n "$isTag" ]; then 
-          tp="tags"
-      else
-          tp="branches"
-      fi
-      vs="$tp/$VS"
+          X=$((X+1))
+        else 
+          VS="$VS${vs:$X}"  
+          X=$((le+1))
+        fi
+       done
+     fi
+     if [ -n "$isTag" ]; then 
+        tp="tags"
+     else
+        tp="branches"
+     fi
+     vs="$tp/$VS"
     fi
   fi
   echo "$vs"
@@ -248,9 +255,9 @@ function crash() {
   eval "getCrproject $PWD"
   cd "$oldP"
   if [ -e "$EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war" ]; then 
-      INFO "crash: Run crash $EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war"
-     else
-      getCrsh
+     INFO "crash: Run crash $EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war"
+    else
+     getCrsh
   fi
   sleep 10s 
   eval "telnet localhost 5000"
@@ -259,16 +266,16 @@ function crash() {
 function getCrsh() {
    crdir="$JAVA_DIR/exo-dependencies/repository/org/crsh/crsh.shell.jcr/1.0.0-beta17"
    if [ -e "$crdir/crsh.shell.jcr-1.0.0-beta17.war" ]; then
-     cp $crdir/crsh.shell.jcr-1.0.0-beta17.war $EXO_TOMCAT_DIR/webapps/
-     chmod +x  $EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war
-     INFO "getCrsh: Run crash version 1.0.0-beta17"
+    cp $crdir/crsh.shell.jcr-1.0.0-beta17.war $EXO_TOMCAT_DIR/webapps/
+    chmod +x  $EXO_TOMCAT_DIR/webapps/crsh.shell.jcr-1.0.0-beta17.war
+    INFO "getCrsh: Run crash version 1.0.0-beta17"
    else
-     eval "mkdir -p -m 777 $crdir"
-     cd $crdir
-     wget "http://repository.exoplatform.org/service/local/repositories/crsh-releases/content/org/crsh/crsh.shell.jcr/1.0.0-beta17/crsh.shell.jcr-1.0.0-beta17.war"
-     cdback
-     sleep 5s 
-     getCrsh
+    eval "mkdir -p -m 777 $crdir"
+    cd $crdir
+    wget "http://repository.exoplatform.org/service/local/repositories/crsh-releases/content/org/crsh/crsh.shell.jcr/1.0.0-beta17/crsh.shell.jcr-1.0.0-beta17.war"
+    cdback
+    sleep 5s 
+    getCrsh
    fi
 }
 
@@ -276,45 +283,45 @@ function getCrsh() {
 # if param is null, return info about project via current dir.
 function getCrproject() {
    if [ -n "$1" ]; then 
-      DIR=$1
+     DIR=$1
    else 
-      DIR=$PWD
+     DIR=$PWD
    fi
    TDIR=""
    ODIR=$PWD
   if [ -e "$DIR/packaging/pom.xml" ]; then
-      export CRPRJ=$DIR
-      if [ -e "$DIR/packaging/pkg/target/tomcat" ]; then
-        export EXO_WK_DIR=$DIR/packaging/pkg/target
-        export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
-      elif [ -e "$DIR/packaging/pkg/target/exo-tomcat" ]; then
-        export EXO_WK_DIR=$DIR/packaging/pkg/target
-        export EXO_TOMCAT_DIR=$EXO_WK_DIR/exo-tomcat
-      elif [ -e "$DIR/packaging/tomcat/target/tomcat" ];then
-        export EXO_WK_DIR=$DIR/packaging/tomcat/target
-        export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
-      else 
-        export EXO_WK_DIR=$EXO_PROJECTS_SRC/exo-working
-        export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
-      fi
+     export CRPRJ=$DIR
+     if [ -e "$DIR/packaging/pkg/target/tomcat" ]; then
+       export EXO_WK_DIR=$DIR/packaging/pkg/target
+       export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
+     elif [ -e "$DIR/packaging/pkg/target/exo-tomcat" ]; then
+       export EXO_WK_DIR=$DIR/packaging/pkg/target
+       export EXO_TOMCAT_DIR=$EXO_WK_DIR/exo-tomcat
+     elif [ -e "$DIR/packaging/tomcat/target/tomcat" ];then
+       export EXO_WK_DIR=$DIR/packaging/tomcat/target
+       export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
+     else 
+       export EXO_WK_DIR=$EXO_PROJECTS_SRC/exo-working
+       export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
+     fi
   else
-      TDIR=${DIR/$EXO_PROJECTS_SRC/}
-       cd $DIR && cd ../
-       DIR=$PWD
-       cd $ODIR
-      if [ ${#TDIR} -gt 	9 ]; then
-         eval "getCrproject $DIR "
-      else
-         INFO "Can not get project dir. You must use command for goto project, Ex: ks22x."
-      fi
+     TDIR=${DIR/$EXO_PROJECTS_SRC/}
+      cd $DIR && cd ../
+      DIR=$PWD
+      cd $ODIR
+     if [ ${#TDIR} -gt   9 ]; then
+        eval "getCrproject $DIR "
+     else
+        INFO "Can not get project dir. You must use command for goto project, Ex: ks22x."
+     fi
   fi
 }
 
 function cdtomcat() {
   dirS=$1
   if [ -n "$dirS" ]; then 
-      dirS="${dirS/--/}" 
-      eval "cdSource $dirS"
+     dirS="${dirS/--/}" 
+     eval "cdSource $dirS"
   fi
   getCrproject
   INFO "Goto folder: $EXO_TOMCAT_DIR"
@@ -325,8 +332,8 @@ function optomcat() {
    Opwd=$PWD
    dirS=$1
   if [ -n "$dirS" ]; then 
-      dirS="${dirS/--/}" 
-      eval "cdSource $dirS"
+     dirS="${dirS/--/}" 
+     eval "cdSource $dirS"
   fi
   getCrproject
   cd $Opwd
@@ -339,60 +346,66 @@ function tomcatClean() {
    dirS=$1
    if [ -n "$dirS" ]; then 
    echo $dirS
-      dirS="${dirS/--/}" 
-      eval "cdSource $dirS"
+     dirS="${dirS/--/}" 
+     eval "cdSource $dirS false"
    fi
    getCrproject
    cd $EXO_TOMCAT_DIR
    rm -rf temp work logs gatein/data gatein/logs
   cd $Opwd
 }
-                                 
-
 
 function cdSource() {
-    inFo=$1
-    prj=""
-    vs=""
-    sb=""
-   for X in ${EXO_PROJECTS[@]}
-      do
-        sb="${inFo/$X/}"
-        if [ ${#sb}  != ${#inFo} ]; then 
-          prj="$X"
-          vs="$sb"
-        fi
-   done
-   if [ -n "$prj" ]; then
-     if [ -e "$EXO_PROJECTS_SRC/$prj" ]; then 
-        INFO "Goto project $EXO_PROJECTS_SRC/$prj"
-        cd $EXO_PROJECTS_SRC/$prj
+  inFo=$1;
+  inFo="${inFo/\//}";
+  isINFO=$2;
+  prj="";
+  vs="";
+  sb="";
+  for X in ${EXO_PROJECTS[@]}
+    do
+     sb="${inFo/$X/}";
+     if [ ${#sb}  != ${#inFo} ]; then 
+       prj="$X";
+       vs="$sb";
      fi
-   fi
-   vs=$(cvVersion $vs)
-    if [ -n "$vs" ]; then
-      if [ -e "$EXO_PROJECTS_SRC/$prj/$vs" ]; then
-        INFO "Goto version $vs"
-        cd $vs
-      fi
+  done
+  if [ ! -n "$prj" ]; then
+    prj="$1";
+    vs="$1";
+  fi
+  if [ -n "$prj" ] && [ -e "$EXO_PROJECTS_SRC/$prj" ]; then 
+     if [ ! -n "$isINFO" ]; then 
+       INFO "Goto project $EXO_PROJECTS_SRC/$prj";
+     fi
+     cd $EXO_PROJECTS_SRC/$prj;
+  fi   
+  if [ ! -n "$vs" ]; then
+    vs="$1";
+  fi
+  vs=$(cvVersion $vs);
+  if [ -n "$vs" ] && [ -e "$PWD/$vs" ]; then
+    if [ ! -n "$isINFO" ]; then 
+     INFO "Goto version $vs";
     fi
+    cd "$PWD/$vs";
+  fi
 }
 
 function CD() {
-  src=""
-  for arg	in "$@"
+  for arg  in "$@"
     do
-      if [ -e "$arg" ]; then
-          cd "$arg"
+     if [ -e "$PWD/$arg" ]; then
+        cd "$arg"
      else
-          src="${arg/--/}" 
-          src="${src//./}"
-          if [ $(hasfc $src) == "Found" ]; then
-             eval "$src"
-         else 
-            eval "cdSource $src"
-         fi
-      fi
+       arg="${arg/--/}" 
+       arg="${arg//./}"
+       if [ $(hasfc $arg) == "Found" ]; then
+         eval "$arg"
+       else 
+        eval "cdSource $arg"
+       fi
+     fi
   done 
 }
 
@@ -400,29 +413,29 @@ function runtomcat() {
    debug="";
    project="";
    profile_="";
-  for arg	in "$@" 
-	  do
-      arg="${arg//-/}" 
-		  if [ "$arg" == "debug=false" ]; then
-          debug=""
-      elif [ "$arg" == "debug=true" ]; then
-          debug="$arg"
-      elif [ $(expr match $arg "profile=") -gt 0 ]; then
-          profile_="${arg/profile=/}";
-      else 
-          project=$arg          
-      fi 
-	done
+  for arg  in "$@" 
+    do
+     arg="${arg//-/}" 
+     if [ "$arg" == "debug=false" ]; then
+        debug=""
+     elif [ "$arg" == "debug=true" ]; then
+        debug="$arg"
+     elif [ $(expr match $arg "profile=") -gt 0 ]; then
+        profile_="${arg/profile=/}";
+     else 
+        project=$arg;
+     fi 
+  done
   OPWD="$PWD"
   oldprj="$CRPRJ"
   if [ "$project" == "" ]; then
-     eval "runByOtherDir $PWD $debug"
+    eval "runByOtherDir $PWD $debug"
+    return
+  elif [  "$project" == "wk" ]; then
+     eval "tcstart $EXO_WORKING_DIR $debug"
      return
-  elif [	 "$project" == "wk" ]; then
-      eval "tcstart $EXO_WORKING_DIR $debug"
-      return
   else 
-      eval "runByParam $project $debug"
+     eval "runByParam $project $debug"
   fi
 }
 
@@ -448,9 +461,9 @@ function runByParam() {
   project="${project//-/}" 
   project="${project//./}"
    if [ $(hasfc $project) == "Found" ]; then
-       eval "$project"
+      eval "$project"
    else 
-      eval "cdSource $project"
+     eval "cdSource $project"
    fi
    eval "runByOtherDir  $PWD $debug"
 }
@@ -460,34 +473,34 @@ function tcstart() {
   debug=$2
   isdb="has debug=false"
   if [ -n "$debug" ]; then
-       isdb="has debug=true"
-       debug="-dev"
+      isdb="has debug=true"
+      debug="-dev"
    else 
-       debug=""
+      debug=""
   fi
 
   if [ -e "$OPWD" ]; then
-		 cd "$OPWD";
+    cd "$OPWD";
   fi
 
   if [ -e "$SRC/tomcat/bin/gatein.sh" ]; then
-     export EXO_TOMCAT_DIR=$SRC/tomcat
-     export EXO_WK_DIR=$SRC
-     eval   "INFO 'Run tomcat $isdb in $SRC'  && $SRC/tomcat/bin/gatein$debug.sh run" 
+    export EXO_TOMCAT_DIR=$SRC/tomcat
+    export EXO_WK_DIR=$SRC
+    eval   "INFO 'Run tomcat $isdb in $SRC'  && $SRC/tomcat/bin/gatein$debug.sh run" 
   elif [ -e "$SRC/tomcat/start_eXo.sh" ]; then
-     export EXO_WK_DIR=$SRC
-     export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
-     local X=" $profile_";
-     profile_="";
-     sed -i -e 's/\".\/bin\/catalina.sh/\/\"bin\/catalina.sh/g' $SRC/tomcat/start_eXo.sh;
-     eval   "INFO 'Run tomcat platform$X in $SRC' && $SRC/tomcat/start_eXo.sh$X" 
+    export EXO_WK_DIR=$SRC
+    export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
+    local X=" $profile_";
+    profile_="";
+    sed -i -e 's/\".\/bin\/catalina.sh/\/\"bin\/catalina.sh/g' $SRC/tomcat/start_eXo.sh;
+    eval   "INFO 'Run tomcat platform$X in $SRC' && $SRC/tomcat/start_eXo.sh$X" 
   elif [ -e "$SRC/exo-tomcat/bin/eXo.sh" ]; then
-     export EXO_WK_DIR=$SRC
-     export EXO_TOMCAT_DIR=$EXO_WK_DIR/exo-tomcat/
-     eval   "INFO 'Run tomcat in $SRC' && $SRC/exo-tomcat/bin/eXo$debug.sh run" 
+    export EXO_WK_DIR=$SRC
+    export EXO_TOMCAT_DIR=$EXO_WK_DIR/exo-tomcat/
+    eval   "INFO 'Run tomcat in $SRC' && $SRC/exo-tomcat/bin/eXo$debug.sh run" 
   else
-       INFO   "Can not get tomcat dir. You must use command for goto project for set tomcat dir, Ex: ks22x... and run again this command"
-       INFO   "Or use command runtomcat --project+version, Ex: runtomcat --ks22x or runtomcat -wk for run tomcat in exo-working"
+      INFO   "Can not get tomcat dir. You must use command for goto project for set tomcat dir, Ex: ks22x... and run again this command"
+      INFO   "Or use command runtomcat --project+version, Ex: runtomcat --ks22x or runtomcat -wk for run tomcat in exo-working"
   fi
 }
 
@@ -495,211 +508,182 @@ function npatch() {
   patchdir=$PWD;
   issue="$(date -u +%h%M)";
   DIR="";
-  for arg	in "$@" 
-	  do
-      arg="${arg/--/}" 
-		  if [ $(expr match $arg "patchdir=") -gt 0 ]; then 
-        patchdir="${arg/patchdir=/}";
-      elif [ $(expr match $arg "issue=") -gt 0 ]; then
-        issue="${arg/issue=/}";
-      elif [ $(expr match $arg "help") -gt 0 ]; then
-        npatchhelp;
-        return
-      elif [ -e "$PWD/$arg" ]; then 
-        DIR="$arg";
-      fi 
-	  done
+  for arg  in "$@" 
+    do
+     arg="${arg/--/}" 
+     if [ $(expr match $arg "patchdir=") -gt 0 ]; then 
+       patchdir="${arg/patchdir=/}";
+     elif [ $(expr match $arg "issue=") -gt 0 ]; then
+       issue="${arg/issue=/}";
+     elif [ $(expr match $arg "help") -gt 0 ]; then
+       npatchhelp;
+       return
+     elif [ -e "$PWD/$arg" ]; then 
+       DIR="$arg";
+     fi 
+    done
   INFO "Create new patch for issue: $issue (file name: $(date -u +%Y-%m-%d)-$issue.patch) And save into folder : $patchdir"
   svn diff $DIR > $patchdir/$(date -u +%Y-%m-%d)-$issue.patch
   return
 }
 
 function updatebuilds() {
-src=""
- for arg	in "$@" 
-	do
-    src="${arg/--/}"
+  eval "updates $*";
+  eval "builds $*";
+}
+
+function updates() {
+ src=""
+ for arg  in "$@" 
+  do
+    src="${arg//-/}" 
     src="${src//./}"
     if [ $(hasfc $src) == "Found" ]; then
        eval "$src"
     else 
        eval "cdSource $src"
     fi
-    INFO "Updating now $PWD" && svn up &&  mvn clean install $MV3 && cdback
-	done
- return
-}
-
-function updates() {
-src=""
- for arg	in "$@" 
-	do
-    src="${arg//-/}" 
-    src="${src//./}"
-    if [ $(hasfc $src) == "Found" ]; then
-        eval "$src"
-    else 
-        eval "cdSource $src"
-    fi
     INFO "Updating now $PWD" &&  svn up && cdback
-	done
+  done
  return
 }
 
 function builds() {
-src=""
- for arg	in "$@" 
-	do
-    src="${arg/--/}" 
-    src="${src//./}"
-    if [ $(hasfc $src) == "Found" ]; then
-        eval "$src"
-    else 
-       eval "cdSource $src"
-    fi
-    INFO "Building now $PWD" &&  mvn clean install $MV3 && cdback
-	done
+  eval "getparam $*";
+  for arg  in "${projects[@]}" 
+  do
+    eval "cdSource $arg"
+    INFO "Building now $PWD" &&  mvn clean install $MV3 $bdebug $udrepo && $eclipse && cdback
+  done
  return
 }
 
+
 function getparam() {
-  arrays=()
-  idx=0
-  for arg	in "$@" 
-	  do
-      arg="${arg/--/}" 
-      arg="${arg//./}"
-      if [ "$src" == "test=false" ]; then
-          arrays[$idx]="-Dmaven.test.skip=true"
-      elif [ "$arg" == "up" ]; then 
-				  arrays[$idx]="svn up"
-			elif [ "$arg" == "update" ]; then 
-				  arrays[$idx]="svn up"
-			elif [ "$arg" == "build" ]; then 
-				  arrays[$idx]="mvn clean install $MV3"
-			elif [ "$arg" == "install" ]; then 
-				  arrays[$idx]="mvn clean install $MV3"
-			elif [ "$arg" == "debug" ]; then 
-				  arrays[$idx]="-Dmaven.surefire.debug=true"
-      elif [ "$arg" == "tomcat=false" ]; then 
-				  arrays[$idx]="-P !pkg-tomcat"
-      elif [ "$arg" == "eclipse" ]; then 
-				  arrays[$idx]="mvn eclipse:eclipse"
-      else 
-          arrays[$idx]="$arg"
-      fi
-      ((idx++))
-	 done
+  projects=();
+  update="";
+  isbuild="";
+  tcdir="";
+  tomcatdir="";
+  istest="";
+  istomcat=true;
+  isHelp=false;
+  udrepo="";
+  eclipse="";
+  debug="";
+  bdebug="";
+  tomcatstart="tomcatstart=true";
+  Dtest="";
+  other="";
+  OLPWD="$PWD";
+  idx=0;
+  profile="default";
+  if [ ! -n "$1" ]; then
+    isHelp=true;
+  fi
+  for arg  in "$@" 
+    do
+     arg="${arg/--/}" 
+     arg="${arg//./}"
+     eval "cdSource $arg false";
+     if [ "$PWD" != "$OLPWD" ]; then 
+       projects[$idx]=$arg;
+       cd $OLPWD;
+     else
+
+       if [ "$arg" == "test=false" ]; then
+          istest="-Dmaven.test.skip=true";
+       elif [ "$arg" == "up" ] || [ "$arg" == "update" ]; then 
+          update="svn up";
+       elif [ "$arg" == "build" ] || [ "$arg" == "install" ]; then 
+          isbuild="mvn clean install";
+       elif [ "$arg" == "debug" ]; then 
+          bdebug="-Dmaven.surefire.debug=true";
+       elif [ "$arg" == "tomcat=false" ] || [ "$arg" == "buildnottc" ]; then 
+          istomcat="-P !pkg-tomcat";
+       elif [ "$arg" == "eclipse" ]; then 
+          eclipse="mvn eclipse:eclipse";
+       elif [ $(expr match $arg "tomcatstart=") -gt 0 ]; then
+          tomcatstart="$arg";
+       elif [ $(expr match $arg "tomcatdir=") -gt 0 ]; then
+        tomcatdir="${arg/tomcatdir/-Dgatein.working.dir}";
+       elif [ $(expr match $arg "udrepo") -gt 0 ]; then
+        udrepo="-U";
+       elif [ $(expr match $arg "profile=") -gt 0 ]; then
+        profile="${arg/profile=/}";
+       elif [ $(expr match $arg "debug=") -gt 0 ]; then
+        debug="$arg";
+       elif [ $(expr match $arg "D") -gt 0 ]; then
+        Dtest="$arg $Dtest";
+       elif [ $(expr match $arg "help") -gt 0 ] ; then
+        isHelp=true;
+       else 
+          other="$arg";
+       fi
+
+     fi
+     ((idx++))
+   done
 
 }
 #-Dtest=classname
 #-Dmaven.surefire.debug=true
 function ctbuild() {
-    par=""
-    Dtest=""
-  for arg	in "$@" 
-	  do
-       arg="${arg/--/}" 
-       if [ "$arg" == "help" ]; then 
-          qmhelp
-          return
-       fi
-       if [ "$arg" == "test=false" ]; then 
-          par="-Dmaven.test.skip=true"
-       fi
-       if [ "$arg" == "test=true" ]; then 
-          par="-Dmaven.test.skip=false"
-       fi
-       tt=`expr index "$arg" 'D'`
-       if [ $tt -gt 0 ]; then 
-          Dtest="$Dtest $arg"
-       fi
-	 done
-    INFO "Building project $PWD"
-    INFO "Command: mvn clean install $MV3 $par $Dtest"
-    eval "mvn clean install $MV3 $par $Dtest"
+  eval "getparam $*";
+  if [ $isHelp == true ]; then
+    qmhelp;
+    return;
+  fi
+  INFO "Building project $PWD"
+  INFO "Command: mvn clean install $MV3 $bdebug $Dtest $istest $udrepo "
+  eval "mvn clean install $MV3 $bdebug $Dtest $istest $udrepo" && 
+  eval "$eclipse";
 }
 
 
 function ctmodule () {
-  DB="";
-  TE="";
-  ET="";
-  TC="tomcatstart=true";
-  for arg	in "$@" 
-  	do
-      src="${arg//--/}" 
-      if [ $(expr match $src "debug=") -gt 0 ]; then
-          DB="$src";
-      elif [ $(expr match $src "test=") -gt 0 ]; then
-          TE="$src";
-      elif [ $(expr match $src "tomcatstart=") -gt 0 ]; then
-          TC="$src";
-      else 
-          ET="$src";
-      fi
-	done
-
-  eval "ctbuild $TE $ET" && 
+  eval "getparam $*";
+  eval "mvn clean install $MV3 $istest $Dtest $udrepo" && 
   if [ -e "$PWD/target" ]; then
-      OPWD=$PWD
-      eval "getCrproject $PWD"
-      INFO "Stop the tomcat in $EXO_TOMCAT_DIR";
-      eval "$EXO_TOMCAT_DIR/bin/shutdown.sh";
-      INFO "Copy file jar into $EXO_TOMCAT_DIR/lib"
-      cp target/*.jar $EXO_TOMCAT_DIR/lib
-      cd $EXO_TOMCAT_DIR/lib
-      find -depth -name *sources.jar -exec rm -rf {} \; 
-      cd $OPWD &&
-      if [ "$TC" == "tomcatstart=true" ]; then
-        sleep 1s;
-        eval "runtomcat $DB";
-      fi
+     OPWD=$PWD
+     eval "getCrproject $PWD"
+     INFO "Stop the tomcat in $EXO_TOMCAT_DIR";
+     eval "$EXO_TOMCAT_DIR/bin/shutdown.sh";
+     INFO "Copy file jar into $EXO_TOMCAT_DIR/lib"
+     cp target/*.jar $EXO_TOMCAT_DIR/lib
+     cd $EXO_TOMCAT_DIR/lib
+     find -depth -name *sources.jar -exec rm -rf {} \; 
+     cd $OPWD &&
+     if [ "$tomcatstart" == "tomcatstart=true" ]; then
+       sleep 1s;
+       eval "runtomcat $debug $profile";
+     fi
   fi
 }
 
 function ctquickwar () {
-  DB="";
-  TE="";
-  ET="";
-  TC="tomcatstart=true";
-  for arg	in "$@" 
-  	do
-      src="${arg//--/}" 
-      if [ $(expr match $src "debug=") -gt 0 ]; then
-          DB="$src";
-      elif [ $(expr match $src "test=") -gt 0 ]; then
-          TE="$src";
-      elif [ $(expr match $src "tomcatstart=") -gt 0 ]; then
-          TC="$src";
-      else 
-          ET="$src";
-      fi
-	done
-
-  eval "ctbuild $TE $ET" && 
+  eval "getparam $*";
+  eval "mvn clean install $MV3 $istest $Dtest $udrepo" && 
    if [ -e "$PWD/target" ]; then
-     nowDir=$PWD
-     eval "getCrproject $PWD"
-     temp=$(find -maxdepth 2 -name *.war)
-     temp="${temp/.\/target\//}"
-     temp="${temp/.war/}"
-     if [ -e "$PWD/target/$temp.war" ]; then
-       INFO "Stop the tomcat in $EXO_TOMCAT_DIR";
-       eval "$EXO_TOMCAT_DIR/bin/shutdown.sh";
-       INFO "Copy file $temp.war into $EXO_TOMCAT_DIR/webapps"
-       cp target/$temp.war $EXO_TOMCAT_DIR/webapps
-       chmod +x  $EXO_TOMCAT_DIR/webapps/* -R
-       INFO "Remove old folder $temp"
-       rm -rf $EXO_TOMCAT_DIR/webapps/$temp/;
-       cd $nowDir &&
-       if [ "$TC" == "tomcatstart=true" ]; then
-         sleep 1s;
-         eval "runtomcat $DB";
-       else 
-         echo "";
-       fi
-     fi
+    nowDir=$PWD
+    eval "getCrproject $PWD"
+    temp=$(find -maxdepth 2 -name *.war)
+    temp="${temp/.\/target\//}"
+    temp="${temp/.war/}"
+    if [ -e "$PWD/target/$temp.war" ]; then
+      INFO "Stop the tomcat in $EXO_TOMCAT_DIR";
+      eval "$EXO_TOMCAT_DIR/bin/shutdown.sh";
+      INFO "Copy file $temp.war into $EXO_TOMCAT_DIR/webapps"
+      cp target/$temp.war $EXO_TOMCAT_DIR/webapps
+      chmod +x  $EXO_TOMCAT_DIR/webapps/* -R
+      INFO "Remove old folder $temp"
+      rm -rf $EXO_TOMCAT_DIR/webapps/$temp/;
+      cd $nowDir &&
+      if [ "$tomcatstart" == "tomcatstart=true" ]; then
+        sleep 1s;
+        eval "runtomcat $debug $profile";
+      fi
+    fi
    fi
 }
 
@@ -709,27 +693,27 @@ function sendtotomcat() {
    wars=$(find -name *.war)
    temp="";
    for X in ${wars[@]}
-     do
-     temp="${X/.*target\//}";
-     y="$(expr match "$temp" '.*\(/\)')";
-     if [ "$y" == "" ]; then
-       folder="${temp/.war/}"
-       INFO "Copy file $temp into $tcDir/webapps"
-       cp $X $tcDir/webapps
-       INFO "Remove old folder $folder"
-       rm -rf $tcDir/webapps/$folder/
-     fi
+    do
+    temp="${X/.*target\//}";
+    y="$(expr match "$temp" '.*\(/\)')";
+    if [ "$y" == "" ]; then
+      folder="${temp/.war/}"
+      INFO "Copy file $temp into $tcDir/webapps"
+      cp $X $tcDir/webapps
+      INFO "Remove old folder $folder"
+      rm -rf $tcDir/webapps/$folder/
+    fi
    done
    INFO "Find all file *.jar";
    jars=$(find -name *.jar)
    for X in ${jars[@]}
-     do
-     temp="${X/.*target\//}";
-     t="$(expr match "$temp" '.*\(sources\)')";
-     y="$(expr match "$temp" '.*\(lib\)')";
+    do
+    temp="${X/.*target\//}";
+    t="$(expr match "$temp" '.*\(sources\)')";
+    y="$(expr match "$temp" '.*\(lib\)')";
     if [ "$t" == "" ] && [ "$y" == "" ]; then
-      INFO "Copy file $temp into $tcDir/lib"
-      cp $X $tcDir/lib
+     INFO "Copy file $temp into $tcDir/lib"
+     cp $X $tcDir/lib
     fi
    done
 }
@@ -742,8 +726,8 @@ function totomcat() {
   OD="$PWD";
   dirS=$1
   if [ -n "$dirS" ]; then 
-      dirS="${dirS/--/}" ;
-      eval "cdSource $dirS";
+     dirS="${dirS/--/}" ;
+     eval "cdSource $dirS false";
   fi
   getCrproject;
   tcDir="$EXO_TOMCAT_DIR";
@@ -755,56 +739,30 @@ function totomcat() {
 }
 
 function buildtotomcat() {
-  DB="";
-  TE="";
-  ET="";
-  TC="tomcatstart=true";
-  for arg	in "$@" 
-  	do
-      src="${arg//--/}" 
-      if [ $(expr match $src "debug=") -gt 0 ]; then
-          DB="$src";
-      elif [ $(expr match $src "test=") -gt 0 ]; then
-          TE="$src";
-      elif [ $(expr match $src "tomcatstart=") -gt 0 ]; then
-          TC="$src";
-      else 
-          ET="$src";
-      fi
-	done
-
-  eval "ctbuild $TE $ET" && 
+  eval "getparam $*";
+  eval "mvn clean install $MV3 $istest $Dtest $udrepo" && 
   eval "getCrproject $PWD" && 
   eval "totomcat" &&
-  if [ "$TC" == "tomcatstart=true" ]; then
+  if [ "$tomcatstart" == "tomcatstart=true" ]; then
     sleep 1s;
-    eval "runtomcat $DB";
-  else
-    echo "";
+    eval "runtomcat $debug $profile";
   fi
 }
 
 function getProject() {
-    arg="$1"
-    arg="${arg//-/}"
-    src=$EXO_PROJECTS_SRC/$arg
-    ret=""
+    src=$EXO_PROJECTS_SRC/$1
     if [ -e "$src" ]; then 
-        ret=$src
+       echo $arg;
     fi
-    echo "$ret"
+    echo "";
 }
 
 function getVersion() {
-    arg="$1"
-    prj="$2"
-    ret=" "
-    arg=$(cvVersion $arg)
-    src="$prj/$arg"
-    if [ -e "$src" ]; then 
-        ret="$arg"
+    arg=$(cvVersion $1)
+    if [ -e "$EXO_PROJECTS_SRC/$2/$arg" ]; then 
+       echo $1;
     fi
-    echo  "$ret"
+    echo  "";
 }
 
 function ctHelp () {
@@ -814,21 +772,21 @@ function ctHelp () {
   echo 
   echo "Options: "
   echo 
-  echo "  * --product-name     is optional. The possible names are --ks or --cs"
-  echo "  * --version          is optional but when you add it, you must add the --product-name."
-  echo "                         The possible names are --1.2.x/1.3.x/2.1.x/2.2.x/trunk or --12x/13x/21x/22x/trunk"
+  echo "  * --product-name    is optional. The possible names are --ks or --cs"
+  echo "  * --version        is optional but when you add it, you must add the --product-name."
+  echo "                    The possible names are --1.2.x/1.3.x/2.1.x/2.2.x/trunk or --12x/13x/21x/22x/trunk"
   echo "  * --update  / --up   is optional. If you add this option, exobuild will make a svn update before it builds"
-  echo "  * --build            is optional. If you add this option, the exobuild command mvn clean install"
-  echo "  * --buildnottc       is optional. If you add this option, the exobuild produce but not create the tomcat "
-  echo "  * --test             is optional. If you add this option, the exobuild will only run exo webunit test framework"
+  echo "  * --build          is optional. If you add this option, the exobuild command mvn clean install"
+  echo "  * --buildnottc      is optional. If you add this option, the exobuild produce but not create the tomcat "
+  echo "  * --test           is optional. If you add this option, the exobuild will only run exo webunit test framework"
   echo "  * --test=true/false  is optional. If you add this option, the exobuild produce but you can choise is run test or not"
-  echo "  * --tomcatdir        is optional. If you add this option, you can set tomcat dir, if not add tomcat dir default is /pkg/target dir. Only use for 2.0 and more"
+  echo "  * --tomcatdir       is optional. If you add this option, you can set tomcat dir, if not add tomcat dir default is /pkg/target dir. Only use for 2.0 and more"
   echo "  * --U  is optional. If you add this option when you build project, it will update new repositories"
   echo "  * --module/quickwar is optional. same when use ctquickwar/ctmodule but not param "
   echo "  * --eclipse is optional. If you add this option, mvn will build for command: mvn eclipse:eclipse"
   echo 
   echo " Extension: "
-  echo "     ct [ ... all options support by ct command]  [ other command]"
+  echo "    ct [ ... all options support by ct command]  [ other command]"
   echo " If you want add new command when finish run all options of ct command, you can add it is last option. If it has space ' ', you must add it in \"\""
   echo " Ex1: ct --ks --22x --buid --runtomcat"
   echo " Ex2: ct --cs --22x --update --buid \"runtomcat --ks22x\""
@@ -846,169 +804,80 @@ function ctHelp () {
 }
 
 function  ct() {
-	project=" "
-	version=" "
-	update=" "
-	typecm=" "
-	tcdir=" "
-  tomcatdir=""
-	istest=" "
-	istomcat=true;
-	isOldvs=false;
-  isHelp=true;
-  newrepo="";
-  eclipse=" ";
-  debug="";
-  lastCm=""
-	for arg	in "$@" 
-		do
-			 isHelp=false
-
-       arg="${arg/--/}"
-       arg="${arg//./}"
-
-			if [ "$arg" == "start" ]; then
-				ctStart
-        return
-
-			elif [ "$arg" == "ks" ]; then
-				project="$EXO_KS"
-			elif [ "$arg" == "cs" ]; then
-				project="$EXO_CS"
-
-			elif [ "$arg" == "help" ]; then
-				ctHelp
-				return;
-
-			elif [ "$arg" == "trunk" ]; then 
-				version="trunk"
-			elif [ "$arg" == "12x" ]; then 
-				isOldvs=true
-				version="branches/1.2.x"
-			elif [ "$arg" == "11x" ]; then 
-				version="branches/1.1.x"
-			elif [ "$arg" == "13x" ]; then 
-				isOldvs=true
-				version="branches/1.3.x"
-			elif [ "$arg" == "21x" ]; then 
-				version="branches/2.1.x"
-			elif [ "$arg" == "22x" ]; then 
-				version="branches/2.2.x"
-
-			elif [ "$arg" == "up" ]; then 
-				update="svn up"
-			elif [ "$arg" == "update" ]; then 
-				update="svn up"
-
-			elif [ "$arg" == "build" ]; then 
-				typecm="mvn clean install "
-			elif [ "$arg" == "install" ]; then 
-				typecm="mvn clean install"
-			elif [ "$arg" == "test" ]; then 
-				typecm="mvn clean test"
-			elif [ "$arg" == "debug" ]; then 
-				debug="-Dmaven.surefire.debug=true"
-			elif [	${#arg} -gt 	17 ]; then
-				tcdir="${arg/tomcatdir/-Dgatein.working.dir}"
-        tomcatdir="${arg/tomcatdir=/}"
-			elif [ "$arg" == "buildnottc" ]; then 
-				typecm="mvn clean install -P !pkg-tomcat"
-				istomcat=false
-      elif [ "$arg" == "tomcat=false" ]; then 
-				typecm="$typecm -P !pkg-tomcat"
-        istomcat=false
-			elif [ "$arg" == "onlytomcat" ]; then 
-				typecm="cd packaging/pkg/ && mvn clean install"
-
-			elif [ "$arg" == "test=true" ]; then 
-				istest="-Dmaven.test.skip=false"
-			elif [ "$arg" == "test=false" ]; then 
-				istest="-Dmaven.test.skip=true"
-
-			elif [ "$arg" == "newrepo=true" ]; then 
-				newrepo="-U"
-			elif [ "$arg" == "U" ]; then 
-				newrepo="-U"
-
-			elif [ "$arg" == "eclipse" ]; then 
-				eclipse="mvn eclipse:eclipse"
-
-			elif [ "$arg" == "module" ]; then 
-				ctmodule
-        return
-			elif [ "$arg" == "quickwar" ]; then 
-				ctquickwar
-        return
-      else
-         pr=$(getProject $arg)
-         if [ "$pr" != "" ]; then 
-             project="$pr"
-         fi
-         vs=$(getVersion $arg $project)
-         if [ "$vs" != " " ]; then 
-             version="$vs"
-         fi
-         if [ $(hasfc $arg) == "Found" ]; then
+  eval "getparam $*";
+  tomcatstart="";
+  project="";
+  version="";
+  lastCm="";
+  for arg  in "$@" 
+    do
+      arg="${arg/--/}"
+      arg="${arg//./}"
+     if [ "$arg" == "trunk" ]; then 
+       version="trunk"
+     elif [ $(expr match $arg "1") -gt 0 ] ||
+         [ $(expr match $arg "2") -gt 0 ] ||
+         [ $(expr match $arg "3") -gt 0 ] ||
+         [ $(expr match $arg "4") -gt 0 ] ||
+         [ $(expr match $arg "5") -gt 0 ] ; then
+       version="$arg";
+     elif [ $(expr match $arg "tomcatstart=") -gt 0 ]; then
+          tomcatstart="$arg";
+     else
+        pr=$(getProject $arg)
+        if [ -n "$pr" ]; then 
+          project="$pr";
+        fi
+        vs=$(getVersion $arg $project);
+        if [ -n "$vs" ]; then 
+           version="$vs"
+        fi
+        if [ ! -n "$pr" ] && [ ! -n "$vs" ]; then
+          if [ $(hasfc $arg) == "Found" ]; then
              lastCm="$arg"
-         fi
-			fi 
-	done
-
-	if [ $isHelp == true ]; then 
-		ctHelp
-		return
-	fi
-
-	if [ "$project" != " " ]; then
-    if [ $isOldvs == true ]; then 
-        if [ "$project" != "ks" ]; then
-            isOldvs=false
+          fi
         fi
-        if [ "$project" != "cs" ]; then
-            isOldvs=false
-        fi
+     fi 
+  done
+
+  if [ $isHelp == true ]; then 
+    ctHelp
+    return
+  fi
+
+  if [ -n "$project" ]; then
+    eval "cdSource $project$version";
+  fi
+
+  if [ -n "$update" ]; then
+    INFO "Updating: $PWD"
+    eval "$update"
+  fi
+
+#$ -Ppkg-tomcat=tomcat
+  if [ -n "$isbuild" ]; then
+    if [ -n "$istomcat" ]; then
+     INFO "Run command: $isbuild $MV3 $istest $udrepo $bdebug $Dtest";
+     eval "$isbuild $MV3 $istest $udrepo $bdebug $Dtest";
+    else
+     if [ -n "$tomcatdir" ]; then 
+       eval "mkdir -p -m 777 $tomcatdir"
+     fi
+     INFO "Run command: $isbuild $MV3 $istest $udrepo $bdebug $Dtest $istomcat $tomcatdir";
+     eval "$isbuild $MV3 $istest $udrepo $bdebug $Dtest $istomcat $tomcatdir";
     fi
-		INFO "go to project: $project"
-		cd $project
-	fi
+  fi
 
-	if [ "$version" != " " ]; then
-		 INFO "go to version: $version"
-		cd $version
-	fi
-
-	if [ "$update" != " " ]; then
-		INFO "updating: $PWD"
-		 eval "$update"
-	fi
-
-	if [ "$typecm" != " " ]; then
-			if [ $isOldvs == true ]; then
-          INFO "Run command: $typecm $istest -Ppkg-tomcat=tomcat"
-					eval "$typecm $istest -Ppkg-tomcat=tomcat"
-					return
-			fi
-
-		 if [ $istomcat == true ]; then
-			 INFO "Run command: $typecm $MV3 $newrepo $istest $debug $tcdir"
-			 if [ "$tcdir" != " " ]; then 
-					eval "mkdir -p -m 777 $tomcatdir"
-			 fi
-			 eval "$typecm $MV3 $newrepo $istest $debug $tcdir"
-		 else
-			 INFO "Run command: $typecm $MV3 $newrepo $debug $istest"
-			 eval "$typecm $MV3 $newrepo $istest $debug"
-		 fi
-	fi
-
-	if [ "$eclipse" != " " ]; then
-		INFO "eclipse:eclipse	$PWD"
-		 eval "$eclipse"
-	fi
-	if [ -n "$lastCm" ]; then
-		INFO "Running extension: $lastCm"
-		 eval "$lastCm"
-	fi
+  if [ -n "$eclipse" ]; then
+    INFO "$eclipse  $PWD"
+    eval "mvn eclipse:clean && $eclipse"
+  fi
+  if [ -n "$lastCm" ]; then
+    eval "$lastCm"
+  fi
+  if [ -n "$tomcatstart" ]; then
+    eval "runtomcat $debug"
+  fi
 }
 
 function exosvnco() {
@@ -1020,19 +889,19 @@ function exosvnco() {
   if [ -n "$vs" ]; then
     tp=""
     if [ "$vs" != "trunk" ];then
-        tp="/branches"
+       tp="/branches"
     fi
     vs=$(cvVersion $vs $isTag)
     if [ -n "$vs" ]; then
-        eval "mkdir -p -m 777 $EXO_PROJECTS_SRC/$prj$tp"
-        cd $EXO_PROJECTS_SRC/$prj
-        INFO "Check out project $prj with version $vs"
-        if [ -n "$USER" ] && [ -n "$PASS" ]; then 
-           eval "svn co --username=$USER --password=$PASS http://svn.exoplatform.org/projects/$prj/$vs $vs"
-        else
-           eval "svn co http://svn.exoplatform.org/projects/$prj/$vs $vs"
-        fi
-        cdback
+       eval "mkdir -p -m 777 $EXO_PROJECTS_SRC/$prj$tp"
+       cd $EXO_PROJECTS_SRC/$prj
+       INFO "Check out project $prj with version $vs"
+       if [ -n "$USER" ] && [ -n "$PASS" ]; then 
+         eval "svn co --username=$USER --password=$PASS http://svn.exoplatform.org/projects/$prj/$vs $vs"
+       else
+         eval "svn co http://svn.exoplatform.org/projects/$prj/$vs $vs"
+       fi
+       cdback
     fi
   fi
 }
@@ -1041,7 +910,7 @@ function mvst() {
   USER="$1"
   PASS="$2"
   if [ -n "$USER" ] && [ -n "$PASS" ]; then
-     eval "cd $BSH_EXO_BASE_DIRECTORY/maven3.0.3/conf && mv settings.xml settings_b.xml && wget --http-user=$USER  --http-password=$PASS http://storage.exoplatform.vn/ct/tu_vu_duy/settings.xml && find -depth -name settings.xml | xargs sed -i -e 's/USERID/$USER/g' && find -depth -name settings.xml | xargs sed -i -e 's/PASS/$PASS/g' && find -depth -name settings.xml | xargs sed -i -e 's/JAVADIR/${BSH_EXO_BASE_DIRECTORY//\//\\/}/g'"
+    eval "cd $BSH_EXO_BASE_DIRECTORY/maven3.0.3/conf && mv settings.xml settings_b.xml && wget --http-user=$USER  --http-password=$PASS http://storage.exoplatform.vn/ct/tu_vu_duy/settings.xml && find -depth -name settings.xml | xargs sed -i -e 's/USERID/$USER/g' && find -depth -name settings.xml | xargs sed -i -e 's/PASS/$PASS/g' && find -depth -name settings.xml | xargs sed -i -e 's/JAVADIR/${BSH_EXO_BASE_DIRECTORY//\//\\/}/g'"
   fi
 }
 
@@ -1051,10 +920,10 @@ function mdfsetting() {
 
 function unzipmv3() {
    if [ $(hasfc "unzip") == "Found" ]; then
-       echo "UnZip to  $PWD/maven3.0.3..."
-       eval "unzip apache-maven-3.0.3-bin.zip && mv apache-maven-3.0.3 maven3.0.3"
+      echo "UnZip to  $PWD/maven3.0.3..."
+      eval "unzip apache-maven-3.0.3-bin.zip && mv apache-maven-3.0.3 maven3.0.3"
    else 
-      eval "sudo apt-get install unzip && unzipmv3"
+     eval "sudo apt-get install unzip && unzipmv3"
    fi
 }
 
@@ -1077,18 +946,18 @@ function installmv3() {
   PASS="${PASS/--pass=/}"
 
   if [ -n "$USER" ]; then 
-      eval "cd $BSH_EXO_BASE_DIRECTORY"
-      echo "download maven 3 in to  $PWD"
-      eval "wget --http-user=$USER  --http-password=$PASS http://storage.exoplatform.vn/ct/tu_vu_duy/apache-maven-3.0.3-bin.zip && unzipmv3 && mvst $USER $PASS"
-      echo  " Note: "
-      echo "If you want to user maven3, plesase type command: umaven3. The default system user maven2.2.1. "
-      echo "If you want to user maven2.2.1, plesase type command: umaven2."
-      echo
+     eval "cd $BSH_EXO_BASE_DIRECTORY"
+     echo "download maven 3 in to  $PWD"
+     eval "wget --http-user=$USER  --http-password=$PASS http://storage.exoplatform.vn/ct/tu_vu_duy/apache-maven-3.0.3-bin.zip && unzipmv3 && mvst $USER $PASS"
+     echo  " Note: "
+     echo "If you want to user maven3, plesase type command: umaven3. The default system user maven2.2.1. "
+     echo "If you want to user maven2.2.1, plesase type command: umaven2."
+     echo
   else 
-      echo "----------------------------- HELP -------------------------------"
-      echo "Please input the user info of eXo (info about svn accout). Syntax: installmv3 --username=USERID  --pass=PASS"      
-      echo "If you have not it, you can user Syntax: installmv3 no"
-      echo  
+     echo "----------------------------- HELP -------------------------------"
+     echo "Please input the user info of eXo (info about svn accout). Syntax: installmv3 --username=USERID  --pass=PASS"     
+     echo "If you have not it, you can user Syntax: installmv3 no"
+     echo  
   fi
 }
 
@@ -1107,13 +976,13 @@ function exoinitallHelp() {
 
 function exoinitall() {
   javahome=""
-	for arg	in "$@" 
-		do
-       arg="${arg/-/}"
-			if [ "$arg" == "start" ]; then
-        echo
-	    fi 
-	done
+  for arg  in "$@" 
+    do
+      arg="${arg/-/}"
+     if [ "$arg" == "start" ]; then
+       echo
+     fi 
+  done
 
   eval "cd $javahome";
   eval "mkdir -p -m 777 java/eXoProjects"
@@ -1147,6 +1016,23 @@ function helpall() {
   eval "echo && cthelp && echo && ctHelp";
 }
 
+function mvn2() {
+  cr=$MV3;
+  eval "umaven2";
+  command mvn "$*";
+  if [ -n "$cr" ]; then
+    eval "umaven3";
+  fi
+}
+
+function mvn3() {
+  cr=$MV3;
+  eval "umaven3"
+  command mvn "$*";
+  if [ ! -n "$cr" ]; then
+    eval "umaven2";
+  fi
+}
 
 ######
 # Extension 
@@ -1160,10 +1046,9 @@ function gpatch() {
   rm $file;
 }
 
-
 # auto complete
 _runtomcat ()  
-{             
+{           
 
   local cur="${COMP_WORDS[COMP_CWORD]}"
   # The params
@@ -1175,7 +1060,7 @@ _runtomcat ()
 complete -F "_runtomcat" -o "default" "runtomcat"
 
 _ctbuild ()  
-{             
+{           
 
   local cur="${COMP_WORDS[COMP_CWORD]}"
   # The params
@@ -1191,9 +1076,22 @@ complete -F "_ctbuild" -o "default" "ctmodule"
 complete -F "_ctbuild" -o "default" "ctquickwar"
 complete -F "_ctbuild" -o "default" "buildtotomcat"
 
+_ctinstall ()  
+{           
+
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  # The params
+  local opts="debug=true test=false udrepo debug"
+  # Array variable storing the possible completions.
+  COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+}
+
+complete -F "_ctinstall" -o "default" "updatebuilds"
+complete -F "_ctinstall" -o "default" "builds"
+complete -F "_ctinstall" -o "default" "updates"
 
 _ctsource ()  
-{             
+{           
 
   local cur="${COMP_WORDS[COMP_CWORD]}"
   # The params
@@ -1208,7 +1106,7 @@ complete -F "_ctsource" -o "default" "builds"
 complete -F "_ctsource" -o "default" "updates"
 
 _npatch ()  
-{             
+{
 
   local cur="${COMP_WORDS[COMP_CWORD]}"
   # The params
@@ -1219,18 +1117,18 @@ _npatch ()
 complete -F "_npatch" -o "default" "npatch"
 
 _ct ()  
-{             
+{
 
   local cur="${COMP_WORDS[COMP_CWORD]}"
   # The params
-  local opts="${EXO_PROJECTS[@]} up update build install debug test= tomcat= U eclipse module quickwar 12x 11x 21x 22x trunk tomcatdir= onlytomcat buildnottc help"
+  local opts="${EXO_PROJECTS[@]} up update build install debug test= tomcat= U eclipse ctmodule ctquickwar 12x 11x 21x 22x trunk tomcatdir= onlytomcat buildnottc help tomcatstart=true debug=true"
   # Array variable storing the possible completions.
   COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
 }
 complete -F "_ct" -o "default" "ct"
 
 _exosvnco ()  
-{             
+{
 
   local cur="${COMP_WORDS[COMP_CWORD]}"
   # The params
