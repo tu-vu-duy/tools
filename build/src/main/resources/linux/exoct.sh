@@ -395,7 +395,7 @@ function cdSource() {
 function CD() {
   for arg  in "$@"
     do
-     if [ -e "$PWD/$arg" ]; then
+     if [[ -e "$PWD/$arg" || -e "$arg" ]]; then
         eval "command cd $arg";
      else
        arg="${arg/--/}" 
@@ -465,7 +465,7 @@ function runByParam() {
    if [ $(hasfc $project) == "Found" ]; then
       eval "$project"
    else 
-     eval "cdSource $project"
+     eval "cdSource $project false"
    fi
    eval "runByOtherDir  $PWD $debug"
 }
@@ -480,7 +480,6 @@ function tcstart() {
    else 
       debug=""
   fi
-
   if [ -e "$OPWD" ]; then
     cd "$OPWD";
   fi
