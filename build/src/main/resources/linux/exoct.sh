@@ -156,7 +156,7 @@ EXO_PROJECTS=(tools portal gatein social ks cs platform webos ecm/dms commons in
 
 
 # aliass extendsion: we can define quick goto project via use function cdSource with param = {projectname}{version}
-alias ks="CD $EXO_KS"
+alias ks="cd $EXO_KS"
 alias kst="cdSource kstrunk"
 alias ks12x="cdSource ks12x"
 alias ks21x="cdSource ks21x"
@@ -168,7 +168,7 @@ alias cs13x="cdSource cs13x"
 alias cs21x="cdSource cs21x"
 alias cs22x="cdSource cs22x"
 
-alias social="CD $EXO_SOCIAL"
+alias social="cd $EXO_SOCIAL"
 alias social12x="cdSource social12x"
 alias social11x="cdSource social11x"
 alias socialt="cdSource socialtrunk"
@@ -249,7 +249,7 @@ function cvVersion() {
 function crash() {
   vs=$1
   if [ -n "$vs" ]; then 
-    CD $vs
+    cdSource $vs
   fi
   oldP="$PWD"
   eval "getCrproject $PWD"
@@ -396,7 +396,7 @@ function CD() {
   for arg  in "$@"
     do
      if [ -e "$PWD/$arg" ]; then
-        cd "$arg"
+        eval "command cd $arg";
      else
        arg="${arg/--/}" 
        arg="${arg//./}"
@@ -408,6 +408,8 @@ function CD() {
      fi
   done 
 }
+
+alias cd="CD";
 
 function runtomcat() {
    debug="";
@@ -803,7 +805,7 @@ function ctHelp () {
   echo 
 }
 
-function  ct() {
+function ct() {
   eval "getparam $*";
   tomcatstart="";
   project="";
@@ -822,7 +824,9 @@ function  ct() {
          [ $(expr match $arg "5") -gt 0 ] ; then
        version="$arg";
      elif [ $(expr match $arg "tomcatstart=") -gt 0 ]; then
-          tomcatstart="$arg";
+       tomcatstart="$arg";
+     elif [[ "$arg" == "U" || "$arg" == "-U" ]]; then
+       udrepo="-U";
      else
         pr=$(getProject $arg)
         if [ -n "$pr" ]; then 
@@ -847,6 +851,8 @@ function  ct() {
 
   if [ -n "$project" ]; then
     eval "cdSource $project$version";
+  else
+    eval "cdSource $lastCm";
   fi
 
   if [ -n "$update" ]; then
@@ -1019,7 +1025,7 @@ function helpall() {
 function mvn2() {
   cr=$MV3;
   eval "umaven2";
-  command mvn "$*";
+    eval "command mvn $*";
   if [ -n "$cr" ]; then
     eval "umaven3";
   fi
@@ -1028,7 +1034,7 @@ function mvn2() {
 function mvn3() {
   cr=$MV3;
   eval "umaven3"
-  command mvn "$*";
+  eval "command mvn $MV3 $*";
   if [ ! -n "$cr" ]; then
     eval "umaven2";
   fi
