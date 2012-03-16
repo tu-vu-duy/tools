@@ -396,7 +396,8 @@ function CD() {
   for arg  in "$@"
     do
      if [[ -e "$PWD/$arg" || -e "$arg" ]]; then
-        eval "command cd $arg";
+        echo $arg;
+        eval "command cd ${arg// /\ }";
      else
        arg="${arg/--/}" 
        arg="${arg//./}"
@@ -408,8 +409,6 @@ function CD() {
      fi
   done 
 }
-
-alias cd="CD";
 
 function runtomcat() {
    debug="";
