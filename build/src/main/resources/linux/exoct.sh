@@ -396,7 +396,6 @@ function CD() {
   for arg  in "$@"
     do
      if [[ -e "$PWD/$arg" || -e "$arg" ]]; then
-        echo $arg;
         eval "command cd ${arg// /\ }";
      else
        arg="${arg/--/}" 
@@ -533,6 +532,7 @@ function updatebuilds() {
 }
 
 function updates() {
+ local udPWD=$PWD;
  src=""
  for arg  in "$@" 
   do
@@ -543,17 +543,18 @@ function updates() {
     else 
        eval "cdSource $src"
     fi
-    INFO "Updating now $PWD" &&  svn up && cdback
+    INFO "Updating now $PWD" &&  svn up && cd $udPWD;
   done
  return
 }
 
 function builds() {
+  local udPWD=$PWD;
   eval "getparam $*";
   for arg  in "${projects[@]}" 
   do
     eval "cdSource $arg"
-    INFO "Building now $PWD" &&  mvn clean install $MV3 $bdebug $udrepo && $eclipse && cdback
+    INFO "Building now $PWD" &&  mvn clean install $MV3 $bdebug $udrepo && $eclipse && cd $udPWD;
   done
  return
 }
@@ -1181,3 +1182,15 @@ _exosvnco ()
 }
 
 complete -F "_exosvnco" -o "default" "exosvnco"
+
+alias cd="CD";
+_CD() {
+  _cd;
+  local cur="${COMP_WORDS[COMP_CWORD]}";
+  local opts="$ALISAS_SOURCE ${EXO_PROJECTS[@]} ${COMPREPLY[@]}";
+  # Array variable storing the possible completions.
+  COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
+}
+
+complete -F "_CD" -o "default" "cd";
+
