@@ -156,7 +156,7 @@ EXO_PROJECTS=(tools portal gatein social ks cs platform webos ecm/dms commons in
 
 
 # aliass extendsion: we can define quick goto project via use function cdSource with param = {projectname}{version}
-alias ks="cd $EXO_KS"
+alias ks="cd exodev ks"
 alias kst="cdSource kstrunk"
 alias ks12x="cdSource ks12x"
 alias ks21x="cdSource ks21x"
@@ -168,7 +168,7 @@ alias cs13x="cdSource cs13x"
 alias cs21x="cdSource cs21x"
 alias cs22x="cdSource cs22x"
 
-alias social="cd $EXO_SOCIAL"
+alias social="cd exodev social"
 alias social12x="cdSource social12x"
 alias social11x="cdSource social11x"
 alias socialt="cdSource socialtrunk"
@@ -289,7 +289,7 @@ function getCrproject() {
    fi
    TDIR=""
    ODIR=$PWD
-  if [ -e "$DIR/packaging/pom.xml" ]; then
+  if [ -e "$DIR/packaging/" ]; then
      export CRPRJ=$DIR
      if [ -e "$DIR/packaging/pkg/target/tomcat" ]; then
        export EXO_WK_DIR=$DIR/packaging/pkg/target
@@ -300,9 +300,6 @@ function getCrproject() {
      elif [ -e "$DIR/packaging/tomcat/target/tomcat" ];then
        export EXO_WK_DIR=$DIR/packaging/tomcat/target
        export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
-     else 
-       export EXO_WK_DIR=$EXO_PROJECTS_SRC/exo-working
-       export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
      fi
   else
      TDIR=${DIR/$EXO_PROJECTS_SRC/}
@@ -312,7 +309,10 @@ function getCrproject() {
      if [ ${#TDIR} -gt   9 ]; then
         eval "getCrproject $DIR "
      else
-        INFO "Can not get project dir. You must use command for goto project, Ex: ks22x."
+			 local X=`find -name 'catalina.sh'` && X="${X/catalina.sh/}"
+       export EXO_WK_DIR=$X
+       export EXO_TOMCAT_DIR="${X/bin\//}"
+        #INFO "Can not get project dir. You must use command for goto project, Ex: ks22x."
      fi
   fi
 }
@@ -380,6 +380,14 @@ function cdSource() {
      fi
      cd $EXO_PROJECTS_SRC/$prj;
   fi   
+  
+  if [ -n "$prj" ] && [ -e "$EXO_PROJECTS_SRC/exodev/$prj" ]; then 
+     if [ ! -n "$isINFO" ]; then 
+       INFO "Goto project $EXO_PROJECTS_SRC/exodev/$prj";
+     fi
+     cd $EXO_PROJECTS_SRC/exodev/$prj;
+  fi 
+  
   if [ ! -n "$vs" ]; then
     vs="$1";
   fi
@@ -412,7 +420,7 @@ function CD() {
 function runtomcat() {
    debug="";
    project="";
-   profile_="";
+   profile_="default";
   for arg  in "$@" 
     do
      arg="${arg//-/}" 
@@ -445,13 +453,15 @@ function runByOtherDir() {
   oldprj="$CRPRJ"
   eval "getCrproject $DIR"
   DIR="$CRPRJ"
+  
   CRPRJ=$oldprj
-  pkg=""
+  pkg="$EXO_TOMCAT_DIR"
   if [ -e "$DIR/packaging/pkg/target" ];then
     pkg="$DIR/packaging/pkg/target"
-  elif [ -e "$DIR/packaging/tomcat/target" ];then
-    pkg="$DIR/packaging/tomcat/target"
+  elif [ -e "$DIR/packaging/tomcat/" ];then
+    pkg="$DIR/packaging/tomcat/"
   fi
+  INFO "$pkg $DIR";
   eval "tcstart $pkg $debug"
 }
 
@@ -486,20 +496,41 @@ function tcstart() {
     export EXO_TOMCAT_DIR=$SRC/tomcat
     export EXO_WK_DIR=$SRC
     eval   "INFO 'Run tomcat $isdb in $SRC'  && $SRC/tomcat/bin/gatein$debug.sh run" 
-  elif [ -e "$SRC/tomcat/start_eXo.sh" ]; then
+  elif [ -e "${SRC}target/tomcat/start_eXo.sh" ]; then
     export EXO_WK_DIR=$SRC
     export EXO_TOMCAT_DIR=$EXO_WK_DIR/tomcat
     local X=" $profile_";
+    if [ -n "$2" ]; then
+      X=" -debug$X";
+    fi
     profile_="";
-    sed -i -e 's/\".\/bin\/catalina.sh/\/\"bin\/catalina.sh/g' $SRC/tomcat/start_eXo.sh;
-    eval   "INFO 'Run tomcat platform$X in $SRC' && $SRC/tomcat/start_eXo.sh$X" 
+    sed -i -e 's/\".\/bin\/catalina.sh/\/\"bin\/catalina.sh/g' ${SRC}target/tomcat/start_eXo.sh;
+    eval   "INFO 'Run tomcat platform$X in $SRC' && ${SRC}target/tomcat/start_eXo.sh$X" 
   elif [ -e "$SRC/exo-tomcat/bin/eXo.sh" ]; then
     export EXO_WK_DIR=$SRC
     export EXO_TOMCAT_DIR=$EXO_WK_DIR/exo-tomcat/
     eval   "INFO 'Run tomcat in $SRC' && $SRC/exo-tomcat/bin/eXo$debug.sh run" 
+  elif [ -e "${SRC}start_eXo.sh" ]; then
+		local X=" $profile_";
+    if [ -n "$2" ]; then
+      X=" -debug$X";
+    fi
+    profile_="";
+    sed -i -e 's/\".\/bin\/catalina.sh/\/\"bin\/catalina.sh/g' ${SRC}start_eXo.sh;
+    INFO "${SRC}run_eXo.sh$X"
+    eval   "INFO 'Run tomcat platform$X in $PWD' && ${SRC}run_eXo.sh$X" 
   else
-      INFO   "Can not get tomcat dir. You must use command for goto project for set tomcat dir, Ex: ks22x... and run again this command"
-      INFO   "Or use command runtomcat --project+version, Ex: runtomcat --ks22x or runtomcat -wk for run tomcat in exo-working"
+      SRC="${SRC}tomcat7";
+      dir=$(find $SRC -name 'gatein.sh');
+      if [ -n "$dir" ]; then
+        if [ -n "$debug" ]; then
+          dir=$(find $SRC -name 'gatein-dev.sh');
+        fi
+        eval   "INFO 'Run tomcat $isdb in $SRC'  && $dir run";
+      else
+        INFO   "Can not get tomcat dir. You must use command for goto project for set tomcat dir, Ex: ks22x... and run again this command"
+        INFO   "Or use command runtomcat --project+version, Ex: runtomcat --ks22x or runtomcat -wk for run tomcat in exo-working"
+      fi 
   fi
 }
 
@@ -861,15 +892,15 @@ function ct() {
 
 #$ -Ppkg-tomcat=tomcat
   if [ -n "$isbuild" ]; then
-    if [ -n "$istomcat" ]; then
-     INFO "Run command: $isbuild $MV3 $istest $udrepo $bdebug $Dtest";
-     eval "$isbuild $MV3 $istest $udrepo $bdebug $Dtest";
+    if [ "$istomcat" == "true" ]; then
+      if [ -n "$tomcatdir" ]; then 
+        eval "mkdir -p -m 777 $tomcatdir"
+      fi
+      INFO "Run command: $isbuild $MV3 $istest $udrepo $bdebug $Dtest $tomcatdir";
+      eval "$isbuild $MV3 $istest $udrepo $bdebug $Dtest $tomcatdir";
     else
-     if [ -n "$tomcatdir" ]; then 
-       eval "mkdir -p -m 777 $tomcatdir"
-     fi
-     INFO "Run command: $isbuild $MV3 $istest $udrepo $bdebug $Dtest $istomcat $tomcatdir";
-     eval "$isbuild $MV3 $istest $udrepo $bdebug $Dtest $istomcat $tomcatdir";
+     INFO "Run command: $isbuild $MV3 $istest $udrepo $bdebug $Dtest $istomcat";
+     eval "$isbuild $MV3 $istest $udrepo $bdebug $Dtest $istomcat";
     fi
   fi
 
@@ -941,6 +972,14 @@ function umaven2() {
 function umaven3(){
    M2_HOME=$BSH_EXO_BASE_DIRECTORY/maven3.0.3 ;
    PATH=${PATH//maven2.2.1/maven3.0.3};
+   PATH=${PATH//maven3.0.4/maven3.0.3};
+   MV3="-T2C";
+}
+
+function umaven4(){
+   M2_HOME=$BSH_EXO_BASE_DIRECTORY/maven3.0.4 ;
+   PATH=${PATH//maven2.2.1/maven3.0.4};
+   PATH=${PATH//maven3.0.3/maven3.0.4};
    MV3="-T2C";
 }
 
@@ -1036,6 +1075,15 @@ function mvn3() {
   eval "command mvn $MV3 $*";
   if [ ! -n "$cr" ]; then
     eval "umaven2";
+  fi
+}
+
+function mvn4() {
+  cr=$MV3;
+  eval "umaven4"
+  eval "command mvn $*";
+  if [ ! -n "$cr" ]; then
+    eval "umaven3";
   fi
 }
 
@@ -1183,7 +1231,7 @@ _exosvnco ()
 
 complete -F "_exosvnco" -o "default" "exosvnco"
 
-alias cd="CD";
+
 _CD() {
   _cd;
   local cur="${COMP_WORDS[COMP_CWORD]}";
@@ -1192,5 +1240,8 @@ _CD() {
   COMPREPLY=($(compgen -W "${opts}" -- ${cur}))
 }
 
-complete -F "_CD" -o "default" "cd";
+if [ "$linux" == "true" ]; then
+  alias cd="CD";
+#  complete -F "_CD" -o "default" "cd";
+fi
 
